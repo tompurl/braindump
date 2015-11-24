@@ -1,0 +1,28 @@
+#+SETUPFILE: static/css/level-0.orgcss
+#+TITLE: Melpa/Elpa Cheatsheet
+#+HTML: <script src=static/js/bootstrap.min.js></script>
+#+HTML: <script src=static/js/jquery-1.11.1.min.js></script>
+
+* Melpa
+
+Melpa hsa a very nice interface for finding and managing plugins. You
+can open it with the following command:
+
+#+BEGIN_EXAMPLE
+
+M-x list-packages
+
+#+END_EXAMPLE
+
+Once you're in that buffer you can manipulate packages with these
+commands:
+
+- =i= - Mark for installation
+- =u= - Unmark
+- =d= - Mark for deletion
+- =x= - Execute the installation or deletion of packages
+- =r= - Refresh the list
+
+* Elpa
+
+TODO
