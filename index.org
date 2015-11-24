@@ -17,14 +17,12 @@
 - [[file:PuppetCheatSheet.org][Puppet Cheat Sheet]]
 - [[file:FlashOnDebian.org][Flash On Debian]]
 - [[file:Minecraft.org][Minecraft]]
-- [[file:MelpaElpaCheatSheet.org][Melpa/Elpa Cheatsheet]]
 
 ** Emacs
 
 - [[file:EmacsCheatSheet.org][Emacs Cheat Sheet]]
 - [[file:OrgModeCheatSheet.org][Org Mode Cheat Sheet]]
-- 
-
+- [[file:MelpaElpaCheatSheet.org][Melpa/Elpa Cheatsheet]]
 
 ** Programming
 
