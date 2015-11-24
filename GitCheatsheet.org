@@ -1,0 +1,9 @@
+#+SETUPFILE: static/css/level-0.orgcss
+#+TITLE: GitCheatsheet
+#+HTML: <script src=static/js/bootstrap.min.js></script>
+#+HTML: <script src=static/js/jquery-1.11.1.min.js></script>
+
+* Cheatsheet
+
+- Reverting changes to modified files
+  - =git reset --hard=
