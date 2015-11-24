@@ -23,6 +23,7 @@
 - [[file:EmacsCheatSheet.org][Emacs Cheat Sheet]]
 - [[file:OrgModeCheatSheet.org][Org Mode Cheat Sheet]]
 - [[file:MelpaElpaCheatSheet.org][Melpa/Elpa Cheatsheet]]
+- [[file:MagitCheatsheet.org][Magit Cheatsheet]]
 
 ** Programming
 
