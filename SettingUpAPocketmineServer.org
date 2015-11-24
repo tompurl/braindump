@@ -1,0 +1,46 @@
+#+TITLE:  Setting Up A Pocketmine Server
+
+I'm writing this as of 11/22/15. At this time, the stable version of Minecraft
+PE (MCPE) (0.13.x) does not work with the stable (1.4) or development (1.6)
+versions [[https://www.pocketmine.net/|Pocketmine]] due to protocol issues. 
+The version of Pocketmine that you need is 1.7, and you have to go to yet
+another third party to get that. 
+
+Here's how I got it working on my Debian Jessie system. First install the
+"development" version of Pocketmine like so:
+
+#+BEGIN_EXAMPLE
+    $ export PATH=$PATH:/sbin - DON'T use root
+    $ mkdir pocketmine && cd pocketmine
+    $ wget -q -O pocketmine.bin http://get.pocketmine.net/ - Please don't pipecurl
+    $ bash ./pocketmine.bin -v development
+    $ ./start.sh
+    - Go through the installation wizard
+    - Hit Ctrl-C after the app launches
+#+END_EXAMPLE
+
+At this point you have to download a new =PocketMine-MP.phar= file. The 1.7
+files are available here:
+
+- http://pocketmine.minedox.com/
+
+I ended up downloading [[https://github.com/ImagicalCorp/PocketMine-0.13.0/blob/master/releases/PocketMine-MP_1.7dev%2339.phar?raw=true|build -39]]. 
+
+Once you're done with all of that execute these commands:
+
+#+BEGIN_EXAMPLE
+    $ cd pocketmine
+    - Your source file name may be different
+    $ cp ~/Downloads/PocketMine-MP_1.7dev\-39.phar ./PocketMine-MP.phar
+    $ ./start.sh
+#+END_EXAMPLE
+
+In your MCPE client you should also see the protocol number under the number of
+users on the server, which in my case is *0.13.0*.
+
+Here's more information and links:
+
+- http://pocketmine-mp.readthedocs.org/en/latest/installation.html
+- https://forums.pocketmine.net/threads/issue-with-ios-mcpe-v-0-13.13128/
+- https://github.com/ImagicalCorp/PocketMine-0.13.0
+

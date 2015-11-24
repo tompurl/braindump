@@ -1,0 +1,25 @@
+#+TITLE: Virtualenv Cheat Sheet
+
+* Invoking Virtualenv From Tmuxinator
+
+Sometimes I want a tmux window to open and automatically "activate" a
+virtualenv. Here's an example from my blog
+[[https://github.com/tmuxinator/tmuxinator|tmuxinator]] profile. The
+`~/virtualenvs/pelican` directory is my virtualenv root.
+
+#+BEGIN_EXAMPLE
+    - ~/.tmuxinator/blog.yml
+
+    name: blog
+    root: ~/virtualenvs/pelican/blog
+    windows:
+        - editor: 
+            - "source ../bin/activate"
+            - vim Makefile
+        - server:  
+            -  make devserver
+            - "source ../bin/activate"
+        - console: 
+            - "source ../bin/activate"
+#+END_EXAMPLE
+

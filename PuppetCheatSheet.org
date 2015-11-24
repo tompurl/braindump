@@ -1,0 +1,28 @@
+#+TITLE: Puppet Cheat Sheet
+
+* Making A Service Start On Boot
+
+Set the `enable` property on the `service` definition to -true-. Here's an
+example:
+
+- http://mudge.name/2011/08/11/managing-web-application-servers-with-puppet.html
+
+* Installing The Latest Version Of Puppet On Debian 7
+
+This is from the [[https://www.packtpub.com/networking-and-servers/instant-puppet-3-starter-instant|Instant Puppet 3 Starter]] book.
+
+#+BEGIN_EXAMPLE
+    $ wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+    $ sudo dpkg –i puppetlabs-release-precise.deb
+    $ sudo apt-get update
+    $ sudo apt-get puppet
+#+END_EXAMPLE
+
+In my case, since I already had the "stock" Debian version of Puppet installed
+I had to run the following command last:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get dist-upgrade
+#+END_EXAMPLE
+
+

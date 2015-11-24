@@ -1,0 +1,54 @@
+
+
+#+TITLE: Home
+
+
+
+* Computers N' Such
+
+** Projects
+
+- [[file:ElSistemaDBProjectStatus.org][El Sistema DB Project Status]]
+  
+** Linux / Unix
+
+- [[file:TmuxCheatSheet.org][Tmux Cheat Sheet]]
+- [[file:UnixLinuxCheatSheet.org][Unix / Linux Cheat Sheet]]
+- [[file:NetcatCheatSheet.org][Netcat Cheat Sheet]] 
+- [[file:GentooInstallationNotes.org][Gentoo Installation Notes]]
+- [[file:SedNotes.org][Sed Notes]]
+- [[file:VirtualenvCheatSheet.org][Virtualenv Cheat Sheet]]
+- [[file:PuppetCheatSheet.org][Puppet Cheat Sheet]]
+- [[file:FlashOnDebian.org][Flash On Debian]]
+- [[file:Minecraft.org][Minecraft]]
+
+** Emacs
+
+- [[file:EmacsCheatSheet.org][Emacs Cheat Sheet]]
+- [[file:OrgModeCheatSheet.org][Org Mode Cheat Sheet]]
+
+
+** Programming
+
+- [[file:ScratchNotes.org][Scratch Notes]]
+- [[file:PostgreSQLNotes.org][PostgreSQL Notes]]
+- [[file:DjangoCheatSheet.org][Django Cheat Sheet]]
+- [[file:FabricCheatSheet.org][Fabric Cheat Sheet]]
+
+** About Blogging And Writing
+  
+- [[file:PelicanSetupNotes.org][Pelican Setup Notes]]
+
+** Windows
+  
+- [[file:DosCheatSheet.org][DOS Cheat Sheet]]
+
+* Other Stuff
+
+- [[file:OhSoHappy.org][Oh So Happy]]
+- [[file:FavoriteQuotes.org][Favorite Quotes]]
+- [[file:JazzAlbumOfTheDay.org][Jazz Album Of The Day]]
+
+* Meta
+
+- [[file:FrequentlyAskedQuestions.org][FAQ]]

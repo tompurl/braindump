@@ -1,0 +1,12 @@
+#+TITLE: Flash On Debian
+
+
+* Upating It
+
+Occasionally you will get an error in Iceweasel telling you that Flash is out
+of date. In that situation, simply execute this command:
+
+#+BEGIN_EXAMPLE
+    $ sudo update-flashplugin-nonfree --install
+#+END_EXAMPLE
+

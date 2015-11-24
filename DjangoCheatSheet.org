@@ -1,0 +1,186 @@
+#+TITLE: Django Cheat Sheet
+
+
+
+* Debugging
+
+** ABUDE
+
+Always Be Using (the)
+[[https://github.com/django-extensions/django-extensions|Django Extensions]]
+library in all of your Dev environments.  Also, makes sure that you also install
+the `Werkzeug` library with it and run the `runserver_plus` command instead of
+the plain-old `runserver` command when using `manage.py`.
+
+I repeat, do the following for every Dev environment:
+
+#+BEGIN_EXAMPLE
+    $ pip install django-extensions
+    $ pip install Werkzeug
+#+END_EXAMPLE
+
+
+* Unit Testing
+
+** General
+
+Testing a single app:
+
+#+BEGIN_EXAMPLE
+    $ ./manage.py test foo
+#+END_EXAMPLE
+
+Test everything:
+
+#+BEGIN_EXAMPLE
+    $ ./manage.py test
+#+END_EXAMPLE
+
+The [[http://twoscoopspress.org/products/two-scoops-of-django-1-5|Two Scoops book]] 
+recommends the `coverage.py` and `django-discover-runner` packages. And
+apparently the `django-discover-runner` package is already included in version
+1.6 of Django by default.
+
+** Comparing Querysets
+
+Use the `assertQuerysetEqual` method. Also, you may get an error like this:
+
+#+BEGIN_EXAMPLE
+    Traceback (most recent call last):
+      File "/home/vagrant/Dev/Python/sistemadb_project/sistemadb/inventory/tests/test_views.py", line 354, in test_index_queryset_sort_order
+        Student.objects.all().order_by('last_name'))
+      File "/usr/local/lib/python2.7/dist-packages/django/test/testcases.py", line 855, in assertQuerysetEqual
+        return self.assertEqual(list(items), values, msg=msg)
+    AssertionError: Lists differ: ['<Student: Bo, Bart>', '<Stud... != [<Student: Bo, Bart>, <Student...
+
+    First differing element 0:
+    <Student: Bo, Bart>
+    Bo, Bart
+
+    - ['<Student: Bo, Bart>', '<Student: Julia, Raul>', '<Student: Purl, Balulah>']
+    ?  -                   -  -                      -  -                        -
+
+    + [<Student: Bo, Bart>, <Student: Julia, Raul>, <Student: Purl, Balulah>]
+#+END_EXAMPLE
+
+To fix this, use the `assertQuerysetEqual` method like this:
+
+#+BEGIN_EXAMPLE
+    self.assertQuerysetEqual(set1, [repr (r) for r in set1])
+#+END_EXAMPLE
+
+* django-simple-history
+
+The [[https://django-simple-history.readthedocs.org/en/latest/usage.html|following quick start]] 
+here is a pretty good resource. However, if you are using Django 1.7 then you
+need a special step. After updating your models, execute the following steps:
+
+#+BEGIN_EXAMPLE
+    $ python ./manage.py makemigrations myapp --settings=myproj.settings.dev
+    $ python ./manage.py migrate --settings=myproj.settings.dev
+#+END_EXAMPLE
+
+You can then skip the `python manage.py populate_history --auto` step and
+proceed to the -Integration with Django Admin- section.
+
+* django-rest-framework
+
+** Security
+
+If you want to add password protection to a serializer view, then simply add
+the following property:
+
+#+BEGIN_EXAMPLE
+    permission_classes = (permissions.IsAuthenticated,)
+#+END_EXAMPLE
+
+This will secure the actual API. Users will still be able to visit the web
+interface for the API, but they will get error messages whenever they try to
+view something.
+
+I haven't found a way yet to block the API web interface via a Django
+configuration file. However, it should be easy to do via the web server in
+prod. Either way it should be secure using the previous step.
+
+* Forms
+
+** Pre-populating A Field Value From A Different Model
+
+The title of this one is a bit awkward. What I needed to do was add a field to
+my form showing a value from a "reverse" relation. This sort of thing isn't
+added by default. 
+
+First, I had to add the field to the form. Here's the diff:
+
+#+BEGIN_EXAMPLE
+    diff --git a/sistemadb/inventory/forms.py b/sistemadb/inventory/forms.py
+    index 89edcda..e7357f8 100644
+    --- a/sistemadb/inventory/forms.py
+    +++ b/sistemadb/inventory/forms.py
+    @@ -65,6 +65,12 @@ class InstrumentDeleteConfirmationForm(forms.ModelForm):
+             fields = "__all__"
+     
+     class StudentUpdateForm(forms.ModelForm):
+    +    instrument = forms.ModelChoiceField(
+    +        label = "Instrument",
+    +        required = False,
+    +        queryset = Instrument.objects.all(),
+    +    )
+    +
+         def __init__(self, -args, --kwargs):
+             super(StudentUpdateForm, self).__init__(-args, --kwargs)
+             self.helper = FormHelper()
+#+END_EXAMPLE
+
+Next I had to update my CBV. Here's the diff:
+
+#+BEGIN_EXAMPLE
+    diff --git a/sistemadb/inventory/views.py b/sistemadb/inventory/views.py
+    index f633230..26352a5 100644
+    --- a/sistemadb/inventory/views.py
+    +++ b/sistemadb/inventory/views.py
+    @@ -124,6 +124,17 @@ class StudentDetailView(generic.UpdateView):
+         - FIXME Don't hardcode the URL
+         success_url = '/inventory/students'
+         model = Student
+    +    context_object_name = 'student'
+    +
+    +    def get_initial(self):
+    +        """Set the initial value of the instrument dropdown"""
+    +        student = self.get_object()
+    +        instrument_pkey = None
+    +
+    +        if hasattr(student, 'instrument'):
+    +            instrument_pkey = student.instrument.pk
+    +
+    +        return {'instrument': instrument_pkey}
+     
+     class StudentViewSet(viewsets.ModelViewSet):
+         queryset = Student.objects.all()
+#+END_EXAMPLE
+
+The `context_object_name` addition wasn't strictly necessary, but I figured it
+would make things a bit saner. All `get_initial` does is create a dictionary
+that is appended to the `instance` object that is used to populate the form.
+
+Overall, this is pretty neat and concise, but man did it take me for freaking
+ever to find the right documentation that showed me how to to this :-) 
+
+Also, please see this:
+
+- http://stackoverflow.com/questions/11096617/set-initial-value-to-modelform-in-class-based-generic-views
+
+* python-social-auth
+
+** Links
+
+- Tutorials
+    - http://www.artandlogic.com/blog/2014/04/tutorial-adding-facebooktwittergoogle-authentication-to-a-django-application/
+- Google API Console
+    - https://console.developers.google.com/project
+
+** Gotchas
+
+- If you get the `HTTPError 403 (Forbidden)` error then you need to add the
+  -Google+ API- in the dev console.
+    - http://stackoverflow.com/questions/24377506/httperror-403-forbidden-with-django-and-python-social-auth-connecting-to-googl

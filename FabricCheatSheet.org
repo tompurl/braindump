@@ -1,0 +1,79 @@
+#+TITLE:  Fabric Cheat Sheet
+
+
+
+* Remote Hosts
+
+Here's the error I kept getting when I tried to connect to my vagrant host
+using fabric:
+
+#+BEGIN_EXAMPLE
+    $ fab print_hello
+    [localhost:2222] Executing task 'print_hello'
+    [localhost:2222] run: hostname
+
+    Fatal error: Low level socket error connecting to host localhost on port 2222: Connection refused (tried 1 time)
+
+    Underlying exception:
+        Connection refused
+
+    Aborting.
+#+END_EXAMPLE
+
+Finding a fix for this was an incredible pain in the ass.. What I basically
+want to do here is connect to the ssh server running on the Vagrant VM on port
+22. The VM uses port forwarding, so you would connect to `localhost:2222` to do
+this.  To do this from the command line, you would need to execute this
+command:
+
+#+BEGIN_EXAMPLE
+    $ ssh -l vagarnt -p 2222 localhost
+#+END_EXAMPLE
+
+So I therefore thought that I would use the following host value in this file:
+
+#+BEGIN_EXAMPLE
+    env.hosts = ['vagrant@localhost:2222']
+#+END_EXAMPLE
+
+This does NOT work, even though it is recommended by the fabric docs. I also
+tried this non-working setting:
+
+#+BEGIN_EXAMPLE
+    env.hosts = ['localhost:2222']
+    env.user = "vagrant"
+#+END_EXAMPLE
+
+Ok, I'm familiar with SSH, so I figured that I would bypass all of this port
+and user name BS just define my host in my ~/.ssh/config file. So I added this:
+
+#+BEGIN_EXAMPLE
+    Host vagrant-vm-local
+        Hostname localhost
+        Port 2222
+        User vagrant
+#+END_EXAMPLE
+  
+...with the following in my fabfile:
+
+#+BEGIN_EXAMPLE
+    env.use_ssh_config = True
+    env.hosts = ['sistema-staging-local']
+#+END_EXAMPLE
+
+...and of course that didn't work either. So here's what I had to do. First, I
+had to add a new hostname to the `127.0.0.1` line in my `/etc/hosts` file:
+
+#+BEGIN_EXAMPLE
+    127.0.0.1       localhost vagrant
+#+END_EXAMPLE
+
+The hostname is arbitrary. I chose vagrant to make it easy to do the same thing
+with other VM's in the future. I then added the following to my fabfile:
+
+#+BEGIN_EXAMPLE
+    env.hosts = ['vagrant:2222']
+    env.user = "vagrant"
+#+END_EXAMPLE
+
+This finally worked.

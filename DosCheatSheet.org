@@ -1,0 +1,55 @@
+#+TITLE: DOS Cheat Sheet
+
+* Miscellania
+
+- Get a pipe to server
+  - =net use \\server - /user:domain\username=
+- Map drive
+  - =net use - \\server\share=
+- Query username based on sid
+  - =net user r003988 /domain=
+- Delete every Vim swap file recursively
+  - =del /AH /s -.swp=
+- Control remote Windows services
+  - =sc \\server query|start|stop service_short_name=
+  - --Note--: =psservice= (from sysinternals) seems to do a better job of this
+- xcopy
+  -  Copy a directory
+    - =xcopy /E /I sourcedir destdir=
+
+* Stupid Psexec Tricks
+
+- rebooting a remote computer:
+  - =psexec \\hostname -u fooad\someid shutdown -r -f=
+  - This is especially useful when you're logged into domain A but need to remotely reboot a computer in domain B (since the shutdown remote option does not support passing user credentials).
+
+* For Loop Fun
+
+** Add only new files to an svn repository
+
+- =for /f "tokens=- delims=" %f in ('svn status ^| find "?" ^| find "gtd\wiki" ^| c:\gawk\bin\gawk "{print $2}"') do svn add %f=
+
+- My main command has to have the following properties:
+  - It has to be wrapped in parentheses and single quotes
+  - You have to make the pipes and redirect signs into literals using the caret.
+
+* openssl
+
+Here's how you can encrypt some text on the fly from a DOS prompt:
+
+#+BEGIN_EXAMPLE
+    more| openssl enc -e -des3 -base64 -pass pass:somepass
+    foobar de roobarb and something secret
+    <F6><ENTER>
+#+END_EXAMPLE
+
+And here's how you decrypt the output:
+
+#+BEGIN_EXAMPLE
+    more| openssl enc -d -des3 -base64 -pass pass:somepass
+    U2FsdGVkX194WrTjuO7eTpWiWV5F93dRATH1TgZlw23EwELBz6GCSjkU5q3ZTqRi
+    Kz+YX4CLs4duz8d51ctlGw==
+    <F6><ENTER>
+#+END_EXAMPLE
+
+    

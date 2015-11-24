@@ -1,0 +1,34 @@
+#+TITLE: Scratch Notes
+
+
+
+* Overview
+
+These notes cover the [[http://scratch.mit.edu|Scratch]] programming language.
+
+* Resources
+
+- [[http://www.nostarch.com/scratch|Super Scratch Programming Adventure!]] 
+
+* Notes
+
+** Sprites
+
+- There's a one-to-many relationship between "programs" and sprites. 
+- Ideally, you want to have a very small number of sprites and use a lot of
+  costumes.
+- You have to "hide" sprites that you don't want to see on a particular
+  backdrop.
+- You can make fine-tuned property changes for a sprite by clicking on the blue
+  "i" that is next to the sprite in the sprite box.
+
+** Programs
+
+- A "program" seems to be a thread of execution.
+- Typically it's started by clicking on the green flag.
+- It appears that each sprite and backdrop can have its own programs, and that
+  each of these can have more than one program.
+
+** Code
+
+- You can share code and other things by putting them in your "backpack".

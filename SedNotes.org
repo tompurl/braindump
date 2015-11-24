@@ -1,0 +1,62 @@
+#+TITLE: Sed Notes
+
+* How It Basically Works 
+
+This is the general overview from Peter Krumins:
+
+    Think about the spaces this way – sed reads the input stream and produces
+    the output stream. Internally it has the pattern space and the hold
+    buffer. Sed reads data from the input stream until it finds the newline
+    character \n. Then it places the data read so far, without the newline, into
+    the pattern space. Most of the sed commands operate on the data in the
+    pattern space. The hold buffer is there for your convenience. Think about
+    it as temporary buffer. You can copy or exchange data between the pattern
+    space and the hold buffer. Once sed has executed all the commands, it
+    outputs the pattern space and adds a \n at the end. 
+
+Here's how I interpret this:
+
+- Sed reads input until it sees the newline character (\n). 
+- Sed then strips that newline and puts the rest of the line in the -pattern space-
+- Sed executes commands on the line in the pattern space. You can
+  also put text in the -hold buffer- and manipulate it there if needed.
+- Sed then prints the contents of the pattern space and adds the newline
+  character at the end.
+- Go back to line 1.
+
+* Cheat Sheet
+
+** Helpful One-Liners
+
+*** Delete Every Blank Line In A File
+
+#+BEGIN_EXAMPLE
+    /^\s-$/d 
+#+END_EXAMPLE
+
+*** Shebang Line For A Sed Script
+
+#+BEGIN_EXAMPLE
+    -!/bin/sed -f
+#+END_EXAMPLE
+
+You would then execute the script like this:
+
+#+BEGIN_EXAMPLE
+    $ chmod +x my-script.sed
+    $ ./my-script.sed < foo.txt
+#+END_EXAMPLE
+
+** Commands
+
+- `t`
+    - Branches to a named label. This is how you -loop- in sed.
+- `G`
+    - Appends the hold buffer to the pattern space.
+- `h`
+    - Copies the pattern space to the hold buffer.
+- `d`
+    - Deletes the current pattern space, 
+    - reads in the next line, 
+    - puts the line into the pattern space, 
+    - aborts the script execution and starts the execution at the first sed command

@@ -1,0 +1,57 @@
+#+TITLE: El Sistema DB Project Status
+
+
+
+* Version 1
+
+** Requirements List
+
+- [X] Create repair ticket feature
+    - [X] You should be able to do the following with this feature:
+        - [X] Assign an instrument to a ticket
+        - [X] Assign a repairer to a ticket
+        - [X] Automatically notify the repairer via email when a repair ticket is assigned to her
+        - [X] Use the following statuses: new, in-progress, and closed
+        - [X] Create interface
+- [X] Auditing capabilities
+    - [X] You would like to be able to see who made a change and when.
+- [X] Google login
+    - You should not have to create a new user id and password to use this site. Instead the login should "just work" after you've logged into one of Google's sites.
+    - This may sound like a strange requirement but it's important to me because it will enhance app security significantly.
+- [o] You will access the site using an "https" address 
+    - This is an additional security step that ensures that all interaction with the app will be encrypted using SSL.
+    - [X] Implement SSL in staging using a self-signed cert
+    - [ ] Implement SSL in prod using a signed cert
+- [X] Add fields to the Location entity
+    - [X] address
+    - [X] contact person's name
+    - [X] contact person's phone
+    - [X] contact person's email address
+- [X] Add fields to the Instrument entity:
+    - [X] ESID
+    - [X] Notes
+- [X] Add fields to the Student entity:
+    - [X] Group
+    - [X] Notes
+- [X] Add "violin strung as viola" instrument type
+- [X] "Instrument list" page changes
+    - [X] Add possibility of filtering by location
+    - [X] Make the student name field into a link to the "Student detail" page for that student.
+- [X] "Instrument detail" page changes
+    - [X] Place the Location field before the Student field
+    - [X] Only display students that are located at the school specified by the Location field.
+        - [X] If no location is chosen, then display all students
+        - I decided not to do this because the instrument location has nothing
+          to do necessarily with the student location.
+    - [X] All students that are already assigned to an instrument should be grayed out and not selectable.
+- [X] "Student list" page changes
+    - [X] Add possibility of filtering by location
+- [X] "Student detail" page changes
+    - [X] All instruments that are already assigned to a student should be grayed out and not selectable.
+- [O] Confirmation prompts for big changes:
+    - [X] Deleting students
+    - [X] Deleting locations
+    - [X] Deleting instruments
+    - [ ] Adding/altering repairers
+
+

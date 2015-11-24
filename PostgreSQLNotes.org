@@ -1,0 +1,16 @@
+#+TITLE: Postgre SQL Notes
+
+* Command Line Cheat Sheet
+
+- Connect to the global databse:
+    - `$ psql -h localhost -U postgres`
+- Connect to an individual database
+    - `$ psql -d foo -h localhost -U fooowner`
+- Shortcuts that you use in the tool:
+    - `\q` - quit
+    - `\dt` - list tables
+    - `\list` - list all databases
+        - You can only see the tables in the database to which you are
+          connected.
+- Drop a database
+    - `$ dropdb -h localhost -U postgres foo`

@@ -1,0 +1,11 @@
+#+TITLE: Netcat Cheat Sheet
+
+* File Transfers
+
+#+BEGIN_EXAMPLE
+    - On the receiving end
+    $ nc -l -p 1234 > out.file
+   
+    - On the sending end
+    $ nc -w 3 [destination] 1234 < in.file
+#+END_EXAMPLE

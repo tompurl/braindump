@@ -1,0 +1,60 @@
+#+TITLE: Pelican Setup Notes
+
+#+BEGIN_EXAMPLE
+    $ ain python-pip
+    $ sudo pip install pelican
+    $ sudo pip install markdown
+#+END_EXAMPLE
+
+I copied all of my octopress files over to the content directory and renamed
+them to have an `.md` extension.
+
+#+BEGIN_EXAMPLE
+    $ for f in $(ls -.md); do sed -i.bak 's/title\:/Title\:/' $f; done
+    $ for f in $(ls -.md); do sed -i.bak 's/layout\: post//' $f; done
+    $ for f in $(ls -.md); do sed -i.bak 's/date\:/Date\:/' $f; done
+    $ for f in $(ls -.md); do sed -i.bak 's/comments\:/Comments\:/' $f; done
+    $ for f in $(ls -.md); do sed -i.bak 's/categories\:/Tags\:/' $f; done
+#+END_EXAMPLE
+
+I then had to go in and manually change all of the headings. Not a huge deal.
+
+Next I replaced the code blocks 
+
+Ok, now I need to learn howto link images
+
+* TODO
+
+-  [X] Find nice theme
+- Next I need to fix links to files.
+- I need to learn how to reference gists
+- [X] Set up feedburner feed
+- [X] Add social stuff
+- [X] Fix URL's
+
+* Lessons Learned
+
+** Embedding Images
+
+You use the typical RST format. The weird thing is that if you use the wrong
+path, you will just see the path of the file, not a broken image. 
+
+** URL's
+
+Here's what I want:
+
+- http://tompurl.com/2013/07/17/fleeing-from-google-apps/
+
+Here's what I'm getting:
+
+- http://localhost:8000/fleeing-from-google-apps.html
+
+So I had to add this to my config:
+
+ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}/'
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
+
+I got this tip from this page:
+
+- http://jawher.me/2012/10/19/moving-from-jekyll-to-pelican/
+

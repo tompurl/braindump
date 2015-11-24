@@ -1,0 +1,99 @@
+#+TITLE: Gentoo Installation Notes
+
+
+
+* Additional packages
+
+- elinks
+- cvs              
+- darcs
+- lvm2             
+- vim-core         
+- app-admin/sudo   
+- screen           
+- ccache           
+- tidy
+- pdksh
+- mutt
+- fortune-mod 
+- fortune-mod-calvin 
+- fortune-mod-chucknorris 
+- fortune-mod-dubya 
+- fortune-mod-familyguy 
+- fortune-mod-simpsons-chalkboard
+- dos2unix
+- unison
+- exuberant-ctags
+
+* make.conf
+
+#+BEGIN_EXAMPLE
+    CFLAGS="-O2 -march=i686 -pipe"
+    CHOST="i686-pc-linux-gnu"
+    CXXFLAGS="${CFLAGS}"
+    MAKEOPTS="-j2"
+    CCACHE_SIZE="2G"
+    USE="symlink x86"
+
+    GENTOO_MIRRORS="http://gentoo.osuosl.org/ http://gentoo.chem.wisc.edu/gentoo/ http://prometheus.cs.wmich.edu/gentoo "
+
+    http_proxy="http://fooproxy.com:8080"
+    ftp_proxy="http://fooproxy.com:8080"
+#+END_EXAMPLE
+
+* /etc/conf.d/net
+
+    config_eth0=( "dhcp" )
+    dhcp_eth0="nodns nontp nonis"
+
+    dns_servers_eth0="192.168.11.2"
+    dns_search_eth0="127.0.0.1 svr.bogus.net ad.bogus.net bogus.net"
+
+* home partition
+
+1. Create your partition, and assign it a type of "Linux LVM".
+2. Create your physical partition using the following command:
+    - $ pvcreate /dev/sdaX
+3. Create your volume group
+    - $ vgcreate vg_main /dev/sdaX
+4. Devote the entire space of your volume group to your logical volume
+    - $ lvcreate -l61 -nlv_home vg_main
+    - I don't remember the number that I used with the -l option.  First, try and allocate all of the available space using the -L option.  Here's an example:
+        - -L2G
+    - This will give you an error, telling you how many extents are available.  Then use the -l option, specifying the maximum number of available extents.  
+
+* grub
+
+- The grub.conf kernel line requires the doscsi option
+
+* regular user creation
+
+- Add your "tom" user to the "wheel" and "portage" groups
+
+* sudo 
+
+- Uncomment the line that gives everyone in the wheel group sudo access
+
+* cvs
+
+- Create a .temp.profile file with the following content:
+
+    export CVSROOT=:pserver:me@bogus.net:/cvsrepos
+    export http_proxy=http://fooproxy.com:8080
+
+- Source this profile and then run the following commands
+  
+    $ cvs login
+    $ cd /home
+    $ cvs co -d ./tom toms_home_configs
+
+- Then fix any conflicts.
+
+* fortune packages
+
+fortune-mod 
+fortune-mod-calvin 
+fortune-mod-chucknorris 
+fortune-mod-dubya 
+fortune-mod-familyguy 
+fortune-mod-simpsons-chalkboard

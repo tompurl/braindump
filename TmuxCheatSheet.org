@@ -1,0 +1,43 @@
+#+TITLE: Tmux Cheat Sheet
+
+* Sessions
+
+- =prefix d= - Detach the current client
+- =tmux ls= - List sessions
+- =tmux attach-session -t $session_id= - Attach to a session
+- =tmux list-sessions= - List sessions
+- =tmux new-session -s lh= - Create new session lh
+
+* Windows
+
+- =prefix c= - Create a new window
+- =prefix l= - Move to previously selected window
+- =prefix n= - Move to the next window
+- =prefix p= - Move to the previous window
+- =prefix &= - Kill the current window
+- =prefix ,= - Rename the current window
+- =prefix ?= - List all keybindings
+- =split-window= - Split window horizontally
+- =prefix &= - Kill window
+
+* Panes
+
+- =prefix %= - Split the current window vertically into two panes
+- =prefix := - Bring up command prompt
+- =prefix q= - Show pane numbers (used to switch between panes)
+- =prefix o= - Switch to the next pane
+- =prefix q= - Show pane numbers
+- =prefix {= - Move current pane left
+- =prefix }= - Move current pane right
+- =break-pane= - Move pane into a window
+- =resize-pane= - (By default it resizes the current pane down)
+- =resize-pane= - -U (Resizes the current pane upward)
+- =resize-pane= - -L (Resizes the current pane left)
+- =resize-pane= - -R (Resizes the current pane right)
+- =resize-pane= - 20 (Resizes the current pane down by 20 cells)
+- =resize-pane= - -U 20 (Resizes the current pane upward by 20 cells)
+- =resize-pane= - -L 20 (Resizes the current pane left by 20 cells)
+- =resize-pane= - -R 20 (Resizes the current pane right by 20 cells)
+- =resize-pane= - -t 2 20 (Resizes the pane with the id of 2 down by 20 cells)
+- =resize-pane= - -t -L 20 (Resizes the pane with the id of 2 left by 20 cells)
+

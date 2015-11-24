@@ -1,0 +1,231 @@
+#+TITLE: Org Mode Cheat Sheet
+
+
+
+* Commands
+
+- `Ctrl-C Ctrl-T` - Move TODO through phases
+- `M-shift-R` - Add new bullet point or TODO 
+- `Ctrl-c Ctrl-e h` - Convert to simple HTML
+- `Meta-x org-publish-project <RET>` - Create full site
+- `Ctrl-c Ctrl-d` - Set a deadline
+- `Ctrl-c Ctrl-c` - Add a tag
+- `Ctrl-c a t` - Show global TODO list
+- `Ctrl-c a a` - Show this week's agenda
+- `Ctrl-c a M` - Filter based on tags
+- `Ctrl-c Ctrl-l` - Create a new link or edit an existing one
+
+* Formatting
+
+** Headers
+
+- `-+TITLE` : Er doy
+- `-+TODO` : Allows you to specify custom statuses, see http://orgmode.org/guide/Multi_002dstate-workflows.html
+- `-+BEGIN_SRC <language> ... -+END_SRC` : Code blocks
+
+** Text
+
+- Inline preformatted: `=foo=`
+- Bold: `-foo-`
+
+** Vimwiki Conversion Tips
+
+==== Converting Links ===
+
+- Find: `\[\[\([a-zA-Z]+\)|\([a-zA-Z /]+\)\]\]`
+- Replace: `[[file:\1.org][\2]]`
+
+*** Converting Inline Images
+
+- -Find-: `{{local:\(.-\)}}`
+- -Replace-: `[[file:\1]]`
+
+*** Preformateed Text
+
+Part 1:
+
+- -Find-: `#+BEGIN_EXAMPLE
+- -Replace-: `-+BEGIN_EXAMPLE`
+
+Part 2:
+
+- -Find-: `^#+END_EXAMPLE
+- -Replace-: `-+END_EXAMPLE`
+
+*** Headings
+
+Please note that in my case I'm converting each heading in vimwiki to a heading
+that is one higher in org.
+
+- H2
+    - Find: `^==\ \(.-\)\ ==$`
+    - Replace: `- \1`
+- H3
+    - Find: `^===\ \(.-\)\ ===$`
+    - Replace: `-- \1`
+- H4
+    - Find: `^====\ \(.-\)\ ====$`
+    - Replace: `--- \1`
+- H5
+    - Find: `^=====\ \(.-\)\ =====$`
+    - Replace: `---- \1`
+
+*** Inline Preformatted Text
+
+- Find: =\(.-\)=
+- Replace: `=\1=`
+
+*** Bullets
+
+**** Non-task list bullets
+
+- Level 1
+    - Find: `^\-\ `
+    - Replace: `- `
+- Level 2
+    - TODO
+
+**** Task List Bullets
+
+Please note that none of these regex's records the status of the task.
+ 
+- Level 1
+    - Find: `^\-\ \[.-]\ \(.-\)$`
+    - Replace: `-- TODO \1 [%]`
+- Level 2
+    - Find: `^\ \ \ \ \-\ \[.-]\ \(.-\)$`
+    - Replace: `--- TODO \1`
+- Level 3
+    - Find: `^\ \ \ \ \ \ \ \ \-\ \[.-]\ \(.-\)$`
+    - Replace: `---- TODO \1`
+- Level 4
+    - Find: `^\ \ \ \ \ \ \ \ \ \ \ \ \-\ \[.-]\ \(.-\)$`
+    - Replace: `----- TODO \1`
+- Level 5
+    - Find: `^\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ \[.-]\ \(.-\)$`
+    - Replace: `------ TODO \1`
+
+**** Links From Vimwiki To Org
+
+Here's an example:
+
+#+BEGIN_EXAMPLE
+    - [[../org_html/TimeAndForecastingNotes|Time And Forecasting Notes]]
+#+END_EXAMPLE
+  
+* Recurring Tasks
+
+- http://orgmode.org/manual/Repeated-tasks.html
+
+Do something every Friday, and it must be done every Friday
+
+#+BEGIN_EXAMPLE
+    --- TODO Take out trash
+        SCHEDULED: <2015-03-27 Fri +1w>
+#+END_EXAMPLE
+
+Do something every X days and always create new tasks in the future:
+
+#+BEGIN_EXAMPLE
+    --- TODO Read email
+        SCHEDULED: <2015-03-27 Fri .+1d>
+#+END_EXAMPLE
+
+If I don’t complete the task until Monday then the next instance of the
+scheduled task will be on Tuesday.
+
+* org-agenda
+
+** org-agenda-files
+
+If you want to set the `org-agenda-files` variable to a folder then add this to
+your `.emacs` file:
+
+#+BEGIN_EXAMPLE
+    (setq org-agenda-files (file-expand-wildcards "~/gtd/org/-.org"))
+#+END_EXAMPLE
+
+The following section of the FAQ is also very helpful:
+
+- http://orgmode.org/worg/org-faq.html-set-agenda-files-using-wildcards
+
+Please note that this variable is -not- updated after adding new org files
+until your re-evaluate the `.emacs` buffer. To get around that I replaced 
+the line above with this:
+
+#+BEGIN_EXAMPLE
+    ;;; Agenda files
+
+    (defun set-org-agenda-files ()
+      (interactive)
+      (setq org-agenda-files (file-expand-wildcards "c:/td/gtd/org/-.org")))
+
+    (set-org-agenda-files)
+
+    ; Bind this to a key so that you can rebuild this file list when you add new files.
+    (global-set-key (kbd "<f4>") 'set-org-agenda-files)
+#+END_EXAMPLE
+
+Now after adding a new org file with tasks in it I can just press `F4` and it
+will show up in my agenda.
+
+** Viewing Completed Tasks
+
+To view all of the tasks that you completed in your agenda view do the following:
+
+#+BEGIN_EXAMPLE
+    (setq org-log-done 'time) ; this wasn’t necessary for me
+    ; In the agenda view, type the l button
+#+END_EXAMPLE
+
+* org-capture
+
+** org-capture templates
+
+
+
+This tip helps with org-capture. You can’t add tags to a todo if it’s added
+using org-capture because the C-c C-c shortcut is remapped to close the window.
+To fix this, you need to use the %^g template entry. Here’s an example:
+
+#+BEGIN_EXAMPLE
+    (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline (concat org-directory "/inbox.org") "Open Tasks") "-- TODO %? %^g")
+#+END_EXAMPLE
+
+Thes %^g entry will prompt the user for tags.
+
+* Links
+
+** Opening Links In The Same Frame
+
+This feels much saner to me than the default, which is to open org-related
+links in a different frame.
+
+#+BEGIN_EXAMPLE
+; http://stackoverflow.com/a/13075322
+(setq org-link-frame-setup (quote ((vm . vm-visit-folder-other-frame)
+               (vm-imap . vm-visit-imap-folder-other-frame)
+               (gnus . org-gnus-no-new-news)
+               (file . find-file)
+               (wl . wl-other-frame))))
+#+END_EXAMPLE
+
+* Intallation
+
+On debian, installation is as easy as this:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install org-mode
+#+END_EXAMPLE
+
+That's all you have to do. Once you're done with that command you can start editing Org file.
+
+* Publishing
+
+Use `C-x C-w` to convert your org-mode agenda into lots of different formats.
+Save the file with an html extension to choose HTML. This also requires the
+htmlify.el file.
+
+- http://orgmode.org/manual/Exporting-Agenda-Views.html
+- http://fly.srk.fer.hr/~hniksic/emacs/htmlize.el.cgi

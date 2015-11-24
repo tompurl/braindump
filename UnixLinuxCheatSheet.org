@@ -1,0 +1,189 @@
+#+TITLE: Unix / Linux Cheat Sheet
+
+* current users
+
+- Determine who you are currently:
+    - id
+    - whoami
+- Determine who's logged into he server
+    - who
+
+* smbmount
+
+- Mounting a share on a domain:
+    - `sudo smbmount //target/share /localdir -o username=username/domain`
+- Unmounting a samba share:
+    - `sudo umount /localdir`
+
+* lsof
+
+    - http://www.debian-administration.org/articles/184
+    - Check out these commands
+        - lsof -n -P -i:port
+        - lsof -P -n +p pid
+        - ps auxwww pid
+
+* date
+
+   - Decent date stamp command:
+        - date +%y%m%d%H%M%S
+
+* fmt
+
+Formats a line of text, just like the gqip command in Vim.
+
+* find
+
+On AIX and solaris, this is a good example of how to use the find command to find large files:
+
+- verbose output
+    - find . -size +100000000c -ls 
+- terse output
+    - find . -size +100000000c -prune
+
+* AIX
+
+- Show number of processors:
+    - lscfg | grep proc | wc -l
+
+* awk
+
+- Passing a shell var into an awk script.
+
+#+BEGIN_EXAMPLE
+    $ awk 'script' var=$shell_var
+#+END_EXAMPLE
+
+- Example - Find all child process of a given executable name, such as /usr/bin/foo
+
+#+BEGIN_EXAMPLE
+    $ pid=$(ps -e -o pid,args | \
+            grep /usr/bin/foo | \
+            grep -v grep | \
+            awk '{print $1}')
+    $ child_pids=$(ps -e -o pid,ppid | \
+            awk '{if ($2 == pid) print $1}' pid=$pid)
+    $ echo $child_pids
+#+END_EXAMPLE
+
+* lvm
+
+** Increasing The Size Of A Logical Volume
+
+- Add your disk to the machine
+- Format disk as LVM partition
+- Convert your new partition into a physical volume
+    - sudo pvcreate /dev/xxx1
+- Add your new physical volume to a volume group
+    - sudo vgextend vg_main /dev/xxx1
+- Increase the size of your logical volume
+    - lvextend -l+2384 /dev/vg_main/lv_home
+- Increase the size of your filesystem
+    - xfs_growfs /home
+
+* Gentoo
+
+** What To Update When Your VMWare IP Address Changes
+
+- Change any mappings in your windows host file
+- Change any ip addresses for that server in your putty conf if necessary
+- Change your hostname's ip address in /etc/hosts
+- Change your gateway ip address in /etc/conf.d/net
+
+** Portage Best Practices
+
+- Instead of using USE flags with emerge, edit /etc/portage/package.use
+    - For example:
+        - net-irc/xchat -perl -python
+        - net-p2p/bittornado -gtk
+        - www-client/mozilla-firefox java mozdevelop
+
+** Kernel Upgrade Process
+
+- module-rebuild populate
+- If you're upgrading to a different "r" number:
+    - cd /etc/kernels
+    - cp kernel-config-x86-2.6.9-gentoo-rX kernel-config-x86-2.6.9-gentoo-rX
+- genkernel --menuconfig --bootloader=grub all
+- Fix vmware
+    - cd /opt/vmware/workstation/tools/bin
+    - sudo ./vmware-config-tools.pl
+    - sudo rmmod pcnet32
+    - sudo rmmod vmxnet
+    - sudo depmod -a
+    - sudo modprobe vmxnet
+    - sudo /etc/init.d/net.eth0 restart
+    - sudo /etc/init.d/sshd start
+- reboot
+- module-rebuild rebuild
+
+* encrypted backups
+
+Here's the command that I used to try and backup my home partition to dreamhost:
+
+#+BEGIN_EXAMPLE
+    nice -n 19 tar czvf - --listed-incremental --exclude='Movies' --exclude='Music' \
+        ~/main_backup.snar /mnt/ieee1394/snapshots/daily.0/localhost/home | openssl \
+        enc -des3 -salt -pass file:/home/tom/.ssl/secret.txt | ssh tompurl@bogus.dreamhost.com \
+        "( split -b 256m - /home/tompurl/backup/homer-home/main_backup-full.tgz.enc )"
+#+END_EXAMPLE
+
+
+* Installing The JDK On Ubuntu
+
+- Add the following to /etc/apt/sources.list:
+    - deb http://us.archive.ubuntu.com/ubuntu/ edgy multiverse
+    - deb-src http://us.archive.ubuntu.com/ubuntu/ edgy multiverse
+    - deb http://security.ubuntu.com/ubuntu edgy-security multiverse
+    - deb-src http://security.ubuntu.com/ubuntu edgy-security multiverse
+- apt-get update
+- sudo apt-get install sun-java5-jdk
+
+#+TITLE: Debian/Ubuntu
+
+** Setting up DNS Suffixes
+
+- Open /etc/dhcp3/dhclient.conf
+- Add the following
+    - supersede domain-name "svr.foo.net foo.net ad.foo.net";
+- Restart networking
+
+** Turning Off CD Autorun on Xubuntu
+
+- Install gnome-volume-manager
+- Open gnome-volume-properties app
+- Shut off all autostart/automount features.
+
+** Installing VMWare Tools on 6.06 Server
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install build-essential linux-source linux-headers-`uname -r`
+    $ normal manual procedure
+    (( necessary to use vmware-toolbox ))
+    $ sudo apt-get install xclock libxi6
+#+END_EXAMPLE
+
+** Installing BeautifulSoup on Ubuntu 6.06 Server
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install python2.4-dev python2.4-setuptools
+#+END_EXAMPLE
+
+
+** Upgrading Your Kernel on 6.06 Server
+
+#+BEGIN_EXAMPLE
+    $ sudo aptitude dist-upgrade
+    $ sudo aptitude install linux-headers-(( results of uname -r for new kernel ))
+    $ sudo shutdown -r now
+    (( from console ))
+    $ sudo vmware-config-tools.pl
+    (( choose all defaults ))
+    $ sudo /etc/init.d/networking stop
+    $ sudo rmmod pcnet32
+    $ sudo rmmod vmxnet
+    $ sudo depmod -a
+    $ sudo modprobe vmxnet
+    $ sudo /etc/init.d/networking start
+#+END_EXAMPLE
+
