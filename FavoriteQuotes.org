@@ -1,5 +1,13 @@
 #+TITLE: Favorite Quotes
 
+* 11/27/2015
+
+Michale Nygard in his [[http://www.michaelnygard.com/blog/2015/10/software-eats-the-world/][Software Eats The Wolrd]] article:
+
+    Back in 2011, Marc Andreessen said ”[[http://www.wsj.com/articles/SB10001424053111903480904576512250915629460][software is eating the world]]”.
+    There’s no reason to think that’s going to slow down soon. And as
+    software eats the world, work becomes tech work.
+
 * 08/12/15
 
 Les Orchard, [[http://blog.lmorchard.com/2015/07/22/the-verge-web-sucks/|The Verge's web sucks]]: 
