@@ -1,7 +1,6 @@
 #+TITLE: Emacs Cheat Sheet
 
 
-
 * Screen navigation
 
 - Quit
@@ -167,10 +166,19 @@ start using Firefox instead of IE:
     (setq browse-url-browser-function 'browse-url-firefox)
 #+END_EXAMPLE
 
-
 ** Show Line Numbers
 
 #+BEGIN_EXAMPLE
     M-x linum-mode
 #+END_EXAMPLE
 
+** Toggle Word Wrap
+
+This is similar to the =:set nowrap= command in Vim, except it toggles
+the option:
+
+#+BEGIN_EXAMPLE
+
+M-x toggle-truncate-lines
+
+#+END_EXAMPLE
