@@ -17,6 +17,7 @@
 - [[file:PuppetCheatSheet.org][Puppet Cheat Sheet]]
 - [[file:FlashOnDebian.org][Flash On Debian]]
 - [[file:Minecraft.org][Minecraft]]
+- [[file:LUKSNotes.org][LUKS Notes]]
 
 ** Emacs
 

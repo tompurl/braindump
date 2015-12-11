@@ -1,0 +1,36 @@
+#+SETUPFILE: static/css/level-0.orgcss
+#+TITLE: LUKSNotes
+#+HTML: <script src=static/js/bootstrap.min.js></script>
+#+HTML: <script src=static/js/jquery-1.11.1.min.js></script>
+
+* Mounting And Unmounting File Volumes
+
+Let's say that you inspect an =.img= file using a command like this:
+
+#+BEGIN_EXAMPLE
+
+$ file foobackup.img
+foobackup.img: LUKS encrypted file, ver 1 [aes, xts-plain64, sha1] UUID: d57de975-af81-4f77-b770-4abcdbogus8a
+
+#+END_EXAMPLE
+
+You would mount it with the following commands:
+
+#+BEGIN_EXAMPLE
+
+$ sudo cryptsetup luksOpen ./foobackup.img foobackup
+Enter passphrase for foobackup.img: 
+$ mkdir /tmp/foobackup # or whatever
+$ sudo mount /dev/mapper/foobackup /tmp/foobackup
+
+#+END_EXAMPLE
+
+That's it. Once you're done with the partition, you can unmount it
+like so:
+
+#+BEGIN_EXAMPLE
+
+$ sudo umount /tmp/foobackup
+$ sudo cryptsetup luksClose foobackup
+
+#+END_EXAMPLE
