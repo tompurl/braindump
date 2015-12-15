@@ -1,0 +1,64 @@
+#+SETUPFILE: static/css/level-0.orgcss
+#+TITLE: Pelican Publishing Workflow
+#+HTML: <script src=static/js/bootstrap.min.js></script>
+#+HTML: <script src=static/js/jquery-1.11.1.min.js></script>
+
+Here's the steps that I go through when writing and publishing a new
+blog post using Pelican.
+
+* Article Creation And Editing
+
+First, I create a new branch of the git repo for the new article:
+
+#+BEGIN_SRC bash :exports code
+
+git branch some-new-article
+git checkout some-new-article
+
+#+END_SRC
+
+Please note that the branch name above is arbitrary.
+
+I then create my new article and edit it. To view the article in 
+a web browser I simply navigate to the Pelican root directory and
+execute this command:
+
+#+BEGIN_SRC bash :exports code
+
+make html && (cd ./output && python -m pelican.server)
+
+#+END_SRC
+
+Once I'm happy with the article I commit it into the
+=some-new-article= branch.
+
+* Publishing
+
+Next, I switch back to the =master= branch and merge it with
+my =some-new-article= branch:
+
+#+BEGIN_SRC bash :exports code
+
+git checkout master
+git merge some-new-article
+
+#+END_SRC
+
+I can now publish my new article on the public internet:
+
+#+BEGIN_SRC bash :exports code
+
+make rsync_upload
+
+#+END_SRC
+
+* Cleaning Up
+
+Once I'm completely done with the new article, I can clean up the
+non-master branch like so:
+
+#+BEGIN_SRC bash :exports code
+
+git branch -d some-new-article
+
+#+END_SRC
