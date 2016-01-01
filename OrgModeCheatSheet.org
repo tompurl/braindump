@@ -112,7 +112,11 @@ Here's an example:
 #+BEGIN_EXAMPLE
     - [[../org_html/TimeAndForecastingNotes|Time And Forecasting Notes]]
 #+END_EXAMPLE
-  
+
+** Code Or Example References
+
+- http://orgmode.org/manual/Literal-examples.html
+
 * Recurring Tasks
 
 - http://orgmode.org/manual/Repeated-tasks.html

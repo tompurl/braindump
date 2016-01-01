@@ -65,6 +65,19 @@ Backward, C-b .... Current cursor position .... Forward, C-f
                               :
                         Next line, C-n
 #+END_EXAMPLE
+
+** Emulating Vim's "gg top" Mnemonic
+
+In Vim when you are in normal mode you can jump to the beginning of a
+document by pressing =gg= and the end by pressing =G=. Here are some
+keybindings for Emacs that are similar:
+
+#+BEGIN_SRC emacs-lisp :exports code
+
+(global-set-key (kbd "C-x gg") 'beginning-of-buffer)
+(global-set-key (kbd "C-x G")  'end-of-buffer)
+
+#+END_SRC
  
 * Search
 
