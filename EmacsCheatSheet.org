@@ -192,7 +192,7 @@ For example:
 
 ** Remove Version Page On Startup
 
-[[#+BEGIN_EXAMPLE
+#+BEGIN_EXAMPLE
     ; http://askubuntu.com/a/4824
     (setq inhibit-startup-screen t)
     (add-hook 'emacs-startup-hook
