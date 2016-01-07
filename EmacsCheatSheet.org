@@ -114,6 +114,8 @@ following in my `.emacs` file:
 
 * Text Management
 
+** Misc
+
 - Auto wrap a line by adding a carriage return
     - Similar to `gqip` in Vim
     - `M-q`
@@ -121,10 +123,37 @@ following in my `.emacs` file:
     - Simply go to the beginning, press `C-Space` and then navigate to the end
       position.
     - This is a lot like a visual select in Vim.
-- Copy Text
-    - `M-w`
-- Cut Text
-    - `C-w`
+
+** Copying And Pasting With The Kill Ring
+
+=<DEL>= in Emacs parlance means "Backspace", not "Delete". For that,
+they use =<DELETE>=.
+
+- =<DEL>=
+  - Delete the character just before the cursor. Using the =<DEL>= key
+    does *not* add the text to the kill ring, so avoid it when you can.
+- =C-d=
+  -  Delete the next character after the cursor
+- =M-<DEL>=
+  - Kill the word immediately before the cursor
+- =M-d=
+  - Kill the next word after the cursor
+- =C-k=
+  - Kill from the cursor position to end of line
+- =M-k=
+  - Kill to the end of the current sentence
+- =C-w=
+  - Kill selected text
+- =C-y=
+  - Yanks the last text killed. With Emacs, "yank" means "yank it off
+    of the kill ring", *not* "cut" like it does in Vim.  If you kill a
+    bunch of text repeatedly, then one yank pastes all of that text
+    back.
+- =M-y=
+  - Allows you to "cycle through" your kill ring. If the text retured
+    by C-y isn't what you want, jus type this until you see the text
+    you want.
+
 
 ** CUA Mode
 
