@@ -4,55 +4,55 @@
 * Screen navigation
 
 - Quit
-    - `C-x C-c`
+    - =C-x C-c=
 - Move down a screen
-    - `C-v`
+    - =C-v=
 - Move up a screen
-    - `M-v`
+    - =M-v=
 - forward one char
-    - `C-f`
+    - =C-f=
 - backwards one char
-    - `C-b`
+    - =C-b=
 - up one line
-    - `C-p`
+    - =C-p=
 - down one line
-    - `C-n`
+    - =C-n=
 - forward one word
-    - `M-f`
+    - =M-f=
 - Backwards one word
-    - `M-b`
+    - =M-b=
 - Move to the other window
-    - `C-x o`
+    - =C-x o=
 - Move forward one page
-    -  `C-v`
+    -  =C-v=
 - Move backwards one page
-    -  `M-v`
+    -  =M-v=
 - Reset page around cursor with it at the center.
-    -  `C-l`
+    -  =C-l=
 - Move forward one word
-    -  `M-f`
+    -  =M-f=
 - Move backwards one word
-    -  `M-b`
+    -  =M-b=
 - Move to the beginning of a line.
-    -  `C-a`
+    -  =C-a=
 - Move to the beginning of a sentence.
-    -  `M-a`
+    -  =M-a=
 - Move to the end of a line.
-    -  `C-e`
+    -  =C-e=
 - Move to the end of a sentence.
-    -  `M-e`
+    -  =M-e=
 - Move to the beginning of the document
-    -  `M-<` - Move
-    - Please note that you also need to press the shift key since `<` is above
-      the `,` key.
+    -  =M-<= - Move
+    - Please note that you also need to press the shift key since =<= is above
+      the =,= key.
 - Move to the end of the document
-    -  `M->` - Move
+    -  =M->= - Move
 -  Show only one window
-    -  `C-x 1`
+    -  =C-x 1=
 -  Horizontally split the current window
-    -  `C-x 2`
+    -  =C-x 2=
 -  Vertically split the current window
-    -  `C-x 3`
+    -  =C-x 3=
 
 Moving around one line at a time:
 
@@ -82,22 +82,22 @@ keybindings for Emacs that are similar:
 * Search
 
 - Incremental Search
-    - `C-s`
-    - To find the next match just keep pressing `C-s`
+    - =C-s=
+    - To find the next match just keep pressing =C-s=
 
 * File Management
 
 - Creating a new file
-    - Find it `(C-x C-f)`
+    - Find it =(C-x C-f)=
     - Type in the location where you want to save it.
 - Saving a file
-    - `C-x C-s`
+    - =C-x C-s=
 
 ** Registers
 
 Registers are good for quickly storing and finding all kinds of things, but I
 mostly use them to open files that I use a lot. For example, I can put the 
-following in my `.emacs` file:
+following in my =.emacs= file:
 
 #+BEGIN_EXAMPLE
     ; Org index
@@ -108,19 +108,19 @@ following in my `.emacs` file:
 
 …and then open the files like this:
  
-`C-x r j i`
+=C-x r j i=
 
-`C-x r j e` 
+=C-x r j e= 
 
 * Text Management
 
 ** Misc
 
 - Auto wrap a line by adding a carriage return
-    - Similar to `gqip` in Vim
-    - `M-q`
+    - Similar to =gqip= in Vim
+    - =M-q=
 - Selecting Text
-    - Simply go to the beginning, press `C-Space` and then navigate to the end
+    - Simply go to the beginning, press =C-Space= and then navigate to the end
       position.
     - This is a lot like a visual select in Vim.
 
@@ -201,7 +201,7 @@ For example:
 
 ** Change The Default Web Browser
 
-This is all I had to add to my `.emacs` file on my Windows 7 machine to
+This is all I had to add to my =.emacs= file on my Windows 7 machine to
 start using Firefox instead of IE:
 
 #+BEGIN_EXAMPLE
