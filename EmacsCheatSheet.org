@@ -1,6 +1,5 @@
 #+TITLE: Emacs Cheat Sheet
 
-
 * Screen navigation
 
 - Quit
@@ -85,6 +84,9 @@ keybindings for Emacs that are similar:
     - =C-s=
     - To find the next match just keep pressing =C-s=
 
+- =M-x replace-string=
+  - Find and replace on every instance of a string from the cursor position to the end of the document.
+
 * File Management
 
 - Creating a new file
@@ -111,6 +113,9 @@ following in my =.emacs= file:
 =C-x r j i=
 
 =C-x r j e= 
+** Recovery
+
+To recover a file, open it and then type =M-x recover-file=.
 
 * Text Management
 
@@ -166,7 +171,7 @@ information:
 
 #+BEGIN_EXAMPLE
     (cua-mode t)
-    (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+    (setq cua-auto-tabify-recptangles nil) ;; Don't tabify after rectangle commands
     (transient-mark-mode 1) ;; No region when it is not highlighted
     (setq cua-keep-region-after-copy t) ;; Standard Windows behavior
 #+END_EXAMPLE
