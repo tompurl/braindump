@@ -1,3 +1,4 @@
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Puppet Cheat Sheet
 
 * Making A Service Start On Boot

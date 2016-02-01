@@ -1,3 +1,4 @@
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Org Mode Cheat Sheet
 
 

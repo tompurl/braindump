@@ -1,7 +1,6 @@
-#+SETUPFILE: static/css/level-0.orgcss
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Pelican Publishing Workflow
-#+HTML: <script src=static/js/bootstrap.min.js></script>
-#+HTML: <script src=static/js/jquery-1.11.1.min.js></script>
 
 Here's the steps that I go through when writing and publishing a new
 blog post using Pelican.

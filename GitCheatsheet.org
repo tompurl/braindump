@@ -1,7 +1,6 @@
-#+SETUPFILE: static/css/level-0.orgcss
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: GitCheatsheet
-#+HTML: <script src=static/js/bootstrap.min.js></script>
-#+HTML: <script src=static/js/jquery-1.11.1.min.js></script>
 
 * Cheatsheet
 

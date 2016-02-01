@@ -1,0 +1,20 @@
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
+#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
+#+TITLE: TwitteringModeCheatSheet
+
+- "Regular" retweet
+  - =C-u C-c C-m=
+- Post a tweet
+  - =u=
+- Open a user's timeline
+  - Navigate to a tweet from that user and then press =v=
+- Open a timeline from a list of names
+  - =V=
+- Favorite a tweet
+  - =M-x twittering-favorite=
+- Shorten a URL
+  - =C-c C-k=
+- Search for a term
+  - =C-c C-q=
+- Reply to a tweet
+  - =C-m=
