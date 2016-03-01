@@ -1,0 +1,39 @@
+#+SETUPFILE: static/css/level-0.orgcss
+#+TITLE: MinidlnaCheatSheet
+#+HTML: <script src=static/js/bootstrap.min.js></script>
+#+HTML: <script src=static/js/jquery-1.11.1.min.js></script>
+
+* Rebuilding The Index
+
+First, make sure that no =minidlna= processes are running. This will
+require checking the process table and manually killing pid's. Next,
+run the following commands:
+
+#+BEGIN_EXAMPLE
+
+sudo minidlnad -R
+
+#+END_EXAMPLE
+
+This command will return immediately, even though it will take the
+process at least a few minutes to run. Periodically check this process
+until it's done.
+
+Next, make sure that the database is owned by the minidlna user:
+
+#+BEGIN_EXAMPLE
+
+sudo chown -R minidlna:minidlna /var/cache/minidlna/
+
+#+END_EXAMPLE
+
+Apparently even though the process has been stopped =systemd=
+is confused at this point, so we have to run the following 
+commands to start the process again:
+
+#+BEGIN_EXAMPLE
+
+sudo systemctl stop minidlna.service
+sudo systemctl start minidlna.service
+
+#+END_EXAMPLE
