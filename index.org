@@ -28,6 +28,10 @@
 - [[file:MagitCheatsheet.org][Magit Cheatsheet]]
 - [[file:TwitteringModeCheatSheet.org][Twittering Mode Cheat Sheet]]
 
+** Multimedia
+
+- [[file:MinidlnaCheatSheet.org][minidlna Cheat Sheet]]
+
 ** Programming
 
 - [[file:ScratchNotes.org][Scratch Notes]]
