@@ -1,5 +1,5 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Emacs Cheat Sheet
+#+HTML_HEAD: <link id="pagestyle" rel="stylesheet" type="text/css" href="css/org.css"/>
 
 * Screen navigation
 

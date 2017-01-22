@@ -1,4 +1,3 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE:  Setting Up A Pocketmine Server
 
 I'm writing this as of 11/22/15. At this time, the stable version of Minecraft

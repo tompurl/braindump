@@ -1,7 +1,4 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Org Mode Cheat Sheet
-
-
 
 * Commands
 
@@ -118,6 +115,16 @@ Here's an example:
 
 - http://orgmode.org/manual/Literal-examples.html
 
+* Folding / Filtering
+
+Only show the current section (=org-narrow-to-subtree=):
+
+- =C-x n s=
+
+Show the entire document again (=widen=):
+
+- =C-x n w=
+
 * Recurring Tasks
 
 - http://orgmode.org/manual/Repeated-tasks.html
@@ -228,9 +235,24 @@ That's all you have to do. Once you're done with that command you can start edit
 
 * Publishing
 
+** General
+:PROPERTIES:
+:CUSTOM_ID: General
+:END:
+
 Use `C-x C-w` to convert your org-mode agenda into lots of different formats.
 Save the file with an html extension to choose HTML. This also requires the
 htmlify.el file.
 
 - http://orgmode.org/manual/Exporting-Agenda-Views.html
 - http://fly.srk.fer.hr/~hniksic/emacs/htmlize.el.cgi
+
+** Adding Custom HTML ID Values To Headings
+
+Simply add the following property drawer to your heading:
+
+#+BEGIN_EXAMPLE
+:PROPERTIES:
+:CUSTOM_ID: Your Section Name
+:END
+#+END_EXAMPLE

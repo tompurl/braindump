@@ -1,4 +1,0 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
-#+TITLE:  Oh So Happy
-
-

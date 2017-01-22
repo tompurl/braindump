@@ -1,12 +1,180 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Netcat Cheat Sheet
 
-* File Transfers
+* File Transfers (netcat tar pipe)
+
+When copying files with netcat I used to think of it in
+terms of the following:
+
+- *Listener* - This is the "client" who is waiting for a file to be
+  "pushed" to it.
+- *Sender* - This is the server that pushes the file(s)
+
+However, I've learned lately that this is just one way to copy files
+over a network with netcat. Instead of using the roles above I now use
+the following roles:
+
+- *Sharer* - This is the host that currently hosts the files that need
+  to be copied.
+- *Receiver* - This is the host to which you want to copy files.
+
+** Notes About Scenarios
+
+- Unless otherwise specified the port numbers below are arbitrary.
+
+** Scenarios
+
+*** The "GET" Scenario
+
+ In this scenario, the sharer wants to make the files available to
+ the receiver host *before* the receiver is ready. 
+
+ The first thing that would happen is that the sharer would
+ need to make the files available with this command:
+
+ #+BEGIN_EXAMPLE
+
+ tar -cvf - files_or_dir | nc -l -p 5678
+
+ #+END_EXAMPLE
+
+ Here you're saying "please tar up these files and then 
+ send them to netcat", which will then block and wait for
+ the receiver to connect to it. At that point it will start
+ copying the files.
+
+ Here's how the receiver connects so she can start downloading the
+ files:
+
+ #+BEGIN_EXAMPLE
+
+ nc sharer_host_name_or_ip 5678 | tar -xvf -
+
+ #+END_EXAMPLE
+
+ Once this command is executed the receiver will start downloading
+ the files.
+
+*** The "PUT" Scenario
+
+ In this scenario the receiver host wants to start a "server" that can
+ receive files *before* the sharer hosts starts sending them.
+
+ The first thing that would happen is that the receiver would
+ start a "server" with the following command:
+
+ #+BEGIN_EXAMPLE
+
+ nc -l -p 5678 | tar -xvf -
+
+ #+END_EXAMPLE
+
+ Netcat would simply block and wait for something to connect to it on
+ port 5678.
+
+ The sharer would then be able to "put" the files onto the receiver
+ host using the following command:
+
+ #+BEGIN_EXAMPLE
+
+ tar -cvf - files_or_dir | nc receiver_host_name_or_ip 5678
+
+ #+END_EXAMPLE
+
+ This command would then connect to the netcat "server" on 
+ the receiver and push the files to it.
+* Streaming Live TV Over My Local Network
+
+** Recording The Raw TV Signal
+
+I have an HDHomerun receiver that's attached to my media server and
+sometimes I like to watch live TV on my laptop. The TV signal is 
+read using a script that looks something like this:
+
+#+BEGIN_SRC sh :exports code
+  !/bin/bash
+
+  set -e
+
+  USAGE="watch-tv.sh CHANNEL-NAME FILE_PATH"
+
+  die () {
+      echo >&2 "$@"
+      echo >&2 $USAGE
+      exit 1
+  }
+
+  [ "$#" -eq 2 ] || die "2 argument required, $# provided"
+
+  PATH=$PATH:/home/tom/.hdhomerun/libhdhomerun
+
+  # Grab the channel information based on the channel name
+  ROW=$(grep -i $1 /home/tom/.hdhomerun/channel-mapping)
+  SCAN_ID=$(echo $ROW | cut -d',' -f3 | sed -e 's/^ *//g' -e 's/ *$//g')
+  PROG_ID=$(echo $ROW | cut -d',' -f4 | sed -e 's/^ *//g' -e 's/ *$//g')
+
+  # Set the tuner to point at the correct chanel
+  hdhomerun_config 101AFF2A-0 set /tuner0/channel auto:${SCAN_ID}
+  hdhomerun_config 101AFF2A-0 set /tuner0/program $PROG_ID
+
+  # Record the stream.
+  hdhomerun_config 101AFF2A-0 save /tuner0 $2
+
+  exit 0
+#+END_SRC
+
+Here's a chunk of my =channel-mapping= file:
 
 #+BEGIN_EXAMPLE
-    - On the receiving end
-    $ nc -l -p 1234 > out.file
-   
-    - On the sending end
-    $ nc -w 3 [destination] 1234 < in.file
+# my name, tuner channel, scan id, program id
+WTTW-1, 11.1, 671000000, 3
+WTTW-2, 11.2, 671000000, 4
+WTTW-3, 11.3, 671000000, 5
+FOX, 32.1, 575000000, 3
+WCIU, 26.1, 551000000, 3
+CBS, 2.1, 207000000, 1
+NBC, 5.1, 563000000, 5
+ABC, 7.1, 653000000, 1
 #+END_EXAMPLE
+
+My script above takes a channel name like CBS and maps it to the
+information that my HDHomerun requires using the =channel-mapping=
+script.
+
+** Encoding The Stream
+
+Now I could just take the "raw" stream and pipe it directly to my
+laptop, but there's a few problems with that:
+
+1. It would saturate my network
+2. My laptop would have issues playing such a huge file without any
+   glitches
+
+So I need to downsample the signal *before* I send it to my laptop. 
+I do that with =ffmpeg=, and I'll show you that command later.
+
+** Connecting The Client To The Server
+
+I couldn't put all of this in the =netcat= doc without actually using 
+netcat, so naturally that's how I'm going to connect everything :-) 
+
+** Putting It All Together
+
+First, I need to run the following command on my client (which is my
+laptop in this example):
+
+#+BEGIN_SRC sh :exports code
+  nc -l -u -p 5678 media-server.tompurl.com | mplayer - -cache 1024
+#+END_SRC
+
+=5678= is the port that I'm listening on. 
+
+...and here's the command that I run on my media server (which is the host
+connected to my MediaMVP):
+
+#+BEGIN_SRC sh :exports code
+
+~/.hdhomerun/watch-tv.sh  FOX - | ffmpeg -i - -threads 0 -vcodec mpeg2video -b:v 833763 -s 852x480 -aspect 16:9 -map 0:v:0 -acodec aac -ac:1 2 -ar:1 48000 -b:1 98304 -map 0:1 -sn -map_chapters -1 -f mpegts -y /dev/stdout | nc -u laptop.tompurl.com 5678
+
+#+END_SRC
+
+Within a few seconds I'm able to watch tv on my laptop!

@@ -1,5 +1,3 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Pelican Publishing Workflow
 
 Here's the steps that I go through when writing and publishing a new

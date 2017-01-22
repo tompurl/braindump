@@ -1,60 +1,35 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
-#+TITLE: Home
+#+TITLE: Tom Purl's Web Site
+#+SUBTITLE: My '86 Datsun On The Side Of The Information Superhighway
+#+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
-* Computers N' Such
+Hi! My name is *Tom Purl* I like to create fun things and then write
+about them. 
 
-** Projects
+This is a test update.
 
-- [[file:ElSistemaDBProjectStatus.org][El Sistema DB Project Status]]
-  
-** Linux / Unix
+* For Example...
+  :PROPERTIES:
+  :CUSTOM_ID: For Example
+  :END:
 
-- [[file:TmuxCheatSheet.org][Tmux Cheat Sheet]]
-- [[file:UnixLinuxCheatSheet.org][Unix / Linux Cheat Sheet]]
-- [[file:NetcatCheatSheet.org][Netcat Cheat Sheet]] 
-- [[file:GentooInstallationNotes.org][Gentoo Installation Notes]]
-- [[file:SedNotes.org][Sed Notes]]
-- [[file:VirtualenvCheatSheet.org][Virtualenv Cheat Sheet]]
-- [[file:PuppetCheatSheet.org][Puppet Cheat Sheet]]
-- [[file:FlashOnDebian.org][Flash On Debian]]
-- [[file:Minecraft.org][Minecraft]]
-- [[file:LUKSNotes.org][LUKS Notes]]
+- Here's my [[file:blog-archive.org][blog archive]]. This is my preferred way of being "social"
+  on the internet :-)
+- My code and such on [[https://github.com/tompurl][Github]]
+- My screencasts on [[https://vimeo.com/user3972465][Vimeo]]
+- My [[file:braindump.org][braindump]], which is is where I keep a lot of rough, informal
+  notes. If it was 2004 I would call this a personal wiki.
+- And the [[https://twitter.com/tompurl][tweets]] that I write every time I forget why I don't use
+  Twitter.
 
-** Emacs
+* Contacts
+  :PROPERTIES:
+  :ID:       d153bb0b-856e-4fc5-ae21-cbf74d4798f9
+  :PUBDATE:  <2017-01-14 Sat 11:57>
+  :END:
 
-- [[file:EmacsCheatSheet.org][Emacs Cheat Sheet]]
-- [[file:OrgModeCheatSheet.org][Org Mode Cheat Sheet]]
-- [[file:MelpaElpaCheatSheet.org][Melpa/Elpa Cheatsheet]]
-- [[file:MagitCheatsheet.org][Magit Cheatsheet]]
-- [[file:TwitteringModeCheatSheet.org][Twittering Mode Cheat Sheet]]
+The best way to get in touch with me is email:
 
-** Multimedia
+- [[mailto:tom@tompurl.com][tom@tompurl.com]]
 
-- [[file:MinidlnaCheatSheet.org][minidlna Cheat Sheet]]
-
-** Programming
-
-- [[file:ScratchNotes.org][Scratch Notes]]
-- [[file:PostgreSQLNotes.org][PostgreSQL Notes]]
-- [[file:DjangoCheatSheet.org][Django Cheat Sheet]]
-- [[file:FabricCheatSheet.org][Fabric Cheat Sheet]]
-- [[file:GitCheatsheet.org][Git Cheatsheet]]
-
-** About Blogging And Writing
-  
-- [[file:PelicanSetupNotes.org][Pelican Setup Notes]]
-- [[file:PelicanPublishingWorkflow.org][Pelican Publishing Workflow]]
-
-** Windows
-  
-- [[file:DosCheatSheet.org][DOS Cheat Sheet]]
-
-* Other Stuff
-
-- [[file:OhSoHappy.org][Oh So Happy]]
-- [[file:FavoriteQuotes.org][Favorite Quotes]]
-- [[file:JazzAlbumOfTheDay.org][Jazz Album Of The Day]]
-
-* Meta
-
-- [[file:FrequentlyAskedQuestions.org][FAQ]]
+Also, you don't have to use GPG to encrypt the message, but if you're
+comfortable doing that, [[https://dl.dropboxusercontent.com/u/4368842/toms-public-email-key.asc][here's my public key]].

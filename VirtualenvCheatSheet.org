@@ -1,4 +1,3 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Virtualenv Cheat Sheet
 
 * Invoking Virtualenv From Tmuxinator

@@ -1,4 +1,3 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Minecraft
 
 - [[file:SettingUpAPocketmineServer.org][Setting Up A Pocketmine Server]]

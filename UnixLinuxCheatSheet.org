@@ -1,4 +1,3 @@
-#+SETUPFILE: static/org-html-themes/setup/theme-bigblow.setup
 #+TITLE: Unix / Linux Cheat Sheet
 
 * current users
