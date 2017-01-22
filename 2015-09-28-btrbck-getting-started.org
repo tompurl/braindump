@@ -1,0 +1,281 @@
+#+TITLE: Getting Started With btrbck (And btrfs Backups)
+
+#+DATE: 2015-09-28
+
+* Overview
+
+I like to backup my laptop's hard drive to a local file server on my
+network. It's saved my butt more than a couple of times and it makes
+upgrades and reinstalls fairly painless.
+
+To do this, I've used rsnapshot\_ now for about 12 years. Day in and day
+out it's been a fantastic, simple and intuitive tool that I have been
+able to rely upon. My one gripe has been that rsync\_ (upon which
+rsnapshot depends) takes a *long* time to compare my laptop's =/home=
+directory with the copy on the server due to all of the inodes. This can
+literally take *hours*, which is less than ideal if you're taking daily
+backups of a device that isn't running for most of the day.
+
+Recently I've wondered if I could somehow just copy *snapshot diffs* to
+my backup server and leave the comparision job to the kernel on my
+laptop. Ideally the snapshot process would only take a few seconds and
+the backup part would only take as long as it takes to copy the diff
+across my private network. I read a while ago about how something like
+this could be possible with btrfs\_ some day, so I decided to take a
+look again.
+
+I was pleasantly surprised to see that there are in fact multiple stable
+tools that suit my needs. btrbck\_ looked like one of the more mature
+and robust options, to I tried poking around.
+
+The good news is that I was able to copy a snapshot over SSH using
+=btrbck=. The bad news is that it was a bit harder than I thought it
+would be, and I'll need to do a bit of work to make sure that I can
+create a process that works with my security needs  [1].
+
+In this tutorial, I would first like to show you how to backup and
+restore a single folder to a thumb drive. This tutorial uses a single
+host and root access to make things as simple as possible.
+
+* Tools
+
+Here's what I used for this tutorial:
+
+1. A laptop running Debian Jessie (8.2) and a local SSH server.
+2. A =/home= partition that is formatted using =btrfs=
+3. A thumbrdive with a partition on it (=/dev/sda1=) that is formatted
+   using =btrfs=
+
+We'll be cheating a little bit in this example. Instead of copying the
+files from HostA (my laptop in my case) to HostB, we'll be copying files
+from a directory on HostA to a different directory on HostA. To test
+SSH, we'll be using a host of =localhost=.
+
+I'm doing this because different Linux distributions and versions can
+have vastly different implementations of =btrfs=. For most people simply
+taking a snapshot using =btrfs= is tricky enough. Taking one with a
+third-party tool and then copying it to a different host and having the
+whole damned thing fail because of a weird kernel bug in Debian Wheezy
+is not my idea of a fun Sunday afternoon. So let's keep everything as
+simple and uniform as possible in the beginning.
+
+* Security
+
+For the tutorial we will be doing everything as the =root= user. This
+isn't ideal from a security perspective but it will make it much easier
+to run our example.
+
+For =btrbck= to work you need to make sure that the root user can log
+into =localhost= over SSH using keypair authentication. =btrbck= will
+not work if there are any prompts at all, password or otherwise.
+
+There are numerous tutorials on how to set this up available, and
+showing you how to do so is beyond the scope of this tutorial. I can
+wait until you're done setting it up :-)
+
+Once you're done you can test it like this:
+
+#+BEGIN_EXAMPLE
+    tom@pam:~$ sudo su - root
+    root@pam:~# ssh-agent bash
+    root@pam:~# ssh-add ~/.ssh/id_rsa
+    Enter passphrase for /root/.ssh/id_rsa: 
+    Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)
+    root@pam:~# ssh localhost
+
+    The programs included with the Debian GNU/Linux system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+    permitted by applicable law.
+    Last login: Sun Sep 27 22:06:46 2015 from localhost
+    root@pam:~# 
+#+END_EXAMPLE
+
+Hooray!
+
+* Setting Up The Stuff We Want To Copy
+
+As root  [2], execute the following commands:
+
+#+BEGIN_EXAMPLE
+    root@pam:~# mkdir -p /home/tom/tmp
+    root@pam:~# cd /home/tom/tmp
+    root@pam:/home/tom/tmp# mkdir apps-to-backup
+    root@pam:/home/tom/tmp# cd apps-to-backup/
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck create -a
+    Created application repository in /home/tom/tmp/apps-to-backup
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck create myStream
+    Create subvolume '/home/tom/tmp/apps-to-backup/myStream'
+    created stream myStream
+#+END_EXAMPLE
+
+Please note the following:
+
+-  Your hostname is probably not "pam" and your userid is probably not
+   "tom". So please change those values where applicable  [3].
+-  I created this volume under the =/home= partition on my machine
+   because it is formatted to use =btrfs=.
+-  =/home/tom/tmp/apps-to-backup= is your *stream repository*. You
+   designated it as one by running the =btrbck create -a= command.
+-  =/home/tom/tmp/apps-to-backup/myStream= is your *stream*. This is
+   what we'll be snapshotting and copying to the other filesystem.
+
+So far so good? Great. Now let's actually create some documents and take
+our first snapshot:
+
+#+BEGIN_EXAMPLE
+    root@pam:/home/tom/tmp/apps-to-backup# echo foo > myStream/bar.txt
+    root@pam:/home/tom/tmp/apps-to-backup# find .
+    .
+    ./.backup
+    ./.backup/repositoryLock
+    ./.backup/repository.xml
+    ./.backup/myStream
+    ./.backup/myStream/snapshots
+    ./.backup/myStream/receiveTmp
+    ./.backup/myStream/myStream.id
+    ./.backup/myStream/myStream.xml
+    ./.backup/myStream/versions.xml
+    ./myStream
+    ./myStream/bar.txt
+#+END_EXAMPLE
+
+That's it so far. There's a *lot* going on here, but for our purposes
+all we really care about is that =bar.txt= exists. Now let's create a
+snapshot of our stream:
+
+#+BEGIN_EXAMPLE
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck snapshot myStream
+    Create a readonly snapshot of '/home/tom/tmp/apps-to-backup/myStream' in '/home/tom/tmp/apps-to-backup/.backup/myStream/snapshots/0_2015-09-27T09:43:01.081-05:00'
+    took snapshot of myStream
+#+END_EXAMPLE
+
+Cool, let's add another file and take another snapshot:
+
+#+BEGIN_EXAMPLE
+    root@pam:/home/tom/tmp/apps-to-backup# echo baz > myStream/bo.txt                                                                                    
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck snapshot myStream
+    Create a readonly snapshot of '/home/tom/tmp/apps-to-backup/myStream' in '/home/tom/tmp/apps-to-backup/.backup/myStream/snapshots/1_2015-09-27T09:45:48.236-05:00'
+    took snapshot of myStream
+#+END_EXAMPLE
+
+Finally let's look at our snapshots:
+
+#+BEGIN_EXAMPLE
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck list myStream
+    Snapshots in stream myStream in repository /home/tom/tmp/apps-to-backup:
+    0_2015-09-27T09:43:01.081-05:00
+    1_2015-09-27T09:45:48.236-05:00
+#+END_EXAMPLE
+
+* Setting Up The Backup Repository
+
+Great, now let's create a place where we can actually store backups of
+these snapshots. Like I said above, I'm using a thumbdrive connected to
+the same laptop that was used to create the snapshots in the first
+place. I mounted that thumbdrive as =/tmp/sda1=. Execute these steps as
+*root*:
+
+#+BEGIN_EXAMPLE
+    root@pam:~# cd /tmp/sda1
+    root@pam:/tmp/sda1# mkdir backup-repo
+    root@pam:/tmp/sda1# cd backup-repo/
+    root@pam:/tmp/sda1/backup-repo# btrbck create
+    Created backup repository in /tmp/sda1/backup-repo
+#+END_EXAMPLE
+
+Please note the following:
+
+-  =/tmp/sda1/backup-repo= is your *stream repository*, but it is *not*
+   an /application/ stream repository - it's a *backup stream
+   repository*.
+-  Please note that we did not pass the "-a" option to the =create=
+   command so that we could create a backup stream repository.
+
+* Running Our Backups
+
+That's all you have to do. Now let's back it up your application stream:
+
+#+BEGIN_EXAMPLE
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck push -c myStream localhost /tmp/sda1/backup-repo
+    At subvol /home/tom/tmp/apps-to-backup/.backup/myStream/snapshots/0_2015-09-27T09:43:01.081-05:00
+    At subvol /home/tom/tmp/apps-to-backup/.backup/myStream/snapshots/1_2015-09-27T09:45:48.236-05:00
+    At subvol 0_2015-09-27T09:43:01.081-05:00
+    pushed shapshots of myStream
+#+END_EXAMPLE
+
+Please note the following:
+
+-  We pass the =-c= option so that =btrbck= will create the backup
+   stream under the =/tmp/sda1/backup-repo= folder. The next time we run
+   this we won't have to specify that option.
+
+Now let's see what was actually copied over:
+
+#+BEGIN_EXAMPLE
+    root@pam:/home/tom/tmp/apps-to-backup# cd /tmp/sda1/backup-repo/
+    root@pam:/tmp/sda1/backup-repo# find .
+    .
+    ./repositoryLock
+    ./repository.xml
+    ./myStream
+    ./myStream/snapshots
+    ./myStream/snapshots/0_2015-09-27T09:43:01.081-05:00.senderId
+    ./myStream/snapshots/0_2015-09-27T09:43:01.081-05:00
+    ./myStream/snapshots/0_2015-09-27T09:43:01.081-05:00/bar.txt
+    ./myStream/snapshots/1_2015-09-27T09:45:48.236-05:00.senderId
+    ./myStream/snapshots/1_2015-09-27T09:45:48.236-05:00
+    ./myStream/snapshots/1_2015-09-27T09:45:48.236-05:00/bar.txt
+    ./myStream/snapshots/1_2015-09-27T09:45:48.236-05:00/bo.txt
+    ./myStream/receiveTmp
+    ./myStream/myStream.id
+    ./myStream/myStream.xml
+    ./myStream/versions.xml
+#+END_EXAMPLE
+
+As you can see, your snapshots are now located on the =/mnt/sda1= dir.
+
+* The Incremental Part
+
+Now let's see what happens when we create a new snapshot and back it up:
+
+#+BEGIN_EXAMPLE
+    root@pam:/home/tom/tmp/apps-to-backup# echo "this is cool" > myStream/yes-it-is.txt
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck snapshot myStream
+    Create a readonly snapshot of '/home/tom/tmp/apps-to-backup/myStream' in '/home/tom/tmp/apps-to-backup/.backup/myStream/snapshots/2_2015-09-27T10:29:31.676-05:00'
+    took snapshot of myStream
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck list myStream
+    Snapshots in stream myStream in repository /home/tom/tmp/apps-to-backup:
+    0_2015-09-27T09:43:01.081-05:00
+    1_2015-09-27T09:45:48.236-05:00
+    2_2015-09-27T10:29:31.676-05:00
+    root@pam:/home/tom/tmp/apps-to-backup# btrbck push myStream localhost /tmp/sda1/backup-repo
+    At subvol /home/tom/tmp/apps-to-backup/.backup/myStream/snapshots/2_2015-09-27T10:29:31.676-05:00
+    pushed shapshots of myStream
+#+END_EXAMPLE
+
+As you can see, the =push= command only sends the snapshots that have
+not yet been synced with the backup repository.
+
+* Summary
+
+Hopefully this tutorial will help a few other people who are getting
+started with =btrbck= and incremental snapshots using =btrfs=. Also I
+hope to automate this process on my home network soon in a secure way
+and I will share my progress as I go.
+
+* Footnotes
+
+[1] Which isn't to say that the tool has security problems. Like all
+    software it's just a lot easier to set things up when security isn't
+    a requirement.
+
+[2] Yes, I know that you prefer =sudo=. So do I, and I tried all of this
+    using =sudo= and ran into lots of issues. Do yourself a favor and
+    figure out using =btrbck= with =sudo= after you're done syncing your
+    first snapshot.
+
+[3] Thankfully you're the kind of nerd who reads =btrfs= tutorials so
+    this shouldn't be too terribly difficult to remember.

@@ -1,0 +1,87 @@
+#+TITLE: Stupid Unix Tricks - Bash Math Captcha
+
+#+DATE: 2016-02-29
+
+Let's say that you have a shell script that you run very frequently on
+pre-prod servers but very /infrequently/ in your prod environment
+because it can cause outages or performance issues. Wouldn't it be nice
+if you had some sort of pre-execution hook that notified you that you
+were a "dangerous" script in prod?
+
+Sure, you could just add a "yes/no" prompt to the script if it's being
+executed on a prod server, but that's so boring. Wouldn't it be even
+cooler if you had to answer a random math problem first? I was inspired
+by the
+[[http://gmailblog.blogspot.com/2008/10/new-in-labs-stop-sending-mail-you-later.html][Google
+Mail Goggles]] plugin to write something just like that in Bash.
+
+#+BEGIN_EXAMPLE
+    function math_captcha() {
+
+       ### First let's generate two random numbers < 10
+       RANGE=10
+       num1=$RANDOM
+       let "num1 %= $RANGE"
+       num2=$RANDOM
+       let "num2 %= $RANGE"
+
+       ### Next let's calculate the sum of those numbers
+       real_sum=$(echo "$num1 + $num2" | bc)
+
+       ### Now let's see if I can do simple addition
+       echo "What's $num1 plus $num2?"
+       read -r entered_sum
+
+       [ "$entered_sum" -eq "$real_sum" ]
+
+    }       
+#+END_EXAMPLE
+
+Here's what I'm doing. First, I'm using the special =$RANDOM= function
+to return a random value. Next, I'm dividing the number by =$RANGE= and
+returning the remainder using the mod-equal operator =%==.
+
+So now I have two numbers under 10. I the use =bc= to add them together.
+Yes, I know I can perform arithmetic using Bash, but I'm old-fashioned.
+And yes, I know this isn't posix-compliant :-)
+
+Next I ask the user to answer the simple math problem and save the value
+in the =$entered_sum= variable. Finally, I compare that user-entered
+value with the result of the =bc= command in the last line.
+
+That last line may be a little confusing. All it's doing is seeing if
+the left operand is equal to the right operand using a numeric operator
+=-eq=. This command will return 0 (which is good) if the values are
+equal and a non-zero value otherwise (which is bad).
+
+So how do you invoke this function? It's very simple:
+
+#+BEGIN_EXAMPLE
+    if ! math_captcha ; then
+         echo "Sorry, something went wrong."
+         return 1
+    fi
+
+    some_dangerous_code          
+#+END_EXAMPLE
+
+Line one of this code snippet is actually one of my favorite patterns in
+Bash. It's a very elegant way of testing whether function or script's
+return code is non-zero (which is *not* what you want). The alternative
+way to execute the captcha function would look like this:
+
+#+BEGIN_EXAMPLE
+    math_captcha
+    ret_code=$?
+
+    if [ "$ret_code" -ne 0 ]; then
+        echo "Sorry, something went wrong."
+        return 1
+    fi            
+
+    some_dangerous_code           
+#+END_EXAMPLE
+
+Both of these code snippets work the same way, but I think you'll agree
+that the first example is easier to type without errors and *much* more
+intuitive, even for beginning shell scripters.

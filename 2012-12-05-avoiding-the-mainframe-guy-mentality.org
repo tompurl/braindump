@@ -1,0 +1,28 @@
+Title: "Avoiding The "Mainframe Guy" Mentality" Date: 2012-12-05 17:51
+Comments: true Tags: career Status: draft
+
+*** Outline
+
+The Point: We need to look forward at trends to see what services are
+needed, and then put ourselves in a position to know how to provide
+those services.
+
+-  ???
+
+*** Content
+
+A technical friend seems to have one primary professional goal: he
+doesn't want to become "the mainframe guy". You see, his father started
+his career in technology when the mainframe was the only game in town.
+He worked hard to learn how to do his mainframe-related job well, and he
+was rewarded by a job that was somewhat stable and paid his well.
+
+Of course, anyone who has worked in technology during the last 20 years
+knows how this story ended. The mainframe was mostly replaced by
+distributed (i.e. small servers running Unix, Windows or Linux) systems.
+Dumb terminals were replaced by PC's, which were eventually connected to
+web servers.
+
+TODO Reasons why the mainframe guys didn't try to learn distributed
+stuff risky to get new job seemed to be a fad takes a large time
+comittment risk risk risk

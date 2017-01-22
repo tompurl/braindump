@@ -1,0 +1,94 @@
+#+TITLE: Do Coinbase Payments Require An Active Browser Session?
+
+#+DATE: 2015-12-22 17:00
+
+Recently I was experimenting with an offline bitcoin wallet and I wanted
+to use it to make a donation to mozilla.org\_. Mozilla uses Coinbase\_
+to process their bitcoin transactions, which means that the process goes
+something like this:
+
+1. You initiate the transaction on the target site (e.g. mozilla.org).
+2. You are redirected to the Coinbase page for that organization where
+   you are presented with a *unique payment hash* and a *15-minute
+   countdown timer*.
+3. Using whatever wallet application you want (which for me is usually
+   Electrum\_) you send the necessary funds to that payment hash.
+4. The Coinbase page typically updates with a confirmation message
+   within 5 seconds of you broadcasting your transaction to the bitcoin
+   network.
+5. The confirmation page also typically includes a link back to the
+   originating site.
+6. Also, you may receive an email confirmation message from the
+   originating site.
+
+I've used this process from Coinbase about half a dozen times and it has
+worked very well. However, due to my offline wallet\_'s screwy,
+experimental setup  [1] I realized that I would need to reboot my
+computer *between steps 2 and 3 above*.
+
+This realization caused a few questions to cross my mind:
+
+-  Does Coinbase *require a valid browser session* to mark a transaction
+   as being legitimate? That is, what happens if my browser crashes
+   *after* I initiate a new bitcoin transaction using a
+   Coinbase-supplied hash but *before* the transaction is broadcast to
+   the network? Can't Coinbase just use the payment hash as the unique
+   identifier for the transaction instead of some session cookie?
+-  My understanding is that a bitcoin payment hash is valid *forever*.
+   Therefore, even if the 15-minute timer runs out I can still transfer
+   bitcoins to it. So if I did, where does that money "go" (i.e. who
+   owns that hash)? Does Coinbase sit on it? And how would I even know
+    [2]?
+
+I wish I could say that I can answer both of these questions, but today
+I decided to focus on the former. I looked in a bunch of places,
+including the Coinbase Merchant Checkout API docs\_ (which seem to be
+fairly decent). However, I couldn't find any notes on whether a session
+was required.
+
+So I decided to test it out myself and blog about it, which means that
+it's disclaimer time!
+
+* Warning Time
+
+#+BEGIN_QUOTE
+  *warning*
+
+  I am *not* a professional security analyst and I *do not guarantee
+  that what I did below will work* the same way for you. These are
+  simply my notes on what worked for me in a *very limited test*. If you
+  want to try something similar then please ensure that you are only
+  "playing" with *very small amounts of money*. The Bitcoin ecosystem
+  can change quite a bit in a very short amount of time and a lot of
+  aspects are still very, very complicated. So, even if you follow my
+  notes below exactly *you may get very different results*!!!
+#+END_QUOTE
+
+* Not The Warning
+
+Phew, glad that's over :-) The good news is that my transaction *was
+processed properly* even though I rebooted my computer between steps 2
+and 3 above. Naturally, since my browser was also restarted during that
+time steps 4 and 5 also did not happen. However, step 6 did happen when
+I received a confirmation email message from Mozilla.
+
+So of course, this leads to a lot of other questions:
+
+-  How much of this is due to how Coinbase Merchant Checkout system is
+   designed and how much of it is due to how Mozilla is using that API?
+   If I was to try the same test with another Coinbase customer such as
+   Overstock.com would I get the same results?
+-  How do other bitcoin payment processors (such as Bitpay) handle the
+   same situation?
+
+These are questions that I'll have to look into on another day. However,
+I hope that this information is helpful for at least a few other people.
+
+* Footnotes
+
+[1] Please note that you don't have to do anything this screwy to use
+    offline wallets. I had to do this because of the weird way that I
+    set everything up.
+
+[2] Of course, right after publishing this article I found this
+    link\_ that explains how late payments are handled.

@@ -1,0 +1,40 @@
+#+TITLE: FirefoxOnDebianCheatsheet
+
+* Setting Firefox/Iceweasel As Your Default Browser
+
+- https://wiki.debian.org/HOWTO/DefaultWebBrowser
+
+Commands:
+
+#+BEGIN_SRC bash :exports code
+
+sudo update-alternatives --config x-www-browser
+sudo update-alternatives --config gnome-www-browser
+
+#+END_SRC
+
+* Opening Thunderbird/Icedove Links In Firefox/Iceweasel
+
+- http://kb.mozillazine.org/Changing_the_web_browser_invoked_by_Thunderbird
+
+First open the =about:config= dialog:
+
+- =Edit -> Preferences -> Advanced -> Config Editor=
+
+Set the following properties to their respective values:
+
+- network.protocol-handler.app.http: x-www-browser
+- network.protocol-handler.app.https: x-www-browser
+- network.protocol-handler.warn-external.http: true
+- network.protocol-handler.warn-external.https: true
+
+Then visit the following dialog:
+
+- =Edit -> Preferences -> Attachments=
+
+Set the following "Content Types" to =x-www-browser=:
+
+- http
+- https
+
+After all of the restart.

@@ -1,0 +1,12 @@
+Title: Now I'm on Octopress Date: 2012-04-20 14:06 Comments: true
+Category: Review
+
+I just finished porting my Jekyll-based blog to
+[[http://octopress.org][Octopress]]. Octopress it a really slick layer
+built on top of Jekyll that makes it even easier to start blogging with
+a static site generator.
+
+I've made a few /very/ small modifications. If you would like to see
+them, then you can look at my source here:
+
+-  [[https://github.com/tompurl/octopress][tompurl/octopress]]

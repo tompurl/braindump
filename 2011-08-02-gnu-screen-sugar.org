@@ -1,0 +1,12 @@
+Title: GNU Screen Sugar Tags: /Cough/Plug/Cough/,bash,linux,screen,unix
+Category: Software Comments: true
+
+I don't usually advertise [[http://github.com/tompurl][my Github
+projects]] on this blog, but I thought that this one might actually be
+kinda useful to you if you like
+[[http://en.wikipedia.org/wiki/GNU_Screen][GNU Screen]]: -
+[[https://github.com/tompurl/scrugar][tompurl/Scrugar]]
+
+Basically, it's a couple of functions and aliases that I use to make it
+easier to use Screen. A few of my friends have found them to be pretty
+useful, so I decided to share them.

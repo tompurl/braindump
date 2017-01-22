@@ -1,0 +1,27 @@
+#+TITLE: Standalone Puppet For Mere Mortals
+
+#+DATE: 2013-12-28 21:00
+
+* Outline
+
+How I learned to use a server-free version of Puppet to simplify system
+administration significantly.
+
+Some points:
+
+-  I always wanted to use puppet, but I didn't want to set up a puppet
+   server.
+-  My process for building a new server or laptop was error-prone, long
+   and tedious.
+
+* Content
+
+I was recently setting up a new
+[[https://en.wikipedia.org/wiki/Virtual_private_server][VPS]] and
+thought that it would be great if I could configure everything using
+Puppet\_. I've used Puppet a little bit\_ to set up Vagrant VM's, but
+I've never actually used it to set up a laptop or a VPS because I never
+had the time or inclination to set up a puppetmaster server.
+
+#+BEGIN_QUOTE
+#+END_QUOTE

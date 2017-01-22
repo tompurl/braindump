@@ -1,0 +1,76 @@
+Title: Tab Sweep - 5/18/11 tags:
+11.04,filenet,flexpaper,ibm,p8,plomino,plone,shopify,torqueox Category:
+Tab Sweep Comments: true
+
+-  [[http://qik.com/video/1009098][Career 2.0 at the Minneapolis Java
+   User Group | Eagan, USA | By Jared Richardson (jaredr)]]
+
+   -  I really liked this guys
+      [[http://agileartisans.com/main/blog/198][article]] in the latest
+      PragPub magazine, so I poked around a bit and also found this
+      presentation. It is *highly recommended*if you hope to make any
+      sort of career out of technology.
+
+-  More great [[http://torquebox.org/][Torquebox]] tutorials. I can't
+   wait until I'm done with my Java perf personal development project so
+   I can play around with this a bit.
+
+   -  [[https://github.com/bbrowning/beer_tweets][bbrowning/beer\_tweets
+      -- GitHub]]
+   -  [[http://torquebox.org/news/2011/05/11/simplify-your-deployment][TorqueBox:
+      Using TorqueBox to Simplify Application Deployment]]
+
+-  [[http://www-01.ibm.com/software/support/isa/download.html][IBM
+   Software Support - Which IBM Support Assistant download is right for
+   me?]]
+
+   -  I just found out about this tool for one of our IBM reps, and it
+      really is amazing. If you support *any* type of IBM software,
+      including
+      [[http://www-01.ibm.com/software/data/content-management/][FileNet]],
+      then I *highly*recommend that you install this application
+      immediately.
+
+-  [[https://sermoa.wordpress.com/2011/05/17/build-and-launch-a-web-shop-in-a-day][Build
+   and launch a web shop in a day « a little place of calm]]
+
+   -  My wife and I just helped a friend update her web site so that she
+      could take web orders, so this was interesting to me. I can really
+      see how [[http://www.shopify.com/][Shopify]] would be very helpful
+      to a lot of small businesses.
+
+-  [[http://stackoverflow.com/questions/5926809/document-management-using-plone4][wiki
+   - Document management using Plone4 - Stack Overflow]]
+
+   -  I used to run a small web design business that specialized in
+      [[http://plone.org/][Plone]]-based web sites. I haven't done much
+      with it in a while, but since then I have become FileNet P8
+      administrator. After reading this article, I was surprised to see
+      much Plone has improved and how easy it is to implement a fairly
+      decent document management system on top of it using FOSS tools.
+      Here are some of the relevant links:
+   -  [[http://flexpaper.devaldi.com/demo][FlexPaper - Examples]]
+   -  [[http://www.plomino.net/][Plomino, a powerful and flexible
+      web-based application builder --- plomino]]
+
+-  [[https://github.com/cowboyd/jenkins.rb/blob/ruby-plugin-development/features/plugins/create-new-plugin.feature][cowboyd
+   / jenkins.rb]]
+
+   -  I don't think that I will have time to help with this project, but
+      this looks like a good way to learn about the basics of cucumber.
+
+-  [[http://www.npr.org/blogs/money/2011/05/14/136279162/an-internet-rock-star-tells-all?ft=1&f=93559255][An
+   Internet Rock Star Tells All : Planet Money : NPR]]
+
+   -  Cool little article about the guy who wrote the “Code Monkey”
+      song. It's hard to believe how much the music business has changed
+      in 10 years.
+
+-  [[https://groups.google.com/forum/#!topic/xmind/vSutx_eFwlQ][Run
+   XMind in Ubuntu 11.04, Natty Narwhale - Google Groups]]
+
+   -  If you upgraded to Ubuntu 11.04 and you use Xmind, then this will
+      fix your menu bar.
+
+Posted from [[http://www.diigo.com/][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

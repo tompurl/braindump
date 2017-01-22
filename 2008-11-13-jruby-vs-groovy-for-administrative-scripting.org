@@ -1,0 +1,176 @@
+Title: Jruby vs. Groovy For Administrative Scripting Tags:
+administration,groovy,java,jruby,scripting Category: Review Comments:
+true
+
+*Update (8/8/09):*When I was originally comparing Jruby & Groovy, I was
+under the impression that Jruby was a beta-quality product, and its
+cryptic error messages seemed to prove this point.  After a bit more
+research, I learned that Jruby is a robust and high-quality Ruby
+implementation and that *all* dynamic languages can give you cryptic
+errors on occasion.  Many thanks to the knowledgeable Jruby and Groovy
+developers who set me straight.
+
+*** Background
+
+I'm a middleware systems administrator for a living, and I often find
+that I need to write a script that has to interact with proprietary Java
+libraries. In the past, this meant writing a small Java program that
+would use the proprietary libraries, and then wrapping that program in a
+small shell script.
+
+This process was OK, but it did have its warts. For example, Java is a
+fairly verbose language. Going through all of the syntactic hoops just
+to write a simple program can be tedious.
+
+A little over a year ago, I then discovered Groovy and Jruby. Both
+languages were very elegant, and I could see how they could both boost
+my scripting productivity dramatically. I therefore compared both
+languages for my scripting tasks, and, in the end, I determined that
+Groovy was just a better language. Here's part of my rationale:
+
+-  *A More Stable Interpreter* - Jruby would often give extremely
+   cryptic errors when you made a mistake, while Groovy did a much
+   better job of pointing out any problems.
+-  *A Compiler* - At the time, Groovy had a compiler (groovyc) that use
+   could use to compile your scripts into bytecode. This tool made it
+   much easier for me to deploy Groovy code in my environment. Jruby has
+   since introduced a similar tool, but it didn't exist during my
+   initial evaluation.
+
+Now I'm on a new project, and we need to write a bunch of administrative
+scripts in a hurry. We have the same requirements as my old project, but
+just before I could dive into my Groovy interpreter, I found out that a
+lot of the Java developers on my team were ga-ga for Ruby. I therefore
+decided that it would be nice to evaluate both languages again, one year
+later. If Jruby is nearly as stable as Groovy for my needs, then it
+might be a good idea to start writing my scripts with it.
+
+*** Evaluation
+
+Before I could start my evaluation, I thought it might be a good idea to
+re-acquaint myself with Ruby. I read "Everyday Scripting With Ruby" a
+little over six months ago and thought that it was an excellent tutorial
+on both Ruby /and/ agile scripting. I therefore decided to try running
+some of the examples in that book with Jruby to bring myself back
+up-to-speed. In "Everyday Scripting With Ruby", the first chapter
+encourages you to enter invalid code into *irb*, which is the Ruby
+interactive interpreter. This exercise shows you how to read the error
+messages returned by irb. Here's the line of code:
+
+#+BEGIN_EXAMPLE
+     100 -= 43
+#+END_EXAMPLE
+
+And here's what the latest-and-greatest (1.1.5) version of *jirb*
+(Jruby's version of irb) returns when you enter that:
+
+#+BEGIN_EXAMPLE
+     irb(main):001:0> 100 -= 43
+     SyntaxError: (irb):2: , unexpected tOP_ASGN
+
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/workspace.rb:81:in `irb_binding'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/workspace.rb:53:in `eval'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/workspace.rb:81:in `evaluate'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/context.rb:219:in `evaluate'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:150:in `eval_input'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:259:in `signal_status'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:147:in `eval_input'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:244:in `each_top_level_statement'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:230:in `loop'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:230:in `each_top_level_statement'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:229:in `catch'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:229:in `each_top_level_statement'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:146:in `eval_input'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:70:in `start'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:69:in `catch'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:69:in `start'
+             from E:\apps\jruby-1.1.5\bin\jirb:19Maybe IRB bug!!
+#+END_EXAMPLE
+
+Yikes. I've been reading Java stack traces for seven years, but I really
+have no idea what this error message is telling me. If I honestly
+thought that line of code should work, or was tired and trying to meet a
+deadline, this stack trace would be anything but helpful to me. Just to
+compare things a bit, I tried to same line of code in the 1.5.6 version
+of *groovysh*, which is the interactive interpreter for Groovy:
+
+#+BEGIN_EXAMPLE
+     groovy:000> 100 -= 43
+     ERROR org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed, groovysh_evaluate: 2:
+     [100] is a constant expression, but it should be a variable expression at line:
+     2 column: 5. File: groovysh_evaluate @ line 2, column 5.
+     1 error
+#+END_EXAMPLE
+
+Ok, still a little confusing, but much easier to follow. Basically, it's
+telling me that "100" should be a variable of some type instead of a
+literal. That makes sense. I thought this might be an anomaly, and I
+wanted to give Jruby another shot, so I tried executing the next
+"broken" line of code from the book in both jirb and groovysh: (1 + 3) *
+2 + 1)
+
+First, let's try it in Jruby: irb(main):002:0> (1 + 3) * 2 + 1)
+SyntaxError: (irb):3: , unexpected tRPAREN
+
+#+BEGIN_EXAMPLE
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/workspace.rb:81:in `irb_binding'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/workspace.rb:53:in `eval'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/workspace.rb:81:in `evaluate'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/context.rb:219:in `evaluate'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:150:in `eval_input'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:259:in `signal_status'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:147:in `eval_input'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:244:in `each_top_level_statement'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:230:in `loop'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:230:in `each_top_level_statement'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:229:in `catch'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb/ruby-lex.rb:229:in `each_top_level_statement'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:146:in `eval_input'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:70:in `start'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:69:in `catch'
+             from E:/apps/jruby-1.1.5/lib/ruby/1.8/irb.rb:69:in `start'
+             from E:\apps\jruby-1.1.5\bin\jirb:19Maybe IRB bug!!
+#+END_EXAMPLE
+
+Ok, again, this is complete giberish. What the heck's a tRPAREN? Ok, now
+let's try it using groovysh:
+
+#+BEGIN_EXAMPLE
+     groovy:000> (1 + 3) * 2 + 1)
+     ERROR org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed,
+     groovysh_parse: 1: unexpected token: ) @ line 1, column 16.
+         (1 + 3) * 2 + 1)
+                        ^
+#+END_EXAMPLE
+
+Ok, this is /exactly/ what I hoped to see. A nice, clear message telling
+me what I forgot and what it is associated with.
+
+*** Shortest. Evaluation. Ever
+
+You may not be saying that this is a weird way to evaluate a language.
+Well, it wasn't my plan to evaluate Jruby by looking at its error
+messages, but it was all that I guess I needed. Here's why error message
+quality is important to me:
+
+1. Based on my experiences with numerous up-and-coming scripting
+   languages, the quality of the error messages is proportional to the
+   quality of the interpreter. If this assumption is true in this case,
+   then the Groovy interpreter still appears to be more mature than the
+   Jruby interpreter.
+2. Other programmers won't know what to do when they see one of the
+   Jruby stack traces. Even if I was able to train myself to read the
+   Jruby stack traces, I doubt that my co-workers would have the time or
+   inclination to follow suit.
+
+So, once again, when it comes to my unusual needs, Groovy wins the
+battle of stability and ease-of-use. Before I end this, however, I would
+like to say a few good things about Jruby so that I don't appear to be
+partisan:
+
+-  I'm really happy that Jruby finally has a tool that will compile your
+   .rb files into .class files. This will make it much easier for me to
+   deploy Jruby applications in my environment some day.
+-  Jruby seems to be improving at a rapid pace, and it has a lot of
+   support from companies such as Sun. I think that it will be stable
+   enough for my needs within a year or so.

@@ -1,0 +1,37 @@
+Title: Notes On Installing Ubuntu 9.04 And Easy Peasy 1.5 Tags:
+compiz,easy-peasy,ffmpeg,linux,mythtv,ubuntu Category: Review Comments:
+true
+
+It's unlike me to upgrade my systems very often since it can take so
+much time, but I was moved recently to upgrade both my "server" (to
+[[http://www.ubuntu.com/][Ubuntu]] 9.04) and my EEE PC 900 (to
+[[http://www.geteasypeasy.org/][Easy Peasy]] 1.5). In general, I'm very
+impressed with how much better Linux-on-the-desktop gets every 6 months,
+and I look forward to at least another 8 years as a happy desktop Linux
+user. One of the great things about Ubuntu is that it really is just
+painless to set up some pretty sophisticated servers. For example, I use
+my Ubuntu server to record television shows using
+[[http://www.mythtv.org/][MythTv]], which can be /very/ difficult to
+install. However, using the Ubuntu packages, I was able to get my system
+up-and-running in less than 10 minutes. I do have one very small
+criticism of Ubuntu, and it's that they keep making it harder and harder
+to install [[http://ffmpeg.org/][ffmpeg]] from source. The "stock"
+version of ffmpeg that comes with Ubuntu can't do a lot of cool things
+like convert videos to the
+[[http://en.wikipedia.org/wiki/H.264/MPEG-4_AVC][H264]] format, so one
+of the first things that I usually do after installing Ubuntu is compile
+a more robust version of that application. Well, the process I used to
+compile it in 8.04 definitely did /not/ work with 9.04 for some strange
+reason. Thank goodness that I found
+[[http://ubuntuforums.org/showthread.php?t=786095][this tutorial]],
+which made things very simple. One really great thing about the 1.5
+version of Easy Peasy is that I can now use some
+[[http://www.compiz-fusion.org/][Compiz]] effects with my EEE PC 900.
+Previous versions of Easy Peasy didn't even allow me to turn Compiz on.
+Hooray for tons tap-dancing sprites on my screen! Here are some of the
+resources that I used to set up my Ubuntu 9.04 and Easy Peasy 1.5
+systems. Maybe someone else will find them to be useful: -
+[[http://ubuntuforums.org/showthread.php?t=786095][Installing ffmpeg
+from source]] -
+[[http://www.ubuntugeek.com/nfs-server-and-client-configuration-in-ubuntu.html][NFS
+Server & Client HOWTO]]

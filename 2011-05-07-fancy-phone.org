@@ -1,0 +1,148 @@
+Title: Fancy Phone Tags:
+android,fring,lg,optimusv,phone,skype,virgin-mobile Category: Review
+Comments: true
+
+I recently purchased a prepaid [[http://www.virginmobileusa.com/][Virgin
+Mobile]] smart phone, the
+[[http://www.virginmobileusa.com/cell-phones/lg-optimus-v-phone.jsp][LG
+Optimus V]]. Since this is my first smart phone and my first LG phone, I
+thought that I would share my impressions with anyone else who is
+looking for a relatively inexpensive Android-powered phone. Man that is
+a dry introduction. I had a much more verbose introduction that talked
+about my experiences and requirements and such, but I figured that I
+should avoid writing four paragraphs about stuff that doesn't matter to
+anyone who is looking for a phone review :) ## On The LG Optimus V
+
+Please note that this is my first smart phone, so *any* phone that does
+more than call people and tell time is pretty amazing to me. Having said
+that, this seems to be a fairly well-designed phone. Here's what I like:
+- *Light* - It amazes me that this thing can be so powerful and yet you
+barely notice it when it is in your hand. - *Music Playing* - Not a lot
+of phones are well-designed to play music, but this one does a pretty
+decent job. For example, it has a volume rocker on the side, and a
+standard headphone jack. These may sound like standard features, but not
+all phones are designed this sanely. - *Expandable Storage* - You can
+plug in a micro SD card, and the maximum storage size is 32 GB. That
+leaves a lot of room for future additions.
+
+I can't really find anything that I dislike about this phone, but there
+is one small annoyance. After buying this phone, I realized that it used
+the *ARM v6* processor, *not* the *ARM v7* processor. What does this
+mean? Well, so far it means that I can't install Flash or Firefox.
+However, I can't really say that I have missed either of these
+applications. Also, the processor doesn't ever really feel slow. ## On
+Android
+
+I gotta admit that I am *very* impressed with the 2.2 version of
+Android. It feels very smooth and well-polished, and I haven't really
+found anything that it can't do that I really need. Here are some of the
+things that I really like about the version of Android on this phone: -
+*Portable WIFI Hotspot* - That's right. Out-of-the-box, this thing can
+be a portable "MIFI" hotspot. You just need to install the *free*
+[[https://market.android.com/details?id=com.bwx.bequick][Quick
+Settings]] (which is very useful for a bunch of other things too). Once
+you've done that, just "unhide" the *WIFI Hot Spot*, and you're done.
+Then it's simply a matter of setting it up, which takes all of 2
+minutes. - *Linux Compatibility* - Believe it or not, when I plugged
+this phone into my Ubuntu-powered netbook, two amazing things happened.
+First, *my netbook recognized the device properly*. Next, *the phone
+recognized my computer*. This has *not* been my experience with other
+gadgets, and it's a breath of fresh air. - *App Store* - I've heard a
+few negative things about the Android App Store, but so far, it's really
+been very useful. I've found and installed a bunch of terribly useful
+apps, and only one of those apps actually cost money, and it was only
+$0.99. - *Google Integration* - I know this is only a "pro" if you like
+using Google apps, but I do. I use a bunch of Google apps regularly, so
+I love that they all work so well with my phone.
+
+The only gripe that I have so far about Android is that it *doesn't
+support bluetooth keyboards*. I would really love to do a few things on
+my phone that require a bunch of typing, so it would be nice to use a
+keyboard on occasion. ## On Virgin Mobile
+
+I only have two requirements for a cell phone company; - Make it easy to
+activate and cancel my phone - Don't gouge me on usage
+
+So far, Virgin Mobile has done a great job of satisfying both of these
+requirements. I spoke to three different people to set up my phone (my
+fault, not theirs), and everyone I spoke to was *great*. Also, I have a
+300 minute plan with
+"[[http://www.virginmobileusa.com/cell-phone-plans/beyond-talk-plans.jsp][unlimited]]"
+data access *and texting* for *$25 a month*. To me, this is a
+*fantastic* deal, because I don't talk on my cell phone very much. Also,
+if I use Skype or Fring when I'm at home on my WIFI network, then I
+don't have to touch those minutes. The only thing that I *don't* like
+about my Virgin Mobile service so far is that they seem to be *blocking
+the IMAP an SMTP ports for Gmail*. This basically means that I can't use
+a fat-client e-mail reader such as
+[[https://market.android.com/details?id=com.fsck.k9&hl=en][K-9 Mail]].
+This isn't a /huge/ deal, since I can still use the Gmail app to read my
+Gmail account and the Yahoo! mail app to read my other mail. It would
+just be nice to be able to use something like K-9 Mail so I could manage
+all of my mail from one more robust application. ## On VOIP And
+Activation
+
+One nice thing about this phone is that you don't even have to activate
+it. One of my friends actually did just that. He bought it at Wal-Mart
+and used it as a [[http://www.fring.com/][Fring]] phone for a couple of
+months. Granted, he could only use it on a WIFI network, but he mostly
+works from home so this was not an issue. I also use this phone heavily
+as a Fring phone when I'm at home, and it does the job pretty well. It's
+not perfect, but it's cheap and it works pretty well most of the time. I
+also use it with Skype, but the Skype client is so bad that it only
+works about 35% of the time for me. One caveat that you should consider
+however is that you *cannot use Skype over the 3G network*. By that, I
+mean that *you can only use Skype on a WIFI network*. If you spend lots
+of time working from home or in places like coffee shops and airports,
+then this restriction may not be a very big deal to you. Please also
+note that Fring does *not* have this restriction. ## Favorite Apps
+
+The Android app market is a bit of a mess, but there are a *lot* of very
+well-done applications that are available. Here are a couple that I
+already love: -
+[[https://market.android.com/details?id=com.thedeck.android.app&feature=search_result][TweetDeck]]
+- The Android client is *far superior* to the Adobe Air-based desktop
+client. This app actually does such a good job managing my Facebook and
+Twitter feeds that I haven't installed either the Facebook or Twitter
+Android apps yet. -
+[[https://market.android.com/details?id=com.android.keepass&feature=search_result][KeePassDroid]]
+-
+[[https://market.android.com/details?id=com.pelletiere.android.reallysimpletimer&feature=search_result][Yata]]
+- Yet Another Timer App. -
+[[https://market.android.com/details?id=com.dropbox.android&feature=search_result][Dropbox]]
+- Dropbox makes it possible for me to do *tons* of cool stuff, including
+managing podcasts and syncing my Keepass database. -
+[[https://market.android.com/details?id=org.connectbot&feature=search_result][ConnectBot]]
+- There's something very cool about being able to log into my home web
+server from a phone. -
+[[https://market.android.com/details?id=org.openintents.filemanager&feature=search_result][OI
+File Manager]] - It's amazing to me that an OS in 2011 doesn't come with
+some sort of file and folder explorer. Thankfully, OI is free,
+full-featured, and it works seamlessly with every 3rd-party app that I
+have used that needs a file explorer. -
+[[https://market.android.com/details?id=com.latedroid.juicedefender&feature=search_result][Juice
+Defender - Battery Saver]] - I was amazed by how effective this app was.
+It has easily doubled my battery life. -
+[[https://market.android.com/details?id=com.wyse.pocketcloudfree&feature=search_result][Wyse
+PocketCloud RDP/VNC]] - I use both RDP and VNC on my home network, so
+it's great to be able to check up on machines from my phone. -
+[[https://market.android.com/details?id=org.geometerplus.zlibrary.ui.android&feature=search_result][FBReader]]
+- I don't recommend doing much book or magazine reading from your phone,
+but if you need to, then this free e-book reader works very well. -
+[[https://market.android.com/details?id=jp.sblo.pandora.jota&feature=search_result][Jota
+Text Editor]] - This is the best text editor that I've found for
+Android, and it's free, robust and updated often. -
+[[https://market.android.com/details?id=com.tunewiki.lyricplayer.android&feature=search_result][TuneWiki]]
+- This is a great little MP3 player, and it's much better than the
+default. -
+[[https://market.android.com/details?id=com.google.android.apps.reader&feature=search_result][Google
+Reader]] - If you are a heavy RSS feed user, then this is a great app,
+and it syncs seamlessly with your online
+[[http://reader.google.com/][Google Reader]] account.
+
+** Conclusion
+
+I'm *very* happy with the phone after two weeks, and I love the freedom
+that it gives me. If you like prepaid plans and don't need to absolute
+best phone available, then the Optimus V on Virgin Mobile's network is a
+great option.

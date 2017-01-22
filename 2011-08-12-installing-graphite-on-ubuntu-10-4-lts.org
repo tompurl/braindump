@@ -1,0 +1,422 @@
+Title: Installing Graphite On Ubuntu 10.4 LTS Tags: apm,graphite,ubuntu
+Category: Tutorial Comments: true
+
+*11/17/12 Update* - If you're looking for an easier way to get started
+with Graphite, then you may want to take a look at my
+[[/2012/11/15/introducing-wideload/][Wideload VirtualBox VM]].
+
+--------------
+
+*10/27/11 Update* - The instructions below work with version 0.9.8 of
+Graphite. A new version (0.9.9) has been released that requires a few
+more steps. I haven't had time to test out the new version myself yet,
+but I've been told that
+[[http://geek.michaelgrace.org/2011/09/how-to-install-graphite-on-ubuntu/comment-page-1/][the
+following tutorial]] does a good job of showing you how to install the
+latest version.
+
+--------------
+
+This tutorial shows you how I installed Graphite, a fantastic tool for
+for visualizing time-series data, on an Ubuntu 10.4 LTS system. The
+process is split up into 4 steps:
+
+-  Installing and testing Graphite and Carbon in “dev” mode
+-  Integrating Graphite with Apache
+-  Making Carbon a managed service
+-  Password-protecting your Graphite site
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+** Installing In Dev Mode
+
+By “dev” mode, I mean that we're going to install, run and test Graphite
+and Carbon in a “quick-and-dirty” way. You will run all services using
+your personal account and you won't integrate it with a web server
+(yet). So why am I doing this? Well, usually it takes less time to set
+up an app this way, which saves me time when evaluating new software.
+Also, I find that you learn a little more about the “guts” of a new
+application when you start this way. Of course, once you have evaluated
+Graphite and decided to install it on a separate system, you should skip
+the “Dev Mode” step and just install it as managed service (which I
+explain later).
+
+*** Installation
+
+First, let's install everything that we can using apt-get:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install bzr python-cairo python-django
+#+END_EXAMPLE
+
+The bzr program will be used to download the Graphite source files. The
+other packages will support Graphite at runtime. Next downloaded the
+source and compile *Graphite*:
+
+#+BEGIN_EXAMPLE
+    $ cd ~/src
+    $ bzr branch lp:graphite
+    $ cd graphite
+    $ python ./setup.py build
+    $ sudo python ./setup.py install
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+  *Note*: The last step will install the executables under
+  /opt/graphite.
+#+END_QUOTE
+
+Next, we'll install *Whisper*, the custom database that Graphite uses: $
+cd ~/src/graphite/whisper $ python ./setup.py build $ sudo python
+./setup.py install
+
+Finally, let's install *Carbon*. Carbon is a agent that listens for
+readings and writes them to the Whisper databases:
+
+#+BEGIN_EXAMPLE
+    $ cd ~/src/graphite/carbon
+    $ python ./setup.py build
+    $ sudo python ./setup.py install
+#+END_EXAMPLE
+
+Now let's configure Carbon:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt/graphite/conf
+    $ sudo cp carbon.conf.example carbon.conf
+    $ sudo cp storage-schemas.conf.example storage-schemas.conf
+#+END_EXAMPLE
+
+Please note that you will probably want to reconfigure the
+storage-schemas.conf file soon. We are using the defaults now because we
+just want to get a base system up-and-running.
+
+Now, since we're still in “dev” mode, let's make our experience a little
+bit nicer by making your regular user account the owner of the
+/opt/graphite folder. This will make it easier for you to do things like
+change config options and restart services. Don't worry -- eventually
+we're going to fix this:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt
+    $ sudo chown -R myid:myid graphite
+#+END_EXAMPLE
+
+Of course, you would replce the *myid* value with *your login name*. Now
+we are ready to initialize the Whisper database. Execute the following
+command:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt/graphite
+    $ PYTHONPATH=`pwd`/webapp:`pwd`/whisper python ./webapp/graphite/manage.py syncdb
+#+END_EXAMPLE
+
+That last command will generate your initial databases /and/ prompt you
+to create *Django user*. This user account will allow you to log into
+Graphite, and it is a web application user that is managed by the Django
+library. I recommend creating the user, especially if you are not very
+familiar with Django as a framework.
+
+#+BEGIN_QUOTE
+  *Note*: Like most Django apps, you can manage this user and add others
+  later by visiting [[http://your-graphite-url:8080/admin]]
+#+END_QUOTE
+
+OK, There's one more configuration step that you need to run. Execute
+the following:
+
+#+BEGIN_EXAMPLE
+    $ echo DEBUG = True > /opt/graphite/webapp/graphite/local_settings.py
+#+END_EXAMPLE
+
+*** Testing
+
+Now for the fun part. Let's fire up the web UI:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt/graphite
+    $ PYTHONPATH=`pwd`/whisper ./bin/run-graphite-devel-server.py --libs=`pwd`/webapp/ /opt/graphite/
+#+END_EXAMPLE
+
+You should now be able to visit =http://localhost:8080= and see a very
+nice web application. If you're hosting this application on a VM or
+separate machine, then simple replace “localhost” with the IP address of
+that machine. The web app should now be running, but there's not really
+any data yet. To do that, we need to do the following:
+
+1. Start carbon, which listens for data and writes it to the whisper
+   databases
+2. Start feeding it some data using using a test client.
+
+Number 1 is pretty easy:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt/graphite
+    $ PYTHONPATH=`pwd`/whisper ./carbon/bin/carbon-cache.py --debug start
+#+END_EXAMPLE
+
+Now that your web app and data collection daemon are running, let's
+start feeding it some data:
+
+#+BEGIN_EXAMPLE
+    $ ~/src/graphite/examples/example-client.py
+#+END_EXAMPLE
+
+This script will write create the following monitors in Graphite:
+
+-  Graphite -> system -> loadavg\_15min
+-  Graphite -> system -> loadavg\_1min
+-  Graphite -> system -> loadavg\_5min
+
+Clicking on a monitor shows its values in the graph. Clicking on the
+same monitor again deselects it.
+
+#+BEGIN_QUOTE
+  *Note*: If you're not seeing any data immediately, don't worry. Check
+  it again in 5 minutes.
+#+END_QUOTE
+
+The example client writes data to Graphite once per minute, so you
+should start seeing results soon.
+
+** Integrating With Apache
+
+Now that you know that Graphite and Carbon work, let's make them both
+managed services. By that, I mean that I don't want to have to start any
+daemons manually when I restart my system. Carbon and Graphite should
+just work. Also, Graphite will perform much better once it is hosted on
+an Apache instance.
+
+*** Configuration
+
+First, let's install the dependencies:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install apache2 libapache2-mod-wsgi
+#+END_EXAMPLE
+
+We're going to run our Graphite instance as a virtual host. The
+preferred way of doing this on Debian-based Linux distributions (like
+Ubuntu) is to create a vhost file and then enable it using the Debian
+Apache helpers. Lucky for us, there's an example vhost file called
+=~/src/graphite/examples/example-graphite-vhost.conf=.
+
+Execute the following commands:
+
+#+BEGIN_EXAMPLE
+    $ cd ~/src/graphite/examples
+    $ cp example-graphite-vhost.conf graphite-vhost.conf
+#+END_EXAMPLE
+
+Now make the following changes:
+
+-  Comment out the *WSGISocketPrefix* line. This value will be set in a
+   different config file.
+-  Change the *@DJANGO\_ROOT@* value to
+   */usr/lib/pymodules/python2.6/django*.
+-  If you don't know what value to use with your *ServerName* property,
+   then just leave it as *graphite*.
+
+Save your graphite-vhost.conf file and then deploy it using the
+following commands:
+
+#+BEGIN_EXAMPLE
+    $ sudo cp graphite-vhost.conf /etc/apache2/sites-available
+    $ sudo a2ensite graphite-vhost.conf
+#+END_EXAMPLE
+
+That last command creates a symlink to your graphite-vhost.conf file in
+/etc/apache2/sites-enabled and then tells you if you need to restart
+Apache or simply reload it. Now let's take care of setting the
+WSGISocketPrefix value:
+
+-  Open the =/etc/apache2/mods-available/wsgi.conf= file using your
+   favorite text editor.
+-  Uncomment the WSGISocketPrefix line an leave the default value.
+
+One last thing before we reload Apache. The =/opt/graphite= directory is
+still owned by your id. You need to change everything so that is owned
+by the www-data user, which is the Apache user on Debian-based systems:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt
+    $ sudo chown -R www-data:www-data graphite
+#+END_EXAMPLE
+
+Now you can finally reload Apache using the following command:
+
+#+BEGIN_EXAMPLE
+    $ sudo /etc/init.d/apache reload
+#+END_EXAMPLE
+
+*** Testing (And A Short ServerName Tutorial)
+
+Now you should be able to visit your Graphite site using a URL that
+looks something like this:
+
+-  [[http://servername/][http://ServerName]]
+
+If you know how the *ServerName* property in an Apache virtual host file
+works, then you will have no problem visiting the site, and you can jump
+to the next section. The rest of this section is for everyone else :)
+
+If you *don't* know how this property works, then you may try to test
+the Graphite site by visiting one of the following URL's:
+
+-  [[http://graphite.ip.address/][http://graphite.ip.address]] # <=
+   Takes you to the default Apache “it works” page
+-  [[http://graphite.ip.address/graphite]] <= 404
+
+So why can't you see your Graphite site? Apache cares about lots of
+things in your request header, but the following 3 are especially
+important:
+
+-  The desired server IP address
+-  The desired port
+-  The ServerName value
+
+It uses these three values to determine which vhost it will invoke for a
+request. Your request has parts one and two, but part three is simply
+*graphite.ip.address*. Your request will therefore be handled by the
+default vhost in Ubuntu, which displays the “it works” page. So we need
+to find a way to add the string *graphite* to our request header. The
+easiest way to do this is actually make the URL
+[[http://graphite/][http://graphite]] point at our Graphite server.
+Here's how you can do that:
+
+1. Open up your hosts file *on your client running the web browser*
+2. Add the word “graphite” as an alias for the machine hosting Graphite
+
+So, for example, let's assume that you're hosting Graphite on a machine
+that has IP address of 10.0.0.100, and let's assume that this machine
+already has an alias of “web”. Here's what your host file looks like
+*before* the change:
+
+#+BEGIN_EXAMPLE
+    10.0.0.100  web
+#+END_EXAMPLE
+
+And here's what it should look like after the change:
+
+#+BEGIN_EXAMPLE
+    10.0.0.100  web graphite
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+  *Note*: Remember, we're making these host file changes on the client,
+  NOT the server.
+#+END_QUOTE
+
+Now, when you visit *http://graphite*, you should see the proper web
+site.
+
+** Making Carbon A Managed Service
+
+Now that the web app is running so well, let's “fix” carbon so that we
+don't have to manually start it each time we reboot the server. Carbon
+doesn't come with an init script, so I've been using the following crude
+version:
+
+#+BEGIN_EXAMPLE
+    #! /bin/sh
+    # /etc/init.d/carbon
+
+    # Some things that run always
+    touch /var/lock/carbon
+
+    GRAPHITE_HOME=/opt/graphite
+    CARBON_USER=www-data
+
+    # Carry out specific functions when asked to by the system
+    case "$1" in
+        start)
+            echo "Starting script carbon "
+            su $CARBON_USER -c "cd $GRAPHITE_HOME"; su $CARBON_USR -c "$GRAPHITE_HOME/bin/carbon-cache.py start"
+            ;;
+        stop)
+            echo "Stopping script carbon"
+            su $CARBON_USER -c "cd $GRAPHITE_HOME"; su $CARBON_USR -c "$GRAPHITE_HOME/bin/carbon-cache.py stop"
+            ;;
+        *)
+            echo "Usage: /etc/init.d/carbon {start|stop}"
+            exit 1
+            ;;
+    esac
+
+    exit 0
+#+END_EXAMPLE
+
+Save this file as /etc/init.d/carbon, and then update rc.d using this
+command:
+
+#+BEGIN_EXAMPLE
+    $ sudo update-rc.d carbon defaults
+#+END_EXAMPLE
+
+That's it! You can now manage your carbon process using this script, and
+it will be automatically restarted when you reboot your machine.
+
+** Password-Protecting Your Graphite Site
+
+Let's take stock of where we are:
+
+-  You installed Graphite and Carbon
+-  You integrated Carbon with Apache
+-  You made Carbon a managed service
+
+You now have everything necessary to run a “real” Graphite instance. If
+you don't need anything else, then feel free to skip the rest of this
+tutorial. For my needs, however, I needed one more thing. I needed to
+host my Graphite site on the world wide web, and I didn't want just
+anyone poking in my system metrics. However, while Graphite may offer a
+*Login* link, it doesn't give you the option of setting up a login page
+that can block non-authenticated access to the site.
+
+Thankfully, there's an easy way around this limitation. Apache gives you
+the ability to block non-authenticated access to a web site using the
+built-in security options. We're going to manage security on our site
+using *Basic authentication*.
+
+To do this, you first need to change your graphite-vhost.conf file. Add
+the following lines to the bottom of your file, just above the ** line:
+
+#+BEGIN_EXAMPLE
+    # Set up .htaccess security so that I can protect the site online.
+    <Location "/">
+        AuthType Basic
+        AuthName "Under Construction"
+        AuthUserFile /opt/graphite/sec/.mypasswds
+        AuthGroupFile /opt/graphite/sec/.mygroups
+        Require group managers
+    </Location>
+#+END_EXAMPLE
+
+Next, let's create your *AuthUserFile* and your *AuthGroupFile*:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt/graphite
+    $ sudo mkdir sec
+    $ sudo chown -R www-data:www-data ./sec
+    $ sudo htpasswd -c ./sec/.mypasswds some_user_name
+    (enter a strong password)
+    $ echo 'managers: tom' | sudo tee -a ./sec/.mygroups
+    $ sudo chmod -R 600 ./sec
+    $ sudo /etc/init.d/apache reload
+#+END_EXAMPLE
+
+That's it! Now restart your browser, and you should see a dialog box
+asking you to log in when visit your Graphite site.
+
+#+BEGIN_QUOTE
+  ** Note**: This configuration is only good enough to keep out the
+  riff-raff. If you have more robust security needs, then you will want
+  to look into using SSL.
+#+END_QUOTE
+
+** Conclusion
+
+I hope that some people find this tutorial to be helpful. If you find
+any errors or you have any suggestions, then please feel free to point
+them out in the comments.

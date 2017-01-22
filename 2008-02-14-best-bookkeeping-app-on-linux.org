@@ -1,0 +1,147 @@
+Title: Best Bookkeeping App On Linux Tags:
+bookkeeping,finance,gnucash,jgnash,linux,moneydance,quicken,review,wasabe,wine
+Comments: true
+
+Well, it's a new year, and what's a new year without a "get your
+financial shtuff in order" resolution. Every year, I blame part of my
+bookkeeping incompetence on my favorite accounting app,
+[[http://gnucash.org][GnuCash]] , so I'm usually looking for something
+newer and better every January. So here's my options this year:
+
+** Choices
+
+*** GnuCash
+
+[[http://www.gnucash.org/][http://www.gnucash.org]] This is always what
+I come back to, so why even look, right?
+
+-  Advantages
+
+   -  FOSS!
+   -  The new 2.0 version is so much better than the previous 1.8
+      version from usability and stability perspectives.
+   -  Fairly robust and intuitive
+   -  The standard on Linux (did I mention that I'm a Linux user?)
+   -  Will probably be around forever, so I don't have to worry about
+      being forced to convert all of my historical financial data to a
+      new app any time soon.
+   -  New budgeting interface!
+   -  Tons of great reporting features
+   -  Reporting API using a variant of Lisp. Now if only I knew how to
+      program in Lisp :)
+
+-  Disadvantages
+
+   -  Can still be a little flaky at times
+   -  Only really installs easily on Linux. OS X and Windows users have
+      a much more difficult time.
+   -  Please note that you can install [[http://gnucash.org][GnuCash]]
+      on both Mac OS X and Windows. It's just hard to do. Also, the
+      Windows port of [[;][GnuCash]] is very new, and would be
+      considered alpha software in my opinion.
+   -  Since it's a "real" accounting app, it may be more than I need,
+      meaning that I sometimes have to deal with complexity that is
+      unnecessary for my needs.
+
+*** Quicken
+
+This only runs on Linux is I use Crossover or Wine, and apparently it
+doesn't run very well. The same thing is true with MS Money, so no
+thanks.
+
+*** Wesabe
+
+[[http://www.wesabe.com/][http://www.wesabe.com]] This is a online-only
+bookkeeping app with some cool folksonomy features and a slick, AJAX-y
+interface.
+
+-  Advantages
+
+   -  Seems very easy-to-use, especially when it comes to budgeting and
+      report-generating
+   -  There's a free version, but I don't know if that will work for me.
+   -  Multi-user: very easy for myself and my wife to use this app at
+      the same time.
+   -  Very collaborative, which is nice if you're fairly ignorant about
+      the world of personal finance.
+
+-  Disadvantages
+
+   -  Seems to force you to use a very non-intuitive interface (if
+      you're used to apps like Quickbooks or Quicken).
+   -  You can't add new transactions manually - you have to download a
+      qif file from your bank and upload it into Wesabe.
+   -  You can't use Expense accounts or categories in Wesabe, just
+      "tags". This, to me, is very non-intuitive.
+   -  I spend a lot of time on a train each day, and I can't use this
+      app offline, so that's a big disadvantage for me.
+   -  Very limited reporting functionality.
+   -  You can basically get three types of reports. This may be enough
+      for most people, but seems a bit limiting to me.
+
+*** Moneydance
+
+[[http://www.moneydance.com/][http://www.moneydance.com]] This is a
+Quicken-like bookkeeping app that isn't quite as bloated and can run on
+nearly any OS that supports Java.
+
+-  Advantages
+
+   -  Will pretty much run on any OS.
+   -  Fairly robust
+   -  Seems to have a plugin architecture that is compatible with Java
+      and Python. Nice!
+
+-  Disadvantages
+
+   -  Not free (bad), but inexpensive (good!)
+   -  The budgeting interface seems a bit overly-simplistic. I'm
+      hesitant to switch to a new bookkeeping app if this particular
+      feature doesn't really wow me.
+   -  How long will this non-FOSS app survive?
+   -  Please note that you can export all of your data to a qif format,
+      so it's fairly portable, even if [[;][MoneyDance]] were to fold
+      tomorrow.
+
+*** Jgnash
+
+[[http://jgnash.sourceforge.net/wiki/index.php]] This seems to be
+someone's copy of GnuCash, but with a simpler interface and written in
+Java.
+
+-  Advantages
+
+   -  FOSS!
+   -  Will pretty much run on any OS.
+   -  Beanshell scripting interface, which is incredibly cool
+   -  Stable and somewhat robust
+
+-  Disadvantages
+
+   -  No budgeting module, which really is a show-stopper for me
+   -  That's really it. This is definitely my second choice.
+
+** Conclusion
+
+In the end, you should choose a program that best compliments your
+bookkeeping process, not one that "just takes care of it automatically".
+The latter type of applications often impose a process on you that, more
+often than not, doesn't really "fit".
+
+Ideally, you should be able to fulfill your process completely using
+pencil and paper; your bookkeeping app should simply make your process
+more efficient. I'd love to therefore say that I have defined my
+bookkeeping process from A-Z and therefore can confidently choose one of
+the apps above, but my process is still a work-in-progress.
+
+So since I need to make a decision soon, I'll go with the app that
+imposes the fewest constraints on my process while still making me more
+efficient that I would be otherwise. For me, that app is still GnuCash,
+although jGnash comes in a close second.
+
+** Update - 7/21/09
+
+After trying to install the stable version of GnuCash for windows about
+20 times, I finally just switched over to jGnash 2.0 and haven't looked
+back. The interface has improved dramatically, and I find it to be much
+simpler and more stable than GnuCash.

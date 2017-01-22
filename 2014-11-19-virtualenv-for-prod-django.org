@@ -1,0 +1,123 @@
+#+TITLE: Is Using Virtualenv Really A Good Idea For Production Django
+Applications?
+
+#+DATE: 2014-11-19 21:00
+
+#+BEGIN_QUOTE
+  *note*
+
+  I am very new to Django and really like it, so I hope that people
+  don't misinterpret attempts at humor below as trolling. I am open to
+  all opinions and guidance :-)
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+  *note*
+
+  Also, I appreciate all of the feedback in the
+  [[http://redd.it/2muf67][Reddit thread]] on this post. Please see my
+  updates at the bottom that may clarify a few things.
+#+END_QUOTE
+
+I'm in the process of reading Two Scoops Of Django\_ and I'm noticing a
+Production deployment pattern that seems to be popular in the Django
+world. Basically, it seems that all of the Django-related libraries are
+installed in a =virtualenv= sandbox using =pip=. This is a little scary
+to me from an administrative perspective and to illustrate why I'll use
+a following scenario.
+
+Let's say that we have two companies, *risky.com* and *boring.com*.
+They're both running Django apps in production. "Risky" follows the best
+practice of installing Django in a virtualenv in Production and "Boring"
+installs all libraries using a Linux package manager like =yum= or
+=apt-get=.
+
+Now let's assume that one day a HUGE security bug is found in Django and
+some versions need to be patched in a hurry, and let's also assume that
+the Django mailing list notifies the world about this issue at 8:01 AM
+EST.
+
+So how would things be handled? At Boring, I would assume that the
+operations person (Betty) would be on the Django mailing list. After
+learning that Django needed to be patched while drinking her morning
+coffee, she would then analyze whether anything needs to be done before
+the Linux distribution releases the patch. Once a distribution-specific
+patch is released she runs the following commands on each server:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get update && sudo apt-get upgrade # Apply all security patches on Debian
+    $ sudo service uwsgi restart # or apache2 or gunicorn or whatever
+#+END_EXAMPLE
+
+Please note that this change is system-wide, so *all Django projects* on
+the sever would be patched simultaneously. Boring is hosting 10 projects
+on each server, but it's no big deal because this method requires the
+same amount of work regardless of the number projects per host. Please
+also note that Betty wouldn't necessarily need to install Django using a
+tool like =apt-get=. She could choose to install it with something like
+=pip= if she wanted and update it with a simple Chef or Puppet command.
+The key point is that *the Django library is installed at the host
+level, not a virtualenv level*.
+
+By lunch time, Betty has patched every sever with very little effort.
+
+Now I'm imagining the situation at Risky. Mailing lists are for old
+people, so the developers instead read Reddit when they're goofing off.
+One of the developers sees a post about a Django vulnerability before he
+leaves for lunch and notifies the development manager. He realizes that
+this is a huge deal and orders that all Django projects be patched
+immediately by Roger, the lead developer.
+
+Like Boring, Risky also is hosting 10 Django projects, so *each project*
+has to be cloned from the VCS by Roger. Roger then needs to determine if
+the version of Django used by that project is affected by the security
+bug. He then needs to update the =requirements.txt= file for each
+affected project, check in the change and then do whatever he has to do
+to *create a release* and *deploy it to the server*. Finally, he has to
+restart the app server on each app server.
+
+Maybe that process is highly automated, maybe it's a heckuva a lot of
+typing. Either way, I see a lot of opportunities for typos other
+human-based process defects.
+
+So what's the difference here?
+
+-  At Risky, these libraries are viewed as *code* because *the library
+   can't change without making a code change*, and that change *has to
+   come from a developer*.
+-  At Boring, these libraries are viewed as *infrastructure* because
+   library changes can be applied *without touching the code or
+   redeploying anything*. Also, these changes can be applied by someone
+   on an operations team in a way that is *completely transparent to the
+   developers*.
+
+So to me, hosting your Django library in a =virtualenv= seems to carry
+the following baggage:
+
+-  A potentially unique version of Django for every project hosted on a
+   server.
+-  Libraries == Code
+-  Your platform is maintained by your developers.
+
+Is this what you're doing at your company? If so, is it as bad as I
+think?
+
+* Update #1
+
+I got a lot of feedback pointing out that *testing* was not part of the
+scenario above. I do agree that you should test any library change
+thoroughly in a non-prod environment before you make the change in
+Production. I didn't include testing in the examples above for brevity's
+sake.
+
+Also, a couple of people were concerned that running =apt-get upgrade=
+would *upgrade the Django library* from one version to another (e.g. 1.6
+to 1.7). I don't know if this true with Red Hat, but it's *not actually
+possible* with Debian. The following Debian FAQ entry does a pretty good
+job explaining it:
+
+-  [[https://www.debian.org/security/faq#oldversion][Why are you
+   fiddling with an old version of that package?]]
+
+One of the nicest things about Debian is that applying security patches
+is a *very* low-risk change

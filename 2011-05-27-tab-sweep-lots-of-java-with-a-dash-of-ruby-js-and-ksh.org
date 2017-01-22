@@ -1,0 +1,66 @@
+Title: Tab Sweep - Lots of Java With A Dash Of Ruby, JS and KSH Tags:
+java,jrockit,jruby,ksh,shell-scripting,trinidad Category: Tab Sweep
+Comments: true
+
+-  [[http://www.engineyard.com/blog/2011/jruby-on-appcloud-available-through-beta-program][JRuby
+   on AppCloud Available Through Beta Program | Engine Yard Ruby on
+   Rails Blog]]
+
+   This is a very cool announcement, and I'm anxious to see how popular
+   this hosting options becomes.
+
+   tags: [[http://www.diigo.com/user/tepurl/jruby][jruby]]
+   [[http://www.diigo.com/user/tepurl/engineyard][engineyard]]
+   [[http://www.diigo.com/user/tepurl/ruby][ruby]]
+   [[http://www.diigo.com/user/tepurl/java][java]]
+   [[http://www.diigo.com/user/tepurl/hosting][hosting]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110525][tab-sweep-110525]]
+
+-  [[http://abrandoned.com/post/2867736684/jruby-1-6-rails-3-trinidad-awesometown][{
+   abrandoned.com } / JRuby 1.6 + Rails 3 + Trinidad => Awesometown]]
+
+   This is a great overview of why some people choose Jruby over Ruby,
+   and it includes a very good example case.
+
+   tags: [[http://www.diigo.com/user/tepurl/article][article]]
+   [[http://www.diigo.com/user/tepurl/to-read][to-read]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110525][tab-sweep-110525]]
+
+-  [[http://www.unix.com/shell-programming-scripting/22587-hide-password.html][Hide
+   Password - The UNIX and Linux Forums]]
+
+   This little tip was a real life-saver for me once. The power and
+   simplicity of the Korn shell never ceases to amaze me.
+
+   tags: [[http://www.diigo.com/user/tepurl/shell][shell]]
+   [[http://www.diigo.com/user/tepurl/scripting][scripting]]
+   [[http://www.diigo.com/user/tepurl/security][security]]
+   [[http://www.diigo.com/user/tepurl/korn][korn]]
+   [[http://www.diigo.com/user/tepurl/unix][unix]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110525][tab-sweep-110525]]
+
+-  [[http://bellard.org/jslinux][Javascript PC Emulator]]
+
+   This is just one of the coolest things I have seen in quite a while.
+   You can even run a C compiler and Emacs instance in the Window. Stuff
+   like this really makes you wonder what we'll be running in our
+   browsers in the near future.
+
+   tags: [[http://www.diigo.com/user/tepurl/linux][linux]]
+   [[http://www.diigo.com/user/tepurl/javascript][javascript]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110525][tab-sweep-110525]]
+
+-  [[http://blogs.oracle.com/henrik/entry/jrockit_is_now_free_and][JRockit
+   is Now Free (and Other Java License Updates) (Henrik on Java)]]
+
+   I'm not sure if this announcement is pertinent to most Java admins,
+   since the licensing terms are still a little foggy to me. However,
+   what I hope is that this change will give Jboss admins another
+   high-quaility JVM option.
+
+   tags: [[http://www.diigo.com/user/tepurl/java][java]]
+   [[http://www.diigo.com/user/tepurl/jrockit][jrockit]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110525][tab-sweep-110525]]
+
+Posted from [[http://www.diigo.com][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

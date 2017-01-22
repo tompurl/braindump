@@ -1,0 +1,167 @@
+Title: Running The Depot Application With Jruby Tags:
+agile-development-with-rails,jruby,rails Category: Tutorial Comments:
+true
+
+I completed the Depot application from the
+[[http://pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition][Agile
+Development With Rails]] book, and I feel that I have a good
+understanding of the basics of developing with Ruby on Rails. It's a
+great framework, and creating the *Depot* application was a fun and
+enlightening process. I thought that it might be equally enlightening to
+“port” the Depot application to [[http://jruby.org/][Jruby]] using the
+[[http://kenai.com/projects/jruby/pages/JRubyOnRails][Jruby On Rails]]
+libraries. I had two basic milestones in mind:
+
+1. *Development & Testing* -- I wanted to be able to develop and test my
+   application just like I did with CRuby, using tools such as =mongrel=
+   and =rake=.
+2. *J2EE Deployment* -- The most popular process for deploying a
+   Java-based application is to build a WAR file and then deploy it to a
+   Java application server such as Tomcat (which was my choice). I
+   wanted to be able to complete these steps with my RoR application.
+
+The entire process was surprisingly easy. The first milestone,
+*Development and Testing*, is covered in this article. The *J2EE
+Deployment* milestone will be covered in a
+[[http://tompurl.com/2010/03/25/running-depot-on-tomcat/][different blog
+article]].
+
+** Development & Testing
+
+Here are some simple steps that will have your application running with
+=mongrel= very quickly. *Please note* that I am executing the steps
+below on a netbook running Ubuntu 9.10. These commands should work on
+most Linux distributions, however. Also, they should work with a few
+small adjustments on a Windows machine.
+
+*** Prepping Your Project Directory
+
+First, you're not going to want to make these changes to your original
+version of the Depot code. You will probably want to create a copy of it
+that is designed to work with Jruby. Here's how I did it on my machine:
+
+#+BEGIN_EXAMPLE
+    $ cd /home/tom/Dev/ruby
+    $ cp -r depot depot-jruby
+#+END_EXAMPLE
+
+The location of your =depot= folder will probably be different on your
+machine, but I'm sure that you can make the necessary adjustments :)
+Also, please note that it is a good idea to “freeze” your rails version
+now if you have not done so already. You can do this by executing the
+following command:
+
+#+BEGIN_EXAMPLE
+    $ cd /home/tom/Dev/ruby/depot-jruby
+    $ jruby -S rake rails:freeze:edge RELEASE=2.2.2
+#+END_EXAMPLE
+
+*** Installing Jruby
+
+Next, you'll want to install Jruby. There's a lot of ways of doing this,
+but this method worked pretty well on my development machine:
+
+#+BEGIN_EXAMPLE
+    $ cd /tmp
+    $ wget http://jruby.kenai.com/downloads/1.4.0/jruby-bin-1.4.0.tar.gz
+    $ tar xvfz jruby-bin-1.4.0.tar.gz
+    $ sudo cp -r jruby-1.4.0 /opt
+    # please replace tom:tom with your user and group
+    $ sudo chown -R tom:tom /opt/jruby-1.4.0
+    $ sudo ln -s /opt/jruby-1.4.0 /opt/jruby
+#+END_EXAMPLE
+
+Then simply add =/opt/jruby= to your =PATH=, and see if you can execute
+=jirb=.
+
+*** Installing Rails And Other Libraries
+
+This process is just as easy using Jruby as it is using CRuby. Install
+the gems using these commands:
+
+#+BEGIN_EXAMPLE
+    $ jruby -S gem install rails --version 2.2.2
+    $ jruby -S gem install mongrel jruby-openssl jdbc-sqlite3
+#+END_EXAMPLE
+
+A few notes on those commands:
+
+-  Prepend the gem command with =jruby -S= to ensure that you are using
+   the right version of the =gem= command. This also works with any
+   other Jruby command, such as =rake=.
+-  Since the example uses the 2.2.2 version of Rails, we're going to
+   need it too.
+-  =jdbc-sqlite3= is the Java version of the sqlite3 DB driver.
+-  The =jruby-openssl= package is nice to have regardless of what you're
+   installing with =rubygems=.
+
+*** Making Depot Safe For JDBC
+
+You can't use the C-based database drivers with Jruby, but luckily, the
+Jruby developers have made it very easy to use the JDBC-based
+equivalents. First, make sure that you are using version *0.9.2* of the
+=activerecord-jdbc-adapter= driver or higher. You can check this by
+executing the following command:
+
+#+BEGIN_EXAMPLE
+    $ jruby -S gem list | grep activerecord-jdbc-adapter
+    activerecord-jdbc-adapter (0.9.2)
+#+END_EXAMPLE
+
+Next, execute the following command from the root directory of your
+project:
+
+#+BEGIN_EXAMPLE
+    $ jruby script/generate jdbc
+    exists  config/initializers
+    create  config/initializers/jdbc.rb
+    create  lib/tasks
+    create  lib/tasks/jdbc.rake
+#+END_EXAMPLE
+
+That's it! Your Depot application is now ready to use Jruby-on-Rails.
+
+*Please note* that I *did not modify my config/database.yml file* or
+hack any part of the Rails libraries to make JDBC work. These steps
+*used* to be necessary, but the command listed above gives you a much
+easier and cleaner way of using JDBC. For more information, please check
+out this article:
+
+-  [[http://blog.nicksieger.com/articles/2009/10/12/fresh-0-9-2-activerecord-jdbc-adapter-release][Fresh
+   0.9.2 activerecord-jdbc-adapter Release]]
+
+*** Test
+
+To test my work, I did the following:
+
+-  I ran the =mongrel= app server and executed some manual tests of the
+   Depot web site. That worked well.
+-  I execute all of my tests using the =rake test= command. This also
+   worked as well as it had with the CRuby version of my application.
+
+Success! Now it would be nice to review all of the files that changed or
+were added. Since I checked my project into my =git= repository before
+making any changes, I can get the information that I need pretty easily:
+
+#+BEGIN_EXAMPLE
+    $ git status
+    # branch master
+    # Changes to be committed:
+    #   (use "git reset HEAD <file>..." to unstage)
+    #
+    #       new file:   config/initializers/jdbc.rb
+    #       new file:   lib/tasks/jdbc.rake
+#+END_EXAMPLE
+
+That's it! No code or config changes were necessary.
+
+** Conclusion
+
+As you can see, it's fairly easy to “port” the Depot application to use
+Java-based versions of =mongrel=, =rails=, and the other libraries from
+the
+[[http://pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition][Agile
+Development With Rails]] book. In my
+[[http://tompurl.com/2010/03/25/running-depot-on-tomcat/][next
+article]], I will take this application and deploy it on top of a Tomcat
+server.

@@ -1,0 +1,52 @@
+Title: Tab Sweep - An Embarrassment Of Riches Tags:
+career,ec2,google-voice,sip,torquebox Category: Tab Sweep Comments: true
+
+There's a short novel's worth of great stuff that I found to read this
+week, along with a great video on being in control of your technical
+career. It's truly an embarrassment of riches. -
+[[http://scientopia.org/blogs/goodmath/2011/05/03/the-perils-of-premature-optimization][The
+Perils of Premature Optimization | Good Math, Bad Math]] - This is an
+/awesome/explanation of why you shouldn't change things in a system
+unless you have the data to back it up.
+
+-  [[http://torquebox.org/news/2011/05/03/judcon-preso][TorqueBox:
+   TorqueBox Slides From JUDCon:2011 Boston]]
+
+   -  Hooray for TorqueBox 1.0! I really can't wait to play around with
+      this project myself.
+
+-  [[http://www.engineyard.com/blog/2011/the-april-21-amazon-disruption-wrapping-up/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+engineyard+(Engine+Yard)][The
+   April 21 Amazon Disruption: Wrapping Up | Engine Yard Ruby on Rails
+   Blog]]
+-  [[http://teddziuba.com/2011/04/amazon-the-purpose-of-pain.html][Amazon
+   --- The Purpose of Pain]]
+-  [[http://pragprog.com/magazines/2011-05/shady-illuminations][Shady
+   Illuminations]]
+
+   -  These are three links related to the EC2 outage. Long story short,
+      you should avoid putting your entire system into EC2 (or any
+      single data center for that matter). They're good reads for people
+      see no disadvantages to cloud computing.
+
+-  [[http://www.suryasuravarapu.com/2009/02/career-20-take-control-of-your-life.html][Career
+   2.0: Take control of Your Life - Surya Suravarapu's Blog]]
+-  [[http://qik.com/video/1009098][Career 2.0 Preso Video]]
+
+   -  The Career 2.0 video is a really great place to start if you're a
+      technologist who is worried about his or her career.
+
+-  [[http://diveintomark.org/archives/2011/04/29/the-book-is-dead][The
+   “book” is dead [dive into mark]]]
+
+   -  “The book is dead. Long live content.”
+
+-  [[http://blog.kylehasegawa.com/google-voice-voip-on-android-just-got-a-lot-easier-with-pbxes-peering][Google
+   Voice VoIP on Android just got a lot easier with PBXes peering | Kyle
+   Hasegawa]]
+
+   -  This is a pretty old blog, but I'm looking for a good way to do
+      SIP on my new Android phone, and this looks like the most
+      promising process so far.
+
+Posted from [[http://www.diigo.com/][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

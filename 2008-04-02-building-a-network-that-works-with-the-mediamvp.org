@@ -1,0 +1,194 @@
+Title: Building A Network That Works With The MediaMVP Tags:
+linksys,mediamvp,mythtv,netgear,networking,powerline-networking,zyxel
+Category: Tutorial Comments: true
+
+As I've mentioned in some of my earlier articles, you really don't need
+a very powerful media server if you using the
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+media extender with [[http://www.mvpmc.org/][MVPMC]] firmware. For
+example, I'm able to use my
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+to watch [[http://www.mythtv.org/][MythTv]] movies, Xvid AVI's, and home
+movie's stored as MPEG's without putting much of a load on my media
+server, even though it has slow disks, a 1.6 Ghz processor, and 512 MB
+of RAM. Once I had everything working in my "sandbox environment" (that
+is, every component was two feet away from every other component), I
+really thought that the "hard part" was over. All I had to was (queue
+ominous music) *set up the network*. The short version of this story is
+that I haven't been able to set up a network that is fast enough for my
+needs yet. Continue reading for the gory details :) ### A Little
+Overview
+
+You might be wondering why networking is such a big deal with the
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]].
+You probably have a "Wireless G" network running in your home, and you
+probably never have any speed or bandwidth issues. The problem is that,
+while a Wireless G network is great for surfing the web, *it's typically
+not good enough to stream MPEG movies*. I'll explain why later in this
+article. The total amount that you do need is debatable (and somewhat
+configurable in [[http://www.mvpmc.org/][MVPMC]]), but according to the
+[[http://www.mythtv.org/wiki/index.php/Network][Network page]] on the
+[[http://www.mythtv.org/wiki/index.php][MythTv wiki]], you should shoot
+for a 16 Mb/s connection for viewing standard definition (SD) videos.
+I've learned so far that, depending on what you're viewing, you can get
+by on less bandwidth, but this appears to be a good number if you want
+to watch a variety of different SD video formats. Basically, I need a
+way to "wire" the televisions in my living room and kitchen into my
+media server in my basement. The goal is to implement "networked
+television" so I can watch recorded television shows and home movies in
+a quick-and-easy fashion. ### Why Isn't Wireless Networking An Option?
+
+*Everyone with whom I've spoken on this topic has told me to avoid
+streaming MPEG's over a wireless network*. I know this is only anecdotal
+evidence, but my friends who have tried this know a /lot/ more about
+networking and hardware than I do. I'm happy to benefit for their wasted
+time and effort :) Also, the network in my home *simply isn't fast
+enough*. I ran a few tests of my network using
+[[http://dast.nlanr.net/Projects/Iper][Iperf]], and found that I was
+only getting about *15Mb/s* of bandwidth on my wireless network. This is
+actually pretty good, but probably less than what I need. Another
+problem with wireless networks is that *they simply aren't reliable*.
+One minute, you're copying a large file at blinding speeds and, poof,
+your laptop loses it's connection to the router. Why this happens is a
+mystery since I can't look "under the hood" of my router, so I just live
+with the occasional flakiness. I could buy a better router, but my
+friends who have tried the same told me that it only improves the
+situation slightly. *No consumer-grade, wireless router seems to be
+immune from this problem*. Finally, another big reason why I don't want
+to stream big, honkin' MPEG's over my wireless network is that *almost
+every other computer in my network also uses it*. I /really/ don't want
+my wife's laptop and my
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+to be fighting for bandwidth. I want them both to work quickly and
+easily. ### Wired Networking - The Ideal Solution?
+
+The obvious choice for me at first was wired networking. It's relatively
+cheap (this blog is about technology /and/ frugality), it's /very/ fast,
+and it seemed like it would be pretty easy to install. I needed to wire
+two rooms on my main floor into my router in the basement. All I had to
+do (my favorite example of "famous last words") was drop some CAT-5e
+(plain-old networking) cable from my main floor into the basement from
+two separate rooms. A real no-brainer, right? Well, I guess it depends.
+I /thought/ that installation would be easy, but three and a half hours
+later, after making *no* progress whatsoever, I took a step back to
+re-evaluate my options. Here's what I came up with: 1. I /really/ hate
+it when I spend a lot of time on a project and get nothing back in
+return. I'm not the busiest guy in the world, but I'm far too busy to be
+playing with a hobby for that long for no good reason. I really felt
+like I wasn't valuing my free time, which is my most valuable asset. 2.
+One of the rooms simply couldn't be wired for ethernet. There was no
+non-evasive way for me to wire the room for ethernet. 3. The other room
+could be wired for ethernet, but it would involve more time and effort
+than I had in the short term, and it would require me to drill another
+hole in the wall. I prefer using existing holes for this sort of thing,
+/not/ drilling new ones.
+
+Since frugality is about your use of time *and* money, I decided to
+exchange more of the latter for the former. It was time to go back to
+the drawing board. ### Powerline Networking - The Best Of Both Worlds?
+
+One of my friends who also happened to own a
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]],
+also had trouble running ethernet cable in his house. He therefore
+decided to try out a *powerline networking kit*. The kit includes two
+devices: one that plugs into your
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+using CAT-5e, and one that plugs into your router or switch. The two
+devices "talk" to each other (i.e. exchange networking packets) over the
+power network in your house. This method of networking seemed /really/
+strange to me at first, but my friend said that it worked really well
+for him. I therefore hopped on over to
+[[http://www.newegg.com/][Newegg]] to get a second opinion, and, lo and
+behold, there seemed to be universal praise for these devices. I found
+multiple people on [[http://www.newegg.com/][Newegg]] who used the
+devices to stream movies, and they all said that this form of networking
+was more than fast enough for their needs. I thought I had found the
+perfect solution. I therefore ordered a ZyXEL PL-100KIT powerline
+networking kit from [[http://www.newegg.com/][Newegg]]. It's maximum
+stated bandwidth is 85 Mb/s, which is over 5 times more than what I
+required. Unfortunately, once I set up the networking kit and plugged
+everything in, I was only able to get between *4 and 6 Mb/s of
+bandwidth* according to [[http://dast.nlanr.net/Projects/Iper][Iperf]]
+/and/ [[http://www.mvpmc.org/][MVPMC]]. Not only was this *around 20% of
+my bandwidth goal*, it was *around 7% of the stated maximum*. Now,
+believe it or not, I /was/ actually able to view some content through my
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]],
+even with the lackluster bandwidth. I had the best results with
+[[http://www.mythtv.org/][MythTv]] videos that had been recorded with my
+Hauppauge PVR-150. Those rarely fell out of sync, and when they did, you
+just needed to fast-forward a couple of seconds. Medium-quality Xvid
+AVI's were watchable, but only after setting VLC's video transcoding
+setting to "VCD", which is barely watchable in my opinion. My home
+videos that I converted to MPEG's are simply unwatchable. I figured that
+/something/ had to be wrong with my particular setup, since so many
+other people had stated that this model worked well with streaming
+video. I therefore tried tweaking my setup in the following ways: -
+*Powerline Adapter Tweaks*
+
+#+BEGIN_EXAMPLE
+    1.  Of course, I made sure that none of my powerline networking
+        adapters were plugged into a powerstrip or surge protector.
+    2.  I made sure that nothing else was plugged into the same outlet
+        as my powerline adaptors.
+    3.  I tried to plug the adapters into sockets that were in close
+        proximity, even though they had to be on different floors.
+
+    > -   Some people recommend plugging the adapters into outlets on the
+    >     same circuit, but I don't believe that I have any circuits that
+    >     span floors.
+#+END_EXAMPLE
+
+-  *Router Tweaks*
+
+   1. Changed my LAN network type option from "auto-negotiate" to "100
+      Mb/s".
+   2. Updated my router's firmware to the most current version
+
+Unfortunately, none of these changes seemed to make a difference. As of
+today, my
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+works wonderfully with [[http://www.mvpmc.org/][MVPMC]], but I can
+barely use it due to my inadequate network. ### Conclusion
+
+When I started this project, I viewed it as a frugal way (again, both in
+time *and* money) to enable myself to watch recorded movies and
+television shows that are stored on my media server. In the end, I ended
+up *doubling* my financial budget and *tripling* my time budget for this
+project. Based on all of my experiences so far, I can make the following
+recommendations: - *This Project Requires A Decent Amount Of Computer
+Knowledge* - I'm a systems administrator for a living, and I have a good
+number of friends who have done stuff like this before. These resources
+really save me a lot of time on these types of projects. If you don't
+have these same resources, then this type of project will probably take
+you much more time and cause you much more aggravation.
+
+-  *This Project Could Take You A Lot Of Time*
+
+   -  There are plenty of examples of people on the internet who have
+      had no problem setting up an MediaMVP system with powerline
+      networking. I'm living proof that the home network part of the
+      puzzle doesn't always work as well as advertised. Be prepared to
+      spend a decent amount of time troubleshooting and configuring this
+      type of system.
+
+I still see the MediaMVP as being a great device, and look forward to
+the day where it "just works". For example, I'm already growing
+accustomed to watching my favorite daytime TV shows while I work in the
+kitchen at night, and the rest of my family really loves it too.
+Therefore, I'm going to continue trying to make things work with a
+powerline network, but I'm going to try a different brand. I've heard
+good things about the
+[[http://www.newegg.com/Product/Product.aspx?Item=N82E16833122166][Netgear
+XE103G]] and
+[[http://www.newegg.com/Product/Product.aspx?Item=N82E16833124096][Linksys
+PLK200]] kits. I'll probably end up trying the Linksys kit for the
+following reasons: - It has a higher theoretical maximum bandwidth (200
+Mb/s compared to 85 Mb/s) - It's basically the same price as the
+[[http://www.newegg.com/Product/Product.aspx?Item=N82E16833122166][Netgear
+XE103G]] - It received great customer reviews on both Amazon and Newegg
+- It received a
+[[http://reviews.cnet.com/bridges/linksys-plk200-powerline-av/4505-3304_7-32313519.html][good
+review from CNET]]
+
+I hope to get this part of my system working soon, and will share the
+results when I'm done.

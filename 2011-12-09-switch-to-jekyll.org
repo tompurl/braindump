@@ -1,0 +1,14 @@
+Title: Switch To Jekyll Comments: true Category: Review
+
+For the 3 people who may notice, I switched my blog from Wordpress to
+[[https://github.com/mojombo/jekyll][Jekyll]]. The conversion has been a
+fun experience, because it gave me the opportunity to "roll my own"
+website instead of relying on the good people at
+[[http://wordpress.com][Wordpress.com]] to do everything for me.
+
+I hope to write a blog about the entire conversion soon. But in the mean
+time, if you notice anything strange or have any problems, then I would
+really appreciate it if [[mailto:tom@tompurl.com][you would drop me a
+line]].
+
+Enjoy!

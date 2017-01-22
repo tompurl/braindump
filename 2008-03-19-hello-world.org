@@ -1,0 +1,4 @@
+Title: Hello world! Comments: true
+
+Welcome to [[http://wordpress.com/][WordPress.com]]. This is your first.
+Edit or delete it and start blogging!

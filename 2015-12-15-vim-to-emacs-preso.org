@@ -1,0 +1,11 @@
+#+TITLE: "From Vim To Emacs" Presentation
+
+#+DATE: 2015-12-15
+
+Here's a presentation that I'm going to give at the December 2015
+meeting of the [[http://www.meetup.com/FoxValleyLUG/][Fox Valley LUG]].
+It's a quick overview some things that Emacs does really well that's
+targeted at Vim users.
+
+-  [[http://static.tompurl.com/vim-to-emacs/index.html][From Vim To
+   Emacs]]

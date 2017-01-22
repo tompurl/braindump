@@ -1,0 +1,87 @@
+Title: Using My Creative Zen With Ubuntu 9.04 Tags:
+9.04,amarok,creative-zen,ubuntu Category: Tutorial Comments: true
+
+I've been using an 8 GB
+[[http://en.wikipedia.org/wiki/Creative_ZEN][Creative Zen]] player now
+for about a year, and in general, I'm very happy. It was about 25%
+cheaper than a comparable iPod, it can do more stuff, and it has ended
+up being very durable and easy-to-use.
+
+Another thing that I initially liked about the Zen was how well it
+worked with [[http://www.ubuntu.com][Ubuntu]] Linux 8.04. From
+[[http://amarok.kde.org/][Amarok]], I could add and manage files as
+easily as I could with my old iPod. Then I updated my OS to use Ubuntu
+9.04. The Zen would mount automatically when you plugged it in, but I
+couldn't access it using any music player such as Amarok, RhythmBox, or
+Banshee. And if I could access the player using one of those apps, the
+connection was always very flaky. I might be able to move one or two
+songs, but eventually, something would crash and I would have to start
+over again. This thread on the Ubuntu forums shows that many other Zen
+users were having the same problem:
+
+-  [[http://ubuntuforums.org/showthread.php?t=1146528]]
+
+The basic advice was to unmount the Zen after it was automatically
+mounted, and /then/ access it using your favorite music player. This
+only worked for me sporadically at first. And if that wasn't weird
+enough, the Amarok maintainers decided to do the following:
+
+-  Completely change the Amarok GUI interface
+-  Completely change the way you copy music to an MP3 player.
+
+I figured almost everything out eventually, so I thought I would share
+it here.
+
+1. First, *plug your Zen* into your computer. You should now see a Zen
+   icon on your desktop.
+
+   -  [[|filename|images/zen-icon.jpeg]]
+
+2. Next, right-click on that icon and choose the *Unmount* *Volume*
+   option. This may seem counter-intuitive, but it's what you need to
+   do.
+3. Next, open Amarok. If you don't see the Amarok window after a minute,
+   then look for the *howling wolf* icon in your task tray. You will
+   need to right-click on it and choose *Restore*.
+
+   -  *Note*: This process may work with other music players, but I
+      haven't tested it.
+
+4. After Amarok opens, you should see the following items in Amarok:
+
+   1. An MP3 player icon with a *red X and green +* next to it.
+
+      -  [[|filename|images/zen-plus.jpg]]
+
+   2. Your Zen listed on the left-hand side of the screen.
+
+      -  [[|filename|images/zen-list1.jpg]]
+
+   3. If you don't see it at first, then make sure that you have clicked
+      on the *Collection* button on the left-hand side of the screen.
+   4. Also, If you see the MP3 player icon but your player isn't listed
+      on the left-hand side of the screen, then *click on the green +
+      button*.
+
+Now you can copy individual songs from your *Local Collection* by
+right-clicking on a song or album and choosing *Copy To Collection ->
+Creative Zen*. That should do it. I've had pretty good luck with this
+system as long as I didn't try to move over 6 albums' worth of MP3's at
+once. And here are some of the differences that you need to get used to
+when using the 2.x version of Amarok:
+
+-  *You can no longer copy playlists over to your Zen.* This is a big
+   disappointment to me, and I can't figure out why the Amarok
+   maintainers took this functionality away.
+-  *You can no longer "queue" up MP3's that you want to copy to your Zen
+   and then copy them all over at once.*Again, another great feature
+   that was taken away for some mysterious reason.
+-  *Album covers are no longer copied to your Zen*. This isn't a huge
+   disappointment, but it was always a nice feature of the pre-2.x
+   version of Amarok.
+
+In the end, I'm very appreciative that Canonical, the Gnome group, and
+the Amarok maintainers provide such excellent software that makes my
+life so much more enjoyable. And I'm glad that I finally figured out a
+somewhat-reliable process for copying MP3's from my hard drive to my
+Zen.

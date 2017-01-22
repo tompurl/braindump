@@ -1,0 +1,21 @@
+Title: Tab Sweep - Week Of 2/14/10" Tags:
+glassfish,gnome-3,jruby-on-rails,myths-of-innnovation Category: Tab
+Sweep
+
+I spent most of my "hobby-time" this week "converting" my demo Ruby On
+Rails (RoR) application to Jruby.  I hope to have a on all of my stepsed
+this week. -
+[[http://developers.sun.com/appserver/reference/techart/rails_gf/][Rails
+Powered by the GlassFish Application Server]] - Nice overview of RoR on
+top of the Glassfish J2EE server, but it's a bit dated. -
+[[http://www.omgubuntu.co.uk/2009/09/gnome-3-quick-visual-tour.html][Gnome
+3 -- A Quick Visual Tour]] - A few of my nerdy friends are pretty
+excited about this.  I've been using Gnome on-and-off for about 8 years
+now, and am pretty happy with it, so I hope the new revision doesn't
+break any of my favorite features. -
+[[http://www.livinginternet.com/w/wi_browse.htm][Web Browser History -
+First, Early]] - This is a cool link courtesy of the
+[[http://www.scottberkun.com/blog/2007/the-book-the-myths-of-innovation/][Myths
+Of Innovation]]book by [[http://www.scottberkun.com/][Scott Berkun]]. 
+I'm surprised by the total number, and that I had never heard of most of
+them.

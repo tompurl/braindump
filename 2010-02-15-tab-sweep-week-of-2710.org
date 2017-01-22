@@ -1,0 +1,50 @@
+Title: Tab Sweep - Week Of 2/7/10 Tags:
+capistrano,heroku,ruby-on-rails,solaris,toto,zones Category: Tab Sweep
+Comments: true
+
+I had lots of great opportunities to work with unfamiliar technologies
+last week, so I have an unusually large list of links in my tab sweep.
+## Solaris Zones
+
+I learned late last week that Solaris Zones use different monitoring
+tools than any other Unix or Linux distribution, so I spent a good
+portion of this week learning about them. -
+[[http://wiki.joyent.com/accelerators:kb:monitor_rss_disk][Monitoring
+Memory and Disk usage [Joyent Wiki]]] - This has some nice information
+on using =prstat= from within a Zone. -
+[[http://discuss.joyent.com/viewtopic.php?id=23310][The Joyent Community
+/ How to check my zone size?]] - Another great on Zones from the
+[[http://www.joyent.com/][Joyent]] web sites. This article discusses the
+differences between RSS and SIZE/SWAP on Solaris. -
+[[http://www.softpanorama.org/Solaris/Virtualization/zones.shtml][Slightly
+Skeptical View on Solaris Zones]] - This is a good, general overview of
+Solaris Zone technology.
+
+** RoR Deployment With Capistrano
+
+I get the impression that a lot of people have a love/hate relationship
+with
+[[///home/tom/UbuntuOne/wiki/TabSweep100207.html#lcapistrano][Capistrano]],
+and I believe that I'm joining those ranks. When your recipe finally
+works, it works very well, but getting to that point can be very
+frustrating. Here are some links that helped me figure things out: -
+[[http://www.capify.org/index.php/Capistrano][Capistrano Home Page]] -
+This is a good starting point, but it's lacking much advanced
+information. -
+[[http://errtheblog.com/posts/19-streaming-capistrano][Streaming
+Capistrano --- err.the\_blog]] - A nice little tip if you want to
+monitor remote command-line streams using Capistrano.
+
+** Heroku + Toto
+
+I discovered the [[http://cloudhead.io/toto][Toto]] blogging "engine"
+this week, which led me to [[http://www.heroku.com/][Heroku]]. It's a
+very interesting deployment and hosting model for Ruby web applications,
+and I look forward to learning more about it. -
+[[http://www.rubyinside.com/deploy-blog-with-toto-and-heroku-2962.html][Deploy
+A Free, Ruby Powered Blog In 5 Minutes with Toto and Heroku]] - The
+title really says it all. - [[http://tompurl.heroku.com/][My Toto Test
+Blog]] - An interesting test, but I don't think that it will replace my
+Wordpress blog any time soon. -
+[[http://www.usabilitypost.com/2010/02/06/blogging-simplified/][UsabilityPost
+- Blogging Simplified]] - A cool Toto blog with a great CSS stylesheet.

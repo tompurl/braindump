@@ -1,0 +1,42 @@
+Title: Tab Sweep - Software Quality, Async Processes, and Other Cool
+Stuff :) Tags: awaitility,gwt,jruby,mongodb,quality,ripl Category: Tab
+Sweep Comments: true
+
+-  [[http://blog.jayway.com/2010/07/20/awaitility-java-dsl-for-easy-testing-of-asynchronous-systems][Awaitility
+   -- Java DSL for easy testing of asynchronous systems | Jayway Team
+   Blog - Sharing Experience]] I adminster and design a lot of
+   asyncronous BPM processes, so I'm eager to really wrap my head around
+   this.
+-  [[http://blog.tommorris.org/post/4392773335/jruby-a-thank-you-letter][Tom
+   Morris - JRuby: a thank you letter]] I wrote a blog a couple of years
+   ago where I stated that JRuby wasn't very stable. Well, I was wrong
+   then, and Jruby has only gotten better. Now I would have trouble
+   living without it, and this echoes my sentiments.
+-  [[https://github.com/cldwalker/ripl][cldwalker/ripl - GitHub]] I love
+   Ruby, but I have never been a big fan of irb, especially after I was
+   spoiled with Python's excellent IPython shell. ripl seems to be a
+   step in the right direction of creating a truly excellent Ruby shell.
+-  [[http://www.dbms2.com/2011/04/04/the-mongodb-story/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+dbms2/feed+(DBMS2+--+DataBase+Management+System+Services)][The
+   MongoDB story | DBMS 2 : DataBase Management System Services]]
+   tags: [[http://www.diigo.com/user/tepurl/mongodb][mongodb]]
+   [[http://www.diigo.com/user/tepurl/sql][sql]]
+   [[http://www.diigo.com/user/tepurl/performance][performance]]
+   [[http://www.diigo.com/user/tepurl/nosql][nosql]] This is a great
+   overview of the MongoDB database. It's night the best choice for
+   every scenario, but if used properly, it can be a very powerful,
+   fault-tolerant and *fast* database manager.
+-  [[http://blog.mkristian.tk/2011/04/gwt-with-rubyonrails-backend-glued.html][kristian's
+   blog: GWT with RubyOnRails backend glued together with Maven/JRuby]]
+   It's great to see that someone is working on this. I can't wait for
+   the day when creating a rich GWT application is as easy as creating a
+   Rails app.
+-  [[http://blog.wilshipley.com/2011/04/success-and-farming-vs-mining.html][Call
+   Me Fishmeal.: Success, and Farming vs. Mining]]
+   tags: [[http://www.diigo.com/user/tepurl/quality][quality]]
+   [[http://www.diigo.com/user/tepurl/software][software]]
+   [[http://www.diigo.com/user/tepurl/purpose][purpose]] Excellent
+   article on what it means to create something truly meaningful for a
+   living.
+
+Posted from [[http://www.diigo.com/][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

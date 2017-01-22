@@ -1,0 +1,81 @@
+Title: Stupid Unix Tricks - Creating A Self-Updating Dashboard Tags:
+administration,linux,stupid-unix-tricks,tomcat,unix Category: Tutorial
+Comments: true
+
+Have you ever wanted to automatically run the same command every 5, 10,
+or 60 seconds on a Unix/Linux machine until the output changed? For
+example, let's say that you're deploying a new application on top of a
+[[http://tomcat.apache.org][Tomcat]] app server. After starting Tomcat
+and deploying your application, it can take a couple of minutes before
+the application is really available.  However, you want to know
+/exactly/ when the new version of the application is usable (give or
+take 10 seconds).
+
+A good way of testing whether the application is really "up" is to ping
+a URL.  You can do this using a web browser, but this approach has a few
+disadvantages.  First, it's a manual,  tedious process.  Second, web
+browsers can be a little flaky sometimes. For example, they may cache
+your last results, giving you incorrect results.
+
+For me, I get much better results testing this sort of thing with curl. 
+Here's an example of how you could test the availability of the Hello
+World application that comes with Tomcat 6.x:
+
+#+BEGIN_EXAMPLE
+    $ curl http://localhost:8080/examples/servlets/servlet/HelloWorldExample
+    <html>
+    <head>
+    <title>Hello World!</title>
+    </head>
+    <body bgcolor="white">
+    <a href="../helloworld.html">
+    <img src="../images/code.gif" height=24 width=24 align=right border=0 alt="view code"></a>
+    <a href="../index.html">
+    <img src="../images/return.gif" height=24 width=24 align=right border=0 alt="return"></a>
+    <h1>Hello World!</h1>
+    </body>
+    </html>
+#+END_EXAMPLE
+
+This is fine, but it can also very labor-intensive and tedious to
+execute the same command over and over.  Wouldn't it be nice if we could
+just create an ad-hoc "dashboard" for this command? Here's how you can
+do it.  All we have to do is a little shell magic:
+
+#+BEGIN_EXAMPLE
+    $ while true; do curl http://localhost:8080/examples/servlets/servlet/HelloWorldExample; sleep 10; done
+#+END_EXAMPLE
+
+Here's what I'm doing:
+
+-  First, I'm creating an infinite while loop.  You'll see why this
+   isn't a bad idea in a second.
+-  Next, I'm running our curl command.
+-  After that, I'm sleeping for 10 seconds.  This is very important,
+   because you don't want to command to execute multiple times a second
+   in an infinite loop.
+
+This loop will repeat itself forever until you kill it with a Ctrl-C.
+And here's my results (assuming that I just restarted the server and it
+took that servlet 20 seconds to respond):
+
+#+BEGIN_EXAMPLE
+    curl: (7) couldn't connect to host # First execution
+    curl: (7) couldn't connect to host # second
+    <html>                             # Success!
+    <head>
+    <title>Hello World!</title>
+    </head>
+    <body bgcolor="white">
+    <a href="../helloworld.html">
+    <img src="../images/code.gif" height=24 width=24 align=right border=0 alt="view code"></a>
+    <a href="../index.html">
+    <img src="../images/return.gif" height=24 width=24 align=right border=0 alt="return"></a>
+    <h1>Hello World!</h1>
+    </body>
+    </html>
+#+END_EXAMPLE
+
+Ta-da!  Easy, automatic command testing.  Of course, you can use this
+trick with commands other than curl.  It's very handy in any situation
+where you want to check a command for a change in output.

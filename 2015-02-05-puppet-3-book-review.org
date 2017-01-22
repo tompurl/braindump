@@ -1,0 +1,50 @@
+#+TITLE: Review Of "Instant Puppet 3 Starter"
+
+#+DATE: 2015-2-5 21:24
+
+[[/images/instant-puppet-3-starter-cover.png]]
+
+-  [[https://www.packtpub.com/networking-and-servers/instant-puppet-3-starter-instant]]
+
+I've been using Puppet for a couple of years now in a quick and dirty
+way on a couple of side projects. Heck, I've even published a
+couple of modules\_. I find it to be very easy to use and incredibly
+useful.
+
+Recently I wrote my first "real world" Django application and I wanted
+to host it on a system that was provisioned using Puppet whenever it was
+possible. I used Puppet extensively and it worked very well for me, but
+it was clear that my current home-grown process for distributing my
+manifests and modules just wasn't working. I had reached the point where
+I actually needed to learn the patterns that people are using in the
+real world to do what I was doing.
+
+This book was exactly what I needed to introduce me to "proper" puppet
+usage in a way that struck a good balance between simplicity and
+usefulness. In 50 pages it highlighted all of the things that I would
+need to learn in the medium term and how to configure them. And it did
+so using a style that was a pleasure to read.
+
+Please note that this isn't for everyone. For example:
+
+-  It's only 50 pages long. If you're looking to become a Puppet expert
+   after reading it, you're probably out of luck.
+-  It expects you to set up a CentOS VM on which you can execute the
+   examples from the book. This wasn't a big deal for me because I use
+   Vagrant a lot, but if it's something that intimidates you then this
+   book may be too advanced.
+
+I can't believe that I've written such a verbose review of such a
+concise book. Short version - *4/5 stars*.
+
+* Extra Credit
+
+If you do want to use Vagrant to create a VM for the examples then you
+can create it using the following commands:
+
+#+BEGIN_EXAMPLE
+    $ cd /some/dir
+    $ mkdir centos-image && cd centos-image
+    $ vagrant init puppetlabs/centos-6.5-64-puppet
+    $ vagrant up
+#+END_EXAMPLE

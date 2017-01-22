@@ -1,0 +1,123 @@
+Title: Running Depot On Tomcat Tags:
+agile-web-development-with-rails,java,jruby,ruby-on-rails,tomcat
+Category: Tutorial Comments: true
+
+This is my second article about running the Depot application from the
+[[http://pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition][Agile
+Development With Rails]] book on top of Jruby. The
+[[http://tompurl.com/2010/03/02/running-the-depot-application-with-jruby/][first
+article]], which covers development and testing, can be found
+[[http://tompurl.com/2010/03/02/running-the-depot-application-with-jruby/][here]].
+
+This article covers the following topics:
+
+-  Packaging our RoR project into a WAR file
+-  Deploying that WAR file on Tomcat
+
+Please note that this article only covers deploying Jruby-On-Rails
+applications in a non-Production (i.e. non-public-facing) environment.
+This example is designed to allow a *developer* to deploy a
+Jruby-On-Rails application *on her workstation*. If you want to install
+Tomcat in a public-facing environment, then you need a different
+tutorial :)
+
+** Tomcat Installation
+
+[[http://tomcat.apache.org/][Tomcat]] was my choice for the following
+reasons:
+
+1. It's very easy to install. Just unpack it and go (if you already have
+   the proper version of Java installed).
+2. It's very easy to administer on my netbook (which is where I'm
+   learning about RoR and Jruby).
+3. It's relatively lightweight compared to JBoss or WebLogic.
+4. It's very easy to deploy war files. Just drop them in
+   =$TOMCAT_HOME/webapps=, restart Tomcat, and you're up-and-running.
+
+So let's install Tomcat:
+
+#+BEGIN_EXAMPLE
+    $ cd /tmp 
+    $ wget http://apache.opensourceresources.org/tomcat/tomcat-6/v6.0.24/bin/apache-tomcat-6.0.24.tar.gz
+    $ tar xvfz apache-tomcat-6.0.24.tar.gz 
+    $ sudo cp -r apache-tomcat-6.0.24 /opt \# please replace tom:tom with your user and group 
+    $ sudo chown -R tom:tom /opt/apache-tomcat-6.0.24
+#+END_EXAMPLE
+
+Assuming that you have the minimum version of Java (I'm using 1.6.0\_15
+from the sun-java6-jdk Ubuntu package), you can start Tomcat like this:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt/apache-tomcat-6.0.24/bin 
+    $ ./startup.sh 
+    Using CATALINA_BASE: /opt/apache-tomcat-6.0.24 
+    Using CATALINA_HOME: /opt/apache-tomcat-6.0.24 
+    Using CATALINA_TMPDIR: /opt/apache-tomcat-6.0.24/temp 
+    Using JRE_HOME: /usr/lib/jvm/java-6-sun 
+    Using CLASSPATH: /opt/apache-tomcat-6.0.24/bin/bootstrap.jar 
+#+END_EXAMPLE
+
+Great, now you can test your installation by pointing your browser at
+the following url:
+
+-  http://localhost:8080
+
+You can also shut the server down using the =shutdown.sh= script from
+the same directory.
+
+** Packaging Depot In A WAR File
+
+Now that Tomcat is up-and-running, let's build our WAR file. If you
+haven't already installed =warbler=, then you can do so with the
+following command:
+
+#+BEGIN_EXAMPLE
+    $ jruby -S gem install warbler 
+#+END_EXAMPLE
+
+[[http://blog.nicksieger.com/articles/2007/09/04/warbler-a-little-birdie-to-introduce-your-rails-app-to-java][Warbler]]
+is a gem that makes it very easy to package RoR applications as WAR
+files. However, before we can use it, we need to tell it that we're
+using the =activerecord-jdbcsqlite3-adapter= driver. Here's how you do
+that:
+
+1. Run the =warble config= command from the root directory of your
+   project. This command will create the =config/warble.rb= file.
+2. Add the following line to the newly-created =config/warble.rb= file:
+
+   1. =config.gems << "activerecord-jdbcsqlite3-adapter"=
+
+That's it! Now you can build your war file:
+
+#+BEGIN_EXAMPLE
+    $ warble 
+#+END_EXAMPLE
+
+In a minute or so, you should see a file named =depot-jruby.war= in the
+root of your project directory. If you need to rebuild you war file,
+then simply execute the following command:
+
+#+BEGIN_EXAMPLE
+    $ warble war:clean && warble 
+#+END_EXAMPLE
+
+** Deploying On Tomcat
+
+Now we can finally deploy the WAR file to our Tomcat instance. Here's
+how I do it on my machine:
+
+#+BEGIN_EXAMPLE
+    $ cd /opt/apache-tomcat-6.0.24 
+    $ cp /home/tom/Dev/ruby/depot-jruby/depot-jruby.war ./webapps 
+    $ ./bin/shutdown.sh && ./bin/startup.sh 
+#+END_EXAMPLE
+
+Then you can test your application by visiting the following URL:
+
+-  http://localhost:8080/depot-jruby/store
+
+** Conclusion
+
+I know that I said this in my previous tutorial, but that was a lot
+easier than I thought it would be. It only took 3 simple steps, and the
+Tomcat installation step only needs to be done once.

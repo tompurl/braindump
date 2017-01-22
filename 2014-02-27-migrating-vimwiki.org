@@ -1,0 +1,149 @@
+#+TITLE: Migrating Vimwiki Content From 1.x To 2.x Using Vim
+
+#+DATE: 2014-02-27 21:00
+
+I'm a huge fan of the [[https://github.com/vimwiki/vimwiki][vimwiki]]
+plugin for documenting my daily tasks at work and home. It's quick,
+powerful, easy to use, and I love how easy it is to share my notes with
+others. I started using it in December 2011 and I've probably used it
+almost every day since.
+
+The version of the plugin that I started using was 1.2, and shortly
+after I started using it they updated it to 2.0. This new version had
+some nice new features (like limited Markdown support) but they also
+made changes to the default markup language. This was a disappointment
+for me because I already had hundreds of documents that used the old
+format. Converting everything seemed like a pain, so I just kept on
+using the 1.2 version of the plugin.
+
+I finally made the jump to the latest (2.2) version of vimwiki this week
+and I was surprised by the following:
+
+1. It was very easy. I had all of my content converted in less than 30
+   minutes.
+2. I was able to perform all of the find and replace operations *using
+   only Vim*. This was an especially nice feature since I also had to
+   make a lot of changes on a Windows-based system on which =sed= was
+   not installed.
+
+Here's how I did it.
+
+* Caveat
+
+Please *first backup your wiki content before making any of the changes
+listed below*. It's quick and easy and a Good Idea every time you think
+about making any large-scale changes.
+
+* Converting Wiki Links With Descriptions
+
+I had a *lot* of wiki links in my documents that looked like this:
+
+#+BEGIN_EXAMPLE
+    [[HowToRestartServer][How To Restart Server]]
+#+END_EXAMPLE
+
+In the wiki I would see *How To Restart Server* as the name of the link,
+but the file would be saved as =HowToRestartServer.wiki=. This is nice
+because I like to have easy-to-read titles but I don't like spaces in my
+file names.
+
+However, the 2.x version of the wiki markup language requires the
+following format:
+
+#+BEGIN_EXAMPLE
+    [[HowToRestartServer|How To Restart Server]]
+#+END_EXAMPLE
+
+Making this change from Vim was actually very easy. First, I ran my
+search-and-replace command in one wiki document to test it out:
+
+#+BEGIN_EXAMPLE
+    :%s/\]\[/\|/g
+#+END_EXAMPLE
+
+This is a *regular expression* that is basically saying thanks
+following:
+
+-  Find all instance of ']['
+-  Replace it with '|'
+-  Do it to every match that you find in this document
+
+This worked well in that document so I applied it to every document in
+my wiki. To do that, I first added all of my wiki documents to my
+*argument list*:
+
+#+BEGIN_EXAMPLE
+    :argadd /my/wiki/path/*.wiki
+#+END_EXAMPLE
+
+Now I could run my find and replace command against all of the documents
+in my wiki with a few minor modifications:
+
+#+BEGIN_EXAMPLE
+    :argdo %s/\]\[/\|/ge | update
+#+END_EXAMPLE
+
+* Fixing Embedded Images
+
+I also had a *lot* of embedded images in my wiki pages. I used the
+following format:
+
+#+BEGIN_EXAMPLE
+    [[./Images/1-15-2014 3-00-01 PM.jpg]]
+#+END_EXAMPLE
+
+This markup creates an =<a href>= tag that points at my =Images=
+directory that is directly beneath my =wiki_html= directory.
+
+The new markup to display the same image in the 2.x version of vimwiki
+looks like this:
+
+#+BEGIN_EXAMPLE
+    {{local:../wiki_html/Images/1-15-2014 3-00-01 PM.jpg}}
+#+END_EXAMPLE
+
+The script that converts your wiki markup to HTML now starts relative to
+the =wiki= folder, *NOT* the =wiki_html= folder. We therefore have to go
+up one folder to find the =wiki_html= folder and then we can reference
+the =Images= folder. And there are of course a few other minor
+differences.
+
+The required regular expression to update this markup is a little more
+complex. Just like in the previous example, I developed the regex
+pattern in one document at first, and here's what I came up with:
+
+#+BEGIN_EXAMPLE
+    :%s/\v\[\[\.(.*)\]\]/\{\{local:\.\.\/wiki_html\1\}\}/g
+#+END_EXAMPLE
+
+This looks crazy, but here's what it says:
+
+-  =/\v=: This is a switch that uses Vim's "very special" regex mode.
+   What this basically means is that you can avoid too many crazy escape
+   sequences and just create a pattern that looks a lot like what you
+   would use with =sed= or =perl=.
+-  =\[\[\.(.*)\]\]=: Find everything between the =[[= and =]]= character
+   sequences and put it in a *group*. We want that text to be in a group
+   so we can use it later.
+-  =\{\{local:\.\.\/wiki_html\1\}\}=: Replace the character sequence
+   with one that looks like this:
+
+   -  ={{local:../wiki_html= + contents of our first (and only) group +
+      =}}=
+
+This worked in my test document, so I used the same steps that I used
+above:
+
+#+BEGIN_EXAMPLE
+    :argadd /my/wiki/path/*.wiki
+    :argdo %s/\v\[\[\.(.*)\]\]/\{\{local:\.\.\/wiki_html\1\}\}/ge | update
+#+END_EXAMPLE
+
+* Additional Help
+
+-  [[http://learnvimscriptthehardway.stevelosh.com/chapters/31.html][Chapter
+   31 of Learn Vim Script The Hard Way]] is a fantastic introduction to
+   finding text based on regular expressions. Oh and it's free :-)
+-  =:help find-replace=
+-  =:help argadd=
+-  =:help argdo=

@@ -1,0 +1,86 @@
+Title: Making Windows The Default OS Using Grub 1 Date: 2012-06-25 09:18
+Comments: true Category: Tutorial
+
+Recently, I needed to send my netbook into the shop for some service. By
+default, I use *Ubuntu 11.10*, but I kept the *Windows 7 Starter*
+partition and I can choose my OS using =grub=. I'm not a huge fan of
+Windows as a desktop OS (especially when MS cripples it), but I really
+need it at least 3 or 4 times a year.
+
+I didn't want to confuse anyone at the Toshiba shop with Ubuntu, so I
+decided to make the following changes to =grub= before sending it in:
+
+-  Make Windows 7 Starter the default choice
+-  Only show the =grub= OS chooser splash for 3 seconds instead of 10
+
+I assumed that this would be a /really/ simple change, but it took a
+surprising amount of research and problem-solving. Here's how I did it.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+** First There Was Bad Advice
+
+All of the tutorials that I found told me to do at least one of the
+following:
+
+-  Edit files that don't exist on my system
+-  Hand-edit =/boot/grub/grub.cfg=
+
+The problem with hand-editing =grub.cfg= is that your changes will be
+overwritten the next time you update you kernel or =grub= is patched for
+a security vulnerability. So unless you /like/ screwing up your boot
+process every couple of weeks, you should avoid this technique.
+
+** Then The GUI Didn't Work
+
+At this point, I figured that their just *had* to be a way to do this
+with a GUI, and there is. It's called
+[[https://launchpad.net/startup-manager/][Startup Manager]].
+
+It has a very simple GUI and I was able to make the changes that I need
+in less than a minute. However, when I rebooted, the default OS was
+still choice #1, which is Ubuntu.
+
+I double-checked Startup Manager, and it told me that my default OS was
+Windows 7. Hmm, ok, back to the drawing board.
+
+** Finally A Way That Worked
+
+At this point, I started poking around the following files:
+
+-  =/boot/grub/grub.cfg= - This file actually lists all of your
+   configured kernels and OS'
+-  =/etc/default/grub= - This is the file that you're supposed to change
+   when you want to make a change to grub.
+
+In the =grub= file, I saw that the =GRUB_DEFAULT= was set to 16. This
+made sense, because my Windows partition was the 17th kernel listed in
+the =grub.cfg= file. However, when you looked at the =grub= splash
+screen at boot time, Windows was /not/ the 17th option - it was the 6th
+option.
+
+I therefore tried the following:
+
+-  I set the =GRUB_DEFAULT= value to *6* in =/etc/default/grub=
+-  I ran =sudo update-grub=
+-  I rebooted my machine
+
+Believe it or not, *this actually worked*. Once I rebooted, the Windows
+OS was displayed as the default OS in the =grub= splash screen.
+
+** Summary
+
+So what should you do?
+
+-  *Don't* hand-edit =/boot/grub/grub.cfg=
+-  Avoid using *Startup Manager* in 11.10 because it doesn't work
+-  Get the "index" of your Windows OS by looking at the =grub= splash
+   screen
+-  Count from the top starting with 0
+-  Specify *that* number as =GRUB_DEFAULT= value in =/etc/default/grub=.
+-  Run =sudo update-grub=
+-  Reboot to test.
+
+Good luck!

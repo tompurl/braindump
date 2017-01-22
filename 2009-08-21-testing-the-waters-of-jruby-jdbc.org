@@ -1,0 +1,93 @@
+Title: Testing The Waters Of Jruby & JDBC Tags:
+apache-derby,jdbc,jruby,programming Category: Tutorial Comments: true
+
+I was recently tasked with writing a command-line script in Jruby that
+performed simple CRUD operations against a simple database table. I've
+written tons of scripts in the past that manipulated tables, but I had
+never done so using Jruby. I therefore decided to first write a
+"bare-minimum" test script that would help me dip my toes in this
+unfamiliar water.
+
+I wanted to write my test script against a database manager that ran on
+my laptop, but I didn't want to go through the hassle of installing and
+configuring Oracle or MySql. Also, I soon learned that a lot of Ruby
+database drivers don't work with Jruby, so I needed a small, simple
+database that had a good JDBC driver.
+
+I ended up installing and configuring
+[[http://db.apache.org/derby][Apache Derby]], and it worked out very
+well for me.
+
+So anyways, here's the script (jdbctest.rb):
+
+#+BEGIN_EXAMPLE
+    require 'java'
+    require './derbyclient.jar'
+    require './derbytools.jar'
+
+    # This example assumes that you have the free DerbyDB software installed on
+    # your machine.  It also assumes that you are running it in "server" mode by
+    # executing the startNetworkServer.bat script.
+
+    # This is what I'm using instead of Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance()
+    import 'org.apache.derby.jdbc.ClientDriver'
+
+    connString = "jdbc:derby://localhost:1527/MyDbTest"
+    conn = Java::JavaSql::DriverManager.getConnection(connString)
+
+    stmt = conn.createStatement
+
+    rs = stmt.executeQuery("select * from derbyDb")
+
+    while (rs.next) do
+        puts "#{rs.getString("NUM")} -- #{rs.getString("ADDR")}"
+    end
+
+    rs.close
+    stmt.close
+    conn.close()    
+#+END_EXAMPLE
+
+I then placed the *jdbctest.rb* script in a folder with the
+*derbyclient.jar* and *derbytools.jar* file, and then executed the
+script like this:
+
+#+BEGIN_EXAMPLE
+    c:\Dev\jruby\somefolder>jruby .\jdbctest.rb
+    180 -- Grand Ave.
+    1910 -- Union St.
+#+END_EXAMPLE
+
+To make this script work, you need to do the following:
+
+1. Install Derby using this tutorial:
+   [[http://db.apache.org/derby/papers/DerbyTut/install_software.html][Step
+   1 -- Install Software]]
+
+   -  This is a very simple task that took me all of 6 minutes after
+      downloading the software.
+
+2. Create the MyDbTest database and the derbyDB table using this
+   tutorial:
+   [[http://db.apache.org/derby/papers/DerbyTut/ij_intro.html][Step 2 --
+   ij Basics]]
+
+   -  You should also populate this table using the SQL located under
+      the Execute SQL Statements section.
+
+3. Once you've created and queried your table using ij, start your Derby
+   server using this tutorial:
+   [[http://db.apache.org/derby/papers/DerbyTut/ns_intro.html][Step 4 --
+   Derby Network Server]]
+
+   -  You should validate the server using ij. Please see the Test
+      network server connection with ij section in the Step 4 tutorial
+      for help.
+
+Please note that this might seem like a lot of work, but it's really
+very simple, especially when you compare it installing and configuring
+most relational database managers. It took me about 20 minutes from A to
+Z, and I had no prior experience with Derby.
+
+That's it! I hope that this tutorial helps a few other people who want
+to get started with Jruby and JDBC.

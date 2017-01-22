@@ -1,0 +1,52 @@
+Title: Live TV On My EEE PC Tags: easy-peasy,eeepc,mythtv,tv Category:
+Review Comments: true
+
+I apologize in advance for the corny, rhyming title :)
+
+I've been using an
+[[http://en.wikipedia.org/wiki/ASUS_Eee_PC#Eee_900_series][Asus EEE PC
+900]] netbook for about a year now, and have used it mostly for light
+word processing and web browsing. I also have a
+[[http://www.mythtv.org/][MythTV]] server running in my basement on an
+old Duron-based system. I can do almost all of my personal daily work on
+the EEE PC, but when I need to do anything MythTV-related, I'm forced to
+switch machines.
+
+This can be a pain, so I decided to try running the "frontend" for
+MythTV on my EEE PC. To my surprise, everything is working /very/ well.
+It only took me about 5 minutes to install and configure the frontend
+software, and after that, I was able to do the following on my netbook:
+
+-  Watch live tv
+-  Watch recorded shows
+-  Edit shows (i.e. cut out commercials)
+
+And the best part is that it's all working very well over my wireless G
+network. Your results may vary, but at least it's nice to know that this
+configuration works for some people.
+
+Here's some more information about my setup in case you want to try this
+yourself:
+
+-  My netbook has a 900 Mhz processor, 1 GB of RAM, and a solid-state
+   hard drive
+-  I am using the integrated graphics card made by Intel. Apparently, it
+   uses the i810 chipset.
+-  I am serving up standard-definition television
+
+And finally, a few caveats:
+
+-  I don't know the limits of the video card that comes with my netbook.
+   The highest resolution that I've tried is 1280x1024 on a 17" monitor,
+   and it looked pretty good. I have no idea how it would look at a
+   higher resolution on a more regular-sized TV.
+-  I have heard that his netbook simply can't display HD recordings. I'm
+   not an expert on this type of thing (since I don't have an HD TV or
+   monitor), however.
+-  As with any hardware purchase, don't buy anything based solely on a
+   blog or product review. This system worked well for me, but it could
+   work terribly for you for a variety of reasons. Do a decent amount of
+   research /before/ you spend any money. For example, the
+   [[http://www.mythtv.org/wiki][MythTV wiki]] and
+   [[http://www.mythtv.org/mailman/listinfo/mythtv-users/][mailing
+   list]] are great places to do exactly this type of research.

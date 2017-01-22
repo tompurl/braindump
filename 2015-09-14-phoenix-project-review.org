@@ -1,0 +1,38 @@
+#+TITLE: The Phoenix Project - Book Review
+
+#+DATE: 2015-09-14
+
+I really love the rare occasions when I find a book that I would happily
+recommend after only reading a couple of chapters.
+[[http://itrevolution.com/books/phoenix-project-devops-book/][The
+Phoenix Project]] is definitely one of those books, especially if you've
+ever found yourself working in an IT department at any time in your
+life.
+
+I tried writing a short overview of the book's plot, but I'm afraid that
+my description will bore you to tears. There's a lot of methodolgies and
+processes and Kung-Fu-style mentorship and things like that. Actually,
+if someone had actually given me a synopsis of the plot I probably
+wouldn't have ever read it in the first place.
+
+The good news (for me) is that everyone and their brother just told me
+to read the goddamned book  [1], and I'm really glad I did. In spite of
+the fact that it's a fictional book about business processes and capital
+"Q" quality, it's actually *really fascinating*. I feel a little silly
+admitting it, but I was really pulling for all of the characters that
+were trying to save the business. It was like a soap opera with e-mail,
+crooked executives and CAB meetings.
+
+Of course the people who recommended this book to me didn't do so
+because of they wanted me to read a good drama. They wanted me to be
+prepared for the future of my industry, and this book does that by
+making core Devops principles a big part of the plot. Which is good,
+because I like both computers and working with them for a living.
+
+So do yourself a favor if you consider yourself a technologist in any
+way whatsoever. Check this book out. Even if you don't agree with the
+methodologies or practices, sometimes it's nice to read a good book
+about that thing you do with most of your time.
+
+[1] I heard this so many times I feel that it should be the book's
+    slogan.

@@ -1,0 +1,187 @@
+Title: "Sinatra: Lessons Learned" Tags: rack,ruby,sinatra Category:
+Tutorial Comments: true
+
+I recently needed to build a somewhat simple web application, and I
+thought that this would be a great opportunity to learn a little bit
+about  [[http://www.sinatrarb.com][Sinatra]], a lightweight Ruby web
+framework. So I did and I learned to love developing with Sinatra. It is
+a very elegant framework that took care of 95% of the "heavy lifting"
+that we all hate to do when writing a web application. After 3
+surprisingly fun hours, my simple web application was written and
+tested.
+
+The only remaining task was to deploy it on top of Passenger and Apache,
+which was *very* easy according to all of the tutorials that I had read.
+Unfortunately, this was the task that took over 10 hours to complete,
+which "harshed the good buzz" I was getting from the framework itself.
+
+Here's the lessons learned from that process. I hope that they will help
+others with this up-and-coming framework and make Sinatra that much
+easier and more popular.
+
+** Lesson #1: Sinatra Assumes That You're Not Using A Sub-URI
+
+Sinatra has lots of nice goodies built in that make it very easy to call
+URL's. For example, let's say that you wanted to redirect everyone who
+visited the root of your web app (=/=) to an =/index= page. Here's a
+file called =showindex.rb= that does what I want:
+
+#+BEGIN_EXAMPLE
+    require 'rubygems'
+    require 'sinatra'
+
+    get '/?' do
+        redirect '/myindex'
+    end
+
+    get '/myindex' do
+        "this is my index page"
+    end
+#+END_EXAMPLE
+
+If you run this script using =ruby showindex.rb= and visit 
+=http://localhost:4567=, you should be redirected to 
+=http://localhost:4567/myindex=.
+
+Now let's deploy this apps under Apache and Passenger, and let's assume
+that you want to use a sub-URI like *myrackapp*. Here's what you will
+see in your Apache error log when you
+visit =http://localhost/myrackapp=:
+
+#+BEGIN_EXAMPLE
+    ::1 - - [19/Oct/2010 16:25:39] "GET  " 302 - 0.0009
+    [Tue Oct 19 16:25:39 2010] [error] [client ::1] File does not exist: /var/www/myindex
+#+END_EXAMPLE
+
+When you were redirected to =myindex=, your app server assumed that you
+wanted to visit =http://localhost/myindex=, *not*
+=http://localhost/myrackapp/myindex=.
+
+It's arguable whether this is the way things *should* be, but thank
+goodness that it's somewhat easy to sub-URI-proof your Sinatra app with
+the  [[http://github.com/emk/sinatra-url-for/][emk-sinatra-url-for]]
+package.
+
+Now let's make a few changes to our simple web app:
+
+#+BEGIN_EXAMPLE
+    require 'rubygems'
+    require 'sinatra'
+    gem 'emk-sinatra-url-for'
+    require 'sinatra/url_for'
+
+    get '/?' do
+        redirect url_for('/myindex')
+    end
+
+    get '/myindex' do
+        "this is my index page"
+    end
+#+END_EXAMPLE
+
+Redeploy your app, and now every visit to  =http://localhost/myrackapp=
+will be redirected to  =http://localhost/myrackapp/myindex=.
+
+** Lesson #2 - You Need To Test Your Rackup File In Dev
+
+Sinatra is built upon a another framework
+called [[http://rack.rubyforge.org][Rack]]. This fact is abstracted away
+during development time, but at deployment time you need to pass Rack
+some explicit parameters. You do this with a *rackup* file
+called =config.ru=.
+
+It's tempting to develop you app in a Rack-ignorant way and then tack on
+a rackup file when you're ready to deploy, but I don't recommend it. The
+problem is that you probably won't get very informative errors or log
+entries once your file has been deployed on top of Passenger. This makes
+it *much* more difficult to determine what, if anything, in your rackup
+file is making your web app break.
+
+Instead, you should test your =config.ru= file *in your Dev environment*
+using the =rackup= binary. Here's how I run  rackup` on my Ubuntu
+system:
+
+#+BEGIN_EXAMPLE
+    $ cd $RACK_APP_ROOT
+    $ ruby -S rackup -w config.ru
+#+END_EXAMPLE
+
+Now you can now test your application using the =http://localhost:9292=
+address and see verbose log messages in your console.
+
+** Lesson 3 - Use /? Instead Of /
+
+#+BEGIN_QUOTE
+  *Note*: This is actually part of the 
+  [[http://www.sinatrarb.com/faq.html][Sinatra FAQ]], so I don't really
+  have a very good excuse for not knowing about it when I started my
+  project. However, it would be nice if more beginner tutorials
+  mentioned this feature.
+#+END_QUOTE
+
+Most beginning Sinatra tutorials basically look like this:
+
+#+BEGIN_EXAMPLE
+    require 'rubygems'
+    require 'sinatra'
+
+    get '/' do
+        redirect '/sayhi'
+    end
+
+    get '/sayhi' do
+        "hello world!"
+    end
+#+END_EXAMPLE
+
+Next, you start up your app, visit =http://localhost:4567=, and voilà,
+your app works.
+
+Now let's deploy your app on top of Passenger and Apache, and let's
+assume that the URL is =http://localhost/hello=. When you visit that
+exact link, you will see the following:
+
+-  A *Not Found* error in your browser.
+-  A *404 return code* in your Apache error log for the " " path.
+
+What Apache is trying to tell you (by way of Rack and Passenger) is that
+it *can't server up an empty route*. Now, if you were to try
+=http://localhost/hello/=, that *would* work, because you have defined a
+"/" route in your Sinatra script.
+
+Let me state this again, because you might have missed the difference:
+
+-  =http://localhost/hello= <-- No-worky :(
+-  =http://localhost/hello/= <-- Works, served up by the */* route
+
+The tricky part about this is that *you won't see this error in your
+development environment*. For some reason, when you're not running your
+script on top of Passenger, Sinatra is smart enough to know that those
+two URL's are basically the same.
+
+And the opposite can bite you too. Instead of visiting
+=http://localhost/hello/sayhi= (which would work), your user might try
+and visit =http://localhost/hello/sayhi/= (which would also fail).
+
+Again, let's look at the difference between those URL's again:
+
+-  =http://locahost/hello/sayhi= <-- Works!
+-  =http://locahost/hello/sayhi/= <-- No-worky :(
+
+So what do we do? Simply tell Sinatra that the trailing slash is
+optional like this:
+
+#+BEGIN_EXAMPLE
+    require 'rubygems'
+    require 'sinatra'
+
+    get '/?' do
+        redirect '/sayhi'
+    end
+
+    get '/sayhi/?' do
+        "hello world!"
+    end
+#+END_EXAMPLE
+
+Now your URL's work regardless of whether they are followed by a slash.

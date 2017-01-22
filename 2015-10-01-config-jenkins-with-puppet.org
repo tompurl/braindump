@@ -1,0 +1,108 @@
+#+TITLE: Configuring Jenkins To Run As A Different User Using Puppet
+
+#+DATE: 2015-10-01
+
+*2/26/2016 Update*: The rtyler/jenkins\_ module has been updated
+recently to allow you to set the runas user and group. This technique is
+much more elegant that my original tutorial so I have updated the
+document below with updated steps.
+
+---
+
+I was recently rebuilding my laptop using Puppet and needed install
+Jenkins\_ to run scheduled jobs. Thankfully, the excellent
+rtyler/jenkins\_ module exists, but I needed to make a few changes to
+make it work for me.
+
+A couple of the scheduled jobs that I need to run make encrypted backups
+using GnuPG and duply\_. The problem is that by default the jenkins
+service runs under the jenkins user, which cannot access either my duply
+or gnupg profiles. The simplest solution for this is to simply run
+jenkins under my local account (which is this case it =tom=).
+
+There's already a really good tutorial\_ on doing this manually, but
+since doing the same thing with Puppet is a little tricky, I thought it
+might be helpful to share my experience.
+
+First, of course, you need to add the rtyler/jenkins\_ module version
+1.6 or greater. After that you need to add the following to your
+manifest:
+
+#+BEGIN_SRC ruby
+    # Change this to your desired user name
+    $mainuser = "tom"
+
+    Exec {
+        path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ],
+    }
+
+    class { 'jenkins':
+        user         => $mainuser,
+        group        => $mainuser,
+        manage_user  => false,
+        manage_group => false,
+    }
+
+    exec { "chown-var-lib-jenkins":
+        command => "/bin/chown -R ${mainuser}:${mainuser} /var/lib/jenkins",
+        unless  => "[ \"${mainuser} ${mainuser}\" = \"$(/usr/bin/stat -c \"%U %G\" /var/lib/jenkins)\" ]",
+        notify  => Service["jenkins"],
+    }
+
+    exec { "chown-var-cache-jenkins":
+        command => "/bin/chown -R ${mainuser}:${mainuser} /var/cache/jenkins",
+        unless  => "[ \"${mainuser} ${mainuser}\" = \"$(/usr/bin/stat -c \"%U %G\" /var/cache/jenkins)\" ]",
+        notify  => Service["jenkins"],
+    }
+
+    exec { "chown-var-log-jenkins":
+        command => "/bin/chown -R ${mainuser}:${mainuser} /var/log/jenkins",
+        unless  => "[ \"${mainuser} ${mainuser}\" = \"$(/usr/bin/stat -c \"%U %G\" /var/log/jenkins)\" ]",
+        notify  => Service["jenkins"],
+    }    
+#+END_SRC
+
+Most of this should be pretty obvious to most Puppet users, but there's
+a few tricky things. For starters it may seem to be overkill to specify
+my path in the =Exec= statement at the top, but the command in your
+=unless= parameters won't work without it, even if you use explicit
+paths.
+
+It's important that you set the =manage_user= and =manage_group=
+variables to =false=, otherwise Puppet will try to create them for you.
+Also, please make sure that you set the =mainuser= variable, unless you
+really want to create a *tom* account.
+
+The 3 =exec= statements are probably the weirdest things that I'm doing
+in this snippet. There's not a built-in way to perform a =chmod -R=
+command using puppet, so this is closest thing I could find. Basically,
+I'm first checking if the parent directory is owned by the "tom" user
+and group. If not, I run the chown command and then notify the =jenkins=
+service so that it can be restarted.
+
+The =unless= parameter is a bit difficult to read with all of the
+escaping and such, so here's what it looks like on the command line
+without all of that:
+
+#+BEGIN_EXAMPLE
+    $ [ "tom tom" = "$(/usr/bin/stat -c "%U %G" /var/log/jenkins)" ]
+#+END_EXAMPLE
+
+This command is comparing the output of the =stat= command with the
+string "tom tom". The =[ ]= operands are a way of testing conditions in
+Bash. If the output of the =stat= command matches "tom tom" then this
+command returns =0=. Otherwise it returns 1 which tells Puppet to run
+the =chown= command.
+
+So why is the result "tom tom" or "jill jill" or whatever? The =stat=
+command is returning the owning user and group for that folder, and we
+would like both of those values to be the same as our =$mainuser= value.
+
+So there you go - super simple setup of a Jenkins instance that can run
+as a non-standard user. Please note that if you should *not* configure
+Jenkins this way if the web interface is accessible using the public
+internet. This creates a fairly large *security hole* in your server
+because a vulnerability in Jenkins could allow an attacker to hijack
+your personal account. Please, please *please* don't configure your
+Jenkins server this way unless it's running behind a firewall or on your
+laptop or something like that.

@@ -1,0 +1,18 @@
+Title: Day 2 With MediaMVP and MVP Media Center Tags:
+mediamvp,mvpmc,mythtv Category: Review Comments: true
+
+I noodled around with my
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MVP]]/[[http://www.mvpmc.org][MVPMC]]
+setup a little bit more, and discovered the following: 1. Live-TV with
+my [[http://www.mythtv.org][MythTV]] backend actually works pretty well.
+I just needed to fix my timezone settings. 2. VLC transcoding, which
+allows me to view Xvid AVI's using MVP, is a pretty CPU-intensive
+process. The default video quality level (labled "DVD") used about 95%
+of the CPU cycles of my 1.6 Ghz Sempron 3100+. I ended up using the
+"SVCD" video quality level, which is still pretty good, and only uses
+about 65% of my CPU cycles.
+
+That's it for now. Soon, I hope to have everything set up properly so I
+can share some of the details that might matter to someone considering
+the MVP, such as the following: - network topology - configuration -
+total costs

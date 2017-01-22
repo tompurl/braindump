@@ -1,0 +1,32 @@
+#+TITLE: Bitcoin For The Befuddled - Book Review
+
+#+DATE: 2015-12-05
+
+[[/images/bitcoin-for-befuddled-book.png]]
+
+I was a /huge/ fan of Conrad Barski's last book, Land Of Lisp\_. I
+really like his writing style, which intersperses conventional writing
+with the occasional comic, which are both done very well. I was
+therefore very happy to see that his next book was going to cover
+something that I've been experimenting with a bit lately - Bitcoin\_.
+
+I am very fortunate to have a friend who gave me an excellent tutorial
+on Bitcoins earlier this year. He showed me how to buy and spend them
+and a little about how the network works. However, there's still a bunch
+of stuff that's a mystery to me.
+
+For example, what are my options for safely storing and backing up my
+wallets? How could I use them to accept POS payments? And finally, how
+is everything encrypted? This book includes all of that and quite a bit
+more.
+
+One more thing that I really loved about this book is that it seems to
+target readers who at least know a little bit about programming and
+encryption. There's even example programs at the end that show you how
+run your own code against the blockchain.
+
+The Bitcoin ecosystem currently lacks a lot of quality educational
+resources. And what does exist seems to target mathematicians or people
+who are looking to make a quick buck. Thankfully this book does a great
+job filling that gap. If you're any sort of technologist who has any
+interest in Bitcoins then check out this book\_ soon.

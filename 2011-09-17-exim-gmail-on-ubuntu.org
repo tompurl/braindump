@@ -1,0 +1,161 @@
+Title: Exim + Gmail On Ubuntu Tags: debian,exim,gmail,mail,ubuntu
+Category: Tutorial Comments: true
+
+This tutorial shows you how to set up a light-weight mail server on your
+Ubuntu system that can send mail to host-only (e.g. tom) and remote
+(e.g. [[mailto:tom@tompurl.com][tom@tompurl.com]]) addresses using Gmail
+as your SMTP server.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+So what the heck does that mean? We're making it possible for you (and
+various programs on your computer) do the following:
+
+#+BEGIN_EXAMPLE
+    $ echo "Hello!" | mail -s "This is cool" tom # Sent to /var/mail/tom spool
+    $ echo "Hello!" | mail -s "This is cool" tom@tompurl.com # Sent to my Gmail account
+#+END_EXAMPLE
+
+So now you may be asking yourself “why anyone would want to so something
+like this on a desktop machine that isn't a mail server? Can't you just
+send email using programs like the Gmail web client and Thunderbird?”.
+You certainly can, but it's not always the best choice.
+
+For example, it you wanted to send an email message from a shell script,
+the easiest way to do that is to use the *mail* command above.
+Also, *your system* may want to send you a message if something weird
+happens, like a failed cronjob. Without a working mail server like Exim
+installed and configured, those messages are going to end up
+in /dev/null. So let's get started :)
+
+** Prerequisites
+
+This tutorial is designed to work with *Ubuntu Linux 11.04*, but
+it /may/ work with other versions of Ubuntu and Debian Linux. Here's all
+of the pertinent software versions that I'm using:
+
+#+BEGIN_EXAMPLE
+    exim4-base                4.74-1ubuntu1.2
+    exim4-config              4.74-1ubuntu1.2
+    exim4-daemon-light        4.74-1ubuntu1.2
+    libmailutils2             1:2.1+dfsg1-7build1
+    mailutils                 1:2.1+dfsg1-7build1
+    mutt                      1.5.21-2ubuntu3
+#+END_EXAMPLE
+
+I used  [[http://wiki.debian.org/GmailAndExim4][this tutorial on using
+Exim with Gmail]]  to set up outgoing mail. If my instructions below
+don't work for you, then that tutorial may be able to help.
+
+** Software Installation
+
+This part is super easy:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install exim4-base mailutils mutt
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+  *Note*: We're using *exim* (the Debian default) as our mail server
+  instead of *postfix*, which is the default mail server in the Ubuntu
+  world. You probably don't care, and for 99% of you it shouldn't
+  matter. I'm just pointing it out because this is an Ubuntu-centric
+  tutorial.
+#+END_QUOTE
+
+The mailutils package gives you a lightweight version of the exim daemon
+along with the mail and mailxprograms, which are pretty important if you
+ever want to be notified by your system when something strange happens.
+
+Finally, we're installing mutt, which is a mail reader that you can use
+in a console. Please note that you will need to install this program (or
+something similar) if you want to read mail that is sent to you by your
+system. Showing you how to use mutt is beyond the scope of this
+tutorial, but if you need some basic guidance, then I
+recommend [[http://mutt.blackfish.org.uk/][My First Mutt]].
+
+** Configuration
+
+First, let's configure exim with debconf using the following command:
+
+#+BEGIN_EXAMPLE
+    $ sudo dpkg-reconfigure exim4-config
+#+END_EXAMPLE
+
+You will now be presented with a configuration wizard. Here's what I
+chose:
+
+-  *Server Type*
+
+   -  smarthost + smtp
+
+-  *System mail name*
+
+   -  <your host name>
+
+-  *listening ip address*
+
+   -  127.0.0.1 ; ::1
+
+-  *Other destinations*
+
+   -  <your host name>
+
+-  *machines to relay for*
+
+   -  <blank>
+
+-  *smarthost ip address*
+
+   -  smtp.gmail.com::587
+
+-  *Hide local mail name*
+
+   -  No
+
+-  *DNS Queries*
+
+   -  No
+
+-  *Delivery method*
+
+   -  Mbox
+
+-  *Split config?*
+
+   -  Yes
+
+Next, execute the following command:
+
+#+BEGIN_EXAMPLE
+    $ chown root:Debian-exim /etc/exim4/passwd.client
+#+END_EXAMPLE
+
+The only step left is to specify your Gmail password.
+Open /etc/exim4/passwd.client and add something like this at the bottom
+of the file:
+
+#+BEGIN_EXAMPLE
+    *.google.com:tom@tompurl.com:somethingClever
+#+END_EXAMPLE
+
+Of course, you'll want to replace the email address and password :)
+Please note that this config works with normal Gmail accounts and
+accounts that use Google Apps For Your Domain (like mine).
+
+** Testing
+
+Now let's run a couple of simple tests:
+
+#+BEGIN_EXAMPLE
+    # Please replace "me" with your user account name and verify in mutt
+    $ echo test | mail -s "test" me # Sends mail to /var/mail/me spool
+    # Please replace "me@gmail.com" with your actual Gmail address
+    $ echo test | mail -s "test" me@gmail.com # verify using Gmail
+#+END_EXAMPLE
+
+** Conclusion
+
+That's it! I hope that I've been able to help a few other people

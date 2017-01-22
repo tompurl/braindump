@@ -1,0 +1,128 @@
+Title: Tab Sweep - Lots Of Stuff, Lots of Themes Tags:
+administration,jruby,linux,nosql,ruby,trinidad Category: Tab Sweep
+Comments: true
+
+-  [[http://blogs.oreilly.com/headfirst/2011/05/no-code-is-sometimes-best.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+headfirst-oreillymedia+(Head+First+-+O'Reilly+Media,+Inc.)&utm_content=Google+Reader][No
+   Code Is Sometimes Best - Head First Labs]]
+
+   I would always rather write something the easy and elegant way and
+   profile it than write it from scratch by default.
+
+   tags: [[http://www.diigo.com/user/tepurl/programming][programming]]
+   [[http://www.diigo.com/user/tepurl/style][style]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://www.dbms2.com/2011/06/02/why-you-would-want-an-appliance-and-when-you-wouldnt/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+dbms2/feed+(DBMS2+--+DataBase+Management+System+Services)&utm_content=Google+Reader][Why
+   you would want an appliance - and when you wouldn't | DBMS 2 :
+   DataBase Management System Services]]
+
+   tags: [[http://www.diigo.com/user/tepurl/database][database]]
+   [[http://www.diigo.com/user/tepurl/nosql][nosql]]
+   [[http://www.diigo.com/user/tepurl/hadoop][hadoop]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://ubuntuforums.org/showthread.php?t=263385][HowTo: Remap
+   Caps\_Lock as Escape (Nice for Vim) - Ubuntu Forums]]
+
+   I switched to Xfce from Gnome after upgrading to Ubuntu 11.04, and
+   this tip gives you a great, cross-window-manager way of remapping
+   your keys.
+
+   tags: [[http://www.diigo.com/user/tepurl/xfce][xfce]]
+   [[http://www.diigo.com/user/tepurl/linux][linux]]
+   [[http://www.diigo.com/user/tepurl/keyboard][keyboard]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://www.linux.com/learn/tutorials/442456-how-to-scan-and-ocr-like-a-pro-with-open-source-tools][How
+   to scan and OCR like a pro with open source tools | Linux.com]]
+
+   Outstanding tutorial on converting a "dead-tree" book into a text
+   file. These are some great tips for that can be used for "OCR-ing"
+   any content on Linux.
+
+   tags:
+   [[http://www.diigo.com/user/tepurl/project-scan-book][project-scan-book]]
+   [[http://www.diigo.com/user/tepurl/linux][linux]]
+   [[http://www.diigo.com/user/tepurl/ocr][ocr]]
+   [[http://www.diigo.com/user/tepurl/tiff][tiff]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://www.dbms2.com/2011/05/29/when-to-use-relational-database-management-system/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+dbms2/feed+(DBMS2+--+DataBase+Management+System+Services)&utm_content=Google+Reader][When
+   it's still best to use a relational DBMS | DBMS 2 : DataBase
+   Management System Services]]
+
+   Yet another great article from the "DBMS 2" author. I would recommend
+   this article to anyone who wants to gain a basic, high-level
+   understanding of NOSQL databases.
+
+   tags: [[http://www.diigo.com/user/tepurl/database][database]]
+   [[http://www.diigo.com/user/tepurl/nosql][nosql]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[https://agilewarrior.wordpress.com/2011/05/28/how-facebook-pushes-new-code-live][How
+   Facebook pushes new code live « The Agile Warrior]]
+
+   tags: [[http://www.diigo.com/user/tepurl/video][video]]
+   [[http://www.diigo.com/user/tepurl/to-watch][to-watch]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://stevelosh.com/blog/2011/05/paper-free/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+stevelosh+(Steve+Losh)&utm_content=Google+Reader][Going
+   Paper-Free for $220 / Steve Losh]]
+
+   Great article for "going paperless" on the cheap. Too bad it doesn't
+   work with Linux though.
+
+   tags: [[http://www.diigo.com/user/tepurl/scanning][scanning]]
+   [[http://www.diigo.com/user/tepurl/document-management][document-management]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://www.rubyinside.com/tips-hiring-ruby-web-developers-4757.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+RubyInside+(Ruby+Inside)&utm_content=Google+Reader][Practical
+   Tips for Hiring Ruby Web Developers]]
+
+   This is some great, practical advice for creating job descriptions
+   that appeal to high-quality developers. I've used tips like this
+   numerous times when creating jobs.
+
+   tags: [[http://www.diigo.com/user/tepurl/article][article]]
+   [[http://www.diigo.com/user/tepurl/to-read][to-read]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://www.infoq.com/news/2011/05/jruby-ey-jruby-lint][InfoQ: JRuby
+   Roundup: JRuby on EY AppCloud, JRuby-Lint, JRuby Delegates]]
+
+   Wonderful summary of some new developments in the Jruby community.
+   And with Trinidad on EY now, it's easier than ever to rapidly develop
+   real Jruby-on-Rails apps.
+
+   tags: [[http://www.diigo.com/user/tepurl/jruby][jruby]]
+   [[http://www.diigo.com/user/tepurl/jruby-lint][jruby-lint]]
+   [[http://www.diigo.com/user/tepurl/ey][ey]]
+   [[http://www.diigo.com/user/tepurl/trinidad][trinidad]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://www.droidforums.net/forum/droid-audio-video/30269-cant-get-music-show-up-my-music-player.html][Can't
+   get music to show up in my music player - Droid Forum - Verizon Droid
+   & the Motorola Droid Forum]]
+
+   I can't believe that you have to install an app to make your phone
+   recognize the mp3's that are stored on it.
+
+   tags: [[http://www.diigo.com/user/tepurl/android][android]]
+   [[http://www.diigo.com/user/tepurl/music][music]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+-  [[http://stackoverflow.com/questions/570984/how-can-i-gzip-standard-in-to-a-file-and-also-print-standard-in-to-standard-out][linux
+   - How can I gzip standard in to a file and also print standard in to
+   standard out? - Stack Overflow]]
+
+   Yet another stupid Linux trick that *really* came in handy the other
+   day.
+
+   tags: [[http://www.diigo.com/user/tepurl/unix][unix]]
+   [[http://www.diigo.com/user/tepurl/linux][linux]]
+   [[http://www.diigo.com/user/tepurl/administration][administration]]
+   [[http://www.diigo.com/user/tepurl/command-line][command-line]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
+
+Posted from [[http://www.diigo.com][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

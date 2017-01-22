@@ -1,0 +1,80 @@
+Title: Cheapo Review Of The Nokia 2760 Tags: frugality,nokia Category:
+Review Comments: true
+
+My [[http://www.mobiledia.com/phones/nokia/6101.html][Nokia 6101]] just
+died after 2.5 years of faithful, inexpensive service, so I was in the
+market for a new phone in a hurry. When I originally bought this phone,
+I hoped that Google would have revolutionized the cell phone industry in
+America, making smart phone service more flexible and inexpensive. Well,
+the changes that I want still haven't materialized yet, so I went
+looking for a new phone that was as similar as possible to my old trusty
+Nokia. Another requirement that I had was that I wanted the phone to
+work with the T-Mobile pre-paid service. I'm actually a really big fan
+of T-Mobile's price and network coverage The closest thing I could find
+was the [[http://www.nokiausa.com/find-products/phones/nokia-2760][Nokia
+2760]]. On occasion, it would be available on th T-Mobile web site, but
+it couldn't be found when my phone died. I therefore checked the
+Walgreens and Radio Shack stores in my town until I found one at "The
+Shack" (as the employees seem to be forced to call it). It was $40 plus
+tax, which means that I won't lose any sleep if my daughter tries to
+flush it down the toilet. To "activate" the phone, I simply took the SIM
+card out of my old phone and placed it in the new one. 20 seconds later,
+I was able to receive calls using my mobile number. I didn't have to
+contact T-Mobile even once, and my old "plan" seems to work with the new
+phone very well. The biggest questions that I had when I bought this
+phone were "what was missing from my old phone" and "what did I need to
+buy". Here's the results: ## Missing
+
+-  This phone doesn't have any buttons on the outside like my old one
+   did. I /really/ liked having a volume and F-you button on the outside
+   of the phone. The 2760 forces you to open the button to silence an
+   incoming call, and I have yet to figure out how to adjust call volume
+   without 5 button clicks.
+-  I can't record video on this phone like I could with the old phone.
+   This isn't really a bad thing, however, since the old phone's videos
+   were just god-awful.
+-  Apparently, Nokia phones no longer come with a ringtone that sounds
+   like a phone ringing. And I guess noticing that makes me some type of
+   old fogie who can't figure out why stores no longer carry Lawrence
+   Welk LP's. I tried to buy one from T-Mobile's ringtone shop, but I
+   couldn't find one.
+-  The 2760 doesn't have a little antenna nub sticking out of the top.
+
+** Different & New
+
+-  Bluetooth! I know I am the last person in America to buy a
+   bluetooth-enabled phone, but I'm really enjoying it so far. On my
+   6101, I actually purchased the compatible serial cable from Nokia,
+   which was around $50 if I remember correctly. I hate that I have to
+   basically throw away that investment, but I am loving how easy it is
+   to use bluetooth. Also, I purchased
+   [[http://www.newegg.com/Product/Product.aspx?Item=N82E16833242001][this
+   bluetooth adapter]] from [[http://www.newegg.com/][Newegg]] for $15,
+   and it works very well on both XP and Ubuntu 9.04.
+-  The software interface has changed a little bit, but it's nothing too
+   revolutionary. If you're used to your old phone's interface, then
+   this one should be very intuitive.
+-  I can now add MP3 ringtones from my MP3 collection. Sweet! Now I just
+   need to find an MP3 of a phone ringing :)
+-  I can log into Gmail with this phone, which I couldn't do on my old
+   phone for some reason. That's nice, but the interface and network
+   speed are nothing to write home about.
+-  The battery model changed. My old phone's battery model was *BL-4C*,
+   and my new phone's battery model is *BL-4B*. I don't yet know if the
+   two models are interchangeable, but I doubt they are.
+
+** What Hasn't Changed
+
+-  The wall AC adapter looks like it's identical. Based on that, it
+   doesn't look like I need to buy another car charger.
+-  The photo quality appears to be identical.
+-  The phone still has a ridiculously small amount of storage. I think
+   the official amount is 11 MB. Oh well, I already have a digital
+   camera and an MP3 player, so I guess I don't need a phone that does
+   all of that too.
+
+** Conclusion
+
+If you like little Nokia flip phones, then this one seems to be as good
+as its predecessors. I'm pretty happy with it so far, and it's hard to
+beat the price.

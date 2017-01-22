@@ -1,0 +1,30 @@
+Title: Cool GNU Screen Helper Functions Tags:
+administration,article,gnu-screen,howto,linux Category: Tutorial
+Comments: true
+
+I'm a big fan of using [[http://http//www.gnu.org/software/screen/][GNU
+Screen]], a terminal multiplexer. At any given time, I could be
+interacting with a dozen different Unix servers at work. I therefore
+group servers into logical, named groups and jump back and forth between
+them using screen. I find the following one-liner functions to be
+incredibly helpful to me when it comes to managing multiple screen
+sessions simultaneously. Hopefully someone else will also benefit from
+them. I currently run these one-liners using the Bash shell, and store
+them in my ~/.bashrc file. Each function should be runnable from a shell
+prompt. ## getscreenpids
+
+=function getscreenpids() { ps auxww | grep screen | grep -v grep | awk '{print $2}'; }=
+This function simply returns a list of process id's (pid's) for each
+screen process. This is nice info to have if you want to kill a screen
+session, since each session uses it's own screen process. ## clearscreen
+
+=function clearscreen() { for pid in $(getscreenpids); do kill -9 $pid; done; screen -wipe; }=
+This function kills every screen session into which I am logged. This is
+nice if things get flaky and I just want to kill all of my screen
+processes quickly. ## killscreen
+
+=function killscreen() { screen -ls | grep $1 | awk '{print $1}' | cut -f1 -d. | xargs kill -9; screen -wipe; }=
+This function kills every screen session that uses the title that you
+pass as the first parameter. So if you have one or more screen sessions
+titled "envA", and you pass that string to this function, all of those
+screen sessions will be killed.

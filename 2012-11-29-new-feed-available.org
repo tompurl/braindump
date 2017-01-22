@@ -1,0 +1,16 @@
+Title: New Feed Available Date: 2012-11-29 19:03 Comments: true Tags:
+site Category: Meta
+
+Just a quick housekeeping for those of you who have subscribed to my
+blog.
+
+I just started using *Feed Burner* to host my RSS feed. If you like to
+keep up with mys, then this means the following:
+
+-  If you *already subscribed to my site* using a feed reader (like
+   [[http://reader.google.com][Google Reader]]), then you need to start
+   using my [[http://feeds.feedburner.com/TomPurlsWebSite][new feed
+   address]].
+-  You can now
+   [[http://feedburner.google.com/fb/a/mailverify?uri=TomPurlsWebSite&loc=en_US][subscribe
+   to my site via email]].

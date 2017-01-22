@@ -1,0 +1,28 @@
+Title: Vim Scripting Using Macros And Registers Date: 2012-10-26 19:50
+Comments: true Category: Review
+
+I recently discovered how easy it was to basically "convert" macros into
+mappings in my =.vimrc=, and I thought that information was terribly
+useful to most Vim users, so I tried to write a blog about it.
+
+However, I soon discovered that the best and fastest way to explain this
+awesome feature was to create a screencast. So here it is:
+
+#+BEGIN_HTML
+  <iframe src="http://player.vimeo.com/video/52310701?badge=0" width="500" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
+  <p>
+#+END_HTML
+
+Vim Scripting Using Macros and Registers from Tom Purl on Vimeo.
+
+#+BEGIN_HTML
+  </p>
+#+END_HTML
+
+Like I said in the screencast, this is a "quick" overview of a lot of
+awesome features in Vim. It's designed to whet your appetite, not be a
+complete tutorial. However, I am more than happy to answer any questions
+in the comments.
+
+Also, please note that I have not created many screencasts before. Any
+constructive criticism is greatly appreciated!

@@ -1,0 +1,42 @@
+Title: Review Of "Build Awesome Command-Line Applications in Ruby" Date:
+2012-12-03 21:35 Comments: true Tags: review,ruby,scripting Category:
+Review
+
+#+CAPTION: Book cover
+
+[[|filename|images/dccar.jpg]]
+
+-  [[http://pragprog.com/book/dccar/build-awesome-command-line-applications-in-ruby][Link
+   to the book at pragprog.com]]
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+In the IT world, "scripting" is usually looked down on by "real"
+programmers and people who aspire to be one. It is seen as a dumb task
+done by dumb people who don't know any better. If only they would learn
+to use "real" languages like Java or C#, then they could write some real
+programs.
+
+Of course, this isn't true in reality. Actually learning how to write a
+quality script using a language like Ruby or Perl takes lots of
+knowledge and experience, and the results can be fantastic. I've seen
+short, concise scripts do the work of giant Java programs too many times
+to keep count.
+
+This book is a very good guide to writing *quality scripts*. It first
+introduces you to the building blocks of such a script, and then shows
+you to create such a script using Ruby and some third-party libraries.
+By the time you're done, you have a concise script that is easy to use,
+update and distribute.
+
+My favorite part of this book is its coverage of streams such as STDIN,
+STDOUT and STDERR. Knowledge of streams is one of the most important and
+often overlooked subjects of scripting, and this book provides a very
+solid explanation of what they are and how you can use them.
+
+If you're *any* type of sysadmin or tester or programmer, I definitely
+recommend this book. And you'll definitely want to lend it to anybody
+who thinks that "code quality" and "scripting" are mutually exclusive
+terms.

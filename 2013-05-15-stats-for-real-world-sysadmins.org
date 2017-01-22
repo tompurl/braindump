@@ -1,0 +1,203 @@
+Title: Stats For Real World Sysadmins Date: 2013-05-15 22:17 Comments:
+true Tags: statistics, administration, R Status: draft Category:
+Tutorial
+
+I want to start this tutorial by saying that I am *not* a expert at
+statistics. I have however learned just enough to make my job easier.
+
+In this tutorial, we are going to use some fairly simple statistical
+tools, *histograms and standard deviation*, to show you how you can
+understand how an application server is truly performing. To perform
+this analysis we will use the *R* programming language, which is robust,
+simple to use, and free.
+
+Why not use Excel?
+
+Excel is truly a wonderful tool with some great statistical features,
+but we're going to use R for the following reasons:
+
+1. It's free and cross-platform
+2. It's much easier to create a histogram using R
+3. Excel can't handle very large data sets. R can handle data sets with
+   millions of rows while using a relatively small amount of memory.
+
+** System Background
+
+Let's say that you help support a web application that uses Jboss as its
+application server. A lot of searches are performed against this
+application, and your internal customers demand a response time of 10
+seconds or less. Your manager therefore guarantees that no search will
+take longer than 7 seconds to process by the application server. This is
+your SLA.
+
+To ensure that your application meets its SLA, the elapsed time between
+every request and response is written to a database table called PERF.
+If you want to whether the application is responding quickly, then you
+simple take a look at this table.
+
+** The Issue
+
+Now let's assume that you get an angry phone call from the lead manager
+of your main client stating that the application is unusably slow. She
+states that searches are regularly taking longer than 30 seconds, and
+that users aren't able to do their jobs.
+
+Now that this issue is open, you need to determine what your true
+response time is. But how can you do that?
+
+** Iteration 1 - What's Your Average?
+
+Probably the most overused statistical tool is an *average*. Here are
+some of its advantages:
+
+1. It's simple to calculate
+2. It's a single number
+
+It also has some disadvantages though, which we'll see soon enough.
+
+To get the averaget, let's dump all of the rows from the PERF table to a
+csv file called perf\_results.csv. Since this database is hypothetical,
+let's just use a CSV file that I created here.
+
+You may have noticed that the CSV file that I provided doesn't have much
+data in it. That's ok for now. Please rest assured though that the
+techniques that we describe below will work for 100 records or
+10,000,000,
+
+You should have the [[http://www.r-project.org/][R Language]] installed
+at this point, so please start the R interpreter. On my Ubuntu Linux
+system, I use the following command:
+
+#+BEGIN_EXAMPLE
+    $ R
+    ...
+    Type 'demo()' for some demos, 'help()' for on-line help, or
+    'help.start()' for an HTML browser interface to help.
+    Type 'q()' to quit R.
+
+    >
+#+END_EXAMPLE
+
+All right, the first thing that we need to do is load the CSV file.
+After downloading the file, you can load it into R using the following
+commands:
+
+#+BEGIN_SRC R
+    > perf_data <- read.table("/path/to/perf_results.csv", header = TRUE, sep = ",")                
+    >
+#+END_SRC
+
+What you just did was load your csv file into a table in R. You
+specified that your file included headers and that the record separator
+was a comma. You then took that table and assigned it to the =perf_data=
+variable.
+
+Next, we're going to find the average. However, please note that the
+world of statistics has lots of different types of "averages". What we
+want is called is one type of average called a *mean*. Doing this with R
+is incredibly easy:
+
+#+BEGIN_SRC R
+    > mean(perf_data$DURATION)
+    [1] 6100 
+#+END_SRC
+
+Seriously, that's it. I was going to write an explanation of what I just
+did, but I think it's *incredibly obvious*. This is exactly why people
+like using R so much. It makes common statistical tasks trivially easy.
+
+The only tricky part is that the values in the duration field are stored
+in milliseconds, so that value is actually *6.1 seconds*.
+
+** Mission Accomplished?
+
+Now believe it or not, at most companies that I've worked at, this would
+be all that you needed to close a performance ticket. "The SLA is 7
+seconds, and the average is 6.1, so the system is performing acceptably.
+Case closed."
+
+However, it's easy to see how the system is *not* performing acceptably.
+Let's take a look the entire table in R:
+
+#+BEGIN_SRC R
+    > perf_data
+
+       BEGIN_TIME DURATION     URL IP_ADDRESS
+    1  1368582819       50 /search    1.2.3.4
+    2  1368582829      300 /search    1.2.3.4
+    3  1368582839    30000 /search    1.2.3.4
+    4  1368582849    29999 /search    1.2.3.4
+    5  1368582859    30001 /search    1.2.3.4
+    6  1368582869       50 /search    1.2.3.4
+    7  1368582879      300 /search    1.2.3.4
+    8  1368582889      100 /search    1.2.3.4
+    9  1368582899     4000 /search    1.2.3.4
+    10 1368582919       50 /search    1.2.3.4
+    11 1368582919      300 /search    1.2.3.4
+    12 1368582929      100 /search    1.2.3.4
+    13 1368582939     4000 /search    1.2.3.4
+    14 1368582949       50 /search    1.2.3.4
+    15 1368582959      300 /search    1.2.3.4
+    16 1368582969      100 /search    1.2.3.4
+    17 1368582979     4000 /search    1.2.3.4
+#+END_SRC
+
+It's easy to see that there are requests that are taking *much* longer
+than 7 seconds. Heck, some of them are actually taking longer than 30
+seconds.
+
+Of course, if this was all of the data points, you could just share this
+document with your customer and you wouldn't need R. However, in the
+real world, you could have thousands or millions of data points. We
+would then need to use statistical tools like R to give us more insight.
+
+** Iteration 2: Finding The Max
+
+Let's now assume that you respond to the lead manager by saying that
+your average response time is 6.1 seconds. She's not happy, and
+rightfully so, because she knows that many searches take longer than
+that. So now she asks for the maximum response duration.
+
+How do you get this in R? Again, it's awfully easy:
+
+#+BEGIN_SRC R
+    > max(perf_data$DURATION)
+    [1] 30001
+#+END_SRC
+
+So now we know that we have an average response time of 6.1 seconds and
+a max of 30 seconds. 30 seconds is by no means ideal, but hey, it's an
+outlier, right? I mean, who even knows how many times a day we have a
+crazy response time like that anyways, right?
+
+This is usually the point where statistical analysis gets a little funny
+in most companies. In their minds, people know that what they want to
+see is a *distribution* of the results. However, they don't know how to
+ask for it.
+
+What they usually do is say something like "show me how may requests
+took longer than the SLA". While this information is useful, it doesn't
+tell you how many requests took 30 seconds or more, or what the values
+of the out-of-SLA requests were.
+
+People think that statistics is about slide rules and graph paper and
+math that makes your brain bleed. And while the math can be difficult at
+times, one of the hardest parts is actually finding *the best stat or
+visualization* to explain your data. Ideally, a stat should be simple,
+intuitive and concise. And the best way to show this type of
+distribution is to use a *histogram*.
+
+** Iteration 3 - The Histogram
+
+Here's how you create a histogram using R:
+
+#+BEGIN_SRC R
+    > hist(perf_data$DURATION)
+#+END_SRC
+
+This time, instead of seeing something happen in your console, you
+should see a window pop up that looks a lot like this:
+
+#+CAPTION: Performance Histogram
+
+[[images/perf-histo.png]]

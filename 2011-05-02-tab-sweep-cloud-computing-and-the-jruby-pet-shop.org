@@ -1,0 +1,47 @@
+Title: Tab Sweep- Cloud Computing and The Jruby Pet Shop Tags:
+aws,gmail,jruby,one-jar,powershell,pry,rails,security,uptime Category:
+Tab Sweep Comments: true
+
+-  [[https://github.com/nicksieger/refactoring-to-rails][nicksieger/refactoring-to-rails
+   - GitHub]]
+-  
+
+   -  This is really an *awesome* idea. I'm a little busy with other
+      personal development training right now, but I hope to complete
+      all three phases of this project soon.
+
+-  [[http://m.theatlantic.com/technology/archive/2011/04/your-gmail-hacking-finale-official-advice-from-google/237734][Your
+   Gmail Hacking Finale: Official Advice from Google]]
+
+   -  This should be required reading for anyone who uses webmail. It's
+      a great summary of lots of great advice.
+
+-  [[http://aws.amazon.com/message/65648][Summary of the Amazon EC2 and
+   Amazon RDS Service Disruption]]
+-  
+
+   -  This should be required reading for any technologist.
+
+-  [[http://poshtips.com/2011/03/04/simple-script-template-with-built-in-help-for-powershell][Simple
+   Script Template with Built-in Help for PowerShell | Posh Tips]]
+-  
+
+   -  This came in handy a couple of times lately.
+
+-  [[http://one-jar.sourceforge.net/][Deliver Your Java Application in
+   One-JAR™ !]]
+-  
+
+   -  It's awesome to see that there is a free version of this type of
+      tool.
+
+-  [[https://github.com/nicksieger/refactoring-to-rails][banister/pry -
+   GitHub]]
+-  
+
+   -  Another alternative to the underpowered irb. Hopefully this will
+      take the Ruby community one step closer to something that's half
+      as good as [[http://ipython.scipy.org/][IPython]].
+
+Posted from [[http://www.diigo.com/][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

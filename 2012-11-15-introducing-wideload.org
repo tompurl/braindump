@@ -1,0 +1,37 @@
+Title: Introducing Wideload Date: 2012-11-15 22:16 Comments: true
+Category: Software
+
+A couple of years ago, I decided to try to learn more about tuning the
+performance of Java-based web applications. I'm a big fan of learning by
+doing, so I thought that I would build a VM that contained everything
+that I needed to test an analyze a web application, including a full
+application stack. I would then use this VM as an "educational sandbox"
+for performance testing and tuning.
+
+Well, I soon learned that building such a VM was no small task. Not only
+was it difficult to find the tools that I needed, but it was another
+challenge to actually get them installed, configured, and talking to
+each other. Also, I decided that provisioning my system using
+[[http://puppetlabs.com][Puppet]] would save me time in the long run.
+However, this was my first Puppet project, so I also had to work with
+that learning curve.
+
+It took a bit of effort, but I'm happy to say that
+[[http://github.com/tompurl/wideload][Widleload]] is now stable enough
+for use by other people. If you have any interest in web application
+performance testing, then I would love it if you could take a look.
+
+-  [[http://github.com/tompurl/wideload][Wideload Project Page]]
+
+Also, I am in the process of writing a free short book to help people
+install Wideload run a few tests. You can find that documentation here:
+
+-  [[http://wideloadperf.org][Wideload In Perspective (Free E-book)]]
+
+This book is probably only 15% done at this point, but there should be
+enough docs to help you install and provision your Wideload VM.
+
+I'm excited to see what other people think of the project and I am
+looking forward to any constructive criticism. If you have an problems
+with the code or book, then please feel free to open an issue on the
+respective Github page. Also, I'm always open to pull requests.

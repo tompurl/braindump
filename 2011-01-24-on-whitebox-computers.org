@@ -1,0 +1,96 @@
+Title: On Whitebox Computers Tags: allpczone,dell,whitebox Category:
+Review Comments: true
+
+My five-year-old computer died the other day. This was a problem because
+I used this computer to telecommute and because it was where I got most
+of my "real" work done. I therefore had to replace it in a hurry.
+
+I really wanted to replace it with a little net top, but I needed a bit
+more horsepower to run my XP and LAMP VM's. I therefore took a look at
+what the whitebox computer industry had to offer for the first time in
+five years.
+
+** Why Whitebox?
+
+Whitebox computers are basically computers that are built-to-order and
+don't really have a brand name. I really like them for the following
+reasons:
+
+-  *I like high-quality components* - HP & Dell might give you a nice
+   CPU, but you never know what you're going to get otherwise. Most
+   whitebox dealers give you a lot of control over every component in
+   the computer. For example, you know *exactly* what type of
+   motherboard you are getting so you can see if it's any good.
+-  *Easy To Upgrade* - Unlike a lot of computers that you buy at Fry's,
+   whitebox computers are usually very simple to upgrade and fix. You
+   therefore don't need to buy a new computer every 2 years, which is
+   good for your wallet and the environment.
+-  *I'm cheap :)* - Whitebox computers are usually very inexpensive,
+   especially if you buy one that doesn't have an OS installed on it.
+   And since I'm a Linux user, I would rather not pay for Windows 7 any
+   time soon.
+
+** Merchants
+
+The whitebox industry has changed quite a bit in the last 5 years. The
+dealer from which I bought my last computer went out of business a while
+ago. Most operations today seem to be very small, and most of them seem
+to cater to gamers who can't imagine buying a computer for less than
+$1500 (which is *much* more than I wanted to spend). Surprisingly, I
+ended up finding a bunch of whitebox dealers on Ebay who had great
+prices *and* seller ratings. I have to warn you though that their search
+interface really isn't that great. Here's basically what I had to do:
+
+1. Click on the *Desktop Computers* category from the home page.
+2. Click on the *Whitebox Computers* link.
+3. Choose the *processor* and *RAM* options that wanted.
+4. Finally, here's the screwy part. My search results were littered
+   with *barebones* systems, which are basically systems that aren't
+   fully assembled. I wanted a fully-assembled system, so I entered 
+   *"-barebone -barebones"* in the search text box to eliminate them
+   from the result set.
+
+I ended up buying a computer for an Ebay seller
+called [[http://stores.ebay.com/AllPcZONE][allpczone]], which is
+actually a company called [[http://www.computerlx.com/][ComputerLX]].
+They were *really fantastic*. Not only did I like their customization
+page and their prices (which were the best that I found), but their
+customer service was also great. In the end, I got *exactly* the
+computer that I wanted for a great price, and it was shipped to me very
+quickly.
+
+Another good-looking merchant (based on their seller reviews on Ebay)
+is [[http://stores.ebay.com/eCollegePC][ecollegepc]]. They also seemed
+to have good prices and a good selection for people who just wanted a
+fairly simple, well-built computer for a good price.
+
+** What About Dell?
+
+While Dell may appear to be a glorified whitebox dealer, to me, they
+share a lot more in common with companies like HP and Gateway. Their
+component quality isn't really that great, you don't always know exactly
+what you're getting, and unless you buy their cheapest, non-customized
+computer, they're not a very good value.
+
+The final straw for me came when I tried to customize one of their
+lower-end computers. Basically, all I wanted was a medium-sized computer
+with a little more RAM and a quad-core processor. So, after finding a
+fairly inexpensive computer that had most of what I wanted, I tried to
+upgrade the hard drive. The computer that I was customizing had a 500GB,
+no-name hard drive, and I wanted to upgrade it to a 1 TB hard drive
+(which also didn't appear to have a brand name). To my surprise,
+this *minor upgrade* added $150 to the final price of the system. Please
+keep the following in mind about this price:
+
+-  I was building this computer in September of 2010
+-  There are a very small number of 1 TB, SATA hard drives on Newegg.com
+   that cost around $150, but they are very, very sophisticated drives.
+-  A high-quality, Western Digital hard drive of that size currently
+   costs around $85.
+-  I wasn't asking for an additional hard drive. I just wanted to
+   upgrade the one that came with the computer by default.
+
+At this point, I realized that there really wasn't any point in having
+me customize this computer any further. These sorts of ridiculous
+upcharges may be the key to Dell's business model, but they really are
+an insult to their customers.

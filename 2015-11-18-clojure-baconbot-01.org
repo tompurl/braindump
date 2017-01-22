@@ -1,0 +1,384 @@
+#+TITLE: Fun With Clojure - Baconbot 1.0
+
+#+DATE: 2015-11-18
+
+I'm currently learning Clojure and for my first project I thought it
+would fun to create my own Baconbot. What's a Baconbot you say?
+
+My kids /love/ this video, so I thought it would be fun to write a
+program that can "talk" to them like Baconbot. Since I'm new to Clojure,
+I figured that I would start with something simple that runs in the
+REPL. My plan is to cover each major iteration with a blog post until
+I've created something that my kids will actually think is cool. Wish me
+luck.
+
+#+BEGIN_QUOTE
+  *note*
+
+  Did I mention that this is really similar to
+  [[|filename|2013-11-12-cowsay-server-part-one.md][my posts]] on
+  creating a cowsay server and client? If you want to learn the basics
+  of the Unix socket API, then I recommend checking it out.
+#+END_QUOTE
+
+* Iteration 1
+
+** Requirements
+
+First, I need to point out that I'm not creating highly-polished
+software that can run on any platform at this point. I'm just creating a
+simple app with which you can interact in a Clojure REPL.
+
+So what does that mean? Well, at this point I'm going to be focusing on
+the functions that process the data, not the user interface. What I need
+is some sort of naive "scaffold" that works well enough to provide
+feedback while I turn it into a "real" program.
+
+I therefore think that I'll consider this iteration "done" when I can
+ask Baconbot multiple, text based questions and receive multiple,
+text-based answers (no
+[[https://en.wikipedia.org/wiki/Speech_synthesis][TTS]] yet but I
+*really* want to add it later).
+
+I'll try my best to make everything as idiomatic and functional as
+possible because I want to take all of the advantages of this awesome
+language. However, I'm also content with putting my ego on the bench for
+a little while and just writing working code that I know has plenty of
+flaws and anti-patterns. I'm not writing the next Emacs here - I'm
+having fun and learning something new. Besides, I'm sure that I'll come
+back later and refactor tons of stuff once I learn more about functional
+programming. That's kinda the point :-)
+
+** Setup
+
+For this application I'm going to be using any old text editor and
+[[http://leiningen.org/][leiningen]] to keep things somewhat
+cross-platform and simple. Once you have leiningen installed, create you
+project like so:
+
+#+BEGIN_EXAMPLE
+    tom@pam:~/Dev/Clojure$ lein new app baconbot2000
+    Generating a project called baconbot2000 based on the 'app' template.
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+  *note*
+
+  It's not necessary, but I *highly* recommend
+  [[https://www.gnu.org/software/emacs/][Emacs]] +
+  [[https://github.com/clojure-emacs/cider][Cider]]. It's an /amazing/
+  development environment for Clojure. Also check out
+  [[http://www.braveclojure.com/basic-emacs/][Chapter 2]] of
+  [[http://www.braveclojure.com/basic-emacs/][Clojure For The Brave And
+  True]] for a great quick-start guide.
+#+END_QUOTE
+
+** Code
+
+Next open the =baconbot2000/src/baconbot2000/core.clj= file in your
+favorite text editor and add the following:
+
+#+BEGIN_SRC clojure
+    (ns baconbot2000.core
+       (:gen-class))
+
+    (defn matches?
+      "See if a pattern matches a string"
+      [pattern string]
+      (boolean (re-find pattern string)))
+
+    (defn ask
+      "Ask the baconbot whatever you please!"
+      [question]
+      (cond (matches? #"[H|h]ello" question) "Hello"
+            (matches? #"/sharted"  question) "I think I may have sharted"
+            (matches? #"/video"    question) "Go watch the video on Youtube!"
+            :else "Rub some bacon on it!")
+    )
+
+    (defn -main
+      "I don't do a whole lot ... yet."
+      [& args]
+      (println "Hello, World!"))
+#+END_SRC
+
+For now, we can ignore the auto-generated =-main= method. What we'll be
+calling from the REPL is the =ask= method.
+
+As you can see, the =ask= method takes just one parameter, =question=.
+It then compares that questtion string to a regular expression using the
+=matches?= function. The =matches?= function simply checks a string for
+a pattern and the returns whether it found one. The =cond= function is a
+lot like a =case= statement in other languages. It runs each test until
+one of them evaluates to true, and then it returns the associated
+"result" as a string.
+
+** Testing
+
+Now we can test our code. Navigate to the root of your =baconbot2000=
+directory and enter the following commands:
+
+#+BEGIN_EXAMPLE
+    tom@pam:~/Dev/Clojure/baconbot2000$ lein repl
+    nREPL server started on port 55359 on host 127.0.0.1 - nrepl://127.0.0.1:55359
+    ...
+    baconbot2000.core=> (ask "hi Baconbot")
+    "Rub some bacon on it!"
+    baconbot2000.core=> (ask "Oh, uh hello Baconbot")
+    "Hello"
+    baconbot2000.core=> (ask "My friend went steampunk!")
+    "Rub some bacon on it!"
+    baconbot2000.core=> (ask "/sharted")
+    "I think I may have sharted"
+    baconbot2000.core=> 
+#+END_EXAMPLE
+
+Hooray! The absolute minimum!
+
+#+BEGIN_QUOTE
+  *tip*
+
+  If your code changes and you don't feel like restarting the lein REPL,
+  execute this command in your active REPL session:
+
+  #+BEGIN_EXAMPLE
+      baconbot2000.core=> (use 'baconbot2000.core :reload)
+  #+END_EXAMPLE
+#+END_QUOTE
+
+* Iteration 1.1
+
+** Requirements
+
+There's a few things that I don't like about my silly program so far:
+
+*** Rule Definition
+
+My pattern/response pairs (which I call "rules") don't feel right for a
+lot of reasons. First, it doesn't seem like I should have to change the
+=ask= method every time I want to add a new rule. I should be able to
+read them from a config file, or even better I should be able to change
+them at runtime.
+
+Next, every time I'm working over any set of data in Clojure and that
+data isn't in a list of some type I feel like I'm doing something wrong.
+Ideally, I just feel that my *rules should be in some sort of list* and
+that list *should be processed by a more elegant function*.
+
+*** Response Types
+
+What if I don't want my response to be a string? For example, it would
+be nice if I could open a browser to the "Rub Some Bacon On It" video
+instead of printing a string. Or maybe both, who knows? Why assume that
+I'm going to be returning a string from this function?
+
+** Code
+
+*** Making =ask= More Functional
+
+Add the following to your =core.clj= file right above the =ask=
+function:
+
+#+BEGIN_SRC clojure
+    (def rules
+      "My rule set for baconbot's question"
+      [
+       {:pattern #"[H|h]ello" :response "Hello!"}
+       {:pattern #"[H|h]i" :response "Hello!"}
+       {:pattern #"^/video$" :response "Go watch the video on Youtube!"}
+       {:pattern #"^/sharted$" :response "I think I may have sharted too!"}
+       {:pattern #".*" :response "Rub som bacon on it!"}
+       ])
+#+END_SRC
+
+All of my rules are in a list now, which means that I can start to use
+some of Clojure's really powerful idioms. The only thing missing is a
+function that will actually process this rule set, so here goes:
+
+#+BEGIN_SRC clojure
+    (defn ask
+      "Now with filter!"
+      [question]
+      (println (:response (first (filter #(matches? (:pattern %) question) rules)))))
+#+END_SRC
+
+To understand this function, you first have to look at the =filter=
+expression. What we're doing is iterating over every rule in our =rules=
+vector. =filter= then applies the anonymous function that is within the
+=#()= form to each rule. This expression simply tests whether the
+pattern in the rule matches the question.
+
+When filter is done, it returns a list of rule maps that have patterns
+that matched the question. We then take the =first= result and then
+extract the =:response= section from that. Finally, we print that
+response to standard out.
+
+That's a mouthful, so let's break it down and see what's happening.
+First, let's examine the =filter= expression:
+
+#+BEGIN_EXAMPLE
+    baconbot2000.core=> (filter #(matches? (:pattern %) "my test") rules)
+    ({:pattern #".*", :response "Rub som bacon on it!"})
+#+END_EXAMPLE
+
+In this case, the "my test" question only matched the catch-all pattern,
+=#".*"=. Let's see what happens if my question matches more than one
+pattern:
+
+#+BEGIN_EXAMPLE
+    baconbot2000.core=> (filter #(matches? (:pattern %) "hello") rules)
+    ({:pattern #"[H|h]ello", :response "Hello!"} {:pattern #".*", :response "Rub som bacon on it!"})
+#+END_EXAMPLE
+
+Of course, since we only care about the first match we then pass those
+results to the =first= function and then print the response from there.
+
+*** More Than Just Printing
+
+So now that our rules are stored in a vector, it's also easy to give
+each rule a custom action. First, change your =rules= def to look like
+this:
+
+#+BEGIN_SRC clojure
+    (def rules
+      "My rule set for baconbot's question"
+      [
+       {:pattern #"[H|h]ello" :response #(println "Hello!")}
+       {:pattern #"[H|h]i" :response #(println "Hello!")}
+       {:pattern #"^/video$" :response #(browse-url-in-background video-url)}
+       {:pattern #"^/sharted$" :response #(println "I think I may have sharted too!")}
+       {:pattern #".*" :response #(println "Rub som bacon on it!")}
+      ])
+#+END_SRC
+
+The add the following between =matches?= and =rules=:
+
+#+BEGIN_SRC clojure
+    (def video-url
+      "The URL of the \"Rub Some Bacon On It\" video"
+      "https://youtu.be/wSReSGe200A")
+
+    (defn browse-url-in-background
+      "Open a URL in a browser without blocking"
+      [url]
+      (.start (Thread. #(clojure.java.browse/browse-url url))))
+#+END_SRC
+
+... and finally, remove the =println= function from the =ask= function:
+
+#+BEGIN_SRC clojure
+    (defn ask
+      "Now with filter!"
+      [question]
+      ((:response (first (filter #(matches? (:pattern %) question) rules)))))
+#+END_SRC
+
+My first change was to replace String =:response= values with anonymous
+functions in my =rules= form. So I guess it's not really a "response"
+any more. Maybe I'll change this later. This makes it easy to define a
+custom behavior (ooh, that's a *much* better property name) for each
+rule.
+
+Next I add a =video-url= form to keep my code a little cleaner. Since
+this is probably what I would call a "global constant" in another
+language I added it here.
+
+Next, I added a function that would open a URL in a browser. The
+=clojure.java.browse/browse-url= function already does an excellent job
+of this, but there's one snag - it makes your script block until you
+close the browser tab. To work around this, I simply wrap that function
+in an anonymous function and then pass that to a new thread. I know I
+just made it sound like I know what I'm talking about but I assure you
+this sort of thinking is all still very new to me :-)
+
+The final change in the =ask= function is a little tricky. All I did was
+remove the =println= function name, so now our =:response= function is
+wrapped in another set of parentheses. So I basically changed this:
+
+#+BEGIN_EXAMPLE
+    (println (:response ({:pattern #"[H|h]i", :response #object[baconbot2000.core$fn__8043 0x784bae8d "baconbot2000.core$fn__8043@784bae8d"]})))
+#+END_EXAMPLE
+
+... to this:
+
+#+BEGIN_EXAMPLE
+    ((:response ({:pattern #"[H|h]i", :response #object[baconbot2000.core$fn__8043 0x784bae8d "baconbot2000.core$fn__8043@784bae8d"]})))
+#+END_EXAMPLE
+
+So what does that do? Well, calling a map property like =:response= like
+it's a function will return that's map property's value. Since we
+changed the value of =:response= to an anonymous function instead of a
+string, we need a way to execute these functions. Wrapping them in
+parentheses will do that.
+
+Here's the final version of the script for testing:
+
+#+BEGIN_SRC clojure
+    (ns baconbot2000.core
+      (:gen-class))
+
+    (defn matches?
+      "See if a pattern matches a string"
+      [pattern string]
+      (boolean (re-find pattern string)))
+
+    (def video-url
+      "The URL of the \"Rub Some Bacon On It\" video"
+      "https://youtu.be/wSReSGe200A")
+
+    (defn browse-url-in-background
+      "Open a URL in a browser without blocking"
+      [url]
+      (.start (Thread. #(clojure.java.browse/browse-url url))))
+
+    (def rules
+      "My rule set for baconbot's question"
+      [
+       {:pattern #"[H|h]ello" :response #(println "Hello!")}
+       {:pattern #"[H|h]i" :response #(println "Hello!")}
+       {:pattern #"^/video$" :response #(browse-url-in-background video-url)}
+       {:pattern #"^/sharted$" :response #(println "I think I may have sharted too!")}
+       {:pattern #".*" :response #(println "Rub som bacon on it!")}
+       ])
+
+    (defn ask
+      "Now with filter!"
+      [question]
+      ((:response (first (filter #(matches? (:pattern %) question) rules)))))
+
+    (defn -main
+      "I don't do a whole lot ... yet."
+      [& args]
+      (println "Hello, World!"))
+#+END_SRC
+
+* Testing
+
+All right, let's try this out again. Make sure that you the
+=(use 'baconbot2000.core :reload)= command from above to refresh your
+code in the lein REPL.
+
+#+BEGIN_EXAMPLE
+    baconbot2000.core=> (ask "Hi baconbot!")
+    Hello!
+    nil
+    baconbot2000.core=> (ask "I'm an adult with braces")
+    Rub som bacon on it!
+    nil
+    baconbot2000.core=> (ask "/video")
+    nil
+#+END_EXAMPLE
+
+The last "/video" command launches the video in my default browser.
+
+* What's Next?
+
+I feel like this is a decent start on the guts of my app, but of course
+there's a lot more that I want to do eventually:
+
+-  Add my own REPL interface that can be invoked from the command line.
+-  Speech synthesis/TTS
+-  A Javascript version using Clojurescript
+
+I hope I was able to help a few other people get started with Clojure.
+Thanks for reading!

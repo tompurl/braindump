@@ -1,0 +1,38 @@
+Title: Tab Sweep - VPN's, More Jruby And Mobile Apps Tags:
+jruby,mobile,project-management,raccoon,swing,vpn Category: Tab Sweep
+Comments: true
+
+-  [[http://pragprog.com/titles/jrpm/manage-it][The Pragmatic Bookshelf
+   | Manage It!]]
+-  
+
+   -  I just finished listening to
+      the [[http://pragprog.com/podcasts/show/4][promotional podcast for
+      this book]], and it really sounds excellent.
+
+-  [[http://online.wsj.com/article/SB10001424052748704547604576263200170918660.html?mod=WSJ_Tech_LEFTTopNews][Mobile
+   App Talent Pool Is Shallow - WSJ.com]]
+-  
+
+   -  I really believe that tablets and other "smart" devices are going
+      to make a big splash in the corporate environment very soon.
+      Learning how this stuff works inside and out may be a very smart
+      development decision at this time.
+
+-  [[https://github.com/jondot/darkness][jondot/darkness - GitHub]]
+-  
+
+   -  This is a cool example of how easy it is to create a Swing
+      application using Jruby, and why you may want to use Jruby instead
+      of Java to do this sort of thing.
+
+-  [[http://www.netbsd.org/docs/network/ipsec/rasvpn.html][How to build
+   a remote user access VPN with Racoon]]
+-  
+
+   -  Now that I have a smart phone, internet access has become
+      ubiquitous, so I'm looking for a way to easily connect to my
+      private network at home. This looks like a decent way of doing so.
+
+Posted from [[http://www.diigo.com/][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

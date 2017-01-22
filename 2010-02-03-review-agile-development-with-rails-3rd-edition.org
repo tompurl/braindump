@@ -1,0 +1,37 @@
+Title: "Review: Agile Development With Rails, 3rd Edition" Tags:
+agile-web-development-with-rails,book,programming,rails,ruby,web
+Category: Review Comments: true
+
+[[http://www.goodreads.com/book/show/45.Agile_Web_Development_with_Rails_A_Pragmatic_Guide][[[http://photo.goodreads.com/books/1156838584m/45.jpg]]]]
+[[http://www.goodreads.com/book/show/45.Agile_Web_Development_with_Rails_A_Pragmatic_Guide][Agile
+Web Development with Rails: A Pragmatic Guide]] by
+[[http://www.goodreads.com/author/show/13.Dave_Thomas][Dave Thomas]]\\
+My rating: [[http://www.goodreads.com/review/show/83471614][4 of 5
+stars]] In general, this book does a fairly good job of helping you
+create a rails-based application. Part 3 includes some great in-depth
+information on the topics that are briefly discussed in Part 2. I only
+have one real gripe about this book. It packs in lots of topics (e.g. db
+theory, AJAX, unit testing, security, deployment), but it doesn't really
+tell you much about them. Therefore, if you have a problem, then good
+luck figuring it out using the content in the book. A good example is
+the final chapter which covers deployment. The chapter devotes only a
+few small paragraphs to configuring Apache for passenger. To me, this
+section was completely useless unless you were already an expert with
+Apache configuration. I ended that chapter with a broken Apache server
+and no resources (from the book) to begin fixing it. Another problem
+that I had with that chapter is that it really didn't follow the pattern
+that the chapters in Part 2 used. In those chapters, the authors would
+should you how to do something relatively small, show you how to test
+it, and then provide some troubleshooting information if the task was
+particularly complex. The deployment chapter gave you a *very brief and
+generalized* tutorial in each section, and then just assumed that
+everything went perfectly. It didn't show you how to test anything, and
+it didn't help you troubleshoot any possible problems. Don't get me
+wrong. I know that no book will provide all of the information that I
+would ever need about a subject, and thank goodness for the internet in
+these situations. I was just hoping that all of the chapters in a book
+that I actually bought would provide better information than some
+person's blog. So in general, I guess I would have to say that this was
+a very good book with some bad chapters that were tacked-on at the end.
+[[http://www.goodreads.com/review/list/1593897-tom-purl][View all my
+reviews >>]]

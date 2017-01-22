@@ -1,0 +1,187 @@
+Title: HTTPS For Everyone Tags: encryption,security,ssl,web,wot
+Category: Tutorial Comments: true
+
+I received the following message from one of my Facebook friends the
+other day: > “Facebook isn't using HTTPS by default any more, so your PC
+might > get HACKED!”
+
+This message was very useful to many of my friend's Facebook friends.
+Also, I'm a big fan of using HTTPS, so I'm glad that she was helping her
+friends have a more secure web browsing experience. Statements like
+this, however, show that many smart, tech-savy and well-educated people
+are *very* confused by the concept of HTTPS. They don't understand what
+it can and can't do, which causes them to miss out on a lot of its
+benefits and expose themselves to threats. I therefore decided to put
+together a simple, layman's guide to using HTTPS. I hope that it will
+help clear some confusion. ## Caveat
+
+I am by no means a security expert, and I can't guarantee that anything
+that you do online will be 100% safe. No system is perfect, and that
+includes HTTPS. So who am I? I'm a systems engineer with 11 years of
+experience running large applications on top of complex systems. During
+that time, I've worked with a lot of web applications, and I have
+learned a thing or two about security. My knowledge is incomplete, but
+it's complete enough to help a lot of my friends. ## What Is HTTPS?
+
+/(The following is the scariest paragraph in this. If it seems like a
+foreign language to you, that's OK. Just keep reading and everything
+will be explained in English :) )/ HTTPS stands for *SSL over HTTP*.
+*HTTP*is the protocol that your web browser uses to talk to web sites.
+*SSL* is a an application that is used to encrypt data. So HTTPS is a
+*system for exchanging encrypted data between web browsers and web
+sites*. Ok, so what did all of that mean? Well, first let's talk about
+HTTP. This is just the way that web browsers and web sites have agreed
+to talk to each other. That's it. Nothing too fancy. SSL (pronounced
+“ess-ess-ehl”) is a program for encryption, but what's that? Well you
+can think of *encryption*as a way of turning data into gibberish that
+very few other people will be able to read. Encryption can be really
+simple, like Pig Latin, or incredibly sophisticated, like the encryption
+that your web browser users. So HTTPS is the system that allows you to
+encrypt your secret information so that only you and your target web
+site (e.g. your bank's web site, Facebook) can understand it. If anyone
+who is between your web browser and your target web site tries to
+intercept the traffic, they won't be able to decipher it. This is the #1
+benefit of HTTPS, and if you only read one paragraph in this article, I
+hope that it's this one. Now this concept really confused me when I
+first started learning about networking. Who on earth would read my
+internet traffic while it's moving along the network? Well, there are
+points between your web browser and your target web site where
+*third-parties could be intercepting your web traffic*. These “points”
+are called *hops*, and there are an arbitrary number of them between
+your web browser and any web site that you may visit. The following are
+examples of hops: - Your ISP's servers - Your employer's firewall - Your
+email provider - The wireless access point that you're using at the
+coffee house
+
+Anyone who has access to any of these hops can potentially intercept
+your web traffic and read private things like passwords and cookie
+information. And if this traffic *isn't* encrypted using something like
+SSL, then it's *trivially simple* to do. So that's the number one reason
+why SSL is so awesome. But there's one more great feature too. For a web
+site owner to use SSL, they need  to have a *certificate*installed on
+their servers that *guarantees their identity.* You can think of it like
+a driver's license for web applications. This driver's license ensures
+that yourbank.com /really is/ yourbank.com *when you use the HTTPS
+address*. When you use an HTTP address, no certificate is used, so you
+really don't have any way of ensuring that you're not using a fake copy
+of a web site. So how does your browser know that yourbank.com's
+certificate is legitimate? Well, it' a fairly complex system, and it's
+not 100% perfect 100% of the time, but the short answer is that there
+are 3rd-parties that certify *SSL certificates*. And your web browser is
+configured to use those third parties to double-check the identity of
+the HTTPS addresses that you visit. ## What Isn't HTTPS?
+
+Ok, so now we know that HTTPS encrypts your communication with web
+servers and certifies web site owners. So now let's talk about what it
+/can't/do (despite what your friends tell you :) ) ### It doesn't
+protect your computer from hackers and viruses
+
+Remember, HTTPS doesn't have anything to do with protecting your
+*physical computer*. It's all about protecting your web traffic and
+verifying web site owners. Protecting yourself from hackers and viruses
+is a *big* subject, but here are a few solid recommendations: - If you
+are asked to patch your computer or web browser, do it as quickly as you
+can. If you have the option of patching automatically, then do it. Also,
+don't forget that you need to regularly patch *Flash and Java*. - Use an
+anti-virus - Use a hardware-based firewall. Most consumer-grade wireless
+access points (aka routers) have one of these built-in. - Supervise your
+children when they use a computer - Use a web browser plugin like
+[[http://www.mywot.com/][Web of Trust (WOT)]] to help you identify
+potentially-hazardous web sites.
+
+“But wait” you say. “Won't using HTTPS help keep my Facebook account
+from being hacked?”. Yes, it definitely will. What I'm talking about now
+is protecting your *physical computer*from bad people, *not your web
+site accounts*. ### It doesn't protect your content once it's on a web
+site
+
+Ok, here's a hypothetical. Let's say that you write a very sincere,
+emotional and (most of all) *private* message to one of your friends
+using Facebook (or any other messaging account). A few days later, you
+learn that a bunch of Facebook servers have been hacked, and you worry
+that someone else might publish your super-personal message for all of
+the world to see. But you have nothing to worry about, right? HTTPS
+encrypts all of that stuff, so the bad guys can't read it, right? Well,
+you would be half right. HTTPS does encrypt your web communication, but
+it *doesn't encrypt the data once it's on the web site*. That level of
+security is handled by the web site administrators, and it varies from
+great to awful. *Please note*that most web sites do *nothing to encrypt
+your content*once it's on their site. Also, please note that most web
+sites also do a pretty crappy job of protecting their servers from
+hackers. So if this is a concern, what can you do? If you want to store
+personal information on a web site, one thing you can do is insist that
+the site administrators encrypt the content on the server. If they
+don't, then find another web site that will listen to you.
+[[http://dropbox.com/][Dropbox.com]] encrypts the content on their
+servers, and it's reason #47 that they're so awesome :) In the end, the
+best defense it to think twice beforeing something online. ## When
+Should I Use HTTPS?
+
+You certainly don't need to use HTTPS with every web site, and most
+sites still don't support it. So when should you use it? ### Required
+
+You simply should not use one of the following web sites unless they
+support HTTPS. - Banking And Finance Sites Including PayPal - If your
+bank makes you do anything involving your password or you personal
+account information without HTTPS, then get a new bank.
+
+-  Anything involving your credit card
+
+   -  It always surprises me when I see a reputable online shopping site
+      that doesn't use HTTPS on the page where I enter my credit card
+      information. When I see this, I either use a competitor who does
+      use HTTPS or call the retailer to make my order.
+
+*** Recommended
+
+-  Email and Facebook Passwords
+
+   -  It's a very good idea to use HTTPS with any email or social
+      networking site, especially if you like to use that site in a
+      public place using a shared WIFI connection. It protects you from
+      having people steal your passwords and your cookies.
+   -  It's important to secure your email and social network accounts
+      because some of them can be used to obtain bank passwords. Also,
+      people may try to use these accounts to scam money out of your
+      friends and family.
+
+-  Online Storage Sites
+-  Any site where you exchange personal information
+
+** How Do I Know If I'm Using HTTPS?
+
+This is a complex and delicate question, so I will need to defer to the
+experts. Here's how you can determine if you are using HTTPS properly in
+all of the major browsers: -
+[[http://windows.microsoft.com/en-US/windows7/How-to-know-if-an-online-transaction-is-secure][Internet
+Explorer]] (see "How can I tell if I have a secure conneciton?") -
+[[https://support.mozilla.com/en-US/kb/Site%20Identity%20Button][Firefox]]
+-
+[[https://www.google.com/support/chrome/bin/answer.py?hl=en&answer=95617][Chrome]]
+
+** Facebook Hacking Threat Revisited
+
+Ok, so let's revisit the statement that I started this article with: >
+“Facebook isn't using HTTPS by default any more, so your PC might > get
+HACKED!”
+
+Ok, so knowing what we do now, what's the risk? 1. The communication
+between your web browser and Facebook won't be encrypted, so anyone
+could steal things like your password and cookies (which can be used to
+spoof your identity).
+
+2. You can't be sure that Facebook.com is really Facebook.com because
+   the site isn't using a certificate. Someone could therefore trick you
+   into using a fake version of the web site.
+
+Why are these risks? In either case, someone could use your Facebook
+account to scam your friends and distribute malware. And if you use
+Facebook as your primary e-mail account (which you can do now), then
+they may be able to *obtain passwords for web site accounts that are
+tied to your credit card or bank accounts*.
+
+* Conclusion
+
+Ok, so I hope this helped de-mystify HTTPS a bit. Good luck staying safe
+and remember that it pays to be at least a little paranoid about sharing
+information online.

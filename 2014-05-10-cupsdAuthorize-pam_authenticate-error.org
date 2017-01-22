@@ -1,0 +1,23 @@
+#+TITLE: cupsdAuthorize: pam\_authenticate() returned 7 (Authentication failure)!
+
+#+DATE: 2014-05-10 21:00
+
+I was getting the error listed above when I was trying to add a printer
+via the CUPS web interface. Everything /should/ have worked - my user
+was in the lpadmin group and my config file looked good. However, every
+time I clicked on the "Add Printer" button, the following would happen:
+
+1. I would get a login dialog
+2. I would enter my normal user id and password
+3. I would then see the error above in the cups error file
+
+Nothing I found was helpful for weeks, so today I tried something that
+/shouldn't/ have made a difference - I simply changed my password. After
+that, it was smooth sailing.
+
+Seriously - that's it. Just changed my password. Please don't ask me why
+or how that affected anything. However I am glad that I can finally use
+my Raspberry Pi as a print server again.
+
+I hope that a few other people who may be pulling their hair out can
+find this blog post.

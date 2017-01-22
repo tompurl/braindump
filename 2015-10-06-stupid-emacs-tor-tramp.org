@@ -1,0 +1,86 @@
+#+TITLE: Stupid Emacs Tricks - Editing Remote Files Using Sudo (And Even Tor)
+
+#+DATE: 2015-10-06
+
+I've recently learned how to edit files on a remote server using
+[[https://www.gnu.org/software/tramp/][tramp]] and
+[[https://www.gnu.org/software/emacs/][emacs]] and I really love how
+easy and powerful it is. Here are some of the tricks that I've learned
+that I'm now using every day.
+
+* Simple Remote File Editing
+
+For example, let's say that you wanted to edit a remote file on server
+*bart* that has a path of =/home/tom/foo=. Here's how you would do that
+in emacs:
+
+#+BEGIN_EXAMPLE
+    C-x C-f /ssh:tom@bart:/home/tom/foo
+#+END_EXAMPLE
+
+And viola - you can now edit the remote file locally using a tool that
+is built into Emacs. No more worrying about having all of your =.emacs=
+goodies on each server that you use - now just install it all in one
+place and be more awesome with Emacs!
+
+* Editing Remote Files That Require Sudo Access
+
+Of course, this isn't all that amazing because *lots* of other text
+editors include this type of functionality by default (including my old
+standby Vim). What's cool about tramp mode (and unique as far as I know)
+is that you can actually open a file using the =sudo= command *in a
+local emacs editor* using a feature of tramp called
+[[http://www.gnu.org/software/tramp/#Ad_002dhoc-multi_002dhops][proxies]].
+
+So for example, let's assume that you want to open a file that can only
+be edited by the root user on *bart* called =/root/secret=. Here's how
+you would open it in emacs:
+
+#+BEGIN_EXAMPLE
+    C-x C-f /ssh:tom@bart|sudo:bart:/root/secret
+#+END_EXAMPLE
+
+Assuming that you can edit that file using your =sudo= access on the
+*bart* server you can now edit it on your local computer. Not only can
+you do that, but you can also now navigate directories as root using
+=dired=.
+
+* Chaining All Of This Together Using Tor
+
+Finally, let's assume that you want to edit a file on a remote server
+that exposes the ssh server as a
+[[https://www.torproject.org/docs/hidden-services.html.en][tor hidden
+service]]. Heck, maybe you even used
+[[https://forge.puppetlabs.com/tompurl/torssh][this puppet module]] to
+set it up. Tramp doesn't care -it will just treat your =.onion= address
+as yet another ssh URL and it works really well. Opening and saving
+files is a bit slow, but everything else is very snappy.
+
+There are however a few more things that you will need to do to make
+this work. Please see my tutorial on
+[[|filename|2015-10-06-connecting-to-ssh-tor-hidden-service.rst][logging
+into an ssh hidden service]] for more information. Once you've made that
+work, just replace the host name with your tor host alias like this:
+
+#+BEGIN_EXAMPLE
+    C-x C-f /ssh:tom@bart.onion:/home/tom/foo
+#+END_EXAMPLE
+
+Make sure that you also set the following environment variable in the
+shell that opens emacs:
+
+#+BEGIN_EXAMPLE
+    SOCKS5_PASSWORD=''
+#+END_EXAMPLE
+
+For whatever reason tramp seems to choke on the SOCKS5 password prompt
+and for me it's always blank anyways. Of course if you /are/ using a
+SOCKS password then change it as needed.
+
+Finally, the =sudo= trick above also works with .onion URL's.
+
+* Conclusion
+
+Tramp has really improved my workflow considerably when editing files
+with emacs. If you find yourself logging into lots of servers every day
+then I highly recommend checking it out

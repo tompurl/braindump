@@ -1,0 +1,140 @@
+Title: Writing With Mind Maps Tags:
+brainstorming,freemind,mind-mapping,writing,xmind Category: Tutorial
+
+I've been using mind maps to help me collect my ideas for a couple of
+years now and I find them to be an invaluable tool. I use them at home
+and work to do things like create document outlines, plan projects, and
+brainstorm ideas.
+
+However, it always surprises me to see that very few other people use
+them. I therefore decided to put together a small tutorial on creating
+mind maps. I hope that it helps a few other people :)
+
+** What's A Mind Map?
+
+A mind map is a visualization of a brain dump. Sound weird? Here's what
+I mean. Often, when we are thinking about a big idea (e.g. how will I
+write this essay, should I pursue this business opportunity, etc.), we
+have lots of related ideas floating around in our heads. Trying to
+evaluate and flesh-out all of these ideas in our heads can be very
+difficult. First, focusing on one idea for a long time can cause you to
+forget about the other ideas. Second, it's often hard to see the big
+picture as your big idea gets bigger and bigger.
+
+So it helps if you can actually write all of these ideas down and
+organize them. The problem is that, in the US, we are trained to do this
+will a bulleted list. It's still better than not writing down your
+ideas, but the format is not very conducive to organizing lots of
+little, loosely-related pieces of information.
+
+*Mind maps* are a much better tool. They allow you to do the following:
+
+-  Record your ideas
+-  Show how the ideas are related in a simple, lightweight and intuitive
+   way
+-  See the big picture of your big idea.
+
+So why would you need to use something like this? Here's a few examples:
+
+-  Brainstorming Session (either by yourself or with a group)
+-  Writing
+
+   -  Mind maps are a *great*way to gather and organize information for
+      an outline.
+
+** Mini-Tutorial
+
+Ok, so how do you do it? Here's a quick example. Let's assume that you
+wanted to write a blog about a great new recipe that you invented. You
+don't know what to include and you don't want to miss any important
+ideas, so you decide to create a mind map.
+
+First, you need some way of recording your mind map. Some of the most
+useful mind maps that I have every created have been done with a piece
+of paper and a pencil. However, if I get a choice, I prefer using a
+program called [[http://www.xmind.net/][Xmind]]. There's a free version
+that is very powerful and easy to use.
+
+Next, you need a *main idea*. This is the idea that is at the center of
+all of your other ideas. In this example, the main idea would be
+something like “Pulled Pork Blog Recipe”. You would then record your
+idea in your mind map like this:
+
+#+CAPTION: Main idea
+
+[[|filename|images/main_idea.png]]
+Next, you'll want to create some *sub-nodes*or *subtopics*. These are
+simply “child” nodes of the main idea. Here's an example of what you may
+user for a blog article:
+
+#+CAPTION: Main idea with subnodes
+
+[[|filename|images/main_idea-with-subnodes.png]]
+This is the “model” that you can now use to organize your thoughts. As
+you can see, it's basically a stream of conciousness. Your version of
+this map would probably look a little different. So now you can just
+create child nodes of the child nodes and let your mind wander. Here's
+an example of a complete mind map that you might use for this type of
+blog:
+
+#+CAPTION: example 1
+
+[[|filename|images/pulled-pork-blog-recipe-example1.png]]
+This format may seem a little strange to you, but that's ok. Most of the
+time, mind maps will only be used by the owner, so they only have to
+make sense to the owner. So use the structure and format that works best
+for you. Ok, so now you have a complete mind map. What can you do with
+it?
+
+-  *Document*: If the goal was to publish a document, then the mind map
+   could either be that document or help you create that document. For
+   example, you could use the *outline* node in the example above to
+   help you write a blog .
+-  *Decision*: Sometimes, the only thing that is “created” by a mind map
+   is a decision. For example, I once had an idea for creating a web
+   application that I would run as a side business. When the idea was in
+   my head, it seemed great. However, once I got all of my ideas down
+   into a mind map, it was clear to me that this idea had been done
+   before and that the market was already saturated.
+
+** More On Formatting
+
+Chances are that your mind is “wired” a little differently than anyone
+else's mind. And since a mind map is usually a brain dump, your
+structure and format will be unique.
+
+So in other words, don't sweat the format :) Besides, if you are using a
+program like Xmind to create your map, then you have the freedom to move
+your nodes around if change your mind about the structure.
+
+One final note on formatting. If you are creating a document that has to
+be published, then it probably isn't a mind map, even if you use a
+mind-mapping tool like Xmind to create it. Mind maps are great for
+*creating documents and ideas, not for communicating with large groups
+of people*.
+
+** Resources
+
+Here's some documentation that can help you get started with
+mind-mapping.
+
+-  The mind map
+   ([[http://dl.dropbox.com/u/4368842/Blog-Media/mind-map-article/Writing%20Using%20Mind%20Maps.png][.png]],
+   [[http://dl.dropbox.com/u/4368842/Blog-Media/mind-map-article/Writing%20Using%20Mind%20Maps.xmind][.xmind]])
+   that was used to create this blog.
+
+   -  That's right, I created a mind map to help me write my blog about
+      mind-mapping. Feel free to take a look!
+
+-  Software
+
+   -  [[http://www.xmind.net/][Xmind]]
+   -  [[http://freemind.sourceforge.net/][Freemind]]
+   -  There are loads of non-free mind-mapping tools, but I've never
+      used one so I can't comment on them.
+
+-  Web Sites
+
+   -  [[http://www.xmind.net/][Xmind.net]] has some great examples of
+      mind maps that users have uploaded. Check it out if you want to
+      see what is possible.

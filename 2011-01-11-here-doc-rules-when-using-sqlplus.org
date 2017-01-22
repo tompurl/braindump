@@ -1,0 +1,42 @@
+Title: "Here Doc" Rules When Using SQL Plus Tags:
+linux,shell-scripting,unix Category: Tutorial Comments: true
+
+I've been writing a lot of shell scripts lately, and usually they have
+included a
+[[https://secure.wikimedia.org/wikipedia/en/wiki/Here_doc][here doc]]
+that invokes Oracle's
+[[http://www.oracle.com/technology/docs/tech/sql_plus/index.html][SQL*Plus
+program]].  Here docs can be very nice, but they can also be fairly
+flaky. You have to remember a bunch of strange rules when you write them
+or they will simply break with cryptic error messages.
+
+I therefore created a list of *here doc rules* that I paste into every
+shell script that uses one.  Of course, this is a foolish way of
+recording knowledge, so I thought it might be useful to save them in my
+blog instead. Unfortunately, I've had to learn almost all of these rules
+myself the hard way, which sometimes involves banging my head against my
+desk until I gain some form of clarity :).  I hope my list helps others
+avoid this sort of frustration:
+
+1. Don't put "exit" in either the here doc or the sql script
+
+   -  *Exit* is a keyword in the shell, so using it in a here doc can
+      cause lots of strange problems.
+
+2. Use tabs, not spaces
+
+   -  More than once, I've been stuck on a here doc problem only to
+      realize that this actually makes a difference.
+
+3. Don't put a tab in front of the last line.
+
+   -  A lot of online tutorials show a tab in front of the last line,
+      but it has *never* worked for me.
+
+4. Do *NOT* put a space after the last line in the here doc.  That will
+   also break your script.
+
+   -  This rule probably took me the most time to discover.
+
+Remember, if you don't follow these rules, your shell script will do
+very strange things.  You have been warned :)

@@ -1,0 +1,181 @@
+Title: Lessons Learned From Yet Another Jekyll Convert Comments: true
+Category: Review
+
+I recently converted my [[http://tompurl.wordpress.com][blog hosted on
+wordpress.com]] to use the [[https://github.com/mojombo/jekyll][Jekyll
+static blog generator]]. I'm pretty happy with the results, and it was a
+fun process getting here, so I thought I would share my lessons learned.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+** Lesson #1 - The Docs Aren't Great
+
+First, let me say that Jekyll was not intended to be a commercial
+product. Hell, it wasn't even designed to be a terribly popular project.
+It was a side-project of one of the Github creators, Tom Preston-Warner.
+So it's easy to understand why there isn't a ton of good documentation.
+
+So what do we have? Well, we have a lot of great tutorials from bloggers
+who have learned to use Jekyll. After reading a few of the better ones,
+you should be on your way to rolling your own awesome blog. Here are
+some of the ones that I really liked:
+
+-  [[http://paulstamatiou.com/how-to-wordpress-to-jekyll]]
+-  [[http://vitobotta.com/how-to-migrate-from-wordpress-to-jekyll/]]
+-  [[http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html]]
+
+** Lesson #2 - There's No Official Jekyll Skeleton
+
+So what questions are left unanswered? Well, for starters, *how do you
+create a site*?!? The
+[[https://github.com/mojombo/jekyll/wiki/usage][Jekyll usage guide]]
+does a decent job showing you *which files are necessary*, but it
+doesn't actually tell you what those files need to *contain*. Instead,
+you're supposed to clone the source for someone else's site on
+[[http://github.com][Github]] (or [[http://bitbucket.org][Bitbucket]] or
+whatever) and then change it to fit your needs.
+
+So here's basically how I created my "base" Jekyll site, which didn't
+include any blog content:
+
+1. I cloned [[https://github.com/mojombo/tpw][Tom Preston-Warner's
+   site]] from Github.
+2. I deleted his CSS files (because I wanted a site that looked very
+   different).
+3. I deleted his blog entries.
+
+I also had to install the following gems:
+
+-  redcloth
+-  RDiscount
+
+That's it! Of course, I had a very ugly and empty blog at this point,
+but I had the bare essentials that I needed to start using Jekyll.
+
+** Lesson #3 - Converting HTML to Markdown Is Tricky
+
+Remember, my blog was previously hosted on Wordpress.com, which means
+that I have to save mys as HTML. I'm not a huge fan of writing my blog
+posts using HTML, so I decided to switch to one of the other markup
+languages that Jekyll supports,
+[[http://daringfireball.net/projects/markdown/syntax][Markdown]].
+
+This was great for all news, but did I really need to convert my old
+posts? Doesn't Jekyll support HTML too? Well yes, it does, but the HTML
+that I was able to extract using the converter that came with the Jekyll
+gem was pretty messy.
+
+So I decided to make /every blog/ use Markdown, hell or high water. Not
+only would it make all of mys compatible with Jekyll, but it would make
+it easier to edit or convert my olds in the future.
+
+*** The Script
+
+I therefore wrote the following script to help:
+
+-  [[https://github.com/tompurl/tompurl.com/blob/master/htmlplusyml2mkd.sh][htmlplusyml2mkd.sh]]
+
+This script basically does the following:
+
+1. It writes the YAML front matter to a .md file.
+2. It then tries to convert the HTML content to Markdown using
+   [[http://www.aaronsw.com/2002/html2text/][html2text.py]]. This script
+   does a very good job of converting HTML to Markdown, but it failed
+   for me about 40% of the time.
+3. It html2text.py *does* fail, then convert the HTML using
+   [[http://johnmacfarlane.net/pandoc/][pandoc]], which is much more
+   reliable but worse at generating perfect output.
+4. Write the Markdown output to the same .md file that contains your
+   YAML front matter.
+
+I stored all of my exported HTML files in a folder called
+=_archivedposts=. Here's how I generated my blog's content:
+
+#+BEGIN_EXAMPLE
+    $ cd _archivedposts
+    $ for f in $(ls *.html); do ../htmlplusyml2mkd.sh $f; done
+    $ mv *.md ../_posts
+#+END_EXAMPLE
+
+*** Cleanup
+
+Of course, neither =html2text.py= or =pandoc= are perfect so a *lot* of
+my blogs were a little mixed up. Manually cleaning up every single one
+of my blogs would have been a major waste of time and effort for me, so
+I did the following:
+
+1. I checked my Wordpress stats to see what my most "popular"s were.
+2. I made a list of every had more than 50 page views (which ain't bad
+   for my site).
+3. I manually made the final touches on those files and *ignored the
+   rest*.
+
+If you do find a on my blog that looks a bit jumbled, then I apologize,
+but it just wasn't worth my time to fix it manually.
+
+** Lesson #4 - Creating Your Own Website From Scratch Is Fun
+
+I used to spend /hours/ every week in college manually tweaking the HTML
+and JavaScript in my web sites in the Sun lab. It was lots of fun
+creating something that I could share with the entire world these new
+and exciting (at the time) technologies.
+
+Then I got a little older and busier, and while I still loved to write
+on my web site, I didn't want to have do take care of every single
+aspect of it any more. So I started using tools like
+[[http://plone.org][Plone]] and [[http://wordpress.org][Wordpress]] to
+author content. They had nice little WYSIWYG editors, and someone else
+worried about things like style, usability, and performance.
+
+Making my new blog from (near) scratch *forced* me to think outside of
+my usual box about those icky things, and I'm really glad it did. For
+starters, it gave me an opportunity to use the underused, more artistic
+part of my brain. Also, it gave me an opportunity to learn about new web
+standards and tools for managing and creating a modern web site, such
+as:
+
+-  *Chrome's "Developer Tools"*: Chrome has a built-in module that helps
+   you do things like design and profile a web site. This tool was
+   especially useful to me when I was tweaking my CSS.
+-  *Google Web Fonts*: Did you know that there were web apps that did
+   nothing but serve up pretty fonts that could be used by other web
+   sites? Me neither, until I started looking into
+   [[https://typekit.com/][Typekit]] and
+   [[http://www.google.com/webfonts][Google Web Fonts]].
+-  *Google Analytics*: One of my favorite things about Wordpress.com is
+   that they have a great *statistics* page that you can use go gauge
+   the popularity of your blog. However, you can also use
+   [[http://www.google.com/analytics/][Google Analytics]] to gather the
+   same basic statistics (and more) for your static blog. And you can do
+   this all for *free*.
+
+** Lesson #5 - Converting Comments Is Hard
+
+Simply put, [[http://disqus.com/][Disqus]] choked every time I tried to
+convert my Wordpress.com comments over, so I just skipped this step. I
+hope that I don't offend anyone who's left a comment on my blog in the
+past, but I only had a handful in the first place.
+
+** Lesson #6 - There's A Jekyll Fork That Makes Some Of These Hard
+Things Easier
+
+There are /lots/ of Jekyll forks out there that take care of a lot of
+the gripes that you see above, but I'm sticking with the canonical copy
+for now to make things a little simpler.
+
+[[http://awestruct.org][Awestruct]] does look especially compelling to
+me, and it seems to be pretty well supported. Once I'm a little more
+comfortable with my new site and Jekyll in general, I'll give it a
+second look.
+
+** My Repo
+
+I published the source for my blog here:
+
+-  [[https://github.com/tompurl/tompurl.com]]
+
+It's a little rough, but hopefully it's a good jumping off point.
+
+Good luck!

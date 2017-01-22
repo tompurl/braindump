@@ -1,0 +1,110 @@
+Title: Tab Sweep - 6/9/11 Tags:
+coffeescript,hadoop,joel-spolsky,jruby,rsa,scalability,security,syslog
+Category: Tab Sweep Comments: true
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+-  [[http://arstechnica.com/security/news/2011/06/rsa-finally-comes-clean-securid-is-compromised.ars][RSA
+   finally comes clean: SecurID is compromised]]
+
+   To me, this is probably the biggest news is IT and banking so far
+   this year. I sure hope that most banks can start using the new
+   keyfobs before the attackers multiply and become more advanced.
+
+   tags: [[http://www.diigo.com/user/tepurl/security][security]]
+   [[http://www.diigo.com/user/tepurl/rsa][rsa]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+-  [[http://content.hccfl.edu/pollock/AUnix2/Logging.htm][Logging, Log
+   File Rotation, and Syslog Tutorial]]
+
+   Great, in-depth tutorial on using syslog with your applications. If
+   you are running software on a Unix or Linux-based system, then you
+   definitely need to check this out.
+
+   tags: [[http://www.diigo.com/user/tepurl/logging][logging]]
+   [[http://www.diigo.com/user/tepurl/syslog][syslog]]
+   [[http://www.diigo.com/user/tepurl/administration][administration]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+-  [[http://www.dbms2.com/2011/06/04/dirty-data-stored-dirt-cheap/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+dbms2/feed+(DBMS2+--+DataBase+Management+System+Services)&utm_content=Google+Reader][Dirty
+   data, stored dirt cheap | DBMS 2 : DataBase Management System
+   Services]]
+
+   This was a very good article on why you would want to use NoSQL
+   databases like Hadoop to manage verbose, "cheap" information. I would
+   be interested in seeing what it would take to use it to aggregate
+   logs.
+
+   tags: [[http://www.diigo.com/user/tepurl/logging][logging]]
+   [[http://www.diigo.com/user/tepurl/administration][administration]]
+   [[http://www.diigo.com/user/tepurl/hadoop][hadoop]]
+   [[http://www.diigo.com/user/tepurl/nosql][nosql]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+-  [[http://teddziuba.com/2008/04/im-going-to-scale-my-foot-up-y.html][I'm
+   Going To Scale My Foot Up Your Ass]]
+
+   Great article on the basics of performance and scalability, told in a
+   crude in hilarious way.
+
+   tags: [[http://www.diigo.com/user/tepurl/web][web]]
+   [[http://www.diigo.com/user/tepurl/architecture][architecture]]
+   [[http://www.diigo.com/user/tepurl/performance][performance]]
+   [[http://www.diigo.com/user/tepurl/humor][humor]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+-  [[http://ricardo.cc/2011/06/02/10-CoffeeScript-One-Liners-to-Impress-Your-Friends.html][10
+   CoffeeScript One Liners to Impress Your Friends]]
+
+   I know it's lame to already like CoffeeScript, but it really is
+   pretty cool, and I wouldn't be surprised if it becomes significantly
+   more popular very soon.
+
+   tags: [[http://www.diigo.com/user/tepurl/coffeescript][coffeescript]]
+   [[http://www.diigo.com/user/tepurl/programming][programming]]
+   [[http://www.diigo.com/user/tepurl/javascript][javascript]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+-  [[http://www.joelonsoftware.com/items/2007/09/18.html][Strategy
+   Letter VI - Joel on Software]]
+
+   Great article that predicts that most apps in the future will be
+   giant and written in javascript.
+
+   tags: [[http://www.diigo.com/user/tepurl/joel-spolsky][joel-spolsky]]
+   [[http://www.diigo.com/user/tepurl/javascript][javascript]]
+   [[http://www.diigo.com/user/tepurl/lotus][lotus]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+-  [[http://www.joelonsoftware.com/items/2006/06/16.html][My First BillG
+   Review - Joel on Software]]
+
+   I stumbled across this article when I was looking for something else
+   on Joel's site. I read this years ago, and it's definitely one of my
+   favorite business stories ever. And if you still believe that
+   non-technical people can run technical organizations, then this is
+   required reading.
+
+   tags: [[http://www.diigo.com/user/tepurl/humor][humor]]
+   [[http://www.diigo.com/user/tepurl/technology][technology]]
+   [[http://www.diigo.com/user/tepurl/bill-gates][bill-gates]]
+   [[http://www.diigo.com/user/tepurl/microsoft][microsoft]]
+   [[http://www.diigo.com/user/tepurl/joel-spolsky][joel-spolsky]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+-  [[https://github.com/jruby/jruby/wiki/C-Extension-Alternatives][C
+   Extension Alternatives - GitHub]]
+
+   This is just a great resource for anyone writing an app with Jruby.
+
+   tags: [[http://www.diigo.com/user/tepurl/jruby][jruby]]
+   [[http://www.diigo.com/user/tepurl/ruby][ruby]]
+   [[http://www.diigo.com/user/tepurl/alternative][alternative]]
+   [[http://www.diigo.com/user/tepurl/programming][programming]]
+   [[http://www.diigo.com/user/tepurl/tab-sweep-110609][tab-sweep-110609]]
+
+Posted from [[http://www.diigo.com][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

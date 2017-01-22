@@ -1,0 +1,61 @@
+#+TITLE: LUG Meeting Notes - 4/22/16
+
+#+DATE: 2016-04-22
+
+I had a great time at the
+[[http://www.meetup.com/FoxValleyLUG/events/230397028/][Fox Valley Linux
+User Group meeting]] this month. This month's topic was "talk about
+whatever" and I picked up a lot of great knowledge. Also, two new people
+attended the meeting and a couple of newbies came back.
+
+I took some fractured notes and collected some URL's. Please note that
+this list below is not intended to be very verbose or complete - if you
+really want to be part of the conversation you'll just have to attend
+next month :-)
+
+* Installation
+
+-  [[http://www.rodsbooks.com/refind/][The rEFInd Boot Manager]]
+
+   -  This is a nice looking tool for multi-booting with modern
+      EFI-enabled motherboards.
+
+* Programming / Scripting
+
+-  [[https://www.codecademy.com/][Learn to code | Codecademy]]
+
+   -  Jason said that this is a nice, *free* resource for learning about
+      Python programming.
+
+-  [[https://blogs.windows.com/ie/2013/01/31/introducing-modern-ie-testing-sites-for-internet-explorer-made-easier/][Introducing
+   modern.IE -- Testing sites for Internet Explorer made easier |
+   Exploring IE]]
+
+   -  This is a site that shows you how to easily set up a virtual
+      machine running a free (for 30 days) Windows virtual machine so
+      you can test your web application with IE.
+
+-  [[https://gist.github.com/andreptb/57e388df5e881937e62a][Setup
+   modern.ie vagrant boxes]]
+
+   -  This shows you how to do the modern.IE thing with Vagrant.
+
+* Networking
+
+-  [[https://openvpn.net/][OpenVPN - Open Source VPN]]
+-  [[http://www.tcpdump.org/][TCPDUMP/LIBPCAP public repository]]
+-  [[http://docs.mitmproxy.org/en/stable/mitmdump.html][mitmdump ---
+   mitmproxy 0.17.1 documentation]]
+-  [[https://github.com/jimradford/superputty/wiki/Documentation][Documentation
+   · jimradford/superputty Wiki]]
+
+* Text Editors
+
+There seems to be a ton of free Chrome and Javascript-based text editors
+out there now. Here's the ones that I heard about during the meeting:
+
+-  [[http://brackets.io/][Brackets - A modern, open source code editor
+   that understands web design.]]
+-  [[https://atom.io/][Atom]]
+-  [[https://code.visualstudio.com/][Visual Studio Code - Code Editing.
+   Redefined]]

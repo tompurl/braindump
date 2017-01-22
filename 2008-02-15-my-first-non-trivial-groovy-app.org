@@ -1,0 +1,94 @@
+Title: My First Non-Trivial Groovy App Tags:
+administration,groovy,java,python,scripting,vim Category: Review
+Comments: true
+
+I am about to finish my first non-trivial application written in
+[[http://groovy.codehaus.org/][Groovy]] (a medium-sized suite of
+administrative scripts), and so far I'm pretty happy with the language.
+I thought I would share some of my notes in case anyone else is
+considering the language for a similar application. ## Development
+Environment
+
+One nice thing about Groovy is how well it works with a system
+administrator's "toolbox" of applications, i.e. a text editor and
+command shell. The development tools that I specifically used were
+[[http://www.vim.org/][Vim]], the command shell, and
+[[http://ant.apache.org/][ant]], and I found the pace of development to
+be very rapid. ## References
+
+Since Groovy is still pretty new for me, I need to read a lot of
+reference material. Here's the resources that provided the most value: -
+[[http://www.manning.com/koenig/][Groovy In Action]] - From my own
+experiences and what I've read on the
+[[http://www.nabble.com/groovyuser-f11867.html][groovy-user mailing
+list]], GINA is the best Groovy reference manual available. For me, it
+answered about 95% of my programming questions, with tons of great
+examples to boot.
+
+*Note*: This book is a little expensive, so I purchased the electronic
+version from the Manning web site. If you're going to be doing most of
+you reading on a computer screen anyways, I recommend this option. -
+[[http://pleac.sourceforge.net/pleac_groovy][PLEAC-Groovy]] - The
+[[http://pleac.sourceforge.net/][PLEAC]] project's goal is to implement
+the examples in the [[http://www.oreilly.com/catalog/cookbook][Perl
+Cookbook]] in multiple languages. Groovy is one of those languages and I
+believe the first one in which 100% of the examples have been
+implemented. The examples are very useful and easy-to-understand, so I
+highly recommend this resource.
+
+*Note*: I recommend downloading a copy of the
+[[http://pleac.sourceforge.net/pleac_groovy][PLEAC-Groovy]] web site
+using something like [[http://www.httrack.com/][HTTrack]] or the
+[[http://amb.vis.ne.jp/mozilla/scrapbook/][Scrapbook plugin]] for
+Firefox. You're probably going to use this reference a lot, so you'll
+want to have quick, offline access to it. -
+[[http://www.nabble.com/groovyuser-f11867.html][groovy-user Mailing
+List]] - This list is very informative, and most of the people with
+which I've interacted on this list have been very knowledgeable and
+patient. It is highly recommended.
+
+** Application Overview
+
+I can't really say much about it, other than the following: 1. It's
+designed to run on a server and has a command-line interface. 2. It
+performs a lot of filesystem-related operations. 3. It processes a lot
+of XML. 4. It has a lot of unit tests. 5. It integrates with a
+proprietary, third-party library.
+
+First, let me say that the Groovy feature that stood out for me the most
+was it's excellent, built-in XML processing libraries. I usually /hate/
+processing XML since there's usually so much "heavy-lifting" and
+debugging, but Groovy makes the task trivial. Another feature that I
+didn't even know I would like be ended up loving was Groovy's
+[[http://groovy.codehaus.org/Using+Ant+from+Groovy][AntBuilder]] class,
+which allows you to use ant tasks in your code in a trivially-simple
+way. This was especially handy when it came to filesystem-related
+operations. And of course, the icing on the cake is that Groovy allows
+me to do all of this while integrating with all of the Java libraries
+(both standard and third-party) that I need to do my job on a daily
+basis. ## Gripes
+
+Of course, such a new language is going to have a few rough spots.
+Here's the ones that I encountered most frequently: ### Poor Error
+Messages
+
+Occasionally, you will get error messages that make no sense whatsoever.
+My favorite is when it told me that I had a null character on a line
+that didn't exist in my document in column 0 (which also doesn't exist).
+The good news is that error messages in general are pretty decent,
+especially when you run Groovy with the debug switch. ### Non-Intuitive
+Behavior
+
+I ran across some truly odd functionality that border on a bug in my
+opinion. When I asked the mailing list for some clarification, I learned
+that some of Groovy's functionality is dependent upon the brand of JDK
+that you're using. Yikes. Hopefully the Groovy developers are able to
+normalize these sorts of anomalies in the future. In the mean time, I
+recommend decent unit test coverage on any non-trivial application to
+ensure that everything's working like you expect it to work. ##
+Conclusion
+
+Even with it's rough spots, I found Groovy to be incredibly robust,
+stable, and easy-to-use. Not only did it satisfy 99% of my requirements
+perfectly, it provided time-saving functionality that I didn't even know
+I needed. Now I'm curious to see how the end users like it :)

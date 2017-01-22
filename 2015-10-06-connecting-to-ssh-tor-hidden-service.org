@@ -1,0 +1,96 @@
+#+TITLE: Connecting To An SSH Tor Hidden Service
+
+#+DATE: 2015-10-06
+
+#+BEGIN_QUOTE
+  *note*
+
+  This is a cleaner version of my tor related notes from this page\_,
+  which also shows you how to set up SSH as a hidden service\_ on a
+  Debian server. Also, I'm happy to plug my torssh puppet module\_ which
+  also will help you set up a hidden service.
+#+END_QUOTE
+
+* Overview
+
+This tutorial shows you how to connect to an SSH service exopsed as a
+hidden service\_ using Tor using an SSH client. It is Debian-specific,
+but the instructions should mostly work on all Unix-like systems
+(including OS X).
+
+* Installation
+
+In addition to an SSH package (like =openssh=) you also need to install
+the connect-proxy\_ package. This package is required to proxy your
+request through the Tor network.
+
+If you're using Debian then it's just this easy:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install connect-proxy
+#+END_EXAMPLE
+
+Similar packages should exist for other Linux distributions. A friend of
+mine also said that it was very easy to compile and install on his OS X
+system.
+
+* Configuration
+
+Next, add the following to your =~/.ssh/config= file:
+
+#+BEGIN_EXAMPLE
+    Host *.onion
+        ProxyCommand connect -S localhost:9050 %h %p
+#+END_EXAMPLE
+
+This tells SSH to use that proxy every time you try to connect to a
+=.onion= address.
+
+* Testing
+
+Believe it or not that's all you should have to do to connect to an SSH
+server through the Tor network. You can test it like this:
+
+#+BEGIN_EXAMPLE
+    $ ssh me@somelongaddress.onion
+#+END_EXAMPLE
+
+* Extra Credit
+
+** SSH Aliases
+
+I don't know about you but I can never remember =.onion= addresses. To
+keep track I therefore add aliases to my =~/.ssh/config= file like this:
+
+#+BEGIN_EXAMPLE
+    host bart.onion
+        HostName somelongaddress.onion
+        User me
+#+END_EXAMPLE
+
+Now I just have to remember that this is the Tor version of the hostname
+for the =bart= server. To log in I just execute the following command:
+
+#+BEGIN_EXAMPLE
+    $ ssh bart.onion
+#+END_EXAMPLE
+
+Easy peasy.
+
+** SOCKS5\_PASSWORD
+
+One thing that's a little annoying about =connect-proxy= is that it
+prompts you for a SOCKS5 password automatically. I don't even have a
+SOCKS5 password when using Tor so I can bypass the prompt by just typing
+return. However, this is a little annoying and is incompatible with some
+tools that are built on top of the ssh client (like Emac's
+tramp mode\_).
+
+To get rid of this prompt simply add the following to any file that is
+sourced by your shell when you login (such as =.bashrc=):
+
+#+BEGIN_EXAMPLE
+    SOCKS5_PASSWORD=''
+#+END_EXAMPLE
+
+Now that password prompt will be removed.

@@ -1,0 +1,54 @@
+Title: "My Todo.txt Workflow" Date: 2013-02-11 19:04 Comments: true
+Tags: Status: draft
+
+What I do every day
+
+#+BEGIN_EXAMPLE
+    # Create +Everyday tasks
+    $ cdt
+    01 Read email +Everyday
+    02 Read RSS +Everyday
+    03 Read Twitter +Everyday
+
+    # This is your morning checklist. Display that checklist:
+    $ todo ls +Everyday
+    01 Read email +Everyday
+    02 Read RSS +Everyday
+    03 Read Twitter +Everyday
+
+    # Punch into tasks
+    $ punch.py in 1
+    # This also puts that ask in my tmux task bar at the bottom of the screen.
+
+    # When done, punch out:
+    $ punch.py out
+    # Rinse and repeat for the rest of your +Everyday tasks
+
+    # Scrub the @today context from your tasks
+    $ scrub
+
+    # Look at all of your tasks:
+    $ todo ls
+    04 Open ticket with vendor
+    05 Something that adds no value
+    06 Open change record
+
+    # Add the @today context to everything that you would like to accomplish today:
+    $ todo append 4 @today
+    $ todo append 6 @today
+
+    # Look at all of your @today tasks:
+    $ todo ls @today
+    04 Open ticket with vendor @today
+    06 Open change record @today
+
+    # Prioritize if you would like
+    $ todo pri 6 a
+    04 (A) Open ticket with vendor @today
+    $ todo pri 6 b
+    06 (B) Open change record @today
+
+    # Do the same punch in/out thing for your @today tasks
+
+    # Create some handy-dandy aliases to make things that much easier
+#+END_EXAMPLE

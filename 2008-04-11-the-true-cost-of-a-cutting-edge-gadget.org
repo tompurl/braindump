@@ -1,0 +1,61 @@
+Title: The True Cost Of A Cutting-Edge Gadget Tags:
+freakonomics,frugality,gadgets,iphone Category: Rant Comments: true
+
+I read a great article on the
+[[http://freakonomics.blogs.nytimes.com/][Freakonomics Blog]] today
+regarding the opportunity costs associated with financially free
+software updates: -
+[[http://freakonomics.blogs.nytimes.com/2008/04/03/how-much-does-a-free-iphone-update-cost/][How
+Much Does a Free iPhone Update Cost?]]
+
+In it, the author basically points out that his financially free iPhone
+update cost him one hour of his life when the update broke his phone. A
+lot of the commentors on the blog stated that exchanging an unexpected
+hour of your time for an up-to-date iPhone is /totally/ worth it, but
+most of those people are, in my opinion, probably either lonely and sad
+or too young to properly value their time. I have more than a few
+electronic devices in my home that require periodic updates, so I'm very
+familiar with this type of story. I've gotten to the point where I just
+automatically budget time for any type of update that I do. This time
+budgeting is important because it allows me to truly contemplate how
+much each little update will "cost" both myself and my family. What I've
+found to be even more important when it comes to valuing my time,
+however, is budgeting for updates and other administrative overhead
+/before/ I acquire a new gadget or piece of software. And since the
+amount of time performing ongoing maintenance can quickly dwarf the
+amount of time required to set up a new gadget, you need to account for
+them both *along with* financial costs when you consider acquiring new
+hardware or software. Let's look at cell phone choices as an example. I
+use a [[http://en.wikipedia.org/wiki/Nokia_6101][Nokia 6101]], which I
+purchased without any phone contract-related subsidies for around $50.
+It's small, is incredibly simple to administer (no explicit patching and
+/very/ little configuration), can receive e-mail, and can also be synced
+with my calendar and contacts. There are some things that I wish it had,
+like a larger display, and there are a few things I wish I could do with
+it, such as send e-mail. However, even though I'm a very connected
+person from a communications perspective, I find that this phone really
+meets all of my functional requirements very well. The icing on the cake
+is that *it just works* (to borrow a line from Apple): I turn it on, put
+it in my pocket, and forget about it. Now, there's no denying that the
+iPhone is a significantly nicer piece of hardware, and it contains
+significantly nicer software. It has a large display, a powerful and
+extensible user interface, and is web-enabled. It truly appears to be
+the future of smart phones. The problem is that, with enhanced
+functionality comes increased complexity, and this grouping usually ends
+up costing you time. The iPhone OS, core, and third-party applications
+must all be explicitly updated, and sometimes this action requires
+multiple interfaces. More "moving parts" (from a software perspective of
+course) means more points of failure, which means you spend more time
+troubleshooting and fixing your phone. Ideally, something as important
+and integral to our daily lives as a cell phone should transcend its
+status as a electronic gadget. It should be so reliable and idiot proof,
+that you focus on what you want to do, not on how it will be
+accomplished. If your phone satisfies this requirement, then you should
+be able to say something like "if I need you while I'm at the store,
+I'll call you using my cell phone". Notice that I didn't specify my
+phone's brand, it's communication protocol, or whether last night's
+iTunes update deleted all of my ringer profiles. Of course, I'm looking
+forward to the day when it will be practical for me to own a smart
+phone, and, from a functional perspective, the iPhone seems like a great
+piece of engineering. I'm just going to wait until it's financial and
+opportunity costs are more in line with my budget.

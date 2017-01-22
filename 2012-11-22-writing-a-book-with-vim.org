@@ -1,0 +1,215 @@
+Title: Writing A Book With Vim, Restructured Text, and Sphinx Date:
+2012-11-22 21:09 Comments: true Tags: vim,rst,writing,wideload,sphinx
+Category: Tutorial
+
+I'm in the process of writing a [[http://www.wideloadperf.org][free
+ebook]] about performance testing using the
+[[http://github.com/tompurl/wideload][Wideload]] tool set. To write the
+book, I decided to use the following basic tools:
+
+-  *Vim* (as my text editor)
+-  *Restructured Text* (as my markup language)
+-  *Sphinx* (as my publishing system)
+
+If you would like to know why I use these tools and some tips on making
+them work really well, please keep reading.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+** Why Vim?
+
+First, I think that it's very important to pick a tool for writing your
+blog that is very comfortable. Ideally, this tool should make it
+possible for you to write and edit your content *as quickly as you can
+think*.
+
+For me, that tool is [[http://www.vim.org][Vim]]. I have been using Vim
+almost every day now for over 10 years for a variety of tasks, including
+programming and systems administration. I also use a long list of
+third-party plugins and I have written lots of macros and other helpers
+that make most of my common tasks very quick and easy.
+
+Also, it helps that Vim is just a *fantastic text editor*. It really is
+just awesome for writing anything you can think of :-)
+
+** Why Restructured Text?
+
+Of course, it would be difficult for me to publish a book as plain text,
+so I need to use some sort of *markup language* to add formatting and
+context to my content. My markup language of choice for this book is
+[[http://docutils.sourceforge.net/rst.html][Resturctured Text]].
+
+Restructured text (or *RST*) is nice for the following reasons:
+
+-  *Robust Feature Set* - RST was designed to have most of the same
+   features as [[http://www.latex-project.org/][LaTex]], which is one of
+   the most popular markup languages for writing books and academic
+   papers. It is also much more robust than some other popular markup
+   languages (e.g.
+   [[http://daringfireball.net/projects/markdown/basics][Markdown]]).
+-  *Ease Of Use* - RST is much easier to use than LaTex or HTML (but not
+   as easy as Markdown).
+-  *Lote Of Publishing Options* - Out of the box, you can convert RST to
+   *HTML and PDF*. And publishing systems like
+   [[http://sphinx.pocoo.org/][Sphinx]] (which I'll talk about later)
+   give you even more power.
+
+RST does have a few warts. For example, it's syntax can seem a bit odd
+at times, and the "compiler" that converts your text into HTML can
+produce confusing error messages. But having said that, it is still *a
+wonderful markup language for writing books*, especially when it is used
+with the *Sphinx publishing system*.
+
+** Why Sphinx?
+
+So we have a text editor, a markup language, and some tools to convert
+my plain text files into HTML and PDF. What else do we need? Well, it
+would be nice to have a way to easily *organize my text documents into
+chapters in a book*. Also, it would be great *publish that book as a web
+site with interconnected links* and such. Finally, it would be really
+great if I could also *publish that book as a PDF or Epub document*.
+
+Well, that's basically what [[http://sphinx.pocoo.org/][Sphinx]] gives
+you. It takes all of your RST-formatted files and turns them into
+documents that can be very easily published. They even have a
+"quickstart" script to help you start new projects. And the best part is
+that if you know how to use RST, you can learn everything that you need
+to know about Sphinx in less than 15 minutes.
+
+For me, choosing Sphinx was a no-brainer. It made the task of organizing
+my book's content and publishing it in multiple formats a 5-minute task.
+
+Also, please note that Sphinx creates a *static text* web site. You do
+not need /any/ server-side code to run these sites. This means the
+following:
+
+-  The generated site should run pretty quickly
+-  There are a variety of free or dirt-cheap web hosts that you can use
+   to host your content
+-  Publishing your web site is as easy as uploading your content to a
+   web host. No other special technical knowledge is required.
+
+** Vim-Specific Toolset
+
+There are a few tools that I use to make writing with RST more
+efficient:
+
+*** Riv Plugin
+
+-  [[https://github.com/Rykka/riv.vim][Riv Plugin]]
+
+This is a very robust plugin for writing and editing RST-formatted text.
+My favorite feature is that it folds all of your sections by default. It
+also includes a lot of nice plugins to do things like add headers.
+
+*** My Personal RST Mappings
+
+-  [[https://github.com/tompurl/dotvim/blob/master/bundle/tompurl-vimrc/plugin/tompurl-rst.vim][My
+   Personal RST Mappings]]
+
+These are the mappings that I use with all of my RST documents. They get
+loaded every time you open a document with an ".rst" file extension.
+
+Most of them are pretty simple, like the ones that create headers or
+bold text. My favorite, however, is the one that turns a string into a
+hyperlink. Here's how it works:
+
+-  Visually select a string of characters
+-  Type =<leader>ml=
+-  The default leader in Vim is a backslash, but you can customize it.
+
+Those keystrokes will make the following happen:
+
+-  The string will be wrapped in backslashes and ended with an
+   underscore
+-  For example, =this is cool= turns into `=this is cool`_=
+-  A vertical split window will be opened.
+-  The cursor will move to the split window on the right.
+-  The cursor will jump to the bottom of the page
+-  A link definition will be created for the selected string.
+-  Now all you have to do is manually enter the URL.
+-  Once you are done, simply close the vertical split on the right and
+   you will be back where you started in the window on the left.
+
+I know that all sounds very complicated, but it makes much more sense if
+you can see it an action.
+
+If you would like to use some of my mappings, simply drop the
+=tompurl-rst.vim= file into any plugin directory under your =.vim=
+folder. However, please note that I consider everything under my
+=tompurl-vimrc= folder to be beta quality at best. It's written to be
+helpful to me, not perfect for everyone else in the world :-).
+
+*** Vim's =make= Integration
+
+Another great feature of Sphinx is that is creates a =Makefile= for you
+when you start a new project. This =Makefile= makes it very easy convert
+your documents into a book using commands such as =make html= or
+=make latexpdf=.
+
+Vim has excellent built-in integration with =make=. Simply type one of
+the following commands in Vim when your current working directory is the
+root of your Sphinx project:
+
+#+BEGIN_EXAMPLE
+    :make
+    :mak
+#+END_EXAMPLE
+
+In my Sphinx =Makefile=, I made the =html= target the default instead of
+=help=. Now, when I'm editing a file for my book and I want to view a
+HTML version, I just type =:mak= from Vim.
+
+** Other Helpers
+
+There's a few other tools that I wanted to mention that have made it
+very easy to write and publish my book. They're not really Vim-specific,
+but I think that they're very helpful to anyone who's writing and
+publishing a book using a plain-text format.
+
+*** NearlyFreeSpeech Web Hosting
+
+To publish my book, I wanted a web host that provided the following:
+
+-  Total control over my domain name
+-  Good, simple service
+-  Very low hosting costs :-)
+
+I tried [[http://www.nearlyfreespeech.net][NearlyFreeSpeech.net]] and
+have been very, very happy. Setting everything up was a breeze and
+everything has been rock-solid so far.
+
+Also, did I mention that it is *incredibly inexpensive*? I think I've
+spent a total of *$5 dollars* over the last 10 months to host this blog.
+It's so cheap it's almost not noticeable.
+
+*** The Cloud Sphinx Theme
+
+The themes that come with Sphinx are ok, but I wasn't really excited
+about any of them. Thankfully, there are some really great 3rd-party
+themes. The best one that I found was the
+[[http://packages.python.org/cloud_sptheme/index.html][Cloud Sphinx
+Theme]].
+
+Here's what I like:
+
+-  It's somewhat compact. By default, Sphinx adds a bunch of links to
+   your page, so shrinking all of that down a bit is nice.
+-  It uses modern-looking fonts.
+-  It looks *really* great on a phone.
+-  It has built-in Google Analytics.
+
+*** Github
+
+I wanted to make it easy for people to create their own copies of the
+book and send diffs to me if they found an error. The easiest way for me
+to share the RST files and handle patches was to share the "source" on
+[[http://github.com][Github]]. Here's the repository for this book:
+
+-  [[http://github.com/tompurl/wideload-book][tompurl/wideload-book]]
+
+Also, if you're going to use Git with Vim, you should *seriously*
+consider using the [[https://github.com/tpope/vim-fugitive][Fugitive
+plugin]]. It is very robust and saves a ton of time.

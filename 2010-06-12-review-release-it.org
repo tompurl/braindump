@@ -1,0 +1,61 @@
+Title: Review - Release It! Tags:
+book-review,design,java,patterns,programming,systems-administration
+Category: Review Comments: true
+
+[[http://www.goodreads.com/book/show/1069827.Release_It_Design_and_Deploy_Production_Ready_Software][[[http://photo.goodreads.com/books/1180726533m/1069827.jpg]]]]
+[[http://www.goodreads.com/book/show/1069827.Release_It_Design_and_Deploy_Production_Ready_Software][Release
+It!: Design and Deploy Production-Ready Software]] by
+[[http://www.goodreads.com/author/show/530838.Michael_Nygard][Michael
+Nygard]] My rating: [[http://www.goodreads.com/review/show/97762352][5
+of 5 stars]] I need to start by saying that this is one of the best
+technical books I have ever read. To me, it's easily as enjoyable and
+useful as [[http://cc2e.com/][Code Complete]],
+[[http://www.pragprog.com/the-pragmatic-programmer][The Pragmatic
+Programmer]], or
+[[http://www.amazon.com/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959][The
+Mythical Man Month]]. If you're a sysadmin, an architect, or a developer
+that works with medium-to-large-sized systems, then do the following: 1.
+Stop reading this 2. Order this book from your library or buy it from
+The Pragmatic Programmer's web site 3. Owe me a pint :D
+
+*What The Book Is Really About* Actually, there is one thing that I
+don't like about this book, but it really has nothing to do with the
+book. The description of this book on the Pragmatic Programmer's web
+site sucks. It's vague, and it really gives the potential reader a tiny
+amount of insight into the book's contents. What it should have said is
+that this book contains *tons* of great information on designing,
+deploying, maintaining and /improving/ medium-to-large-sized IT systems.
+It's filled with patterns, anti-patterns, and general best practices
+that should be part of the shared lexicon of every developer,
+administrator, and system architect. Also, it does a good job of giving
+you enough information to be useful without boring you to death. And
+finally, it's written very well and is a joy to read. *The Highlights*
+/Thread Dumps & Garbage Collection Tuning/ The internals of the Java
+Virtual Machine (JVM) have been a black box to me for the majority of my
+career in IT. Thankfully, this book has provided excellent examples of
+how you can troubleshoot and improve your system using tools that
+interrogate and manipulate a JVM at runtime. For me, this was the most
+interesting and useful part of the book, and I am looking forward to
+seeing what can be gained by tuning and "poking at" the JVM's that are
+in the system that I maintain. /Patterns and Anti-Patterns/ It's great
+to finally find a book that codifies some patterns that administrators
+and architects can use. /Transparency/ I thought that I new a lot about
+monitoring and transparency before reading this book, but now I know
+better. I especially like the concept of a unified "OpsDB", and I am
+eager to build something like this myself for the system that I
+maintain. /Integration Point Risks/ I always knew that integration
+points (e.g. data feeds, databases, LDAP providers, etc.) added risk to
+you system, but the author does a great job calculating the actual risk.
+Also, he shows you many ways in which you can avoid brittle integration
+points. *Caveats* I have one warning about this book, but it's
+half-hearted. This book is what I would all Java-centric. All of the
+case studies involve systems that are written in Java, and some of the
+sections will only apply directly to you if you are working with
+Java-based software. But does that mean that you should avoid this book
+if you are working with Ruby, PHP, or .Net-based software? Absolutely
+not. Even though there are a few small sections of the book that won't
+directly apply to your line of work, most of them will apply in an
+indirect way, regardless of your platform. And the other 94% of the book
+will directly apply to medium-to-large systems of every stripe.
+[[http://www.goodreads.com/review/list/1593897-tom-purl][View all my
+reviews >>]]

@@ -1,0 +1,116 @@
+Title: Web Development Toolbox Tags:
+css,firebug,firefox,programming,toolbox,web Category: Tutorial Comments:
+true
+
+A friend of mine recently volunteered to update and maintain a web site
+for a local non-profit. He basically wants to clean up the formatting on
+the site (using CSS whenever possible), add more rich media such as
+flash-based slide shows, and make it more collaborative by adding
+features like a forum. Of course, since he has a day job and is doing
+this in his spare time, he would like to accomplish all of this in a way
+that is inexpensive, relatively simple, and intuitive for a technical
+professional who /isn't/ a web designer. Since I've been in his shoes
+before, he asked if I knew of any tools that could help him build a
+professional-looking site easily and inexpensively. Here's what I came
+up with, and hopefully it will help other technical
+professionals/hobbyists get started with web development. ## Software
+
+*** Firefox + Firebug
+
+A vanilla instance of [[http://www.mozilla.com/][Firefox]] itself isn't
+an inherently superior browser for web development over IE or Opera.
+Once you add [[http://www.getfirebug.com/][Firebug]], however, it turns
+into the /best/ free web application development environment that I've
+ever seen. Here are some of the things you can do with Firebug: - Find
+which HTML snippet maps to which element on a web site by hovering over
+the snippet - For me, this is the best feature
+
+-  View the document's HTML or CSS as a tree
+-  Debug Javascript
+-  Edit HTML and CSS in memory so you can test-drive the addition or
+   removal of features.
+-  et cetera
+
+Honestly, this tool easily saved me half of my web development time.
+It's worth checking out, even if you're a dedicated IE or Opera user.
+**** *Note*: Apparently, there is also a scaled-down version of Firebug
+that works with Internet Explorer. More information can be found at the
+Firebug home page. ### XAMPP
+
+[[http://www.nat32.com/xampp][XAMPP]] is a "distribution" of web server
+software that is configured to work very well together, out-of-the-box.
+It includes Apache2, PHP, [[;][MySql]], Perl, phpMyAdmin, and a bunch of
+other things that I've never even had any time to use. It's simply an
+excellent way to set up a server-side,
+[[http://en.wikipedia.org/wiki/LAMP_(software_bundle)][LAMP]]
+development environment on Windows in a hurry. ### A Decent Text Editor
+
+There are a lot of integrated development environments (IDE's) that do a
+pretty decent job of helping you create robust web sites. Eclipse, for
+example, has a highly-regarded PHP plugin, and Netbeans has a robust set
+of "Ruby On Rails" plugins. If you're working on a very complex web
+site, or you don't use a decent text editor on a regular basis, then
+you'll probably save time with a decent, free IDE. However, if you /are/
+already using a decent text editor (e.g. Jedit, Vim, Emacs, Textpad,
+Textmate, etc.) for other tasks, then you should look into using them
+for HTML editing too. Your favorite editor probably has some excellent
+plugins to help you write code using HTML, [[;][JavaScript]], PHP, etc.
+The main benefit of using a familiar text editor over an unfamiliar,
+web-centric IDE is the size of your learning curve. Most IDE's, while
+powerful, can be difficult to master. Also, IDE's usually force you to
+manage your project in "the Eclipse" way or "the ASP.Net" way, which may
+be /very/ different from your normal process. A good text editor,
+however, should already be very familiar to you and flexible enough to
+allow you to manage your project in a way that works well for you. This
+isn't to say that IDE's are a bad idea. Just keep the text editor option
+in mind if you find your IDE to be too bloated, expensive, or difficult
+to use. ### HTML Tidy
+
+[[http://www.w3.org/People/Raggett/tidy/][HTML Tidy]] is a great
+command-line utility for validating web pages. You can use it to
+automatically format your HTML, but I mostly use it to validate my web
+pages and point out any mistakes I may have made (such as forgetting to
+close a tag). ## Online Resources
+
+*** Open Source Web Design
+
+Here are the two hardest tasks for most technologists (sysadmins,
+programmers, etc.) who /aren't/ dedicated web developers: 1. Designing
+the look of the web site 2. Implementing the design This should be
+evident by what they wear, but it's worth stating: *most technologists
+are not good at tasks that require visual creativity*. If you need
+someone to write an efficient sorting algorithm or trace some packets,
+then they're the people to call. Designing a clean, good-looking UI,
+however, is something that most technologists simply can't do. And
+that's just half the story. Even if the technologist can create a good
+design on paper, it's even harder to actually /implement/ the design.
+CSS is great, don't get me wrong, but it has a /huge/ learning curve,
+and just enough browser-based idiosyncrasies to drive you nuts. In comes
+the [[http://www.oswd.org/][Open Source Web Design]] project to the
+rescue. This site has a repository of page designs and the CSS files
+that implement them, all for free. Just browse the designs, download the
+ones that work best for you, and your 95% along the path of creating a
+solid, attractive web site. ### Alertbox
+
+Ok, now you site looks pretty good, but it's just a shell of its future
+self. It needs content and customization, which brings up a lot of
+questions. Does my web site /need/ an RSS feed, or should I just use a
+mailing list? Will a bunch of dancing, [[;][AJAX-y]] crap bring in more
+traffic or will it just frustrate my users?
+[[http://www.useit.com/alertbox/][Jakob Nielsen's Alertbox]] answers
+questions like this using two guiding principles: *usability* and
+*quality content*. Your site should be usable by your target audience,
+and it should contain the content that they need. Anything that is
+contrary to these principles should be avoided at all costs. Of course,
+that sort of thing is much more easily said than implemented, so Jakob
+does tons of research on the subject and then publishes a lot of his
+results on his web site. Check these out if you want to do a better job
+of connecting with your "customers", whomever they may be. ##
+[[;][Dead-Tree]] Resources
+
+Now that I think about it, I've only cracked open one actual book on
+fundamental web design. Not surprisingly, there's a wealth of
+information available on HTML, CSS, Javascript, and other web
+technologies online. If you do need some help with CSS, however, I
+highly recommend [[http://www.ericmeyeroncss.com/][Eric Meyer On CSS]].
+It's easy-to-read, succinct, and packed with loads of useful examples.

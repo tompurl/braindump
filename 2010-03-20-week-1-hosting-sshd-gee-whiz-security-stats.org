@@ -1,0 +1,44 @@
+Title: Week 1 Hosting SSHD - Gee Whiz Security Stats Tags:
+crackers,security,ssh Category: Tutorial Comments: true
+
+I installed the
+[[http://www.freebsd.org/releases/8.0R/announce.html][8.0 version of
+FreeBSD]] this week in a VirtualBox image, and I thought that it would
+be fun to let some of my friends use it as a web server test bed.  I
+therefore setup an SSH server and hardened it using some of the
+recommendations from this web page: -
+[[http://wiki.centos.org/HowTos/Network/SecuringSSH][Securing OpenSSH]]
+
+Specifically, I set the following properties: - *I explicitly turned off
+root logins.* This is the default on FreeBSD, and it should be the
+default on *every* Linux and Unix server (even though it isn't). - *I
+deny access to anyone using the SSH 1 protocol*. - *I turned off
+password* *authentication*.  Instead, anyone who logs in has to use
+[[http://sial.org/howto/openssh/publickey-auth/][keypair
+authentication]].
+
+With all of these settings, I feel like my SSH server is safe enough. 
+However, I was curious to see if anyone had actually tried to crack it. 
+I mean, it's only been up for 3 days.  The bad robots of the Internet
+could not have possibly found my little SSH garden in the shade, right?
+A quick look at /var/log/auth.log brings me back to Earth.  To my
+surprise, their have already been hundreds of attempted logins from
+multiple sources.  Here's the statistics related to people who are
+trying to crack my SSH server.  Remember, this server is 3-days old. -
+*865*failed login attempts - *281*unique login names - Some of the names
+are fairly comical (12345?), and many of them are very uncommon
+(Agatha?).
+
+-  *0*login attempts using the*root* user name.
+
+   -  This was a big surprise for me.
+
+-  The attacks originated from *6* IP addresses.
+
+   -  It's anyone's guess if all of these computers are part of the same
+      botnet or if there are multiple groups trying to crack my server.
+
+I can't help but compare any publicly-available, networked service to a
+car that is parked in the middle of a city containing a billion people. 
+No matter how small and obscure your car is, you can't afford to park it
+without locking your doors.

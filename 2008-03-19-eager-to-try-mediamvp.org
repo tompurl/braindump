@@ -1,0 +1,39 @@
+Title: Eager To Try MediaMVP Tags: frugality,mediamvp,mythtv Category:
+Review Comments: true
+
+Well, I finally purchased a
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+yesterday from [[http://www.newegg.com/][Newegg]]. If you haven't seen
+one of these before, it's basically a little box that streams videos and
+music from a networked server to your television. I'm hoping to use it
+to do the following: - Play back recordings that I have stored within my
+[[http://www.mythtv.org/][MythTv]] system - Pause and rewind live TV
+(again, with a little help from [[http://www.mythtv.org/][MythTv]]) -
+Watch home videos stored as MPEG's - Watch "archived" movies that I have
+converted into non-MPEG 2 codecs, such as Xvid and Ogg Theora - Access
+my extensive MP3 collection through my television set
+
+On top of all of these great features, the
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+is relatively inexpensive (< $90), small, silent, and energy-efficient.
+The only real downside that I see is that it's a non-trivial project to
+configure the
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]
+to do all of the things listed above using a Linux server. Thank
+goodness that I play with computers for a living :) Purchases like this
+can be a little difficult to rationalize from a frugal perspective, but
+I thought about it for a while and am pretty happy with the decision.
+Yes, it's $90 more that I'll have to earn before I can retire, but the
+following points made sense to me: 1. *It's something that I've wanted
+for years.* 2. *It's definitely cheaper than the alternatives*. Tivo is
+$100 + $12/month for as long as you want to use it. Cable-based DVR's
+are $14 a month and not nearly as flexible. 3. *I'm a big fan of the
+idea that there is such a thing as "good TV"*. Whether it's a PBS
+documentary or prime-time "Price Is Right", TV can be a wonderful form
+of entertainment. The problem that I have with TV is that when I do have
+time to watch it, I rarely have easy access to anything that I would
+actually /want/ to watch. Hopefully, this device will change that.
+
+In the end, I hope that it ends up being an inexpensive, flexible, and
+easy-to-maintain. Please keep watching this space if you would like to
+follow my progress.

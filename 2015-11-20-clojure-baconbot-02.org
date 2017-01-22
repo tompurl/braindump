@@ -1,0 +1,662 @@
+#+TITLE: Fun With Clojure(script) - Baconbot 2.0
+
+#+DATE: 2015-11-20
+
+This is the second post in a series of articles about writing my first
+real application using Clojure. For more information about why I'm doing
+this or how, please see
+[[|filename|2015-11-18-clojure-baconbot-01.rst][my first article]].
+
+* A Slight Change In Direction
+
+I'm really happy with what I've created already. I have the guts of a
+system that can evaluate a question and then execute a customized
+response. The system is easy to read and maintain, and it even looks
+like halfway idiomatic Clojure.
+
+My next steps (according to my earlier post) were to create a decent
+command-line user interface and integrate
+[[https://en.wikipedia.org/wiki/Speech_synthesis][TTS]]. I *really*
+wanted to start with TTS, but quickly learned that all of the open
+source TTS libraries that are written in Java are fairly difficult to
+install and configure. Hmmm....
+
+Then I had the following conversation with my daughter:
+
+-  Me :: Hey honey! I made a lot of progress on the baconbot app today.
+   Pretty soon you'll have a custom REPL that you can use to enter
+   questions!
+
+-  Daughter :: A whah? What's a...you mean I can't talk to it?
+
+-  Me :: Ha ha ha! Oh honey, what you're asking for is as crazy as a
+   /jetpack/! Heck, I can't even make it talk yet.
+
+-  Daughter :: Oh, uhhhh, that still sounds cool I guess. So what do I
+   push on my iPod to see it?
+
+-  Me :: Uhhhhh....
+
+Obviously I had misunderstood the scope of this project. I was trying to
+create an app that I could share with one of my buddies in 2007, but
+what my kids wanted was something, you know, GOOD and EASY to play with.
+Also, I wanted my 5 year-old son to be able to play around with this app
+a little bit, so I really needed to make everything much easier.
+
+Then I found the following:
+
+-  [[https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API?hl=en][Web
+   apps that talk - Introduction to the Speech Synthesis API]]
+
+It turns out that TTS /and/ speech recognition are actually *built into
+Chrome* already thanks to the
+[[https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API][Web
+Speech API]]  [1]. I don't have to install any libraries or configure
+anything. I can just start making my web browser *talk to me today*
+using the a couple lines of Javascript.
+
+Which is super cool but doesn't work at all with
+plain-old-JVM-powered-Clojure. If I wanted all of this speech-powered
+awesomeness *and* the ability to make my app available to everyone in
+the world by pushing a button then *I needed to move all of my code over
+to a browser*.
+
+#+BEGIN_QUOTE
+  *warning*
+
+  There are, of course, a couple of *caveats* as I write this. Not only
+  is this API only supported in Chrome (at the time that I'm writing
+  this), but it doesn't seem to work in every version of Chrome on every
+  platform. For example, a friend of mine had trouble getting it to work
+  on his Surface.
+
+  Also, the default voice can really be a crapshoot. On my Debian
+  laptop, the default voice sounds pretty decent. On my Android phone it
+  sounds OK but not great. And on my wife's Macbook, it sounds like a
+  female German villian from a Mel Brooks movie.
+#+END_QUOTE
+
+* Yet Another Tangent On How Great Clojure Is
+
+At this point, if I was developing with pretty much /any/ other language
+I would be screwed. You just can't jump from one platform (e.g. web
+client, server, JVM, .Net) to another. If I had written iteration 1 of
+my app in Python, for example, then I would need to rewrite everything
+in Javascript or some language built on top of Javascript like
+Coffeescript  [2].
+
+Also, what if you really didn't want to write in plain-old-Javascript?
+There's a lot of great languages built on top of it that fix some of its
+warts, but probably none that allow me to "port" most of my Python (or
+Ruby, or Java, or whatever) code line-for-line.
+
+The good news is that you actually *can* port a lot of your
+plain-old-Clojure code to a web browser using Clojurescript. Of course
+you can't port everything, like any code that relies on a third-party
+Java library. But you can port code that doesn't rely on a feature
+that's specific to the JVM.
+
+For example, I'm glad that I didn't spend a bunch of time trying to make
+something like
+[[http://freetts.sourceforge.net/docs/index.php][FreeTTS]] work with
+this app, because none of that would have been callable from
+Clojurescript. But the good news is that I can use Javascript interop
+with Clojurescript to implement those types of features, just like I
+would use Java interop from plain-old-Clojure.
+
+But enough origin story - let's actually get started with a simple
+Clojurescript app.
+
+* Choosing My Clojurescript Tools
+
+** Living With Fear
+
+No matter how much I do it, I'm always a little gunshy about writing
+code that runs in a web browser because it used to be  [3] really
+difficult to do. My first exposure to Javascript was when I helped
+develop a fairly complex web application about 14 years ago and it was
+just /torture/ compared to using my nifty VB 6 IDE back in cowboy times.
+
+I naturally then assumed that all of the awesomeness that I had grown
+accustomed to when developing with Clojure (using tools like
+[[http://leiningen.org/][Leiningen]],
+[[https://github.com/clojure/tools.nrepl][nREPL]] and
+[[https://github.com/clojure-emacs/cider][Cider]]) would disappear as
+soon as I started developing for the cold, bleak web browser. Heck, does
+Leiningen even /work/ with Clojurescript? Also, how hard would it be for
+me to see my code changes in the browser?
+
+My fear is that I would basically spend all of my time doing the
+following:
+
+1. Write Clojurescript
+2. Compile (somehow?)
+3. Reload browser
+4. Read crazy Javascript error
+5. Somehow link the Javascript error message to my Clojurescript code
+6. Wonder how I could just write functional Javascript code and skip all
+   of this
+7. Goto 1.
+
+The good news is that not only are the Clojurescript development tools
+very good, they're some of the *best I've ever used for any language*.
+
+** Embracing Awesomeness
+
+There's actually lots of different ways to start a Clojurescript project
+and lots of frameworks that can help. I spent a little time trying to
+find the best of breed tools when I came across the following tutorial:
+
+-  [[http://timothypratley.blogspot.com/2015/11/curious-about-clojurescript-but-not.html][Curious
+   about ClojureScript, but not sure how to use it?]]
+
+That looked pretty perfect, so I just decided to copy him. I highly
+recommend that you also watch his video because he covers a lot of stuff
+that I don't for people who know a bit more about UX design and
+[[http://facebook.github.io/react/][React.js]].
+
+* Actually Coding Something
+
+Ok, I'm pretty sure that I said I would start coding something a few
+pages ago so let's just get started. I'm assuming that you already have
+read [[|filename|2015-11-18-clojure-baconbot-01.rst][my first article]]
+and installed Leiningen, so let's create our Clojurescript project:
+
+#+BEGIN_EXAMPLE
+    $ lein new figwheel baconbot-dot-js -- --reagent
+    Retrieving figwheel/lein-template/0.5.0-2/lein-template-0.5.0-2.pom from clojars
+    Retrieving figwheel/lein-template/0.5.0-2/lein-template-0.5.0-2.jar from clojars
+    Generating fresh 'lein new' figwheel project.
+#+END_EXAMPLE
+
+You should now see something that looks like this:
+
+#+BEGIN_EXAMPLE
+    $ cd baconbot-dot-js && find .
+    .
+    ./README.md
+    ./project.clj
+    ./src
+    ./src/baconbot_dot_js
+    ./src/baconbot_dot_js/core.cljs
+    ./resources
+    ./resources/public
+    ./resources/public/index.html
+    ./resources/public/css
+    ./resources/public/css/style.css
+    ./.gitignore
+#+END_EXAMPLE
+
+We just create a project using the *figwheel* profile with the *reagent*
+flag. So what does that mean?
+
+First, reagent is the wrapper for
+[[http://facebook.github.io/react/][React.js]] so I no longer have an
+excuse to build lame user interfaces.
+
+[[https://github.com/bhauman/lein-figwheel][Figwheel]], on the other
+hand, isn't a web app framework. It's a tool that auto-compiles your
+Clojurescript every time you save your cljs file. This might not sound
+that impressive but you'll soon see how cool it really is.
+
+Speaking of which, let's start our figwheel server:
+
+#+BEGIN_EXAMPLE
+    tom@pam:~/Dev/Clojurescript/baconbot-dot-js$ lein figwheel
+    Figwheel: Starting server at http://localhost:3449
+    Figwheel: Watching build - dev
+    Compiling "resources/public/js/compiled/baconbot_dot_js.js" from ["src"]...
+    Successfully compiled "resources/public/js/compiled/baconbot_dot_js.js" in 9.794 seconds.
+    Figwheel: Starting CSS Watcher for paths  ["resources/public/css"]
+    Launching ClojureScript REPL for build: dev
+    Figwheel Controls:
+              (stop-autobuild)                ;; stops Figwheel autobuilder
+              (start-autobuild [id ...])      ;; starts autobuilder focused on optional ids
+              (switch-to-build id ...)        ;; switches autobuilder to different build
+              (reset-autobuild)               ;; stops, cleans, and starts autobuilder
+              (reload-config)                 ;; reloads build config and resets autobuild
+              (build-once [id ...])           ;; builds source one time
+              (clean-builds [id ..])          ;; deletes compiled cljs target files
+              (print-config [id ...])         ;; prints out build configurations
+              (fig-status)                    ;; displays current state of system
+      Switch REPL build focus:
+              :cljs/quit                      ;; allows you to switch REPL to another build
+        Docs: (doc function-name-here)
+        Exit: Control+C or :cljs/quit
+     Results: Stored in vars *1, *2, *3, *e holds last exception object
+    Prompt will show when Figwheel connects to your application
+#+END_EXAMPLE
+
+After opening [[http://localhost:3449]] in my browser my command prompt
+will be update with the following:
+
+#+BEGIN_EXAMPLE
+    To quit, type: :cljs/quit
+    cljs.user=> 
+#+END_EXAMPLE
+
+Ok, so far, so confusing but still good I think. When I look at my
+browser, I see "Hello world!". When I look at my
+=src/baconbot_dot_js/core.cljs= file I see this:
+
+#+BEGIN_SRC clojure
+    (ns baconbot-dot-js.core
+      (:require [reagent.core :as reagent :refer [atom]]))
+
+    (enable-console-print!)
+
+    (println "Edits to this text should show up in your developer console.")
+
+    ;; define your app data so that it doesn't get over-written on reload
+
+    (defonce app-state (atom {:text "Hello world!"}))
+
+    (defn hello-world []
+      [:h1 (:text @app-state)])
+
+    (reagent/render-component [hello-world]
+                              (. js/document (getElementById "app")))
+
+
+    (defn on-js-reload []
+      ;; optionally touch your app-state to force rerendering depending on
+      ;; your application
+      ;; (swap! app-state update-in [:__figwheel_counter] inc)
+    )
+#+END_SRC
+
+At this point I would love to tell you that you're going to understand
+everything about this code by the time I'm done with this article, but I
+just can't. I'm still learning too, and besides the goal is to build
+something that I can build on, not a complete app.
+
+There's one more thing we need to do to fully set up our development
+environment. We're going to be writing a lot of debug messages using the
+=println= command, but the output isn't written to your web page - it's
+written to the Javascript console. To get to this in either Chrome or
+Firefox, simply type =Ctrl-Shift-i= to open the developer tools, anad
+then click on the *Console* tab.
+
+On the Console tab you should see output like this:
+
+#+BEGIN_EXAMPLE
+    Edits to this text should show up in your developer console.
+    Figwheel: trying to open cljs reload socket
+    Figwheel: socket connection established  
+#+END_EXAMPLE
+
+Ok, still kindof confusing but this is how it's supposed to look. Now
+let's make a change!
+
+* Kicking The Tires (Or Why We're Using Figwheel)
+
+#+BEGIN_QUOTE
+  *note*
+
+  Before we move on I highly recommend that you *tile your text editor
+  and web browser* so that you can see them both at the same time.
+  Changes in your text editor are going to be pushed to your web page
+  automatically on every save, and that's pretty cool to see.
+#+END_QUOTE
+
+The really cool thing about figwheel is that it automatically compiles
+and loads your code when you save your =core.cljs= file. A cool way to
+test this is by changing the =println= statement from this:
+
+#+BEGIN_SRC clojure
+    (println "Edits to this text should show up in your developer console.")
+#+END_SRC
+
+... to this:
+
+#+BEGIN_SRC clojure
+    (println "Foobar de rhubarb")
+#+END_SRC
+
+Now, while looking at your web page and your text editor at the same
+time, save your =core.cljs= file. If you wait a couple of seconds, you
+should see a flashing "CLJS" icon in your browser. That's showing you
+that your code changes are being compiled and loaded on-the-fly.
+
+Next, take a look at your Developer Tools console tab again. You should
+now see something that looks like this:
+
+#+BEGIN_EXAMPLE
+    Figwheel: notified of file changes
+    Foobar de rhubarb.
+    Figwheel: loaded these files
+    ("../baconbot_dot_js/core.js")
+#+END_EXAMPLE
+
+Please note that you *did not have to reload the web page* to see the
+"Foobar de rhubarb" statement in your console. If you did reload the
+page, try making another change to the println statement and then saving
+your file again. Seriously, it's like magic :-)
+
+This is the main debugging interface that we're going to use for
+developing this iteration of the baconbot application. Play around with
+it and make sure that you are comfortable.
+
+* Porting The Old Code
+
+Next I'm going to port my old code from the plain-old-Clojure version of
+this app. Here's what I'm adding:
+
+#+BEGIN_SRC clojure
+    (defn matches?
+      "See if a pattern matches a string"
+      [pattern string]
+      (boolean (re-find pattern string)))
+
+    (def video-url
+      "The URL of the \"Rub Some Bacon On It\" video"
+      "https://youtu.be/wSReSGe200A")
+
+    (def rules
+      "My rule set for baconbot's question"
+      [
+       {:pattern #"[H|h]ello" :response #(println "Hello!")}
+       {:pattern #"[H|h]i" :response #(println "Hello!")}
+       {:pattern #"^/video$" :response #(println video-url)}
+       {:pattern #"^/sharted$" :response #(println "I think I may have sharted too!")}
+       {:pattern #".*" :response #(println "Rub som bacon on it!")}
+       ])
+
+    (defn ask
+      "Now with filter!"
+      [question]
+      ((:response (first (filter #(matches? (:pattern %) question) rules)))))
+#+END_SRC
+
+This is nearly /identical/ to what I was running in the
+plain-old-Clojure version of my app. The only difference is that I don't
+yet know how to play a video in this application without encountering a
+popup blocker, so I'm just printing the =video-url= value.
+
+You should have been able to save your code and see it compile
+successfully in the browser (if you could see both at the same time).
+Now let's test it with some =println= statements:
+
+#+BEGIN_SRC clojure
+    ;;; Testing
+    (ask "My friend went steampunk")
+    (ask "Hi baconbot!")
+#+END_SRC
+
+In your console, you should see something like this:
+
+#+BEGIN_EXAMPLE
+    Rub som bacon on it!
+    Hello!    
+#+END_EXAMPLE
+
+Hooray, my =ask= function and all of its supporting functions work!. My
+"core logic" (for lack of a better word) is intact, even though I ported
+it to this new platform. Now I just need to worry about the
+platform-specific stuff.
+
+* Adding A User Interface
+
+First, let's change the component we're rendering. Here's what we
+currently have:
+
+#+BEGIN_SRC clojure
+    (defn hello-world []
+      [:h1 (:text @app-state)])
+
+    (reagent/render-component [hello-world]
+                              (. js/document (getElementById "app")))
+#+END_SRC
+
+We should change the name of rendered component from =hello-world= to
+=baconbot= to be app-specific. Use this instead:
+
+#+BEGIN_SRC clojure
+    (defn baconbot []
+      [:h1 (:text @app-state)])
+
+    (reagent/render-component [baconbot]
+                              (. js/document (getElementById "app")))
+#+END_SRC
+
+Next, you may have noticed the weird-looking =:h1= property in the
+baconbot function. This is actually a representation of HTML in Clojure
+using the [[https://github.com/weavejester/hiccup][hiccup]] library.
+It's a little weird at first, but since our needs are pretty simple we
+don't have to change it much.
+
+Let's add a subtitle to our page like this:
+
+#+BEGIN_SRC clojure
+    (defn baconbot []
+      [:div
+       [:h1 (:text @app-state)]
+       [:h2 "Does this work?"]
+       ]
+      )
+#+END_SRC
+
+Please note that I put both headings into a =div=. I read about some
+people having issues if they didn't do this.
+
+Next I would like to add a text box and a button. I didn't want to add
+more clutter to my baconbot function, so I created the following:
+
+#+BEGIN_SRC clojure
+    (defn question-form
+      []
+      [:div
+       [:input {:type "text" :id "question" :class "form-control"}]
+       [:button {:type "submit"
+                 :class "btn btn-default"
+                 :on-click #(ask (.-value (.getElementById js/document "question")))}
+        "Ask!"]]
+      )
+
+    (defn baconbot []
+      [:div
+       [:h1 (:text @app-state)]
+       [:h2 "Does this work"]
+       (question-form)
+       ]
+      )
+#+END_SRC
+
+Here's what I'm doing. First, I'm creating an input field and a button
+using hiccup. If you've ever created something like this with HTML
+before then this should be pretty intuitive.
+
+The anonymous function that we're assigning to the button's =on-click=
+event is reading the =value= property of the =document.getElementById=
+method. In this instance, it's getting the value of our input box, which
+is your question.
+
+Now if everything is working correctly, we should be able to test our
+=ask= function without writing =println= statements in our =core.cljs=
+file. Try entering a question into the text field and then pressing the
+"Ask" button. You should see the response in your Developer Tools
+console window.
+
+Now that we have the bare minimum that we need to interact with our
+system, let's make it talk to us.
+
+* Making My Web App Talk
+
+Next, I added the following function:
+
+#+BEGIN_SRC clojure
+    (defn say
+      "Talk to me."
+      [phrase]
+      (let [message (js/SpeechSynthesisUtterance. phrase)]
+        (.speechSynthesis.speak js/window message)))
+#+END_SRC
+
+First, I'm creating a =SpeechSynthesisUtterance= object by passing my
+=phrase= string to it and the assigning that to =messaage=. After that I
+simply pass that =message= object to the =window.speechSynthesis.speak=
+Javascript method.
+
+You can test this super quickly by simply adding something like this to
+your =core.cljs= file and saving it:
+
+#+BEGIN_SRC clojure
+    (say "Up jumped the boogey to the boogey to be")
+#+END_SRC
+
+Now save your file and within a handful of seconds you should
+automatically hear your browser talking to you!
+
+Now we finally have everything we need to enter a quesion into the
+browser window and hear a response. All you have to do is make a few
+simple changes to your =rules= vector:
+
+#+BEGIN_SRC clojure
+    (def rules
+     "My rule set for baconbot's question"
+     [
+      {:pattern #"[H|h]ello" :response #(say "Hello!")}
+      {:pattern #"^[H|h]i" :response #(say "Hello!")}
+      {:pattern #"^/video$" :response #(println video-url)}
+      {:pattern #"sharted" :response #(say "I think I may have sharted too!")}
+      {:pattern #".*" :response #(say "Rub som bacon on it!")}
+      ])
+#+END_SRC
+
+Save your file and voila! You can finally start prodding and poking your
+=say= function without editing your =core.cljs= file.
+
+* Compilation And Distribution
+
+At this point you may be thinking about sharing your demo with some
+friends. However, we need a way to turn our code into something that can
+run as a static site in a web browser. There's a couple of ways to do
+this with Leiningen, only one of which works for me.
+
+First, let's try it the working way. Navigate to the root of your
+project and execute this command:
+
+#+BEGIN_EXAMPLE
+    $ lein clean
+    $ lein cljsbuild once
+    Compiling ClojureScript...
+    Compiling "resources/public/js/compiled/baconbot_dot_js.js" from ["src"]...
+    Successfully compiled "resources/public/js/compiled/baconbot_dot_js.js" in 7.291 seconds.
+#+END_EXAMPLE
+
+The results of this compilation are stored in the =resources/public=
+directory. On my system, this compiles everything down to *164 files*
+which take up *6.8 MB* of total space. Yikes. However, it works like a
+charm and it's what I'm hosting now on
+[[http://baconbot.tompurl.com/2/][version 2 of my baconbot site]]
+
+Of course this is not an ideal situation if you're expecting lots of
+people to have a good experience using your site. The good news is that
+Leiningen gives you the ability to create a single, small minified
+Javascript file with all of your code in it. It's super cool because it
+deletes "dead code" and does lots of other handy things to create a
+relatively tiny file.
+
+The bad news is that it doesn't work for me for this particular project.
+But if it did, I would execute the following command to build my site:
+
+#+BEGIN_EXAMPLE
+    $ lein clean
+    $ lein cljsbuild once min
+    Compiling ClojureScript...
+    Compiling "resources/public/js/compiled/baconbot_dot_js.js" from ["src"]...
+    Successfully compiled "resources/public/js/compiled/baconbot_dot_js.js" in 17.291 seconds.
+#+END_EXAMPLE
+
+Now when I look at my =resources/public= directory, here's what I see:
+
+#+BEGIN_EXAMPLE
+    $ tree
+    .
+    ├── css
+    │   └── style.csspp
+    ├── index.html
+    └── js
+        └── compiled
+            └── baconbot_dot_js.js
+
+    3 directories, 3 files
+#+END_EXAMPLE
+
+Wow, this is significantly better, but it doesn't work in the browser.
+I'll leave the task of loading this code in a browser and finding the
+errors as an exercise for the reader.
+
+I definitely want to fix this before I consider this project "done", but
+for now I'm happy that option 1 works.
+
+* The Finished Project
+
+If you want to see what /I/ have at this point, then take a look at this
+(remember, as of today this only works in *Chrome*):
+
+-  [[http://baconbot.tompurl.com/2/]]
+
+Once again, hooray for the bare minimum. Speaking of which, keep the
+following in mind when running this app:
+
+-  You still need to click on the *Ask!* button, not just hit return.
+   I'll fix this soon, natch.
+-  Your computer needs to interpret the string that we're passing to the
+   =ask= function and convert that into a music file that it can play.
+   This can take anywhere from a few moments to dozens of seconds,
+   depending on how fast and busy your computer is.
+-  This is not intended to win any awards, it's just another step
+   towards awesomeness :-)
+
+* What We've Accomplished And What's Next
+
+Whew! This is a long blog post, even by my standards. If you've made it
+this far, then this is what we've done:
+
+1. Bootstrapped a sophisticated Clojurescript development environment
+   using [[https://github.com/bhauman/lein-figwheel][figwheel]] and
+   [[http://leiningen.org/][Leiningen]].
+2. Built a simple, web-based UI using the
+   [[https://reagent-project.github.io/][reagent]] library.
+3. Ported (i.e. copied) the vast majority of our "old",
+   plain-old-Clojure code over to Clojurescript.
+4. Made our web browser *actually freakin' talk to us* using the Web
+   Speech API and Clojurescript's Javascript interop features.
+
+I'm really happy with how much progress I've made with the second
+iteration of this project in such a short amount of time, and it really
+says a lot about how sophisticated the Clojure ecosystem is.
+
+Here's what I would like to work on next:
+
+-  *Input* - Not only do I want to make the "form" look a lot nicer, but
+   I would also like to make it easier for kids who can't read or type
+   very well to be able to ask questions. Some day I'll hopefully be
+   able to do this with *voice recognition*, but in the mean time maybe
+   I'll add some buttons that will populate the question box.
+-  *Launching URL's* - I would like to be able to do this again.
+-  *BDD* - I really find that once I implement BDD in a project I wonder
+   how I ever lived without it. Is this even possible with
+   Clojurescript? If not, what are the TDD options?
+-  *Programming Baconbot With Questions* - I would love to be able to
+   add new rules to baconbot from the question interface. I think kids
+   would have fun making baconbot say arbitrary phrases.
+
+Thanks for reading!
+
+* Footnotes
+
+[1] In Firefox, speech synthesis will be
+    [[https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API#Browser_compatibility][supported
+    in version 44]] and speech recognition will be added in the near
+    future.
+
+[2] I unwittingly just made a really good argument for just writing
+    everything in Javascript since it can run on the client or server
+    (or practically any other platform you can think of). However, I'm
+    not a huge fan of plain-old-Javascript so I'm going to pretend that
+    I didn't.
+
+[3] I start a lot of sentences this way so feel free to imagine me
+    sitting in a rocking chair while winding a watch.

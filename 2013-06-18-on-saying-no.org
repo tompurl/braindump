@@ -1,0 +1,40 @@
+Title: On Saying No Date: 2013-06-18 18:40 Comments: true Tags: Status:
+draft
+
+I'm a systems administrator for a living, and I'm often on the receiving
+end of strange requests. For example, I once worked on a system that
+took time-sensitive requests and routed them agents who could act on
+then.
+
+The problem was that the requests, which originated from external
+parties, were sent to us using *email*. Email is a great way to send
+jokes to your friends, but it's a terrible messaging provider. Not only
+is delivery isn't guaranteed, but your messages can go through dozens of
+external hops and filters before they reach their target, which can
+swallow or alter your message. In general, if what you want to say has
+to get there *and* be accurate, email is really a very poor choice.
+
+So what should I say when someone asks me how we should implement this
+high-level design?
+
+What I've been heard in the past from some managers and tech columnists
+is that you should *never* say no. Always say "yes, and...". As in "yes,
+we can do this, and we'll add XYZ software and hardware to the system to
+make sure that the issues with this design are mitigated.".
+
+And this sounds great in a meeting. Everyone is cooperating and no hard
+decisions are being made. The business partners will go back to their
+desks and say "wow, I love working with Tom on projects. He's great!"
+
+But there's one problem. I can't make email from an external system
+reliable. No matter how friendly or helpful or hard-working I am, I
+simply can't ensure that your Gmail message will arrive as intended. I
+can't bend reality, and I simply can't control all of the things that
+are out of my control.
+
+What this means to my employer is that when I say "yes, but..." I'm not
+doing my job. Not only am I not doing my job, I'm actually bordering on
+complete incompetence. Instead of encouraging people to make hard
+decisions and making choices that create effective, inexpensive systems,
+I'm simply telling you that you can have what you want. In my job, this
+is often referred to as doing a poor job of *managing expectations*.

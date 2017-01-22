@@ -1,0 +1,56 @@
+#+TITLE: Viewing An Org Mode File In A Browser
+
+#+DATE: 2015-05-30
+
+While editing files in =org-mode= I frequently need to see what the HTML
+version of a single file will look like. The workflow below shows how I
+can do so very quickly and easily using my favorite browser.
+
+First I need to publish the file that I'm currently editing. I do that
+with =F6=:
+
+#+BEGIN_EXAMPLE
+    (global-set-key (kbd "<f6>") (lambda() (interactive)(org-publish-current-file)))
+#+END_EXAMPLE
+
+I'm will try not to make the same mistake that most Emacs tutorials make
+and assume that you know all about every major and minor mode that's
+available. In this case, I'm using the =org-publish= module to convert
+my org docs into a nicely-formatted static HTML site. To set this up
+yourself I highly recommend
+[[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][this
+tutorial]].
+
+To open the file in a browser I use =C-c-h=:
+
+#+BEGIN_EXAMPLE
+    (defun org-open-html-version ()
+      "Open the HTML version of the current file in a web browser"
+      (interactive)
+      (browse-url-of-file
+        (replace-regexp-in-string "\\/org\\/\\(.*\\)\\.org$" "/org_html/\\1.html" (buffer-file-name))))
+
+    (define-key global-map "\C-ch" 'org-open-html-version)
+#+END_EXAMPLE
+
+So let's say I have the following org file:
+
+-  c:/foo/bar/org/baz.org
+
+Typically, the published, HTML version of that file is stored here:
+
+-  c:/foo/bar/org\_html/baz.html
+
+That =org-open-html-version= function simply converts the first file
+name into the second one and opens it in a web browser.
+
+Finally, since I prefer using Firefox as my web browser, I have one last
+customization:
+
+#+BEGIN_EXAMPLE
+    (setq browse-url-browser-function 'browse-url-firefox)
+#+END_EXAMPLE
+
+That's it! If I want to look at the org file that I'm currently editing
+in a web browser all I have to do is hit =F6= to render the HTML and
+then =C-c-h= to view the finished version in Firefox.

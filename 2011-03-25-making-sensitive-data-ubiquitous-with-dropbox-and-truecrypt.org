@@ -1,0 +1,277 @@
+Title: Making Sensitive Data Ubiquitous With Dropbox and TrueCrypt Tags:
+cloud,dropbox,encryption,keepass,security,truecrypt Category: Tutorial
+Comments: true
+
+In this tutorial, I will show you how I use
+[[http://dropbox.com/][Dropbox]],
+[[http://www.truecrypt.org/][TrueCrypt]] and
+[[http://keepass.info/][Keepass]] to store "sensitive" files in a remote
+data center (i.e. Dropbox) without losing any sleep over data security.
+
+** Caveat Emptor
+
+This tutorial shows you how to make some of your Dropbox files *much*
+more secure by using encryption. While these instructions are a /good/
+way to protect your data, they are *by no means foolproof*. There is no
+such thing as a 100% effective encryption method, and *you take a risk*
+every time you store any sensitive information on /anyone/ else's
+server.
+
+** Spec
+
+Here are my requirements for this project:
+
+1. My sensitive files must be replicated to an off-site data center
+
+   -  Satisfied by using Dropbox
+
+2. My sensitive files must be easy to access from any computer in my
+   home
+
+   -  Again, this requirement can be satisfied by Dropbox
+
+3. Any sensitive files that are stored in Dropbox must always be
+   encrypted. What I mean is, the files should never exist in a
+   non-encrypted state on the Dropbox servers.
+
+   -  Satisfied by TrueCrypt
+
+4. The encryption that I use should be very strong. I should therefore
+   use keyfiles and very strong passwords.
+
+   -  TrueCrypt supports keyfiles and Keepass allows me to generate,
+      store and use very strong passwords.
+
+5. It should be *very* easy for me or my wife to use the encrypted
+   files.
+
+   -  Keepass will help with this. Also, I will write a couple of shell
+      scripts to make this process as simple as it can be.
+
+All right. Let's get started!
+
+** Tutorial
+
+*** Prerequisites
+
+#+BEGIN_QUOTE
+  *Note*: There are a lot of tutorials on how to perform the following
+  prerequisites. I will therefore not provide explicit steps, since so
+  many other people have done a better job than I could do.
+#+END_QUOTE
+
+1. Install [[http://keepass.info/][Keepass]] (or
+   [[http://www.keepassx.org/][KeepassX]] on Linux and OS X)
+2. Create a Keepass password database if you don't already have one.
+3. Set up a Dropbox account.
+
+-  You can get a *free* account with 2 GB of storage.
+-  There's nothing special that you have to do in your Dropbox account.
+   Your encrypted volume will be stored as a single file, and Dropbox is
+   very good at managing those.
+
+4. Install TrueCrypt
+
+*** Creating Your TrueCrypt Volume
+
+You simply need to create a standard TrueCrypt volume. However, there
+are a few things you should consider before storing this type of file
+"in the cloud":
+
+**** Volume Size
+
+The bigger your volume, the longer it will take to sync with the Dropbox
+server the first time. For most people, it takes well over an hour to
+upload a GB, so keep that in mind if you insist on creating a 50 GB
+TrueCrypt volume.
+
+Also, please note that you will need enough free space on all of the
+computers that will sync with your Dropbox account. You will need two
+times the size of your Truecrypt volume. For example, if you end up
+creating a 1 GB volume, then make sure that all of the your computers
+that use Dropbox have at east 2 GB of free space.
+
+The good news is that after your first sync, you won't need to upload
+the entire encrypted volume to the server when you make a change.
+Because TrueCrypt uses binary diffs, only the part of the file that
+changed is uploaded to the server. For example, most of the changes that
+I make to my 512 MB volume are synced to the Dropbox server in less than
+5 minutes, and it takes me /much/ longer than that to upload 512 MB.
+
+**** Password
+
+The *best defense* against a brute-force attack is a *good password*.
+TrueCrypt allows you to encrypt your volume with a 64-character
+password, and I *highly recommend that you consider it*. You're
+perfectly free to use a smaller password. However, as long as you're
+using Keepass to store and manage your passwords, it's the *same amount
+of work* to use a really long password as it is to use a really short
+one.
+
+**** Keyfiles
+
+A keyfile is like a certificate for your TrueCrypt volume. You need to
+use it in addition to your password to decrypt your volume. I like to
+think of it as the second "key" (after your password) to your data.
+
+You can use the TrueCrypt volume creation wizard to generate one for
+you, or you can use any file on your system (e.g. mp3's, PDF's, etc.).
+You /should/ use a keyfile for added protection, and you should
+*probably avoid storing it under your Dropbox folder structure*. If you
+do choose to use a keyfile that is stored under your Dropbox folder
+(since /any/ file can be a keyfile), then make sure that the name and
+location of the keyfile are not documented anywhere in a file on
+Dropbox. Remember, this is one of the "keys" to your private data. Try
+to protect it.
+
+Also, since the keyfile is required to decrypt your volume, make sure
+that you back it up using some other means. Copying it to all of the
+other computers with which you sync is a good start.
+
+** Finding A Good Mount Point
+
+#+BEGIN_QUOTE
+  *Note:* If your a Windows user, then I believe that you can ignore the
+  next part. It only applies to operating systems that allow you to
+  mount a partition *under* a folder name, *such as Linux and OS X*.
+#+END_QUOTE
+
+This part of the process is *very important*. The reason why we're using
+TrueCrypt in the first place is that we don't want to store any of our
+sensitive files *in a decrypted form* on Dropbox, even temporarily.
+However, if you mount your TrueCrypt partition using a folder that's
+under your Dropbox folder, then *all of your sensitive files* will be
+synced with Dropbox in an *unencrypted form*.
+
+What I did to avoid this was to create an empty folder called
+=$HOME/PrivateDocuments/=. I then use that as the mount point for my
+TrueCrypt partition.
+
+** Moving Your Sensitive Data To The Encrypted Volume
+
+Once you've mounted your TrueCrypt partition, then it's simply a matter
+of copying over all of your sensitive files. Once you're done, unmount
+your partition, and it should start syncing with Dropbox.
+
+** Testing
+
+Ok, here's what should have happened so far:
+
+1. You created your volume
+2. You "populated" it with sensitive files
+3. You synced it with Dropbox
+
+Now, let's see if all of this work actually paid off. Let's run a small
+test to ensure that everything is working as it should. To perform this
+test, you need the following:
+
+1. Two computers that we'll call A and B.
+2. TrueCrypt installed on both computers.
+3. If you used Keepass to store your password, then both computers need
+   to have that program installed along with your password database.
+4. It's helpful if the second computer syncs with your Dropbox account,
+   but it is not a requirement. If the second computer doesn't sync with
+   Dropbox, then it can simply download the TrueCrypt volume using the
+   Dropbox web site.
+
+Ok, and here's your test plan:
+
+1. Ensure that the TrueCrypt volume is not mounted on either computer.
+2. On computer A...
+
+   1. Mount the TrueCrypt volume.
+   2. Add a text file to the newly-mounted folder called =mytest=, and
+      add a few lines of text to it.
+   3. Unmount the volume
+   4. Wait for Dropbox to sync your changes with server. This should
+      take less than 10 minutes.
+
+3. On computer B...
+
+   1. If B syncs with computer A using Dropbox, then there's nothing to
+      download. If it doesn't sync, then you need to download the
+      TrueCrypt volume from the Dropbox web site.
+   2. Mount the TrueCrypt volume.
+   3. Check the =mytest= file is there and contains the proper content.
+
+** Automation
+
+Ok, everything should work now, and we have satisfied *all but one* of
+the requirements in our spec: *ease-of-use*. While it isn't terribly
+difficult to mount and unmount TrueCrypt volumes the manual way, it's
+not terribly simple either.
+
+One way to improve this situation is to use TrueCrypt's command-line
+interface to mount and unmount your volume. Once you have created the
+proper command, you can then wrap it with a Windows shortcut or a shell
+script or whatever. For example, here's how you would mount the
+TrueCrypt volume that we just created from the command line on a Linux
+or OS X system:
+
+#+BEGIN_EXAMPLE
+    truecrypt ~/Dropbox/Volumes/sfiles.img -k ~/Secret/sfiles.key ~/PrivateDocuments
+#+END_EXAMPLE
+
+To *unmount* the volume, you need to change the command a little bit:
+
+#+BEGIN_EXAMPLE
+    truecrypt -d ~/Dropbox/Volumes/sfiles.img
+#+END_EXAMPLE
+
+Once you have tested the command, let's wrap it in a shell script:
+
+#+BEGIN_EXAMPLE
+    #!/bin/bash
+
+    # mount_sen.sh - Mounts sensitive files volume
+
+    IMG_FILE_PATH=~/Dropbox/Volumes/sfiles.img
+    KEY_FILE_PATH=~/Secret/sfiles.key
+    MOUNT_POINT=~/PrivateDocuments
+
+    truecrypt $IMG_FILE_PATH -k $KEY_FILE_PATH $MOUNT_POINT
+#+END_EXAMPLE
+
+You'll probably want to create a separate shortcut or shell script for
+unmounting the volume too.
+
+** Gripes
+
+I've been using this system for a while now and it has worked
+*flawlessly* for me. However, I do have one small gripe. Occasionally, a
+"conflicted copy" of my TrueCrypt image file is created, even when it
+shouldn't be necessary. Dropbox creates these "conflicted copies" when a
+file is edited on two different computers and Dropbox can't merge the
+differences. Here's an example:
+
+1. You edit a Word doc in Dropbox on Computer A. Let's call this *Edit
+   #1*. Your changes are automatically synced with all of the other
+   computers that use your Dropbox account, including your laptop.
+2. You take your laptop to a coffee house that doesn't have wifi and you
+   make a few changes to the Word doc. Let's call this *Edit #2*.
+   Dropbox can't sync your changes because your laptop isn't on a
+   network.
+3. Your spouse then also makes changes to that Word doc at the same time
+   on her laptop. Let's call this edit #3. Her changes are synced
+   because she's on a network.
+4. When you get home, you turn on your laptop and hop on the network.
+   Dropbox is going to try to upload Edit #2 to the Word doc, but it is
+   also going to try and *download* Edit #3. It will then notice that
+   Edit #2 and Edit #3 have the same "parent" (Edit #1), and it will
+   realize that some sort of merge needs to occur between these two
+   edits. Since Dropbox can't possibly compensate for all of the
+   different ways that documents can be merged, it will simply create a
+   "conflicted copy" and leave it up to the user to do a manual merge.
+
+So ideally, this is how conflicted copies are *supposed* to work.
+However, it's not terribly uncommon for me to see a conflicted copy of
+my TrueCrypt volume when it doesn't seem possible. Don't get me wrong.
+This isn't a big deal, and I've *never* had any problems with data
+integrity. This is just a minor gripe.
+
+* Conclusion
+
+That's it! As you can see, it takes a little bit of elbow grease and
+time to set this up, but it's really not too terribly difficult. And
+when you're done, you have a system for backing up your sensitive
+documents "in the cloud" that should keep you from reasonably secure.

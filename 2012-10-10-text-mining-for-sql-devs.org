@@ -1,0 +1,461 @@
+Title: Text File Data Mining For SQL Users Date: 2012-10-10 19:42
+Comments: true Category: Tutorial
+
+Occasionally, I need to send log files to a vendor or co-worker for
+further examination. About half the time, I get a response that is like
+one of the following:
+
+#+BEGIN_QUOTE
+  I tried opening your log but it was so big that it crashed my text
+  editor.
+#+END_QUOTE
+
+or...
+
+#+BEGIN_QUOTE
+  I can't read your log file. It's very large and I don't have the time
+  to read it.
+#+END_QUOTE
+
+or finally:
+
+#+BEGIN_QUOTE
+  Please delete all of your log files and restart your system so we can
+  have a "clean" copy of the data.
+#+END_QUOTE
+
+If you've ever found yourself saying any of these things, then there's
+really no way to sugarcoat it: *you're doing it wrong*. Simply put, *log
+files aren't books*. They're not designed to be read from beginning to
+end by people in text editors.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+A much more accurate analogy is that log files are a lot *like tables in
+a database*. Each row in the file is an entry in that table that uses a
+timestamp as a primary key. You then gather the information that you
+need from them by querying them using a *programming language* that can
+do things like *search, join, and filter* the results.
+
+The surprising thing is that most technical people that I've worked with
+(and this is especially true when it comes to programmers) *do not know
+how to query a log file*. This is not only non-ideal, it's *terribly
+inneficient*. A simple shell one-liner can perform a task in 10 seconds
+that cannot be achieved in less than an hour using the find dialog in a
+text editor.
+
+Unfortunately, these "simple shell one-liners" look like voodoo
+incantations to people who don't spend a lot of time in a Linux
+terminal. But there is an analogue to text-querying shell commands that
+most technical people *do* understand: the *basics of the SQL
+programming language*. So I started to wonder if there was a way that we
+could map one style of querying to another?
+
+The tutorial below is my attempt at teaching SQL users about log file
+querying. I hope that it helps a few people learn to love the shell :-)
+
+*** Basic Querying
+
+*SQL Example*:
+
+#+BEGIN_SRC sql
+    SELECT * from foo
+#+END_SRC
+
+*Shell Example*:
+
+#+BEGIN_EXAMPLE
+    cat foo.log
+#+END_EXAMPLE
+
+This, of course, is not the most useful query in the world. It's only
+really useful if you have only have a handful of records that can be
+easily read. What's much more useful is seeing the last 20 records that
+were created:
+
+*SQL Example*:
+
+#+BEGIN_SRC sql
+    SELECT TOP 20 *  
+      from foo
+      order by timestamp desc
+#+END_SRC
+
+*Shell Example*:
+
+#+BEGIN_EXAMPLE
+    tail foo.log
+#+END_EXAMPLE
+
+=tail= simply shows you the last 20 lines in a file. The log file is
+already ordered by date, so we don't have to explicitly ask for that.
+
+*** Selecting Columns
+
+Ok, sooner or later you're going to want to grab columns, right? You
+don't want /all/ of that information all of the time. Here's how you
+would do it:
+
+*SQL Example*:
+
+#+BEGIN_SRC sql
+    SELECT col1,col3 from foo
+#+END_SRC
+
+*Shell Example*:
+
+#+BEGIN_EXAMPLE
+    cat foo.log | awk '{print $1,$3}'
+#+END_EXAMPLE
+
+Ok, we are using a few new ideas here. First, we have something called a
+*pipe*, which is the "|" character. This simply tells the shell to take
+the *output* from the =cat= program and send it as *input* to the =awk=
+program.
+
+=awk= is a programming language itself, but don't let that scare you.
+It's a fairly simple language that's designed to format output. In our
+case, we're asking it to print the first and third *columns*.
+
+So how does =awk= know what a column is? It uses a delimiter, and by
+default that delimiter is a space. So, let's assume that you have a log
+file that looks like this (which is basically what my =/var/log/syslog=
+looks like):
+
+#+BEGIN_EXAMPLE
+    Oct  9 07:52:37 flanders rsyslogd: [origin software="rsyslogd" swVersion="5.8.6" x-pid="1048" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+    Oct  9 07:54:36 flanders anacron[10498]: Job `cron.daily' terminated
+    Oct  9 07:54:36 flanders anacron[10498]: Normal exit (1 job run)
+    Oct  9 07:55:02 flanders CRON[11209]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+    Oct  9 07:55:16 flanders kernel: [501051.393168] usb 1-4.2: USB disconnect, device number 35
+    Oct  9 07:55:17 flanders kernel: [501051.720500] usb 1-4.4: USB disconnect, device number 36
+    Oct  9 08:00:01 flanders CRON[11231]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+    Oct  9 08:01:09 flanders kernel: [501404.076420] usb 1-4.2: new low-speed USB device number 37 using ehci_hcd
+#+END_EXAMPLE
+
+Let's say that you wanted to query the date, time, and service names in
+this file. If columns are delimited by spaces, then this means that you
+need the first, second, third, and fifth columns:
+
+#+BEGIN_EXAMPLE
+    cat /var/log/syslog | awk '{print $1,$2,$3,$5}'
+#+END_EXAMPLE
+
+...and you would get output like this:
+
+#+BEGIN_EXAMPLE
+    Oct 9 07:52:37 rsyslogd:
+    Oct 9 07:54:36 anacron[10498]:
+    Oct 9 07:54:36 anacron[10498]:
+    Oct 9 07:55:02 CRON[11209]:
+    Oct 9 07:55:16 kernel:
+    Oct 9 07:55:17 kernel:
+    Oct 9 08:00:01 CRON[11231]:
+    Oct 9 08:01:09 kernel:
+#+END_EXAMPLE
+
+Now what if you want to grab a bunch of space-delimited text (like a log
+message) without specifying every single column number? This is pretty
+easy too using =awk=, you just need to think about things backwards. You
+need to think of the columns that you *don't* want to see and exclude
+them.
+
+So, let's assume that you want to see every column in your syslog
+*except for* the date columns and the hostname column. This means that
+we don't need columns 1, 2, and 4. Here's how you would do that:
+
+#+BEGIN_EXAMPLE
+    cat /var/log/syslog | awk '{$1=$2=$4=""; print $0}'
+#+END_EXAMPLE
+
+You would then get output that looks like this:
+
+#+BEGIN_EXAMPLE
+    07:52:37  rsyslogd: [origin software="rsyslogd" swVersion="5.8.6" x-pid="1048" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+    07:54:36  anacron[10498]: Job `cron.daily' terminated
+    07:54:36  anacron[10498]: Normal exit (1 job run)
+    07:55:02  CRON[11209]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+    07:55:16  kernel: [501051.393168] usb 1-4.2: USB disconnect, device number 35
+    07:55:17  kernel: [501051.720500] usb 1-4.4: USB disconnect, device number 36
+    08:00:01  CRON[11231]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+    08:01:09  kernel: [501404.076420] usb 1-4.2: new low-speed USB device number 37 using ehci_hcd
+#+END_EXAMPLE
+
+*** Filtering
+
+Ok, now we know how to search for text and only display certain columns.
+Next you need to know now to only search for the stuff you really care
+about using filtering.
+
+*SQL Example*:
+
+#+BEGIN_SRC sql
+    SELECT * from foo
+      WHERE col1 = 'true'
+#+END_SRC
+
+*Shell Example*:
+
+#+BEGIN_EXAMPLE
+    grep true foo.log
+#+END_EXAMPLE
+
+=grep= searches for a *pattern* in your file or stream and returns the
+lines that contain that pattern. So in the case above, we're looking for
+*every single line* that contains the lower-case "true" string.
+
+Please note that the shell command is not exactly identical to the SQL
+command above. The SQL command is only looking for rows where col1
+equals true. The shell command looks for *any* line in that file that
+includes the string *true*, regardless of which "column" it resides in.
+
+This may seem like a bad thing, but in fact it usually isn't an issue.
+Let's look at my syslog file again and search for every instance of the
+string *cron*:
+
+#+BEGIN_EXAMPLE
+    grep cron /var/log/syslog
+#+END_EXAMPLE
+
+...and here's the results:
+
+#+BEGIN_EXAMPLE
+    Oct  9 07:54:36 flanders anacron[10498]: Job `cron.daily' terminated
+    Oct  9 07:54:36 flanders anacron[10498]: Normal exit (1 job run)
+#+END_EXAMPLE
+
+Now wait, this doesn't seem like all of the results that I wanted. Let's
+look at the syslog entries again:
+
+#+BEGIN_EXAMPLE
+    Oct  9 07:52:37 flanders rsyslogd: [origin software="rsyslogd" swVersion="5.8.6" x-pid="1048" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+    Oct  9 07:54:36 flanders anacron[10498]: Job `cron.daily' terminated
+    Oct  9 07:54:36 flanders anacron[10498]: Normal exit (1 job run)
+    Oct  9 07:55:02 flanders CRON[11209]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+    Oct  9 07:55:16 flanders kernel: [501051.393168] usb 1-4.2: USB disconnect, device number 35
+    Oct  9 07:55:17 flanders kernel: [501051.720500] usb 1-4.4: USB disconnect, device number 36
+    Oct  9 08:00:01 flanders CRON[11231]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+    Oct  9 08:01:09 flanders kernel: [501404.076420] usb 1-4.2: new low-speed USB device number 37 using ehci_hcd
+#+END_EXAMPLE
+
+Where are the regular *CRON* entries? Remember, =grep= uses a pattern,
+and the pattern that we used was lower-case 'cron'. If you want to look
+for all lines that include the word cron in *any* case, then do this:
+
+#+BEGIN_EXAMPLE
+    grep -i cron /var/log/syslog
+#+END_EXAMPLE
+
+...which gives you this:
+
+#+BEGIN_EXAMPLE
+    Oct  9 07:54:36 flanders anacron[10498]: Job `cron.daily' terminated
+    Oct  9 07:54:36 flanders anacron[10498]: Normal exit (1 job run)
+    Oct  9 07:55:02 flanders CRON[11209]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+    Oct  9 08:00:01 flanders CRON[11231]: (root) CMD ([ -x /usr/sbin/dma-migrate ] && /usr/sbin/dma-migrate; [ -x /usr/sbin/dma ] && /usr/sbin/dma -q1)
+#+END_EXAMPLE
+
+It's easy to see how you can use patterns like this to look for things
+like exceptions and errors in log files too. For example, is your log
+file uses the term "ERROR" on every error entry, then you could print
+all of those lines like this:
+
+#+BEGIN_EXAMPLE
+    grep ERROR foo.log
+#+END_EXAMPLE
+
+This is a very common use case when it comes to querying log files from
+the shell.
+
+One more thing. It's often just as important look for lines that *don't*
+contain a particular pattern. You can do this with the =-v= switch:
+
+#+BEGIN_EXAMPLE
+    grep -v "stupid worthless error" foo.log
+#+END_EXAMPLE
+
+*** Chained Filtering
+
+*SQL Example*:
+
+#+BEGIN_SRC sql
+    SELECT * from foo
+      WHERE col1 = 'a'
+      and col2 = 'b';
+#+END_SRC
+
+*Shell Example*:
+
+#+BEGIN_EXAMPLE
+    grep a foo.log | grep b
+#+END_EXAMPLE
+
+=grep=-ing on a search term is great if you're just looking for a single
+pattern in a log file, but what if you have multiple criteria? There's
+actually a *lot* of ways to do this, but one of the simplest is to chain
+together =grep= statements using pipes.
+
+What does that mean? Well, imagine that you have a log file that looks
+like this:
+
+#+BEGIN_EXAMPLE
+    W [03/Oct/2012:07:43:59 -0500] failed to CreateProfile: org.freedesktop.ColorManager.AlreadyExists:profile id 'Deskjet-D4200-series-Gray..' already exists
+    W [03/Oct/2012:07:43:59 -0500] failed to CreateDevice: org.freedesktop.ColorManager.AlreadyExists:device id 'cups-Deskjet-D4200-series' already exists
+    W [03/Oct/2012:07:43:59 -0500] failed to CreateProfile: org.freedesktop.ColorManager.AlreadyExists:profile id 'PDF-RGB..' already exists
+    E [03/Oct/2012:07:43:59 -0500] Failed to update TXT record for HP Deskjet 970 series @ flanders: -2
+    E [03/Oct/2012:21:20:28 -0500] Failed to update TXT record for HP Deskjet D4200 series @ flanders: -2
+#+END_EXAMPLE
+
+Let's say that you were having a problem with your *D4200* printer, so
+you wanted to see all of the associated errors. You notice that each
+"error" line start with a capital E, so you use the following command:
+
+#+BEGIN_EXAMPLE
+    grep "^E" /var/log/cups/error_log
+#+END_EXAMPLE
+
+You will get the following output:
+
+#+BEGIN_EXAMPLE
+    E [03/Oct/2012:07:43:59 -0500] Failed to update TXT record for HP Deskjet 970 series @ flanders: -2
+    E [03/Oct/2012:21:20:28 -0500] Failed to update TXT record for HP Deskjet D4200 series @ flanders: -2
+#+END_EXAMPLE
+
+But as you can see, that command shows you *every* error line, not just
+the one associated with your D4200. This is OK now with only two lines,
+but it's not very useful is your query returns a much larger set. So
+let's filter our results even more to only include D4200 messages:
+
+#+BEGIN_EXAMPLE
+    grep "^E" /var/log/cups/error_log | grep D4200
+#+END_EXAMPLE
+
+...which gives you this:
+
+#+BEGIN_EXAMPLE
+    E [03/Oct/2012:21:20:28 -0500] Failed to update TXT record for HP Deskjet D4200 series @ flanders: -2
+#+END_EXAMPLE
+
+So what's happening here? The first command is printing the two "E"
+lines listed above and that is "sent" as input to the second command
+using the pipe. =grep= then applies the second pattern (D4200) to that
+input. So the first filter returns a filtered result set, and the second
+one pares it down even further. And of course, you can keep adding
+filters until you get exactly the result set that you need.
+
+One nice thing about this method is that you don't have to know a ton
+about your raw data before you get started. You can run a single =grep=
+statement first to see what you're dealing with, and then continue to
+filter until you're happy. All you have to do is append another pipe and
+=grep=.
+
+*** Querying Multiple Files
+
+*SQL Example*:
+
+#+BEGIN_SRC sql
+    SELECT foo.*,bar.* from foo, bar
+      WHERE foo.col1 = bar.col1;
+      AND foo.col2 = 'ERROR'
+#+END_SRC
+
+*Shell Example*:
+
+#+BEGIN_EXAMPLE
+    grep ERROR foo.log bar.log
+#+END_EXAMPLE
+
+As you can see, it's much easier to query a bunch of log files than it
+is to query multiple tables because text files aren't constrained by
+relational theory.
+
+Here's an example of this command from my desktop:
+
+#+BEGIN_EXAMPLE
+    grep D4200 /var/log/cups/access_log /var/log/cups/error_log                                                         !6559
+    error_log:W [09/Oct/2012:07:52:28 -0500] failed to CreateProfile: org.freedesktop.ColorManager.AlreadyExists:profile id 'Deskjet-D4200-series-Gray..' already exists
+    error_log:W [09/Oct/2012:07:52:28 -0500] failed to CreateProfile: org.freedesktop.ColorManager.AlreadyExists:profile id 'Deskjet-D4200-series-RGB..' already exists
+    error_log:W [09/Oct/2012:07:52:28 -0500] failed to CreateDevice: org.freedesktop.ColorManager.AlreadyExists:device id 'cups-Deskjet-D4200-series' already exists
+    error_log:E [09/Oct/2012:07:52:28 -0500] Failed to update TXT record for HP Deskjet D4200 series @ flanders: -2
+#+END_EXAMPLE
+
+As you can see, each matching line is prepended by the file name when
+you use =grep= with more than one file. In our case, then only file that
+had any matches was =error_log=.
+
+*** Subqueries
+
+*SQL Example*:
+
+#+BEGIN_SRC sql
+    SELECT *
+      FROM customer
+      WHERE customer_id in 
+       (SELECT customer_id FROM orders 
+         where amount > 1000.00)
+#+END_SRC
+
+*Shell Examples*:
+
+#+BEGIN_EXAMPLE
+    grep ERROR $(find /my/log/dir -type f -name "*.log")
+#+END_EXAMPLE
+
+Before we dig into this too much, let's talk about the =find= command
+above and why it's in parentheses.
+
+=find= is the canonical command in Unix and Linux to, well, find files.
+In the example above, we're telling find to do the following:
+
+-  Use =/my/log/dir= as the base directory from which to search, and
+   then search recursively (which is the default behavior)
+-  Look for files only (-type f)
+-  Look for all files that end it *.log*
+
+This command is then wrapped in a *$()*, which is the same as wrapping
+it in backticks. The parentheses execute the command and inserts the
+results into that space. So, for example, let's assume that the find
+command found two files, */my/log/dir/a/foo.log* and
+*/my/log/dir/b/bar.log*. If that was the case, then the command above
+would be executed like this:
+
+#+BEGIN_EXAMPLE
+    grep ERROR /my/log/dir/a/foo.log /my/log/dir/b/bar.log
+#+END_EXAMPLE
+
+This is actually an *incredibly powerful* pattern. We are taking the
+results from one query (using =find= to create a list of files) and
+using that to create a second query. This isn't simple filtering like we
+did before by chaining =grep= statements together with pipes. We're
+creating new queries with the results of an earlier query.
+
+Please note that you can do the same thing with =xargs= using the
+following command:
+
+#+BEGIN_EXAMPLE
+    find /my/log/dir -type f -name "*.log" -print0 | xargs -0 grep ERROR
+#+END_EXAMPLE
+
+This command basically does the same thing as the shell example above.
+The part before the pipe sends a list of files to output, the pipe sends
+that output to the input of =xargs=, and then =xargs= converts that into
+an argument list for =grep=. Actually, this command is a little better
+than the example above because it works with file names that contain
+spaces
+
+*** Conclusion
+
+I hope that this tutorial has given some people the analogies that they
+need to start using more powerful shell tools to mine data from text
+files. These tools will make most developers and sysadmins *much* more
+productive.
+
+I have just scratched the surface with what you can do with the tools
+that were used in this tutorial. When you are learning about them,
+please take a little bit of time to look at the =man= page and read a
+few tutorials. You might be surprised when you realize that a simple
+shell one-liner with the right tools can often do the job of a much more
+complex and (potentially) bug-ridden program written using a more
+conventional programming language.

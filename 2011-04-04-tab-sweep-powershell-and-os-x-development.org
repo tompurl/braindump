@@ -1,0 +1,68 @@
+Title: Tab Sweep - Powershell And OS X Development tags:
+powershell,java,osx Category: Tab Sweep Comments: true
+
+-  Powershell Links
+
+   -  One of my development goals for the year is to become very
+      proficient with Microsoft's Powershell. I usually have a cmd.exe
+      window open at all times on my Windows machine, so I replaced it
+      with a Powershell window and used the following tutorials to help
+      me make the transition.
+   -  [[http://marxsoftware.blogspot.com/2008/02/windows-powershell-and-java.html][Inspired
+      by Actual Events: Cogitations and Speculations: Windows PowerShell
+      and Java]]
+
+      -  tags: [[http://www.diigo.com/user/tepurl/java][java]],
+         [[http://www.diigo.com/user/tepurl/powershell][powershell]]
+
+   -  [[https://msevents.microsoft.com/CUI/WebCastEventDetails.aspx?EventID=1032481531&culture=en-US&CountryCode=US][TechNet
+      Webcast: PowerShell: Learn It Now before It's an Emergency (Part 1
+      of 5) (Level 200)]]
+
+      -  tags:
+         [[http://www.diigo.com/user/tepurl/powershell][powershell]],
+         [[http://www.diigo.com/user/tepurl/video][video]],
+         [[http://www.diigo.com/user/tepurl/to-watch][to-watch]]
+      -  This video was actually a *major* pain to watch and download.
+         I sure wish that Microsoft was better at publishing video
+         tutorials.
+
+   -  [[http://stackoverflow.com/questions/714877/setting-windows-powershell-path-variable][Setting
+      windows powershell path variable - Stack Overflow]]
+
+      -  tags: [[http://www.diigo.com/user/tepurl/windows][windows]],
+         [[http://www.diigo.com/user/tepurl/powershell][powershell]],
+         [[http://www.diigo.com/user/tepurl/path][path]],
+         [[http://www.diigo.com/user/tepurl/administration][administration]]
+
+   -  [[http://support.microsoft.com/kb/968930][Windows Management
+      Framework Core package (Windows PowerShell 2.0 and WinRM 2.0)]]
+
+      -  tags: [[http://www.diigo.com/user/tepurl/windows][windows]],
+         [[http://www.diigo.com/user/tepurl/powershell][powershell]],
+         [[http://www.diigo.com/user/tepurl/administration][administration]]
+      -  This is what you need to install to get the actual Powershell
+         2.0 executable.
+
+   -  [[http://blog.stevex.net/powershell-cheatsheet][SteveX Compiled »
+      PowerShell Cheatsheet]]
+
+      -  tags:
+         [[http://www.diigo.com/user/tepurl/powershell][powershell]],
+         [[http://www.diigo.com/user/tepurl/cheatsheet][cheatsheet]],
+         [[http://www.diigo.com/user/tepurl/windows][windows]],
+         [[http://www.diigo.com/user/tepurl/administration][administration]]
+
+-  [[http://teddziuba.com/2011/03/osx-unsuitable-web-development.html][MacOS
+   X is an Unsuitable Platform for Web Development]]
+
+   -  tags: [[http://www.diigo.com/user/tepurl/osx][osx]],
+      [[http://www.diigo.com/user/tepurl/development][development]],
+      [[http://www.diigo.com/user/tepurl/linux][linux]]
+   -  This guy is can exaggerate a bit sometimes, but he has some great
+      nuggets of wisdom in his blog. I don't think I agree that OS X is
+      unsuitable for development, but it certainly has some downsides
+      that you rarely hear about.
+
+Posted from [[http://www.diigo.com/][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

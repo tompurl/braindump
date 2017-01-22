@@ -1,0 +1,79 @@
+Title: Vim As A Writing Tool Tags:
+gnupg,restructured-text,vim,wiki,writeroom,writing Category: Tutorial
+Comments: true
+
+My official title at work is "Engineer", but I wear a lot of different
+technical hats. Most of my work tasks require me to spend a lot of time
+working with lots of different forms of plain text files like log files,
+XML files, and various programs. I like to stick to *one text editor*
+for editing all of that text for the following reasons:
+
+-  I'm a big fan of mastering the tools that I use
+-  Mastery takes time
+-  I therefore try to limit the total number of tools that I have to
+   master
+
+Don't get me wrong - I love to learn new things. I just want to actually
+spend my time learning that new thing, not the supporting technologies
+that go with it. For example, if I want to learn how to write a Scala
+program, I should be able to devote my time to that, *not* to learning
+how to use the Eclipse IDE in an efficient way. To handle 99% of my
+text-related tasks, I therefore chose [[http://www.vim.org][Vim]]
+because it's robust, extensible, and cross-platform. Surprisingly, I've
+read a few blogs recently about how people are
+using [[http://www.vim.org][Vim]] as a writing tool. I had no idea that
+so many other people were performing non-technical tasks using Vim, so I
+thought that I would add to the discussion with my favorite Vim tools
+for authors.
+
+** Focus Tools
+
+A lot of attention is being paid today to text editors that remove all
+of the clutter and let you focus only on your content. Vim has the
+current options:
+
+1. The [[http://www.vim.org/scripts/script.php?script_id=2231][writeroom
+   plugin]] for Vim.
+2. [[http://greywulf.net/2008/01/howtomakeawriteroomforvim-writeroom-for-linux-for-vim/][Using
+   Vim in a console like gnome-terminal]] and then using the full-screen
+   option by pressing the F11 key.
+
+** Publishing Tools
+
+Once you have your content written, you need to put it in a format that
+looks a little nicer than plain text. My favorite publishing plugin in
+Vim is the [[http://www.vim.org/scripts/script.php?script_id=1334][Vst
+ReStructured Text plugin]]. If you write your document using the
+Restructured Text markup formats, then this plugin makes it *very* easy
+to export to HTML & PDF. Of course, there are plugins for other markup
+formats like *LaTex* and *Docbook* too.
+
+** Personal Wiki
+
+I have lots of different types of "creative writing" that I like to do,
+and not all of the "types" fit into neatly-organized categories. I
+therefore use a *personal wiki* to organize a lot of my writing that is
+a step or two below being a polished product.
+
+In case you haven't used a wiki before, it's simply a system that makes
+it very fast and easy to create, edit, and link documents. They're
+usually used by lots of people to collaborate, and they're usually
+web-based (like [[http://en.wikipedia.org][Wikipedia]]), but they can
+also be very useful as a personal "knowledge management" tool.
+
+Vim actually has multiple wiki plugins from which to choose, but my
+favorite is the
+excellent [[http://www.vim.org/scripts/script.php?script_id=2226p][vimwiki]]
+plugin. This plugin makes it *very* easy to not only create and edit
+documents, but it can even export your entire "wiki folder" to HTML. I'm
+even using it to write this blog :)
+
+** GPG Encryption
+
+Encryption may not seem like a pertinent topic for "authors", but if you
+want to keep a truly personal journal, then it's a topic that you way
+want to consider. Thankfully, as long as you have a pivate *GunPG* key,
+the [[http://www.vim.org/scripts/script.php?script_id=661][Vim GnuPG
+Plugin]] makes it very easy to transparently edit encrypted documents.
+Add [[http://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html][gpg-agent]]
+and you have a robust, secure, and easy-to-use encryption solution.

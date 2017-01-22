@@ -1,0 +1,47 @@
+Title: Tab Sweep For The Week Ending 3/26/11 Tags:
+,coherence,iweb,jamon,java,jotform,jruby,shopzilla,sonar,statistics
+Category: Tab Sweep Comments: true
+
+These are the tech links that really captured my imagination this week.
+-
+[[http://www.engineyard.com/blog/2011/taking-stock-jruby-web-servers/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+engineyard+(Engine+Yard)&utm_content=Google+Reader][Taking
+Stock of JRuby Web Servers | Engine Yard Ruby on Rails Blog]]This is a
+*great* overview of all of your development and deployment options when
+running a JRuby-powered web application. -
+[[http://www.infoq.com/presentations/Hot-Swapping-Your-Engines-At-30000-Feet][InfoQ:
+Hot Swapping Your Engines At 30,000 Feet]]This was an interesting
+presentation on creating a modern, high-volume web site using
+Java. Also, here are some links to some of the development tools that
+were mentioned in the presentation: -
+[[http://www.oracle.com/technetwork/middleware/coherence/overview/index.html][Oracle
+Coherence]]This is distributed cache software for java systems. -
+[[http://www.sonarsource.org/][Sonar]]This is the software quality
+checker program from the shopzilla presentation. -
+[[https://code.google.com/p/javasimon][javasimon - Java Simon - Simple
+Monitoring API - Google Project Hosting]]This appears to be software
+that you can embed in your Java program to help you profile your code at
+runtime. It was mentioned in the Shopzilla presentation. -
+[[http://jamonapi.sourceforge.net/][JAMon - Documentation]]This appears
+to be software that you can embed in your Java program to help you
+profile your code at runtime. It was mentioned in the Shopzilla
+presentation, and this is the tool that they prefer to use.
+
+-  [[http://www.robertniles.com/stats/stdev.shtml][Standard
+   Deviation]]I'm trying to brush up on statistics again, and this guy's
+   tutorials are a good place to start for those of us that didn't take
+   enough math classes in college.
+-  [[https://sermoa.wordpress.com/2011/02/25/colemak-keyboard-layout][Colemak
+   keyboard layout « a little place of calm]]I use my keyboard a *lot*
+   more than some other computer users because I use text editors and
+   terminals a lot at my job. I therefore worry a bit about RSI, and
+   switching keyboards may help me in the long term.
+-  [[http://www.ehow.com/how_5043765_add-forms-iweb.html][How to Add
+   Forms to Iweb | eHow.com]]A friend of mine asked how she could place
+   "active" content inside of a static web site. I told her that she
+   would probably need to go down the PHP or CGI route, but then we
+   stumbled across this tutorial. It shows you how to use web
+   applications such as [[http://jotform.com/][Jotform]] to create and
+   embed forms in a static web site easily.
+
+Posted from [[http://www.diigo.com/][Diigo]]. The rest of my favorite
+links are [[http://www.diigo.com/user/tepurl][here]].

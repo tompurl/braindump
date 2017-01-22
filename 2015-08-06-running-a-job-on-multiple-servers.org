@@ -1,0 +1,191 @@
+#+TITLE: Stupid Unix Tricks - Running A Script On Multiple Servers Concurrently
+
+#+DATE: 2015-08-06
+
+One of the amazing things about Unix and Linux is that you can get a LOT
+of work done with the help of a few lines of shell scripting and some
+simple, well-defined tools. Today I would like to show you a technique
+that I use on a regular basis that saves me a ton of time and energy.
+
+* The Problem
+
+You have a backup script called =backup.sh= that you would like to run
+on 4 different servers from a centralized "job control" server. Ideally,
+you would not like to log into each server in a different terminal
+window and execute the command. Instead, you want to just run a script
+from one server and then wait while the job runs on the 4 (or 40 or 400)
+other servers.
+
+* Iteration 1
+
+First let's assume that the =backup.sh= file is staged on all of your
+servers (and it's the same version on each server, right?) in the
+=/home/tom/scripts/backup.sh= location. Here's how you would kick that
+off on every server from one, centralized shell instance:
+
+#+BEGIN_EXAMPLE
+    #!/bin/bash
+
+    servers="serverA serverB serverC serverN"
+    for server in $servers; do
+        ssh $server "/home/tom/scripts/backup.sh" &
+    done
+    wait
+#+END_EXAMPLE
+
+There's a lot of stuff going on here in this script that is pretty
+common. We have a for loop iterating over a space-delimited list that
+starts on line 4 and ends on line 6. However, everything else may be a
+little confusing to most shell scripters.
+
+* Running Remote Commands
+
+Let's start line 5. From a high level what we're doing is connecting to
+a remote server and running a command *on that server*.
+
+When most Unix and Linux users think of SSH they think of a replacement
+for =telnet=, which is certainly is. However, in addition to that, SSH
+is also an encrypted replacement for a tool called =rsh= which stands
+for *remote shell*. =rsh= (and therefore =ssh=) lets you actually run
+commands *on remote servers*. All you have to do is sepcify the server
+and command and assuming that you have the proper security access you
+can run commands on remote machines.
+
+So for example, let's say that you wanted to just check the uptime of
+the four servers listed above. Here's a really easy way to do that:
+
+#+BEGIN_EXAMPLE
+    #!/bin/bash
+
+    servers="serverA serverB serverC serverN"
+    for server in $servers; do
+      ssh $server "hostname && uptime"
+    done
+#+END_EXAMPLE
+
+And here's what you can expect to see:
+
+#+BEGIN_EXAMPLE
+    serverA.tompurl.com
+     20:17:59 up 1 day,  8:00,  0 users,  load average: 0.12, 0.04, 0.05
+    serverB.tompurl.com
+     15:18:00 up 1 day,  8:02,  0 users,  load average: 0.00, 0.01, 0.05
+    serverC.tompurl.com
+     15:18:01 up 74 days, 11:30,  0 users,  load average: 0.02, 0.04, 0.10
+    serverN.tompurl.com
+     20:17:59 up 1 day,  8:00,  0 users,  load average: 0.12, 0.04, 0.05
+#+END_EXAMPLE
+
+Please note that this script does not run the uptime commands
+concurrently, but it does a decent job of running the uptime command on
+each of the servers in the list.
+
+* Concurrency
+
+Believe it or not the Bash shell gives us some simple and powerful tools
+to run more than one command simultaneously. One of the simplest
+examples of these tools is the =&= operator which lets you *background*
+a command. By background I mean that the shell does *not* do what it
+usually does, which is *block* (i.e. wait) immediately after a command
+is executed until that command is finished.
+
+Here's a basic example of what I mean. Type the following in your Bash
+console:
+
+#+BEGIN_EXAMPLE
+    sleep 5
+#+END_EXAMPLE
+
+Since you didn't /background/ this process with a single ampersand the
+shell will block until 5 seconds have passed and then return control to
+you.. Now try this:
+
+#+BEGIN_EXAMPLE
+    sleep 5 &
+#+END_EXAMPLE
+
+Control is returned to the shell immdiately so that other commands can
+be executed while your sleep command (or any other long-running command)
+is running. Now mix this feature with multi-core processors (or multiple
+hosts like in our backup example) and voila - *simple, effective,
+multi-process concurrency.*
+
+Now a script using concurrent commands shouldn't just use ampersands,
+which takes us to line *line 7*. The =wait= command is a great Bash
+command that waits for all backgrounded commands to complete (when
+executed without any arguments).
+
+The =wait= command isn't absolutely necessary because technically the
+script would still run without it. However, like safety goggles on a
+welder it's a *really* good idea to include it in any script that uses
+backgrounding for lots of reasons  [1].
+
+* Iteration 2 - Running Locally-Hosted Scripts Remotely
+
+Our first iteration of this script is really pretty good. It's a simple,
+five-line shell script that concurrently launches a command on multiple
+servers and then waits for its children processes to complete (like any
+responsible parent process in the Unix world). It meets all of our
+requirements and would work really well for a lot of sysadmins in the
+real world.
+
+However, there's still one nagging problem. We have this great script
+that allows us to kick off the backup job on every host from a central
+location. But we still have to install and manage the =backup.sh= script
+on each server. Wouldn't it be nice if we could kick off *and manage*
+that script from one place? By that I mean wouldn't it be nice if we
+could host the =backup.sh= script on one server and then *run that
+script* on an arbitrary list of remote servers?
+
+Believe it or not this is actually pretty simple using Bash and SSH.
+Here's what the script would look like:
+
+#+BEGIN_EXAMPLE
+    #!/bin/bash
+
+    servers="serverA serverB serverC serverN"
+    for server in $servers; do
+        ssh $server "bash -s" < ./backup.sh &
+    done
+    wait
+#+END_EXAMPLE
+
+Here's the differences between the first iteration and this one:
+
+-  The command that we're running on the remote machine is =bash -s=
+   instead of the remote copy of =backup.sh=.
+-  We're passing the contents of the *local copy* of the =backup.sh=
+   command to the remote =bash.sh= command 's *standard input* using the
+   =<= operator.
+-  The remote =bash= process then executes the standard input because we
+   passed it the =-s= switch.
+
+That's it! Without adding a single line of code (or additional commands
+or pipes or anything) we just made our backup management script that
+much more awesome. This is a great example of how expressive and
+powerful shell scripting can be for certain tasks.
+
+* Caveats
+
+The point of this tutorial was to show people how to run a command on
+multiple servers concurrently, not to give them a bulletproof script
+that could be used to coordinate backups for their entire company.
+Here's a few things to consider if you are trying to coordinate backups
+for multiple servers from one host:
+
+-  This script is still a little naieve. It could use things like better
+   error handling and logging (which are out of the scope of this
+   tutorial).
+-  The more complex and important your job streams get the less you will
+   want to rely on clever Bash scripts to manage them. An example of a
+   good tool for managing such jobstreams from a single location is
+   [[http://jenkins-ci.org/][Jenkins]].
+
+* Footnotes
+
+[1] I certainly hope that you don't just take my word for it and you
+    check out the
+    [[http://mywiki.wooledge.org/ProcessManagement?#How_to_work_with_processes][Process
+    Management]] page on the [[http://mywiki.wooledge.org/BashFAQ][Bash
+    FAQ]] (which I really can't recommend enough if you write any Bash
+    scripts) for more information.

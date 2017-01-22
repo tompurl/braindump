@@ -1,0 +1,11 @@
+Title: New Blog Announcement - Shell Magic Tags:
+/Cough/Plug/Cough/,command-line,console,linux,shell,shell-magic,unix
+Category: Tutorial Comments: true
+
+I'm excited to say that I am working on a series of screencasts that
+target Unix command-line newbies. The series is called
+[[http://shellmagic.wordpress.com][$hell Magic]], and it's my first
+attempt at making screencasts. It was a lot of fun and surprisingly
+simple to create my first one. If you would like to learn more about the
+Unix or Linux command-line, or you know someone else who would, please
+feel free to check it out.

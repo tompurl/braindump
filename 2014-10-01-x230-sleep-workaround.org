@@ -1,0 +1,44 @@
+#+TITLE: Fixing Linux Sleep Issues With The Lenovo X230
+
+#+DATE: 2014-10-01 21:00
+
+I had trouble finding help on this issue so I hope this will help other
+Linux users who use the Lenovo X230.
+
+I'm running Debian 7.x and almost everything works really well with my
+X230. I say almost everything because occasionally the computer won't go
+to sleep when I try to suspend it, regardless of how I try to do it. The
+weird thing about this behavior is that it doesn't always happen, and it
+starts happening at random times, and once it starts, it doesn't stop
+until you reboot.
+
+Here's one of the errors that I see in the console when this failure
+occurs:
+
+#+BEGIN_EXAMPLE
+    PM: Device 0000:00:19.0 failed to suspend async: error -2
+#+END_EXAMPLE
+
+Thankfully, I found the following workaround for the issue:
+
+-  [[https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_X230#Suspend_to_ram_fails]]
+
+Basically, the =eth0= driver doesn't work really well with the kernel
+that I'm using. However, I don't use the =eth0= port very often, so it's
+safe for me to keep it off most of the time.
+
+The listed solution looks helpful, but my machine doesn't use =systemd=
+and I'm don't know how to "translate" this into something that works for
+me. I therefore created the following aliases in my =~/.zsh-aliases=
+file:
+
+#+BEGIN_EXAMPLE
+    ### Workaround for sleeping issue
+    # PM: Device 0000:00:19.0 failed to suspend async: error -2
+    alias unload_etho='sudo rmmod e1000e'
+    alias load_etho='sudo modprobe e1000e'
+    alias sleep_dammit='unload_etho'
+#+END_EXAMPLE
+
+I know that it's quick and dirty, but I like that now all I have to
+remember is =sleep_dammit= the next time that this problem occurs :-)

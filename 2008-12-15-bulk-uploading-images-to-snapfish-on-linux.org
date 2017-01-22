@@ -1,0 +1,50 @@
+Title: Bulk-Uploading Images To Snapfish On Linux Tags:
+linux,photography,picasa,ritzpix,snapfish,walgreens Category: Review
+Comments: true
+
+*Update* *(8/26/09)*:  Two strange things happened since I wrote this
+article.  First, uploading to Snapfish from Picasa 3 seems to be
+broken.  Second, if you have Flash 10 installed on your Linux machine,
+you can now bulk-upload photos to Snapfish using the Snapfish web site.
+
+--------------
+
+Snapfish is one of those web sites that I use a lot even though I hate
+it because it's favored by most of my family.  It's interface seems to
+favor people who only use computers when they have to.  Also, it doesn't
+give you many sharing options compared photo sites such as Picasa Web,
+Flickr, or Photo Bucket.
+
+The number 1 reason I don't like Snapfish, however, is that they don't
+have a decent bulk-uploaded that works on Linux.  The one on Windows
+works very well, but since I'm in a Windows-free home, that's not an
+option.  You can upload up to 10 photos at a time after entering the
+path for each photo, but this is tedious and slow.  For example, I
+wanted to upload about 45 pictures the other night, and it took me
+nearly 3 hours.
+
+The good news is that I finally discovered a new way to easily upload
+more than 10 photos to Snapfish. 
+[[http://picasa.google.com/linux/][Picasa 3.0 for Linux]] allows you to
+upload your photos to 14 different sites, including Snapfish.  You
+simply choose the photos you want to upload using the Picasa application
+(the fat-client version, not the Picasa Web version), and then click on
+the *Shop* button at the bottom of the screen.  Then simply choose your
+favorite photo developer from the list, log on, and Picasa will start
+uploading your photos. 
+
+Sweet! A few other nice things about the latest version of Picasa for
+Linux:
+
+-  There are installers for RPM-based distributions (like Red Hat and
+   SuSE), Debian, and Ubuntu.  I'm using *Ubuntu 7.10* (which makes me
+   behind by 2 major versions), and it installed quickly and easily.
+-  Picasa also allows you to upload to *Walgreens* and *RitzPix*.  There
+   are the only other photo developers that I use in addition to
+   Snapfish, and I hate their native upload interfaces on Linux, so this
+   is a nice bonus.
+
+Even if you wouldn't dream of using Picasa to manage your photos for
+some reason, if you use Linux and have ever complained about uploading
+your photos, you need to check it out.  It's worth the space on your
+hard drive, even if you're just using it as a glorified photo uploader.

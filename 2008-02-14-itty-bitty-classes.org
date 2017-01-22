@@ -1,0 +1,428 @@
+Title: Itty-Bitty Classes Comments: true Category: Tutorial
+
+How I learned that using objects, even in a small script, can make you
+more efficient and you software more flexible and effective.
+
+** The Problem
+
+Between work, home, and about a half-dozen operating systems, I use a
+lot of different backup programs. Most of these programs use some sort
+of snapshot-based process where you have multiple full backups, each
+representing a different snapshot in time. The backups have to be
+*rotated* on an arbitrary basis, using a process that looks like this:
+
+1. Compare the current number of snapshot folders with the intended
+   number. Delete folders, from oldest to newest, until the total number
+   of folders equals the intended number minus 1.
+
+   -  In practice, this usually means deleting the oldest folder, whose
+      age is indicated by an index number in its name.
+
+2. In reverse index order, rename each snapshot folder so that it's
+   index number is incremented by 1.
+
+Here's how it looks in the shell if you only want two snapshots:
+
+#+BEGIN_EXAMPLE
+    $ ls -i # dirs with inode numbers
+    17706835 snapshot.0/  19108205 snapshot.1/  21109296 snapshot.2/
+    $ rm -rf ./snapshot.2
+    $ mv snapshot.1 snapshot.2
+    $ mv snapshot.0 snapshot.1
+    $ ls -i
+    17706835 snapshot.1/  19108205 snapshot.2/
+#+END_EXAMPLE
+
+As simple as this process sounds, I wasn't able to find any
+cross-platform scripts that would execute this process on an arbitrary
+set of snapshot directories. I therefore decided to throw something
+together myself, and figured it would take me all of 20 minutes. It
+actually ended up taking me a bit longer, but the entire experience was
+worth it.
+
+** Which Language?
+
+As much as I wanted to hammer something like this out in a 15-line bash
+script, I saw three big disadvantages:
+
+1. Bash scripts aren't cross-platform
+
+   -  Cygwin doesn't count :D
+
+2. Integration Methods
+
+   -  The most popular method of integrating a shell script with
+      something else is using things like pipes, streams, and channels
+      (STDIN, STDOUT, STDERR). This method of integration is very robust
+      and mature, but I'd rather not have it be my only option. Being
+      able to load this functionality into another program as a library
+      with a robust interface would also be nice.
+
+3. Ease Of Maintenance
+
+   -  Most of the non-trivial shell scripts that I've ever written or
+      used are comprised of numerous "clever" awk, sed, and grep
+      statements that, while powerful, are difficult to write and even
+      more difficult to maintain. I would therefore prefer using a
+      language that relies less upon "shell magic".
+
+I've been a big fan of [[http://www.python.org/][Python]] for a while
+now, and I've written numerous sysadmin scripts using that language, so
+I decided to use it to solve my problem. I guess I could've used a lot
+of other languages, but this time, Python seemed like a good idea.
+
+** Iteration 1 - The Procedural Approach
+
+Ok, so that language decision took way too long (at least 3 minutes),
+and I really wanted to hammer out this script, so I started hacking.
+Python is an OO language, but I didn't have time to design classes and
+build constructors and such, so I started writing a very procedural
+program.
+
+#+BEGIN_QUOTE
+  *Note*: One of the cool things about Python is that it gives you a
+  choice between writing your program in an OO way or a procedural way.
+  This is especially handy (like in this case study) when your "simple"
+  procedural script turns into something more complex that would benefit
+  from some of advantages of object-orientation.
+#+END_QUOTE
+
+I got to my rotate\_snapshots method, which started out like this:
+
+#+BEGIN_EXAMPLE
+    import re, os, sys
+    from distutils import dir_util
+
+    def rotate_snapshots(root_dir, snapshot_prefix, num_snapshots):
+
+        # Retrieve your folder list
+        files = os.listdir(root_dir)
+        dirs = []
+        for f in files:
+            if os.path.isdir("%s/%s" % (root_dir, f)):
+                # I probably need to do some sort of validation here, but
+                # that can wait for rev 2 :D
+                dirs.append(f)
+#+END_EXAMPLE
+
+Ok, I have my folder list. So far, so good. Now I need to delete the
+unwanted directories (which is usually just the oldest one). Here's my
+first stab at satisfying that requirement:
+
+#+BEGIN_EXAMPLE
+    ### Delete dirs requirement
+    dirs.sort()
+    # Grab the index number from the folder's name
+    pattern = re.compile('.*\.([0-9]{1,10})$')
+
+    # Walk through the list of dir names backwards
+    for dir in reversed(dirs):
+        try:
+            index = int(pattern.search(dir).groups()[0])
+        except:
+            # *not* a snapshot dir
+            continue
+        if index > (int(int(num_snapshots)) - 2):
+            # Delete unwanted snashot dir
+            dir_util.remove_tree(root_dir + '/' + dir) # Delete the dir
+            dirs.pop()                                 # Remove it from the list of dirs
+        else:
+            # Done looping through unwanted snapshot dirs, drop out
+            break
+#+END_EXAMPLE
+
+Here's where I ran into my first snag. This code chunk sorts my
+directories by name, walks through the list backwards, and if it finds a
+directory with an index that is too high, it deletes it. Once it finds
+an index that it wants to keep, it falls out of this loop. The problem
+is that this code chunk relies upon a list that sorted by the integer
+value of the indexes. What we get, however, is a list that is sorted by
+the *string* value of the snapshot directory's name. This is how it
+looks in the python shell:
+
+#+BEGIN_EXAMPLE
+    In [1]: l = ['dir.1', 'dir.2', 'dir.3', 'dir.10']
+
+    In [2]: l
+    Out[2]: ['dir.1', 'dir.2', 'dir.3', 'dir.10']
+
+    In [3]: l.sort()
+
+    In [4]: l
+    Out[4]: ['dir.1', 'dir.10', 'dir.2', 'dir.3']
+                       ^^^^^^
+#+END_EXAMPLE
+
+Since Python assumes that I'm sorting a list of strings, it places 10-19
+before 2. This is ok if you never need to work with more than 10
+snapshot directories, but that's not an assumption that I want to make.
+I /could/ just loop through every directory name and delete the unwanted
+snapshot directories. That's a little inefficient, but it's easy and it
+fixes the problem right?
+
+Well, yes, until I then try to rename the snapshot directories. For that
+operation, it's absolutely necessary that my list of folder names be
+sorted based on the index value. I can't rename dir.9 as dir.10 before I
+rename dir.10 as dir.11, for example.
+
+Ok, remember that my mind is still in "hammering it out" mode. "Ok", I
+thought. "I'll just sort the list myself with my own algorithm". And
+that's when I moved to my next phase of development.
+
+** Iteration 2 - Epiphany
+
+"Why on earth am I manually sorting a list in /Python/?", I thought.
+Python is a very robust language that is easy-to-use. It has all types
+of cool functionality built-in so that I don't have to do things like
+sort arrays. "There's got to be a better way", I thought.
+
+Then I remembered that each Python class has a =cmp= method. This method
+is invoked when one Python object is compared to another using something
+like the ==== operator, for example. I could create a snapshot directory
+class and override the =cmp= method so that my objects could be compared
+by their numeric index, not their full name. Then sorting my list would
+simply be a matter of invoking the sort method on a list of "snapshot
+directory" objects.
+
+This, of course, is when the "hammering it out" part of my brain kicked
+in. "What do you mean you want to create a class?", I thought. "We
+already established that that would be way too much work". After
+thinking about it for a minute (and pondering why my inner-monologue
+just said "we"), I realized that it's also a lot of work to write and
+test my own algorithm for sorting lists of snapshot directory names. I
+therefore decided to give the OO approach a stab.
+
+** Iteration 3 - OO Is Easy (In Python)
+
+To get started refactoring my script, I first tried to come up with a
+list of nouns and verbs so I could design my classes and methods. This
+is usually the part where most procedural programmers run screaming, but
+it doesn't have to be that bad, especially on small-to-medium-sized
+projects. I promise that you won't have to read a Martin Fowler book or
+open a graphical modeling tool in a lot of cases :)
+
+Ok first I looked at the 2-step process listed above, and found that I
+basically have the following entities:
+
+-  Noun(s)
+
+   -  snapshot directory
+
+-  Verb(s)
+
+   -  delete directory
+   -  rotate/move directory
+
+That's it. Based on that "analysis", I threw together the following stub
+in my module: class SnapshotDirectory: """Docs go here :)"""
+
+#+BEGIN_EXAMPLE
+        def __init__(self, full_dir_path, snapshot_dir_prefix):
+
+            self.dir_path = full_dir_path
+            self.prefix = snapshot_dir_prefix    # Use for validation
+
+            # TODO Validate directory
+
+            self.__is_valid = True
+
+            # TODO Get index value
+
+        def __cmp__(self, snapshot_dir):
+            """Override __cmp__ so we can compare directories based on index value,
+            not string name.
+            """
+            pass
+
+        def isValid(self):
+            """This returns true if the directory still exists on the filesystem."""
+            pass
+
+        def deleteSnapshot(self):
+            """Delete the snapshot from the directory."""
+            pass
+
+        def changeIndex(self, new_index):
+            """This renames the directory with a new index number."""
+            pass
+#+END_EXAMPLE
+
+Ok, here's a quick summary. The =__init__= method is like a constructor,
+and it's where I parse and validate values and set initial property
+values. The =__cmp__= method is where I will set up my comparison
+criteria. Everything else is mentioned earlier except for the =isValid=
+method. I thought that this might end up being a handy helper method.
+
+Overall, the entire process of designing and stubbing-out my class took
+less than 10 minutes, which ain't bad, especially when you compare it to
+Java. Next, I wanted to implement my =__init__= and =__cmp__= methods.
+Here's what I came up with:
+
+#+BEGIN_EXAMPLE
+    def __init__(self, full_dir_path, snapshot_dir_prefix):
+
+        if os.path.exists(full_dir_path) == False:
+            raise Exception("Could not find the full_dir_path: %s" % full_dir_path)
+        self.dir_path = full_dir_path
+        self.prefix = snapshot_dir_prefix
+
+        pattern = re.compile('.*\.([0-9]{1,10})$')
+        try:
+            self.index = int(pattern.search(self.dir_path).groups()[0])
+        except:
+            raise Exception("Could not retrieve index number from directory.")
+        self.__is_valid = True
+#+END_EXAMPLE
+
+Ok, that's simple enough. Validate the directory and retrieve the index
+number. Now let's look at the =cmp= method:
+
+#+BEGIN_EXAMPLE
+    def __cmp__(self, snapshot_dir):
+        """Override __cmp__ so we can compare directories based on index value,
+        not string name.
+        """
+        if isinstance(snapshot_dir, SnapshotDirectory):
+            return cmp(self.index, snapshot_dir.index)
+        else:
+            return cmp(self.index, snapshot_dir)
+#+END_EXAMPLE
+
+Methods like this are one of the reasons that I really like Python. In 5
+lines of code (not counting comments), I'm able to enable index-based
+sorting. No muss, no fuss, and definitely no implementation of my own
+sorting algorithm.
+
+#+BEGIN_QUOTE
+  *Note*: Another great thing about Python is interactive interpreter.
+  It's great to be able to instantly test your code after you've written
+  it.
+#+END_QUOTE
+
+I then implemented the rest of the methods (plus a few others) and an
+Exception class called =SnapshotParsingError=. A dedicated exception
+class might seem like overkill to non-Python developers, but it only
+requires two lines of code, and I didn't even have to create a new file.
+Here's the code for the two classes:
+
+#+BEGIN_EXAMPLE
+    class SnapshotParsingError(Exception):
+        pass
+
+    class SnapshotDirectory:
+        """This class represents a "snapshot"-style (dirprefix.index) directory on a filesystem.
+
+        Example:
+            sdir = new SnapshotDirectory('/home/tom/backups/snapshot.1', 'snapshot')
+
+        This class throws a SnapshotParsingError exception if the snapshot
+        directory doesn't follow the 'dirprefix.index' naming convention.
+        """
+
+        def __init__(self, full_dir_path, snapshot_dir_prefix):
+
+            if os.path.exists(full_dir_path) == False:
+                raise SnapshotParsingError("Could not find the full_dir_path: %s" % full_dir_path)
+            self.dir_path = full_dir_path
+            self.prefix = snapshot_dir_prefix
+
+            pattern = re.compile('.*\.([0-9]{1,10})$')
+            try:
+                self.index = int(pattern.search(self.dir_path).groups()[0])
+            except:
+                raise SnapshotParsingError("Could not retrieve index number from directory.")
+            self.__is_valid = True
+
+        def __cmp__(self, snapshot_dir):
+            """Override __cmp__ so we can compare directories based on index value,
+            not string name.
+            """
+            if isinstance(snapshot_dir, SnapshotDirectory):
+                return cmp(self.index, snapshot_dir.index)
+            else:
+                return cmp(self.index, snapshot_dir)
+
+        def __repr__(self):
+            return self.__str__()
+
+        def __str__(self):
+            retval = """
+            self.dir_path =   %s
+            self.prefix =     %s
+            self.index =      %s
+            self.__is_valid = %s""" % (self.dir_path, self.prefix, self.index, self.__is_valid)
+            return retval
+
+        def isValid(self):
+            """This returns true if the directory still exists on the filesystem."""
+            return self.__is_valid
+
+        def deleteSnapshot(self):
+            """Delete the snapshot from the directory."""
+            dir_util.remove_tree(self.dir_path)
+            self.__is_valid = False
+
+        def changeIndex(self, new_index):
+            """This renames the directory with a new index number."""
+
+            pattern = re.compile('(.*\.)[0-9]{1,10}$')
+            path_prefix = pattern.match(self.dir_path).groups()[0]
+            new_dir_path = path_prefix + str(new_index)
+            os.rename(self.dir_path, new_dir_path)
+
+            self.index = int(new_index)
+            self.dir_path = new_dir_path
+#+END_EXAMPLE
+
+Ok, now that my classes are written and functionally tested, I can
+rewrite my =rotate_snapshots= method:
+
+#+BEGIN_EXAMPLE
+    def rotate_snapshots(root_dir, snapshot_prefix, num_snapshots):
+        """Please see module-level help for details about how this function works"""
+        files = os.listdir(root_dir)
+
+        dirs = []
+        for f in files:
+            if os.path.isdir("%s/%s" % (root_dir, f)):
+                print "Found the following dir: %s" % f
+                dirs.append(SnapshotDirectory(root_dir + "/" + f, 'snapshot'))
+
+        dirs.sort() # It works!!!
+
+        if len(dirs) > 0:
+            while dirs[-1].index > (int(int(num_snapshots) - 2)):
+                print "Deleting dir: %s" % dirs[-1].dir_path
+                dirs[-1].deleteSnapshot()
+                dirs.pop()
+
+            dirs.reverse()
+            for dir in dirs:
+                print "Incrementing the index of %s by 1" % dir.dir_path
+                dir.changeIndex(dir.index + 1)
+        else:
+            print "No directories are available for rotation"
+#+END_EXAMPLE
+
+Ok, here's some of the differences between the previously-attempted
+version of this function and the current version:
+
+1. The new one is a /lot/ clearer. The class constructor takes care of
+   validation, the sort method works, and, in general, it's just really
+   easy to read. I barely even added any comments because I didn't think
+   they were necessary. If I come back to maintain this thing in a year,
+   I'll /definitely/ know what's it doing.
+2. It's shorter than the previous version would have been, which is also
+   nice.
+
+   -  I realize that the creation of a class probably adds more total
+      lines of code to this script, but that's ok if it means less code
+      duplication and easier maintenance.
+
+** Conclusion
+
+So that's how I learned to stop worrying and love OO Python. Even in
+small scripts, it can really make the task of programming easier,
+faster, and more flexible. Also, please note that the code chunks in
+this script are alpha-quality and incomplete. When I'm done writing this
+script and have tested it for a little while, I'll it to this site.

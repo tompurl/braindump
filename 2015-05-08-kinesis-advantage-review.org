@@ -1,0 +1,115 @@
+#+TITLE: Kinesis Adavantage Review For Technologists
+
+#+DATE: 2015-05-08
+
+I recently purchased a Kinesis Advantage Keyboard\_ for the following
+reasons:
+
+-  I am a sysadmin for a living and a computer geek for fun so I spend a
+   lot of time behind a keyboard.
+-  I'm tired of buying new keyboards and I found a lot of reviews where
+   people stated that they had used their Kinesis keyboard five or more
+   years.
+-  I recently started using Emacs and this keyboard came very higly
+   recommended by other emacs users.
+
+However, I was really uncertain whether I would like the keyboard
+because I wasn't able to find many reviews from technologists (like
+programmers or system administrators). I am one of those people so I
+hope that someone else might gain something from my experience.
+
+* The Good Parts
+
+** It's Programmable
+
+You can actually program macros into this thing and then use them on any
+computer. This has been useful to me in two ways:
+
+-  By default, the =Insert= key can only be used after pressing the
+   =Keypad= key. This is a pain. I therefore found instructions in the
+   user guide that showed me how to fix this with a simple macro.
+-  You can actually switch the computer between "Windows", "PC", and
+   "Macintosh" modes. I switch between Linux and Windows during the day
+   and I would *much* rather have a right Alt key than a Windows key.
+   Again, you can easily program this into your keyboard in about 5
+   seconds using the docs.
+
+There a *lot* more that can be done with these tools and I am only
+scratching the surface.
+
+** Great Documentation
+
+I was fairly disappointed to only find a two-page manual when I opened
+the box for my new, complicated keyboard. However, I was then amazed to
+see that it (along with the online FAQ\_) answered all of my questions,
+no matter how esoteric.
+
+** Great Customer Support
+
+I had a pretty substantial issue with the keyboard when I first got it
+(which I'll mention below) so I sent an email message to their support
+account. Within a few hours I got a response and an offer to send a
+converter cable for free.
+
+** It's Really Is Great For Emacs
+
+It's hard to beat having a =Ctrl= and =Alt= key under each thumb when
+you spend a lot of time in Emacs.
+
+** It's Big
+
+I'm 6'5" and have pretty broad shoulders, so most keyboards feel pretty
+tiny and compressed to me. This keyboard is significantly more
+comfortable and allows me to relax my shoulders a lot more.
+
+I doubt that after using this I will ever be able to go back to a
+keyboard that doesn't at least give me the option of splitting it in
+two.
+
+* The Not So Good
+
+** Windows 7 Compatibility With USB 3
+
+For work I use a Windows 7 laptop that only has USB 3 ports. Well, for
+some strange reason this keyboard has a lot of issues with USB 3 and
+Windows 7. Not USB 3 and Windows 8. Not USB 2 and Winows 7. Heck, it
+even worked like a charm with Linux. No, the only combination that
+doesn't work is the combination that exists on my work laptop.
+
+There are some BIOS settings that you can try\_, but unfortunately none
+of them worked for me. I therefore had to request that they send me a
+"conversion kit", which they did very quickly and without any questions
+asked.
+
+I assumed that I would be receiving some sort of cable that I would plug
+my keyboard into that would magically make it work with my Windows 7
+machine. However, when I did receive the kit, I was surprised to see
+that it required me to *open my keyboard case* and replace the USB cable
+with a PS2 cable.
+
+Now I've performed lots of PC repairs and upgrades in the past, so
+opening a case and discharging static and such is really no big deal.
+The entire process actually took about 10 minutes from beginning to end.
+However, if you're reading this and the idea of doing something like
+upgrading the RAM in your laptop is terrifying, then *please* make sure
+that you check your Windows 7 laptop for a USB 2 port, just in case the
+BIOS changes don't work for you either.
+
+Also, I wanted to point out that in addition to a PS2 cable, they sent
+me a free PS2 to USB converter.
+
+** Small Function And ESC Keys
+
+Even though I use Emacs for most of my editing these days I still use
+Vim a lot when I am using an SSH terminal. This means that I use the
+=ESC= key a decent amount, and for some reason the ESC key and function
+keys are all about half the size of a regular key. This is only a minor
+inconvenience, but I'm still not used to it after a couple of weeks.
+
+* Conclusion
+
+It's very rare to find something that really feels like it was made for
+you by someone who thinks just like you do. I really feel that despite a
+few small quirks that this keyboard is really perfect for my needs, or
+at least as perfect as I've ever seen. I highly recommend it if you are
+a technologist who is trying to take better care of her hands.

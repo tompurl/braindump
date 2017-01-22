@@ -1,0 +1,258 @@
+Title: Administrative Scripting With Rake Category: Tutorial Comments:
+true
+
+At my job as a middleware sysadmin, I'm a /big/ fan of automating
+complex and repetitive tasks. It cut down on defects, saves time, and
+makes my job a heckuva lot easier.
+
+In the past, I've automated many tasks using
+[[http://ant.apache.org/][Apache Ant]], and I've had pretty good
+experiences. It's light-weight, easy-to-learn, and it integrates very
+well with Java-based software (which I very often use).
+
+The problem is that it's not terribly flexible. If you want to use it to
+compile and distribute Java programs, then it's a great tool. However,
+take it a few degrees out of its comfort zone, and things get
+significantly more complicated.
+
+The problem seems to be that Ant-based build files are written in XML.
+XML's a great language for declaring things in a device-independent
+manner, but it's not a terribly good medium for writing programs. There
+are Ant extensions that make it easier to write build files that need to
+perform complex operations, but they haven't really helped me much in
+the past.
+
+Like I said, I've had a lot of success with Ant in the past, but every
+so often, I like to reevaluate the tools that I use. That opportunity
+appeared the other day when I was tasked with automating the deployment
+process for a new web application. I have been teaching myself Ruby for
+a little while, and have heard great things about
+[[http://rake.rubyforge.org/][Rake]], so I decided to give it a try.
+
+** My First Rakefile
+
+The automation script that I needed to write needed to be able to do the
+following:
+
+1. Copy some configuration files from one place to another. For example,
+   if I'm deploying my application in the UAT environment, I would need
+   to copy "config/db.conf.uat" to "config/db.conf".
+2. I need to be able to specify my target environment (e.g dev, uat,
+   prod, etc.) at runtime.
+3. Delete any temporary or backup files
+4. Create a WAR file
+5. Use that WAR file to create an EAR file.
+
+The sixth and most important requirement was that this deployment script
+needed to be usable by people who had never used Rake or Ruby before. I
+therefore needed to give it a command-line help interface that was very
+simple and intuitive. I did /not/ want to force other admins to learn
+Ruby just so they could use my Rakefile. Of course, I would like them to
+learn the basics of the language eventually, but nobody likes to be
+forced to learn new technology before they can see the benefits. So here
+it is:
+
+#+BEGIN_EXAMPLE
+    1  require 'rake/clean'
+    2
+    3  CLEAN.exclude("**/*.bak")
+    4  CLOBBER.include('build', 'dist')
+    5
+    6  task :default => [:usage]
+    7
+    8  ### Begin directory and file declarations
+    9  directory "build"
+    10 directory "dist"
+    11
+    12 file 'dist/myapp.ear' => 'build/myapp.war' do |task|
+    13     puts "Building ear file..."
+    14     sh "jar cf #{task.name} -C build myapp.war META-INF"
+    15 end
+    16 ### End directory and file declarations
+    17
+    18 desc "Usage statement for people who are unfamiliar with Rake or this particular Rakefile"
+    19 task :usage do
+    20     puts """
+    21 Please execute the following command to build a deployable ear file:
+    22
+    23    jruby -S rake ear env=[dev|test|uat|prod]
+    24
+    25 For more task options, please execute the following command:
+    26
+    27    jruby -S rake -T"""
+    28 end
+    29
+    30 desc "Make sure that an env var was passed to this build script"
+    31 task :validate do
+    32    if ENV['env'].nil?
+    33        $stderr.puts "\nERROR: Empty env value"
+    34        Rake::Task['usage'].invoke
+    35        exit 1
+    36    end
+    37 end
+    38
+    39 desc "Update the environment-specific configuration files"
+    40 task :setenv => [:validate] do
+    41
+    42    env = ENV['env']
+    43
+    44    webinf_dir = "src/myapp/WEB-INF"
+    45    config_files = ['db.properties', 'soap.properties']
+    46
+    47    config_files.each do |config_file|
+    48        cp "#{webinf_dir}/#{config_file}.#{env}", "#{webinf_dir}/#{config_file}"
+    49    end
+    50
+    51 end
+    52
+    53 desc "Create a war file that can eventually be packaged as an ear file"
+    54 task :war => [:setenv, :build, :dist, "clean"] do
+    55    puts "Building war file..."
+    56    sh "jar cf build/myapp.war -C src/myapp ."
+    57 end
+    58
+    59 desc "Create a deployable ear file."
+    60 task :ear => [:war, 'dist/myapp.ear'] do
+    61     puts "The ear file has been created in dist directory"
+    62 end
+#+END_EXAMPLE
+
+Ok, there's a lot going on here, and it's especially confusing if you're
+new to Ruby. Here's basically how I see things from a very high level:
+
+** Tasks And Prerequisites
+
+*Tasks* are a lot like Ant targets, which are a lot like functions
+(although there are some big differences). They perform some unit of
+work, and are typically entry points into your script. For example, I
+could type in =rake war=, and I would immediately start running the
+instructions within the task starting at line 54, after the
+pre-requisites have run.
+
+What's a prerequisite? For the =:war= task, the pre-requisites are
+everything following the ==>= notation. So when I attempt to run this
+task, the first thing that is actually executed is the =:setenv= task,
+followed by the =:build= task, and so on.
+
+** Directory and File Tasks
+
+You may also notice that the =:build= task (at line 9) isn't actually a
+task at all, but a "directory". What I'm doing is specifying the
+directory at the beginning of the file, and then creating it later as a
+prerequisite for creating my war file. This seems a little strange to
+me, but apparently it's a common way of doing things in Rakefiles.
+
+Also, please note that if you do things this way, you save yourself a
+bit of coding. When you specify directories this way, rake takes care of
+recreating the directory after it's been deleted and leaving it alone if
+it already exists. You can do this yourself with Ruby code, but why
+waste your time and energy? Rake also has the concept of a *file task*.
+You can see an example of this on line 12, and it has the following
+basic syntax:
+
+-  On the left side of the ==>= operator, you have the name of the file
+   that you want to create.
+-  On the right side, you have the name of the file or files that will
+   be used to create this file. Since my ear file is basically a war
+   file with a little bit of added metadata, I only specified the war
+   file for this task.
+-  This is a little weird, but the task allows you to refer to itself.
+   That's what I'm doing with the =task= variable. And in this case,
+   =#{task.name}= would be equal to =dist/myapp.ear=.
+
+You might have noticed that I don't really gain much by putting the code
+at line 14 into its own file task. I could have simply placed it within
+the =:ear= task, and saved a few lines of code and a little confusion.
+I'm doing it because this method of defining files seems to be more
+"idiomatically Rake-ish" to me, and that may make this file a little
+easier to change in the future.
+
+** Cleaning Up
+
+What may be /really/ confusing is that the =clean= prerequisite task
+isn't defined anywhere. Well, it kinda-sorta is actually. At line 1, I
+require the =rake/clean= module. This tells rake that I want to use it's
+built-in =clean= and =clobber= tasks. Traditionally, you use the =clean=
+task when you want to delete temporary files from your project, and
+=clobber= when you want to delete those files *plus* any files that can
+be recreated.
+
+Next, I specify what I would and wouldn't like rake to delete for me
+when I execute these tasks. At line 3, I'm telling rake that I *don't*
+want to delete =.bak= files when I clean house. At line 4, I'm saying
+that when I /really/ want to clean things up in my project (without
+affecting anything that I can't replace), I also want to delete the
+=dist= and =build= directories, which contain my =ear= and =war= files
+respectively.
+
+** Shell Interaction
+
+Once my =:war= task is finally done with its prerequisites, it can
+finally execute the code within its block. Line 55 simply prints a
+string to =STDOUT=, and line 56 simply executes the jar command to
+create a war file. Please note that rake has built-in versions of common
+shell commands such as =mkdir=, =cp= and =sh= that work across
+platforms. This is a very nice feature to have, and saves me a bit of
+coding time.
+
+** Command-Line Arguments And Help
+
+Since I wanted to be able to specify build properties from the command
+line, I added some common command-line tools to my script. This is first
+implemented at line 42, within the =:setenv= task. There, I'm reading
+the value of the *env* parameter that was passed to the script at
+runtime. Of course, before I assume that a parameter exists, I need to
+validate it. Tht's why the =:settenv= task has the =:validate= task as a
+prerequsite. It checks to see if some *env* value exists. If it does,
+the task exits normally, but if it doesn't, two things happen:
+
+1. I print an error message to STDERR
+2. The =:usage= task is invoked
+3. The script exits with a non-zero return code
+
+The second step should be pretty easy-to-understand by now. I simply
+invoke the =:usage= task, which does nothing but print usage
+information. Also, please note that the =:usage= task is defined as my
+default task at line 6. This means that if someone just types =rake= in
+my project's root directory, they will see a usage message. The third
+step surprised me. A lot of build tools (including Ant) don't really
+make it easy to just exit a build script, especially if you want to
+return an error code. Since Rakefiles are just Ruby scripts, I can use a
+very common scripting idiom to exit my script in a somewhat-graceful
+way.
+
+** Questions
+
+Here are some of the questions that went through my mind while I was
+writing this:
+
+*** Is Rake better than Ant?
+
+This is a big judgement call, but Rake definitely has its advantages. I
+like the fact that my build file is an actual script, not an
+specification of a process written in XML. If I was building a big Java
+program, I would probably stick with Ant since it has better Java
+integration. However, for my relatively simple projects, Rake could be a
+very useful tool.
+
+*** Why not just write a regular Ruby script instead?
+
+-  Command-Line Interface Consistency
+
+   -  Anyone running a Rakefile always executes the same command:
+      =rake [task]   [paramN=foo]=. This interface consistency makes it
+      easier to properly run a Rakefile without knowing a lot about what
+      it does.
+
+-  Code Reduction
+
+   -  Rake is program /and/ a framework (DSL?). This framework gives you
+      some nice built-in stuff that cuts down on your total
+      lines-of-code while improving script quality
+
+-  Dependency Based Programming
+
+   -  Martin Fowler explains (in
+      [[http://martinfowler.com/articles/rake.html#DependencyBasedProgramming][his
+      rake tutorial]]) why it is so much easier to use Rake to write
+      these types of scripts.

@@ -1,0 +1,24 @@
+#+TITLE: MKV Processing - Cheat Sheet
+
+* Concatenation
+
+Thanks to this:
+
+- http://askubuntu.com/a/115767/56013
+
+#+BEGIN_SRC sh :exports code
+  mkvmerge -o output.mkv input1.mkv +input2.mkv
+#+END_SRC
+
+* Splitting Based On Chapters
+
+The following command takes a single mkv file and creates 8 files:
+
+- File 1 is comprised of chapters 1-6
+- File 2 is comprised of chapters 7-11
+- Er doy for files 3-7
+- File 8 is comprised of chapters 36-whatever the end is.
+
+#+BEGIN_SRC sh :exports code
+  mkvmerge -o sailor-moon-s02d02-.mkv --split chapters:6,11,16,21,26,31,36 title00.mkv
+#+END_SRC

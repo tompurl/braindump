@@ -1,0 +1,146 @@
+Title: Walking With Rails 1 - Setup On Ubuntu Tags:
+agile-web-development-with-rails,rails,ruby,ubuntu,vim Category:
+Tutorial Comments: true
+
+** Overview
+
+One of my goals for 2010 is to gain a decent understanding of the
+[[http://rubyonrails.org/][Ruby On Rails]] framework.  I don't think
+that this knowledge will directly help me with my current job (as a
+FileNet P8 administrator), but I do think that it will provide some good
+benefits.
+
+First, learning about something that's a little bit outside of your
+comfort zone can often help you with your day-to-day tasks.  For
+example, if you teach yourself the basics of Java development, then you
+will know how to read a stack trace.  Having this knowledge is very
+important if you want to administer software written in Java.
+
+Also, it's just fun. Creating something useful out of a few lines of
+text never ceases to amaze me.  Also, I find that learning new technical
+skills is good for your brain.
+
+Finally, who knows what the future may bring?  It never hurts to know as
+much as you can about popular technologies in general when you work in
+IT.
+
+So to get started, I purchased a copy of
+[[http://www.pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition][Agile
+Web Development with Rails, Third Edition]] from the
+[[http://www.pragprog.com/][Pragmatic Programmers' web site]].  This
+book seems to be one of the best for beginners, and I really love that
+you can buy DRM-free ebooks from the Pragmatic Programmers' web site.
+
+** Installing Ubuntu Packages
+
+So enough background information.  Here's how I set up my system to get
+started with Rails development.  First, I installed all of the necessary
+software on my *Ubuntu 9.10* machine that was  available as an Ubuntu
+package:
+
+#+BEGIN_EXAMPLE
+    sudo apt-get install rails ruby-full rubygems rake mongrel git-core sqlite3
+#+END_EXAMPLE
+
+Here's why I installed more than just the *rails* and *ruby* pacakges. 
+When you install Ruby from source on a Linux machine, you get a lot of
+software.  In addition to the Ruby runtime, you get fun tools like
+*irb*, *rubygems*, *rdoc*, *ri*,and *rake*.  However, when you install
+the *ruby* package on Ubuntu and Debian, you just get the Ruby runtime
+along with a a couple of libraries. 
+
+Since I'm lazy efficient guy, I decided to install the *ruby-full*
+package instead to save a few keustrokes.  Unfortunately, the
+*ruby-full* package still doesn't include *rake*or *rubygems*, so I
+installed those manually.
+
+[[http://mongrel.rubyforge.org/][Mongrel]] is a developer's web server
+that is designed to work very well with Ruby on Rails development. 
+Since I am also impatient, I wanted a web server that would work a
+little faster than [[http://en.wikipedia.org/wiki/WEBrick][WEBrick]].
+
+Finally, I installed *git* because I wanted to share code between two
+different computers.  [[http://git-scm.com/][Git]] is a version control
+system that is very popular with Ruby developers, so I figured that I
+would use the most popular Ruby-related tools while I'm learning about
+Ruby.
+
+** Installing Software Without apt-get
+
+Natrually, you can't install everything that you need with *apt-get*. 
+For starters, the version of *rails* that is used in
+[[http://www.pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition][Agile
+Web Development with Rails, Third Edition]] is 2.2.2, so let's install
+that using *rubygems*:
+
+#+BEGIN_EXAMPLE
+    sudo gem install rails --version 2.2.2
+#+END_EXAMPLE
+
+This operation took a little while (~ 7 minutes) on my machine for some
+reason.
+
+Next, I'm a [[http://www.vim.org][Vim]] user, so I would like to see if
+the [[http://www.vim.org/scripts/script.php?script_id=1567][rails.vim]]
+plugin would help me at all.  There is an official Ubuntu package for
+this plugin called *vim-rails*, but when I try to install it using
+*apt-get*, I get the following error:
+
+#+BEGIN_EXAMPLE
+    Some packages could not be installed. This may mean that you have
+    requested an impossible situation or if you are using the unstable
+    distribution that some required packages have not yet been created
+    or been moved out of Incoming. The following information may help
+    to resolve the situation: 
+
+    The following packages have unmet dependencies: vim-rails: Depends:
+    vim-full but it is not installable 
+    E: Broken packages
+#+END_EXAMPLE
+
+When I tried to install the *vim-full* package on my machine, I got this
+error:
+
+#+BEGIN_EXAMPLE
+    Package vim-full is not available, but is referred to by another
+    package. This may mean that the package is missing, has been
+    obsoleted, or is only available from another source 
+    E: Package vim-full has no installation candidate
+#+END_EXAMPLE
+
+Ok, so after all of that, let's just install it the easy way. After you
+install the
+[[http://www.vim.org/scripts/script.php?script_id=1567][latest version
+of rails.zip]], do the following:
+
+#+BEGIN_EXAMPLE
+    $ cp rails.zip ~/.vim
+    $ cd ~/.vim
+    $ unzip rails.zip
+#+END_EXAMPLE
+
+Finally, open vim or gvim and execute the following command:
+
+#+BEGIN_EXAMPLE
+    :helptags ~/.vim/doc
+#+END_EXAMPLE
+
+In case your interested, here are the other Vim-related packages that I
+have installed on my machine:
+
+-  vim-common
+-  vim-gnome
+-  vim-gui-commom
+-  vim-runtime
+-  vim-tiny
+
+** Conclusion
+
+And that's it!  I now appear to have everything that I need to complete
+the beginning examples in
+[[http://www.pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition][Agile
+Web Development with Rails using]] *Ubuntu 9.10* and *Vim*.
+
+*Update (1/20/10)* - I added the *sqlite3* package to the apt-get line
+above.  This package is necessary if you want to query your database
+manually.

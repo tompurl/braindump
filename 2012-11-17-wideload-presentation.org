@@ -1,0 +1,10 @@
+Title: Wideload Presentation Date: 2012-11-17 22:41 Category: Software
+
+Here's a brief and hopefully not too boring overview of Wideload and why
+you may want to use it:
+
+-  [[files/wideload-preso/presentation.html][Wideload In A Nutshell]]
+
+Please note that this presentation uses
+[[http://imakewebthings.com/deck.js/][deck.js]], so you can use your
+arrow keys to navigate it.

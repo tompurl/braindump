@@ -1,0 +1,110 @@
+Title: Cool Kid Concurrency Without Threads - My Reading List Date:
+2012-06-21 21:57 Comments: true Category: Review
+
+*tl;dr* Check out the links below if you want to become a better systems
+administrator or programmer. This goes double for you if you work in a
+corporate environment on .Net or Java systems and want to understand
+what all of the kids are doing :-)
+
+I just finished reading [[http://workingwithunixprocesses.com/][Working
+With Unix Processes]] (my
+[[http://tompurl.com/2012/06/21/review-of-working-with-unix-processes/][review]]),
+and I really found it to be a fascinating overview of the Unix process
+model and API. The most interesting part for me was that you could use
+the =fork= syscall and Ruby to write concurrent programs that avoid a
+lot of the complexity that you can have when you use threads.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+I therefore did some research on one of the projects that was covered in
+the book called [[http://unicorn.bogomips.org/][Unicorn]]. This led me
+to the following articles:
+
+-  [[https://github.com/blog/517-unicorn][Unicorn!]]
+-  [[http://www.engineyard.com/blog/2010/everything-you-need-to-know-about-unicorn/][Everything
+   You Need to Know About Unicorn]]
+-  [[http://tomayko.com/writings/unicorn-is-unix][I Like Unicorn Because
+   It's Unix]]
+-  [[http://news.ycombinator.com/item?id=865306][related discussion on
+   Hacker News]]
+
+Most of the systems I've administered have run on multiple J2EE servers
+that sat behind some kind of load balancer, so the designs that are
+described in those articles are very different and interesting to me.
+For example, who knew that you could make multiple app servers listen on
+a single port and load balance using the kernel?
+
+One statement in the "I Like Unicorn" article really stood out to me:
+
+#+BEGIN_QUOTE
+  You can use processes, or async/events, or both processes and
+  async/events, but definitely not threads. Threads are out.
+#+END_QUOTE
+
+Regardless of whether this statement is valid, it was confusing to me
+because the only concurrent programming that I've ever done used Java
+and threads. The /Working With Unix Processes/ book covered
+multi-process programming for me, but what is the "async/events" method
+of concurrency?
+
+This led me to the [[http://twistedmatrix.com/][Twisted Framework]],
+which is a very robust Python library for building networked
+applications that use asynchronous IO. The documentation on the official
+web site was a little confusing, so I was /very/ grateful to find this:
+
+-  [[http://krondo.com/?page_id=1327][Twisted Introduction]]
+
+Before I continue, I need to say that this is one of the *best
+introductory books I have ever read*. It does an /excellent/ job easing
+you into the world of asynchronous IO, and it possesses a wonderful
+balance between breadth and simplicity. Regardless of whether you plan
+on ever writing a non-trivial Python or Twisted application, you would
+be hard pressed to find a better book on asynchronous IO /anywhere/.
+
+Oh, and the best part is that it's *FREE*. The author released the
+"chapters" as blogs for free on his site. You can choose to read the
+[[http://krondo.com/?page_id=1327][HTML version]], and you can even
+download a
+[[http://krondo.com/wp-content/uploads/2009/08/twisted-intro.pdf][PDF
+version]].
+
+** So Why Read All Of This?
+
+*If you're a sysadmin*, then you are probably already working with
+software that uses one of these concurrency methods. Knowing how they
+work at a high level will make you better at your current job and help
+you get a new job in the future.
+
+Also, Twisted really looks like a dream framework for sysadmins. I'm
+really looking forward to using it's network API to write some
+concurrent clients and "mini-servers".
+
+*If you're a programmer*, then it can be very useful to know /all/ of
+the different ways to add concurrency to your programs. Threads are
+great, and there are a lot of use cases where they make the most sense,
+but it's not the only tool in your toolbox. A lot of very interesting
+problems are being solved using the techniques listed above.
+
+** Links again
+
+So here's the "Cool Kids' Concurrency" reading list, just in time for
+Summer:
+
+*** Multi-Process Method
+
+-  [[http://workingwithunixprocesses.com/][Working With Unix Processes]]
+-  [[https://github.com/blog/517-unicorn][Unicorn!]]
+-  [[http://www.engineyard.com/blog/2010/everything-you-need-to-know-about-unicorn/][Everything
+   You Need to Know About Unicorn]]
+-  [[http://tomayko.com/writings/unicorn-is-unix][I Like Unicorn Because
+   It's Unix]]
+-  [[http://news.ycombinator.com/item?id=865306][related discussion on
+   Hacker News]]
+
+*** Asynchronous IO Method
+
+-  [[http://krondo.com/?page_id=1327][Twisted Introduction]]
+
+I hope that you enjoy it all as much as I am.

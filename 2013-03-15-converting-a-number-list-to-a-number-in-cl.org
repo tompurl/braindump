@@ -1,0 +1,26 @@
+Title: Converting A Number List To A Number In CL Date: 2013-03-15 22:17
+Comments: true Category: Tutorial published: true
+
+I spent a while tonight trying to figure this out, and I didn't find
+much that helped me, so I thought I would share my solution in case
+someone else has this problem.
+
+I'm using *Common Lisp*, and I need to convert a list of numbers into a
+concatenated version of that number. So I basically need to convert
+=(1 2 3 4)= to =1234= (as a number, not a string).
+
+Here's basically what you have to do:
+
+1. Convert your list into a string
+2. Convert your string into a number
+
+The second part is easy - just use the =parse-integer= function.
+However, the first part is what was so tricky to a CL beginner. There
+isn't a built-in function that I could find to perform that conversion,
+so I created the following function:
+
+#+BEGIN_HTML
+  <script src="https://gist.github.com/tompurl/5174818.js"></script>
+#+END_HTML
+
+I hope this helps out a few other Common Lisp newbies.

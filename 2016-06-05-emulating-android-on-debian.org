@@ -1,0 +1,89 @@
+#+Title: Lessons Learned Running The Android Emulator 
+#+Date: 2016-06-05 14:45 
+#+Category: Tutorial 
+#+Tags: linux, debian, android, cordova, development
+
+I am in the process of learning the basics of
+[[https://cordova.apache.org/][Cordova]] development using the
+[[https://www.manning.com/books/apache-cordova-in-action][Cordova In
+Action]] book. The installation of all of the necessary tools wasn't too
+bad, but starting an emulator for the first time was really a pain.
+Here's what I encountered and how I fixed the issues.
+
+You may not have /all/ of the same issues that I had, but I'm hoping
+that lots of different people will benefit from the notes below. Also, I
+had trouble finding Debian-specific help on my issues, so I'm hoping
+this will help my hippie brethren.
+
+* Lesson 1 - Troubleshoot From The Command Line
+
+First, I created two AVD's: one according to the instructions in the
+book (which is basically a very boring ARM-based image) and a stock
+Nexus 5 image. On both images I made sure that the *Use Host GPU* option
+was selected since that was recommended in the book.
+
+I then tried starting the custom AVD using the AVD Manager. I would see
+a screen telling me that the AVD was launching, but then it would crash
+without any error message. I then tried starting the other AVD and got
+the same results.
+
+This wasn't super helpful, so I opened up =htop= to see if any processes
+were being launched when I tried starting an AVD. When I did I saw the
+following:
+
+#+BEGIN_EXAMPLE
+    emulator64-arm -avd MyEmulator
+#+END_EXAMPLE
+
+I then tried running the same command in my terminal and this time I got
+an error message stating that I didn't have sufficient disk space. So
+hooray for a clear error message!
+
+Also, I ended up having so many issues starting AVD's from the AVD
+Manager that I finally just switched to the command line method of
+launching AVD's. The =emulator64-arm= executable works really well with
+my ARM-based images and the =emulator64-x86= executable works really
+well with my (you guessed it) x86-based images.
+
+* Lesson 2 - The AVD Manager Is (Probably) Storing Huge Files On My /tmp
+Partition
+
+I know this is old-fashioned, but I have 3 different partitions on my
+machine:
+
+-  =/= (root)
+-  =/boot=
+-  =/home=
+
+When I started this process I had about 1.5 GB of free space on my root
+partition and 150 GB of free space on my =/home= partition. However, the
+Android emulator was complaining about a lack of disk space, so this
+leads me to believe that it's storing some pretty big files in my =/tmp=
+folder (which is in my root partition).
+
+The practice of storing huge files in a =/tmp= folder isn't unheard of
+but it's definitely less than ideal. I know I'm not the only person who
+has a fairly small root partition, and these types of issues can be
+difficult to both find and fix.
+
+But fix it I did! So now on to the next issue.
+
+* Lesson 3 - Set Your LD\_LIBRARY\_PATH
+
+Now when I tried running the =emulator64-arm -avd MyEmulator= command I
+would get this error:
+
+#+BEGIN_EXAMPLE
+    emulator: ERROR: Could not load OpenGLES emulation library [lib64OpenglRender]: lib64OpenglRender.so: cannot open shared object file: No such file or directory
+    emulator: ERROR: Could not initialize OpenglES emulation, use '-gpu off' to disable it.
+#+END_EXAMPLE
+
+Thankfully this was pretty easy to fix. All you have to do is add this
+to your ZSH/Bash/whatever profile:
+
+#+BEGIN_EXAMPLE
+    export LD_LIBRARY_PATH=~/lib/android-sdk-linux/tools/lib64:~/lib/android-sdk-linux/tools/lib:$LD_LIBRARY_PATH
+#+END_EXAMPLE
+
+Of course you'll need to replace the =~/lib/android-sdk-linux= parts of
+that path to the path that you're using.

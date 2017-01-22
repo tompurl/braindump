@@ -1,0 +1,94 @@
+Title: Groovy For Sysadmins Tags:
+administration,ant,groovy,java,jython,programming Category: Review
+Comments: true
+
+I've been using the [[http://groovy.codehaus.org/][Groovy]] programming
+language a lot lately at work to programmatically interact with systems
+that have Java interfaces. Simply put, it's great, and it really makes
+my job as a sysadmin of Java middleware easier. Also, if you've tried
+other Java-based scripting languages like
+[[http://www.jython.org/][Jython]] in the past but have been
+disappointed (like me), then I definitely recommend that you check
+Groovy out. I think that the admin angle of the language is lost on most
+potential users, however. Groovy is a great language for writing
+small-to-medium-sized administrative scripts, and it's even a great
+language for non-"real" programmers who want to start dipping their toes
+into the pool of Java. For those who are considering whether they want
+to put in the time to learn a little about Groovy, here are some of the
+advantages that I see as a sysadmin: ## No More Compiling & Building
+
+First of all, if you're still compiling your Java apps using javac, then
+stop reading this article and start using
+[[http://ant.apache.org/][Apache Ant]]. You're wasting your time with
+javac, even if most of your scripts are pretty small. Ant is a great
+tool that has saved me a ton of time, but it's definitely not without
+it's own learning curve and occasional problems, however. With Groovy,
+there is no explicit compilation step, just like with Perl and the Korn
+Shell. You just write your script, run it, fix and problems, run your
+script again, and then rinse and repeat if necessary. This is a much
+more intuitive programming workflow for most sysadmins. ## Easier
+Deployments
+
+If your script is going to eventually run on a server, all you have to
+do to deploy it is to upload it to the server. From there, you can run
+it like any other Perl or shell script. You don't have to worry about
+writing or deploying wrapper scripts for your class or jar files that
+actually invoke your program. ## Simpler Syntax
+
+Here are some of the syntactic niceties offered by Groovy: - Like Python
+and the Korn Shell, Groovy doesn't force you to end every line with a
+semi-colon if it only contains a single statement. - Loose typing, so
+you don't have to declare a variable's type when you create it. - Fewer
+brackets - No forced classes - In Java, every file is explicitly defined
+as being a class. You don't have to do this with Groovy.
+
+-  Multiple Classes In One File
+
+   -  Tired of following OO design standards that force you to create 8
+      separate class files for a relatively simple program? Put them all
+      in a single file in Groovy and simplify your life.
+
+-  More features that I'm just now discovering like closures and
+   Javabean-like accessors.
+
+** Text Editor Friendly
+
+I was reading a blog article by a Sun developer the other day where he
+said that he didn't like Groovy because it didn't integrate very well in
+Netbeans (an IDE). He mentioned that there was no decent code completion
+module for Groovy yet like there is for Java. It therefore took him
+longer to write the following print statement in Groovy:
+=println "hello"= ...than it did to write the equivalent (and much
+longer) statement in Java with the help of code completion:
+=System.out.println("Hello");= Although this statement is a little
+short-sighted in my opinion ("I don't like cars because there's no place
+to hook up my horse"), it points out one of Groovy's strengths: it can
+be used very well with only a text editor and a command prompt. Groovy,
+like Perl and shell languages, was never designed with whiz-bang IDE's
+in mind. It's brief, powerful syntax and development tools were designed
+to make programming with it so easy that you could do it using Notepad
+and the command prompt if you wanted and still be very efficient and
+effective. Groovy's ease-of-use outside of an IDE is good news for most
+sysadmins for a couple of reasons. First, they spend a good portion of
+their days using text editors to do things like view log files, change
+config files, et cetera. Being able to use the same text editor to also
+write scripts lowers the learning curve and is very synergistic. Also,
+most sysadmins usually don't have IDE's like Eclipse or Netbeans
+installed on their system. For the type of Java programming that they
+typically do, they view IDE's as being bloated and having an
+unnecessarily high learning curve. ## Groovy Shell
+
+One of [[http://www.python.org/][Python's]] greatest strengths is the
+fact that it comes with an interactive interpreter. Groovy also includes
+an interactive interpreter, and its major benefit is that it allows you
+to evaluate small snippets of code quickly and easily. This comes in
+handy when you're having problems getting a chunk of code to work, and
+also when you're "kicking the tires" on a new third-party library or
+language feature. ## Conclusion
+
+There are a lot of new scripting languages out there that are
+Java-based, and their potential benefits are numerous. However, it can
+be difficult to pick one that is worth the time and attention necessary
+to achieve proficiency. In my opinion, Groovy fits the bill and then
+some, and is especially good for people who need to write
+small-to-medium-sized programs that interact with Java systems.

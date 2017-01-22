@@ -1,0 +1,59 @@
+Title: Ubuntu 9.04 => 9.10 Upgrade Tags:
+9.10,mysql,mythtv,ubuntu,virtualbox Category: Review Comments: true
+
+I just finished upgrading my
+[[http://www.mythtv.org/][MythTv]]/printing/data/everything server from
+version 9.04 of Ubuntu to 9.10. For the first time, I tried using the
+Software Update program to upgrade my entire system, and it went
+surprisingly well. Here are some of the highlights; hopefully they will
+help a few other people. ### MythTv
+
+The OS upgrade included an upgrade of MythTv from 0.21 to 0.22, so I was
+a little nervous about how well mythbackend and all of my MythTv-related
+applications (like mythweb and nuvexport) would work. To my surprise,
+mythbackend and mythweb both upgraded flawlessly. This is a really
+impressive feat, and it reflects the hard work that the MythTv package
+maintainers put into each Ubuntu release. The nuvexport package is
+broken for me, but I think that's because I compiled a customized
+version of [[http://ffmpeg.org/][ffmpeg]]. Oh well, this seems to be a
+common hurdle when I upgrade Ubuntu. One little thing that I did have to
+fix after the upgrade was my MySQL configuration. The upgrade laid down
+the default version of the =/etc/mysql/my.cnf= file (after asking, of
+course). This file was configured to block any computer from using MySQL
+over the network. This is bad for me, because I like to watch my MythTv
+movies from other computers using mythfrontend. To fix this, I simply
+commented out the following line in =my.cnf= on my MythTv server by
+placing a =#= in front of it: bind-address = 127.0.0.1
+
+After that, I simply restarted MySQL and I was able to use mythfrontend
+from my other computers. Note If you are on a network with other
+untrusted hosts, then you will want to use a more secure configuration
+than this. ### VirtualBox
+
+I run Windows XP in a [[http://virtualbox.org/][VirtualBox]] VM for
+work, so it's /very/ important that /both/ VirtualBox and my XP image
+work properly at all times. Again, to my surprise, everything worked
+perfectly after the upgrade. I didn't even need to re-install
+VirtualBox. The VirtualBox kernel module was automatically re-compiled
+during the upgrade process, so I didn't even have to do that. Please
+note that I was using the *absolute latest* stable version of VirtualBox
+(3.0.12) before I started the upgrade. Your mileage may vary if you are
+using an older version. ### Overall
+
+Again, I am very impressed by how well everything went. I don't see why
+I would ever choose to do a fresh installation of Ubuntu again on this
+machine. ### Caveat Emptor
+
+The automatic upgrade process is *far from perfect*, and *your results
+may be different*. *Before you start any major upgrade*, make sure that
+you perform the following steps: 1. *Make a backup of all of your
+important files* - I use [[http://rsnapshot.org/][rsnapshot]] to back up
+my important files daily, and it has saved my bacon more than a couple
+of times. Also, it's a good idea to store this backup on a separate disk
+from the boot disk. 2. *Download the current and target versions of
+Ubuntu and burn them to CD's* - If things do go south, then you will
+want to be able to either reinstall the current working version of
+Ubuntu or the target version. Having the actual ISO's available on a CD
+may save you a ton of time and grief.
+
+Good luck!

@@ -1,0 +1,34 @@
+Title: Day 1 With MediaMVP and MVP Media Center Tags:
+mediamvp,mvpmc,mythtv Category: Review Comments: true
+
+Well, I got the
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MVP]] last
+Thursday night, and it's pretty freakin' sweet. Here's my impressions so
+far: 1. *It was easier to set up than I thought it would be*, even
+though I'm also using [[http://www.mvpmc.org/][MVP Media Center]]
+(MVPMC) instead of the stock software provided by Hauppauge. 2. *The
+video quality is very good* in my opinion, more than adequate, though
+I'm not a connoisseur of such things. 3. It's *even smaller than I
+thought it would be*, which is great. Also, even though it's silent and
+fanless, it stays pretty cool.
+
+Also, I have a few things that I need to look into before I'm completely
+comfortable with everything: 1. *Non-MPEG playback is a little slow*.
+This is due to the fact that AVI's have to be transcoded to MPEG on my
+media server using VLC and then streamed to the
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MVP]] as
+an MPEG. My media server is a little underpowered (512 MB of RAM,
+single-core 1.6 Ghz Sempron processor), so I need to see about tweaking
+the amount of resources that VLC requires. 2. *Live TV seems to be
+mostly-broken*. I don't know if I really need this feature, but I may
+spend a few hours trying to make it usable.
+
+After day 1, I'm very happy. I am now able to watch any type of movie
+that is stored on my Ubuntu media server, including MPEG's, Xvid AVI's,
+Ogg Theora, and movies stored within my MythTv backend (which is on the
+same server). The next step is to move the
+[[http://www.hauppauge.com/pages/products/data_mediamvp.html][MVP]] out
+of my "sandbox" and into the living room where it can be used by someone
+other than me. I will be sure to some of the important details,
+including my eventual network topology and
+[[http://www.mvpmc.org/][MVPMC]] configuration files.

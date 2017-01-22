@@ -1,0 +1,117 @@
+Title: Android Rooting Tutorial For Busy People Date: 2012-07-12 09:56
+Comments: true Category: Review
+
+I recently needed to *remove some bloatware from my LG Optimus T*. I
+wanted to install some terribly useful applications that could not be
+installed on my SD card, but my phone's internal memory was filled with
+junk that my phone company thought I might like.
+
+Unfortunately, phone companies actually make money off of installing
+this space-wasting garbage, so they remove the option of removing
+software like this. So even though I /want/ to install the 7 MB
+Weatherbug app, I simply can't because I don't have the space.
+
+I did a little research on this, and I kept bumping into pages that
+mention a concept called *rooting*. This sounded very promising to me,
+but also a little dangerous, so I tried in vain to find a simple,
+definitive guide that would explain *what it meant, how I could do it,
+and the risks*.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+To my dismay, I soon realized that about 98% of the documentation on
+rooting is written by over-caffeinated 13 year-olds with /way/ too much
+free time. The process is actually very simple, but you would never know
+it by reading the 12-page, sub-literate forums.
+
+So here's my attempt at writing a "Guide To Rooting" for busy people who
+/really/ don't want to break their phones. I hope it helps a few other
+people.
+
+** Security Warning
+
+Simply put, I can't guarantee that the steps below won't break your
+phone. Also, I can't guarantee that your phone company won't send you an
+update that will break your phone after you root it.
+
+I cannot be held responsible for what happens to your phone after you
+try and root it. *You are responsible* for everything that you do.
+Please don't send me hate mail if the twerp at the T-Mobile store points
+and laughs at you when you ask him to fix your phone.
+
+All I can do is tell you what worked for me and my *unique situation*.
+
+** The Risk/Reward Tradeoff
+
+Since there is some risk associated with this activity, please make sure
+that the reward is worth the risk. Ask yourself why are you rooting your
+phone. Is the problem you're solving worth the risk of making your phone
+unusable for any period of time?
+
+If the answer is no, you can stop reading. If the answer is yes, then
+let's continue.
+
+** What Is Rooting?
+
+Here's the geeky summary. Behind the curtains, Android is a Linux-based
+operating system. Linux has the concept of a *root user*, which is a
+user that can do /anything/ on the system.
+
+With that sort of power comes the ability to not only remove bloatware,
+but to *royally screw things up*. So by default, the account that's used
+to operate the phone is *not* the root user. It's a *regular* user that
+isn't given enough rope to hang him or herself.
+
+When you root your phone, what you're doing is giving the "regular"
+account the ability to run commands as the root user.
+
+** Is This The Same As Installing A New OS/ROM?
+
+No. "Rooting" does not equal "Installing A New OS". You're just giving
+your account more access privileges on the existing OS.
+
+** The Actual Process
+
+Ok, we went over the risks. We went over what the term *rooting*
+actually meant. Now on to the good stuff: *how to do it*.
+
+*Note*: Please remember, this is the process that worked for me. I have
+a *LG Optimus T* running *Android 2.2*. It may work for you, and it's my
+understanding that it works for a lot of people. However, it's in your
+best interest to *research all of the tools below* to ensure that they
+actually work for your particular phone.
+
+Ok, so here's what I did:
+
+1. Downloaded
+   [[http://forum.xda-developers.com/showthread.php?t=833953][z4root]]
+   from the web site onto my SD card.
+2. Navigated to the apk file using
+   [[https://encrypted.google.com/url?sa=t&rct=j&q=play%20total%20commander&source=web&cd=1&ved=0CE0QFjAA&url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.ghisler.android.TotalCommander&ei=Phz_T4XYPOeY2wWX9NzjBA&usg=AFQjCNEoHScKR65K6va5s1XT_7uTs8kEvg&cad=rja][Total
+   Commander]], or whatever file explorer you like to use, and installed
+   it.
+3. Ran the z4root application and asked it to root my phone.
+4. z4root then rebooted my phone and voilà, I was done!
+
+That's it. Seriously, that's it. After all of the research, conflicting
+information and barely-literate forums, *all I had to do was install
+z4root and use it*.
+
+** Finally Solving My Original Problem
+
+Now back to the reason that I did all of this in the first place:
+*uninstalling "protected" bloatware*. To do this, I actually had to
+install an application that was designed to use root access to remove
+applications that you're not typically supposed to remove.
+
+The most universally acclaimed application that I found for performing
+this task was
+[[https://play.google.com/store/apps/details?id=com.keramidas.TitaniumBackup][Titanium
+Backup]]. After I rooted my phone, it worked like a champ.
+
+** Conclusion
+
+I hope that I have demystified this process a bit. Good luck and don't
+break your phone :-)

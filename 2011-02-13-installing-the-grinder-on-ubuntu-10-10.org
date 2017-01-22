@@ -1,0 +1,165 @@
+Title: Installing The Grinder On Ubuntu 10.10 Tags:
+grinder,java,load-testing,performance,python,the-grinder-series
+Category: Tutorial Comments: true
+
+#+BEGIN_QUOTE
+  *Update On 3/25*: Later in this article, I state that I will soon be
+  writing more tutorials about using the Grinder. Well, it turns out
+  that I have too much other stuff going on that *isn't* related to load
+  testing, so I will be writing about those topics instead. Hopefully I
+  will be able to revisit the topic someday.
+#+END_QUOTE
+
+One of my development goals for this year is to learn a lot more about
+J2EE application performance. Gathering performance statistics for a
+J2EE application isn't really difficult, but I soon realized that before
+I could do that, I needed to find a way to *run my applications under
+load*.
+
+At work, we typically do this by using a non-free tool such as
+LoadRunner. This tool is very popular and it seems to work fairly well,
+but I can't afford the license or training costs.
+
+Luckily, I found an open source alternative called
+[[http://grinder.sourceforge.net/][The Grinder]]. This tool's workflow
+is similar to the one used by LoadRunner, and fit all of my
+requirements, including:
+
+-  *Free and open source (FOSS)*
+-  *Cross Platform* - It is written in Java and runs well for me on
+   Linux and Windows
+-  *Mature* - The software has been around for nearly 10 years and it is
+   currently on version 3
+-  *Easily Scriptable* - You can write load tests using
+   [[http://www.jython.org/][Jython]], which is a version of
+   [[http://www.python.org/][Python]] that is written in Java.
+
+   -  If you haven't used it before, Python is a /great/ scripting
+      language that does a good job balancing functionality and
+      ease-of-use.
+   -  Jython is also a very well-established and mature FOSS project. I
+      was using early versions of it as far back as 2001.
+
+The problem is that I had trouble finding many tutorials on using The
+Grinder. I therefore decided to write a couple of tutorials, covering
+the following topics:
+
+1. Installing The Grinder on Ubuntu 10.10
+2. Executing the *Hello World* test
+3. Recording and executing a test against a local web application
+
+I'll cover the first bullet point in this article, and I hope to have
+the other bullet points covered very soon in othe articles.
+
+** Installing The Grinder
+
+The Grinder does not include an installation script *or* startup scripts
+for some strange reason. You therefore need to do all of this stuff
+yourself. Here's how I did it.
+
+*** Prerequsites
+
+The only prerequisite for The Grinder is Java 1.5 or greater, but some
+features can only be used with Java 1.6. So let's install it:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install sun-java6-jdk
+#+END_EXAMPLE
+
+Everything else that you need to run The Grinder is part of the package.
+
+One more thing that you may want to install is the
+[[http://pychecker.sourceforge.net/][pychecker]] package. This tool will
+check your test scripts for any typos or indentation errors. Simply
+install it like this:
+
+#+BEGIN_EXAMPLE
+    $ sudo apt-get install pychecker
+#+END_EXAMPLE
+
+It's not required, but it can save you some big headaches later when
+your script fails to run.
+
+*** Installing The Package
+
+Since the script doesn't have a "native" installer and there isn't an
+Ubuntu package, we'll do things the hard way:
+
+1. Download the latest version of Grinder 3. I'm using version 3.4. This
+   should be a zip file.
+2. Unzip this file in an arbitrary location. For me, this created a
+   folder called =grinder-3.4=.
+
+-  =$ unzip grinder-3.4.zip=
+
+3. Move this Grinder folder under the =/opt= folder.
+
+-  =$ sudo mv grinder-3.4 /opt=
+
+4. To make our lives a little simpler, make yourself the owner of the
+   /opt/grinder. My username is *tom*, so this is how I would do this:
+
+-  =$ sudo chown -R tom:tom /opt/grinder-3.4=
+
+Now The Grinder is officially "installed", but it's a little clunky to
+use. Let's fix that.
+
+*** Your CLASSPATH
+
+Adding the =grinder.jar= file to your CLASSPATH variable will make it
+much easier to use The Grinder:
+
+1. Open your =$HOME/.bash_profile= file using a text editor.
+2. Look for a =CLASSPATH= variable.
+3. If one exists, then add =/opt/grinder-3.4/lib/grinder.jar= to it.
+4. If the CLASSPATH variable doesn't exist in this file, then add the
+   following to lines:
+
+   -  =CLASSPATH=$CLASSPATH:/opt/grinder-3.4/lib/grinder.jar=
+   -  =export CLASSPATH=
+
+Now either log out and back in or source your =.bash_profile= file by
+typing the following command:
+
+#+BEGIN_EXAMPLE
+    # you should only have to do this the first time
+    $ source ~/.bash_profile
+#+END_EXAMPLE
+
+*** Aliases
+
+Once the =grinder.jar= file is in your classpath, you can start
+different Grinder components using their full Java path. For example,
+you should be able to start the Grinder Console using the following
+command:
+
+#+BEGIN_EXAMPLE
+    $ java net.grinder.Console
+#+END_EXAMPLE
+
+This isn't terribly difficult, but it's hard to remember and tedious to
+type. We're therefore going to create alias shortcuts for the =Console=
+and =TCPProxy= commands. Open your =$HOME/.bashrc= file in a text editor
+and add the following lines anywhere in the file:
+
+#+BEGIN_EXAMPLE
+    alias gconsole="java net.grinder.Console"
+    alias gproxy="java net.grinder.TCPProxy"
+#+END_EXAMPLE
+
+Now either log out and back in or source your =.bashrc= file by typing
+the following command:
+
+#+BEGIN_EXAMPLE
+    # you should only have to do this the first time
+    $ source ~/.bashrc
+#+END_EXAMPLE
+
+Finally, you can start the Grinder Console and TCPProxy components by
+simply typing =gconsole= and =gproxy=, respectively.
+
+** Conclusion
+
+You should now have a working version of The Grinder that is very easy
+to execute. In my next tutorial, I'll show you how to execute a hello
+world test so that you can start to "kick the tires" of The Grinder.

@@ -1,0 +1,119 @@
+Title: Fleeing From Google Apps Date: 2013-07-17 08:00 Tags:
+email,google,pobox,nsa,prism,privacy Category: Tutorial
+
+*Note*: I wrote most of this article long before the PRISM project was
+exposed by Edward Snowden. My intent was to protect my personal
+information from third parties. If your intent is to enhance your
+privacy and "opt-out" of PRISM, then the information below offers a
+small amount of protection. Your best strategy in this case is to
+encrypt your email using PGP or GPG.
+
+I made a resolution recently to stop using online services that are
+designed to harvest my personal information so that it can be sold to
+advertisers. I think the following XKCD comic sums up my feelings about
+these types of companies pretty well:
+
+Of course, if I'm really going to do this, I also need to stop using
+Google. I've been a big fan of Google's email, calendar, and contacts
+services for a while now for the following reasons:
+
+-  Google has the *best web apps*. You could only use their web apps for
+   everything and have no complaints.
+-  *Integration* between my *Android phone* and Google's services is
+   truly brain-dead and wonderful.
+-  It's *free* :-)
+
+I soon learned that recreating the "Google experience" wth a different
+service provider would require a bit of time, research, and money.
+Here's how I made everything work for me.
+
+#+BEGIN_HTML
+  <!--more-->
+#+END_HTML
+
+** Which Email/Calendar/Contacts Host Did I Choose?
+
+I ended up choosing [[http://pobox.com][Pobox]] as my new host for the
+following reasons:
+
+-  My information is private and never used to send my targeted
+   advertising
+-  They've been around for a long time and have a great reputation
+-  They have great service
+-  They are fairly inexpensive
+-  They have a choice of great webmail clients.
+-  *They can also host you calendar and contacts using CalDAV and
+   CardDAV servers.*
+
+The last bit is pretty important. Now that I can store my calendar,
+contacts, and email in one place, I can move 99% of my personal
+information out of Google.
+
+** What did I learn?
+
+*** You Need To Use Fat Clients
+
+The web clients provided by Pobox are very good, but they're not nearly
+as good as what you get from Google.
+
+For example, I really like to be able to set up multiple reminders for a
+calendar event. You simply can't do this using any of the web clients
+that Pobox provides. Also, I like to encrypt my email using GPG, and the
+only safe way to do that is with a fat client.
+
+So what do I use now? On Android, I'm using
+[[https://play.google.com/store/apps/details?id=com.fsck.k9][K-9 Mail]]
+for email,
+[[https://play.google.com/store/apps/details?id=org.dmfs.caldav.lib][CalDAV-Sync]]
+for calendar syncing, and
+[[https://play.google.com/store/apps/details?id=org.dmfs.carddav.Sync][CardDAV-Sync]]
+for contact syncing. Of course, you can use whatever you want, but these
+are great general purpose tools that should work with a lot of
+providers.
+
+On my laptop I'm a Linux user, so I use [[http://www.mutt.org][mutt]]
+for email and [[http://projects.gnome.org/evolution/][Evolution]] as a
+Contacts and Calendar client. And finally, I use
+[[https://wiki.archlinux.org/index.php/SSMTP][ssmtp]] as my
+[[https://en.wikipedia.org/wiki/Message_transfer_agent][MTA]]. To
+perform full-text searches of my mail, I use
+[[http://www.rpcurnow.force9.co.uk/mairix/][mairix]].
+
+Of course, you should spend time finding what works best for you. There
+are tons of choices for just about every conceivable preference.
+
+*** Lots Of Programs Can Send Email, But Very Few Can Also Manage
+Calendars And Contacts
+
+On Linux, you're best bet is Evolution. Apparently, Mail.app works well
+on a Mac and Outlook works well on Windows. If you're looking for other
+options, you're *really* limited. The only other option that I found
+that would work is [[https://www.mozilla.org/thunderbird/][Thunderbird]]
+with the
+[[https://www.mozilla.org/projects/calendar/lightning/][Lightning]]
+plugin.
+
+*** Marten Gajda's Android Apps Are Fantastic
+
+Marten Gajda had created a
+[[https://play.google.com/store/apps/developer?id=Marten+Gajda][ton of
+apps]] that allow your phone to talk to non-Google CardDAV and CaLDAV
+servers. I'm currently using the CalDAV-Sync, CardDAV-Sync and Contact
+Editor apps, and I highly recommend them. They are the glue that allows
+me to use my phone just like I did before I ditched Google.
+
+*** It's Really Hard To Quit :-S
+
+Unfortunately, even after making all of these changes I still have to
+rely on Google a little bit. For example, I need a Gmail account to use
+my Android phone and purchase apps from the app store. Also, a lot of
+Google apps use Google for authentication.
+
+The good news is that this is getting better. More app stores are
+opening and the 3rd-market firmware is getting better. So if you
+absolutely *must* sever all ties with Google, the future looks bright.
+
+** Conclusion
+
+The switch from Google to Pobox was a bit of work, but definitely worth
+it for me.
