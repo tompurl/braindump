@@ -1,0 +1,89 @@
+#+Title: Quit Optimizing Lines Of Code
+
+I was talking to a peer technologist today about "The Future Of
+Client-Side Software" and we both remarked how [[https://angular.io/][Angular]] really seems to
+be where a *lot* of long-term investments are being made lately. If
+you're not aware, Angular is a framework for building rich interfaces
+using Javascript and HTML. 
+
+Now this isn't all bad because Angular really works wonderfully for a
+*lot* of web and mobile apps. Also, if you already know how to create
+a web application (and most new developers do), then you can use a lot
+of that knowledge to build simple mobile apps too. There's no reason
+to spend 4 months studying Objective C just so you can publish your
+brochureware app on the iPhone.
+
+However, one of Angular's claims that concerns me is that you can
+write all of your client-side code in one codebase with it. So for
+example you could write client side code *in one codebase* that looks
+good on the following clients:
+
+- Android
+  - 3 year-old device
+  - Brand new device
+- iPhone
+- iWatch
+- Browsers
+  - Mac
+    - Safari
+    - Chrome
+  - Windows
+    - Firefox
+    - IE/Edge
+    - Chrome
+
+This is kindof daunting, right? Oh wait, did I forget to mention that
+Windows users comprise over 70% of the users in many industries, and 
+that the browsers available on one version can be very different than
+the browsers on a brand-new system?
+
+Now I know what you're saying - this is *exactly why* we need Angular
+or some other framework (since this really isn't about Angular
+specifically) to make it easy to write as little code as possible for
+all of these devices. More code == more complexity which certainly
+equals slower changes, which is bad right?
+
+Well, yes slow changes are bad and thank goodness that most companies,
+even large corporations now acknowledge that speed and agility == new
+revenue. But what management in a lot of those companies don't understand
+is that *agility is not proportional to lines of code*. Or you could also
+say:
+
+#+BEGIN_NOTE -r
+
+Stop optimizing your IT infrastructure for lines of code
+
+#+END_NOTE
+
+Now this may sound crazy because *of course complexity matters*. You
+certainly wouldn't write a separate app for every client listed above,
+especially if each client required a different framework or
+programming language. What I'm saying is that *it doesn't matter /nearly/
+as much* as the following:
+
+* Integration Costs
+
+Designing and writing a new, responsive client for a web application
+is a short walk in the park compared to how long it can take to make that
+application integrate with the following:
+
+- Push notification gateways
+- Relational databases
+- ESB's
+- Rules engines
+- Backend systems of record, *especially* if that system of record
+  runs on a mainframe
+
+I love the book [[https://www.amazon.com/Release-Production-Ready-Software-Pragmatic-Programmers/dp/0978739213][Release It!]] by Michael Nygard, and the most valuable
+knowledge that I gained is that nobody works on enterprise application
+projects - we work on enterprise *integration* projects. Building all
+of the pieces of the puzzle is easy. Making them work together
+properly is often a nightmare that can take years.
+
+So, let's assume that you actually are able to write one codebase that
+looks great on everything, and let's assume that you were able to do
+so with less money and time. Wait, what do I do with this?
+
+* Pipeline efficiency
+  - TODO
+
