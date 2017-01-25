@@ -1,5 +1,22 @@
 #+TITLE: Favorite Quotes
 
+* 2017
+** 1/25/2017
+
+Tim Bray, from his blog post [[https://www.tbray.org/ongoing/When/201x/2017/01/22/Womens-March][The Women's March]] about the worldwide
+protest of the new Trump administration that occurred the day after
+his inauguration:
+
+#+BEGIN_QUOTE -r
+
+I think it's obvious. A bunch of reasonable people, led by women,
+needed to shout out and reassure each other that they weren't crazy
+because they were horrified at a nouveau regime that's crude,
+threatening, ignorant, oligarchic, reactionary, childish, corrupt,
+bigoted, thin-skinned, offensive, and oozes appallingly bad taste.
+
+#+END_QUOTE
+
 * 2016
 ** 12/16/2016
 
