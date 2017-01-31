@@ -1,0 +1,60 @@
+#+TITLE: ffmpeg Cheat Sheet
+
+* Converting H264 Files To TS Files
+
+Look here:
+
+- https://trac.ffmpeg.org/wiki/Concatenate#protocol
+
+#+BEGIN_SRC sh
+
+ffmpeg -i input1.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts intermediate1.ts
+
+#+END_SRC
+
+* Concatenating H264 Files
+
+Look here:
+
+- https://trac.ffmpeg.org/wiki/Concatenate#protocol
+
+First convert the H264 files to TS files using the command above. Then
+concatenate them like this:
+
+#+BEGIN_SRC sh
+
+ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy -bsf:a aac_adtstoasc output.mp4
+
+#+END_SRC
+
+* Cutting Clips
+
+This is stolen from here:
+
+- http://superuser.com/a/141343/78501
+
+First, if you're working with an H264 file you should converti it into
+a TS file. Then you can do this:
+
+"The following would clip the first 30 seconds, and then clip
+everything that is 10 seconds after that:"
+
+#+BEGIN_SRC sh
+
+ffmpeg -i input.ts -ss 00:00:30.0 -c copy -t 00:00:10.0 output.ts
+
+#+END_SRC
+
+* Encoding Examples
+
+** Youtubu
+
+Naturally, this assumes that you're working with a TS file.
+
+- https://www.virag.si/2015/06/encoding-videos-for-youtube-with-ffmpeg/
+
+#+BEGIN_SRC sh
+
+ffmpeg -i <input file> -codec:v libx264 -crf 21 -bf 2 -flags +cgop -pix_fmt yuv420p -codec:a aac -strict -2 -b:a 384k -r:a 48000 -movflags faststart <output_name>.mp4
+
+#+END_SRC

@@ -35,7 +35,7 @@ marginalia. It's a lot like looking straight at my brain :-)
 
 - [[file:MinidlnaCheatSheet.org][minidlna Cheat Sheet]]
 - [[file:MKV_Processing_-_Cheat_Sheet.org][MKV Processing - Cheat Sheet]]
-
+- [[file:ffmpeg_Cheat_Sheet.org][ffmpeg - Cheat Sheet]]
 
 ** Programming
 
