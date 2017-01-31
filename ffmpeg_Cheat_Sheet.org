@@ -47,7 +47,7 @@ ffmpeg -i input.ts -ss 00:00:30.0 -c copy -t 00:00:10.0 output.ts
 
 * Encoding Examples
 
-** Youtubu
+** Youtube
 
 Naturally, this assumes that you're working with a TS file.
 
