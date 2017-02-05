@@ -1,0 +1,30 @@
+#+TITLE: Docker Cheatsheet
+
+* Django Related
+
+** Dev Daemon Container
+
+Running a "dev daemon" container (which does *not* use a real app
+server):
+
+#+BEGIN_SRC bash
+
+cd ~/Dev/Python/my_project
+sudo docker run --name some-name -v "$PWD":/usr/src/app -w /usr/src/app -p 8000:8000 -d tompurl/django-dev ash -c "python manage.py runserver 0.0.0.0:8000"
+
+#+END_SRC
+
+This container doesn't have to persist, but it makes restarts and such
+a little faster if it does. Your choice.
+
+** Shell Container
+
+This is the container you can use to run Django shell commands:
+
+#+BEGIN_SRC sh
+
+# Please run this command outside of Emacs
+cd ~/Dev/Python/my_project
+sudo docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app -it tompurl/django-dev ash
+
+#+END_SRC
