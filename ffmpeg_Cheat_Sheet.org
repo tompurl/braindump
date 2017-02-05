@@ -1,10 +1,12 @@
 #+TITLE: ffmpeg Cheat Sheet
 
-* Converting H264 Files To TS Files
+* Converting To TS Files
 
 Look here:
 
 - https://trac.ffmpeg.org/wiki/Concatenate#protocol
+
+** H264 -> TS
 
 #+BEGIN_SRC sh
 
@@ -58,3 +60,16 @@ Naturally, this assumes that you're working with a TS file.
 ffmpeg -i <input file> -codec:v libx264 -crf 21 -bf 2 -flags +cgop -pix_fmt yuv420p -codec:a aac -strict -2 -b:a 384k -r:a 48000 -movflags faststart <output_name>.mp4
 
 #+END_SRC
+* Recording Screencasts
+
+Please note the screen size and change it based on your monitor. This
+value below works well with my laptop's built-in screen:
+
+#+BEGIN_SRC sh
+
+ffmpeg -video_size 1366x768 -framerate 25 -f x11grab -i :0.0+0,0 -f alsa -ac 2 -i pulse output.mkv
+
+#+END_SRC
+
+Also please note that I'm running Debian Linux. This command is slightly
+different based on your OS, Linux distribution or season. 
