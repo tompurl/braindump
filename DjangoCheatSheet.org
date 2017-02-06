@@ -1,7 +1,5 @@
 #+TITLE: Django Cheat Sheet
 
-
-
 * Debugging
 
 ** ABUDE
@@ -184,3 +182,67 @@ Also, please see this:
 - If you get the `HTTPError 403 (Forbidden)` error then you need to add the
   -Google+ API- in the dev console.
     - http://stackoverflow.com/questions/24377506/httperror-403-forbidden-with-django-and-python-social-auth-connecting-to-googl
+* Docker
+  :PROPERTIES:
+  :CUSTOM_ID: Docker
+  :END:
+** Bootstrapping A New Project
+
+First we create the project:
+
+#+BEGIN_SRC sh
+  # These commands need to be run outside of Emacs
+  cd ~/Dev/Python
+  sudo docker run -it --rm --user "$(id -u):$(id -g)" -v \
+         "$PWD":/usr/src/app -w /usr/src/app \
+         tompurl/django-dev \
+         django-admin.py startproject something_cool
+#+END_SRC
+
+...and then we test it first by running the code in the built-in app
+server:
+
+#+BEGIN_SRC sh
+  cd ~/Dev/Python/something_cool
+  sudo docker run --name sc-daemon -v "$PWD":/usr/src/app \
+       -w /usr/src/app -p 8000:8000 -d tompurl/django-dev \
+       ash -c "python manage.py runserver 0.0.0.0:8000"
+#+END_SRC
+
+...and now we can test it:
+
+#+BEGIN_SRC sh
+
+curl http://localhost:8000/ | elinks -dump
+
+#+END_SRC
+
+#+RESULTS:
+:                                    It worked!
+: 
+: Congratulations on your first Django-powered page.
+: 
+:    Of course, you haven't actually done any work yet. Next, start your first
+:    app by running python manage.py startapp [app_label].
+: 
+:    You're seeing this message because you have DEBUG = True in your Django
+:    settings file and you haven't configured any URLs. Get to work!
+
+   :PROPERTIES:
+   :CUSTOM_ID: Bootstrap New Project
+   :END:      
+** Launching A Shell Container
+   :PROPERTIES:
+   :CUSTOM_ID: Launching A Shell Container
+   :END:
+
+This is the container you can use to run Django shell commands:
+
+#+BEGIN_SRC sh
+
+# Please run this command outside of Emacs
+cd ~/Dev/Python/my_project
+sudo docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app -it tompurl/django-dev ash
+
+#+END_SRC
+
