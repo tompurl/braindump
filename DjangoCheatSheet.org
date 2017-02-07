@@ -242,7 +242,7 @@ This is the container you can use to run Django shell commands:
 
 # Please run this command outside of Emacs
 cd ~/Dev/Python/my_project
-sudo docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app -it tompurl/django-dev ash
+sudo docker run --rm --user "$(id -u):$(id -g)" -v "$PWD":/usr/src/app -w /usr/src/app -it tompurl/django-dev ash
 
 #+END_SRC
 
