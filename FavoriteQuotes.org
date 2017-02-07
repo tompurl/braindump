@@ -1,6 +1,23 @@
 #+TITLE: Favorite Quotes
 
 * 2017
+** 2/7/2017
+
+George Carlin, from [[http://www.amazon.com/The-Comedians-Thieves-Scoundrels-American/dp/0802123988][The Comedians]] book, about how the responded to all
+of the terrible things that occurred at the end of the sixties:
+
+#+BEGIN_QUOTE -r
+
+I didn't respond with rage to any of what was happening
+in 1968. Dr. King's murder in April was depressingly
+predictable. There was a sinking feeling: that something good was
+ebbing away and being encouraged in that direction by its usual
+forces. The establishment was winning -- its war, its assassins, its
+secret government -- and that fact overpowered and debilitated me
+more than it enraged me.
+
+#+END_QUOTE
+
 ** 1/25/2017
 
 Tim Bray, from his blog post [[https://www.tbray.org/ongoing/When/201x/2017/01/22/Womens-March][The Women's March]] about the worldwide
