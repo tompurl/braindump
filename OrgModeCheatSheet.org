@@ -256,3 +256,29 @@ Simply add the following property drawer to your heading:
 :CUSTOM_ID: Your Section Name
 :END
 #+END_EXAMPLE
+* Drawers
+** Property Drawers
+
+*** Commands
+
+To add a property to a property drawer (or create one in the first
+place):
+
+- =C-c C-x p=
+
+*** Common properties
+
+- =CUSTOM_ID=
+  - Assigns a custom HTML id to a heading.
+
+** LOGBOOK Drawers
+
+This is where clock times are stored by default. 
+
+*** Commands
+
+To add a custom note to your logbook:
+
+- =C-c C-z=
+
+
