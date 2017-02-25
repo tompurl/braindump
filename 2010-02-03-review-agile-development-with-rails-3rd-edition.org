@@ -1,6 +1,7 @@
 #+Title: Review: Agile Development With Rails, 3rd Edition
 
-[[http://www.goodreads.com/book/show/45.Agile_Web_Development_with_Rails_A_Pragmatic_Guide][[[http://photo.goodreads.com/books/1156838584m/45.jpg]]]]
+file:./images/rails4_xlargecover.jpg
+
 [[http://www.goodreads.com/book/show/45.Agile_Web_Development_with_Rails_A_Pragmatic_Guide][Agile
 Web Development with Rails: A Pragmatic Guide]] by
 [[http://www.goodreads.com/author/show/13.Dave_Thomas][Dave Thomas]]\\

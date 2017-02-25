@@ -1,8 +1,9 @@
 #+TITLE: Review Of "Instant Puppet 3 Starter"
-
 #+DATE: 2015-2-5 21:24
+#+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
-[[/images/instant-puppet-3-starter-cover.png]]
+#+attr_html: :width 300px
+[[./images/instant-puppet-3-starter-cover.png]]
 
 -  [[https://www.packtpub.com/networking-and-servers/instant-puppet-3-starter-instant]]
 

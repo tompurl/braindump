@@ -2,7 +2,8 @@
 
 #+DATE: 2015-12-05
 
-[[/images/bitcoin-for-befuddled-book.png]]
+#+attr_html: :width 300px
+[[./images/bitcoin-for-befuddled-book.png]]
 
 I was a /huge/ fan of Conrad Barski's last book, Land Of Lisp\_. I
 really like his writing style, which intersperses conventional writing

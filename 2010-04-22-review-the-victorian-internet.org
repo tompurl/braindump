@@ -1,8 +1,8 @@
 #+Title: Review: The Victorian Internet
 
-[[http://www.goodreads.com/book/show/52853.The_Victorian_Internet][[[http://photo.goodreads.com/books/1170392910m/52853.jpg]]]]
-[[http://www.goodreads.com/book/show/52853.The_Victorian_Internet][The
-Victorian Internet]] by
+#+attr_html: :width 300px
+file:./images/VIcov.jpg
+[[http://www.goodreads.com/book/show/52853.The_Victorian_Internet][The Victorian Internet]] by
 [[http://www.goodreads.com/author/show/2636.Tom_Standage][Tom
 Standage]]\\
 My rating: [[http://www.goodreads.com/review/show/99545559][3 of 5

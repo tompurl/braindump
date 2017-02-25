@@ -1,9 +1,8 @@
 #+Title: Review Of "Build Awesome Command-Line Applications in Ruby" 
 #+Date: 2012-12-03 21:35
 
-#+CAPTION: Book cover
-
-[[|filename|images/dccar.jpg]]
+#+attr_html: :width 300px
+[[./images/dccar.jpg]]
 
 -  [[http://pragprog.com/book/dccar/build-awesome-command-line-applications-in-ruby][Link
    to the book at pragprog.com]]

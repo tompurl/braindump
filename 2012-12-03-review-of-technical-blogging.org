@@ -1,8 +1,8 @@
 #+Title: Review Of "Technical Blogging" 
 #+Date: 2012-12-03 21:35
-#+CAPTION: Book cover
 
-[[|filename|images/actb.jpg]]
+#+attr_html: :width 300px
+[[./images/actb.jpg]]
 
 -  [[http://pragprog.com/book/actb/technical-blogging][Link to the book
    at pragprog.com]]

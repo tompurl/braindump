@@ -15,7 +15,8 @@ by the
 [[http://gmailblog.blogspot.com/2008/10/new-in-labs-stop-sending-mail-you-later.html][Google
 Mail Goggles]] plugin to write something just like that in Bash.
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC sh :exports code
+
     function math_captcha() {
 
        ### First let's generate two random numbers < 10
@@ -35,7 +36,8 @@ Mail Goggles]] plugin to write something just like that in Bash.
        [ "$entered_sum" -eq "$real_sum" ]
 
     }       
-#+END_EXAMPLE
+
+#+END_SRC
 
 Here's what I'm doing. First, I'm using the special =$RANDOM= function
 to return a random value. Next, I'm dividing the number by =$RANGE= and
@@ -56,21 +58,21 @@ equal and a non-zero value otherwise (which is bad).
 
 So how do you invoke this function? It's very simple:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC sh :exports code
     if ! math_captcha ; then
          echo "Sorry, something went wrong."
          return 1
     fi
 
     some_dangerous_code          
-#+END_EXAMPLE
+#+END_SRC
 
 Line one of this code snippet is actually one of my favorite patterns in
 Bash. It's a very elegant way of testing whether function or script's
 return code is non-zero (which is *not* what you want). The alternative
 way to execute the captcha function would look like this:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC sh :exports code
     math_captcha
     ret_code=$?
 
@@ -80,7 +82,7 @@ way to execute the captcha function would look like this:
     fi            
 
     some_dangerous_code           
-#+END_EXAMPLE
+#+END_SRC
 
 Both of these code snippets work the same way, but I think you'll agree
 that the first example is easier to type without errors and *much* more

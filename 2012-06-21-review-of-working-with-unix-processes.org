@@ -1,39 +1,48 @@
 #+Title: Review Of Working With Unix Processes 
 #+Date: 2012-06-21 18:47
 
-Working with UNIX Processes by Jesse Storimer My rating: 4 of 5 stars
 It's difficult for me to identify the target audience for this book.
-It's got some good stuff for lots of different people, including systems
-administrators, Unix scripters, and Ruby developers. In a nutshell, this
-book gives you a medium-level tutorial on creating, managing, and
-forking new processes on Unix-based systems. Specifically, the author
-shows you how to use many powerful features of the Unix system API using
-Ruby.This topic may sound mundane or even useless to a lot of people,
-but if you spend time writing or managing applications that run in
-operating systems like Linux and OS X, then this is really fantastic
-knowledge to possess.One really wonderful thing about this book is that
-it makes the Unix system API much more accessible to most systems
-administrators. Most books about the Unix API assume that you know how
-to program in C. The problem is that most systems administrators don't
-know how to use C, and they don't really have an opportunity to learn on
-the job.This book uses Ruby, a high-level, interpreted, and popular
-scripting language to showcase the Unix API. In my opinion, this makes
-the API much easier to understand and much less intimidating. Also, if
-you don't know Ruby, then it is a) simple to learn and b) very
-beneficial to learn due to its popularity.Another great thing about this
-book is that it really "put a lot of pieces together" for me regarding
-the Unix process model. I've been using Unix since 1995, and I've been
-administering large applications on it for 12 years. I definitely
-consider myself to be an intermediate user, but there's still a decent
-number of gaps in my knowledge. This book filled a couple of those major
-gaps for me, and I feel that I am a much more confident and
-knowledgeable Unix user as a result.The only real downside of this book
-is that it's a bit short for what you pay. The latest version of this
-book weighs in at about 143 pages. Also, while the book does include a
-sample project called Spyglass, its documented by a short appendix and
-verbose comments in the source. I would have liked a little more depth
-in the appendix, but it's hard to say if it's really necessary since the
-comments are designed to be the tutorial.However, for me, this book was
-still definitely worth the money. I now know much more about how Unix
-systems work, and I now am aware of a whole new world of concurrent
-programming options. View all my reviews
+It's got some good stuff for lots of different people, including
+systems administrators, Unix scripters, and Ruby developers. In a
+nutshell, this book gives you a medium-level tutorial on creating,
+managing, and forking new processes on Unix-based
+systems. 
+
+Specifically, the author shows you how to use many powerful
+features of the Unix system API using Ruby.This topic may sound
+mundane or even useless to a lot of people, but if you spend time
+writing or managing applications that run in operating systems like
+Linux and OS X, then this is really fantastic knowledge to possess.
+
+One really wonderful thing about this book is that it makes the Unix
+system API much more accessible to most systems administrators. Most
+books about the Unix API assume that you know how to program in C. The
+problem is that most systems administrators don't know how to use C,
+and they don't really have an opportunity to learn on the job.This
+book uses Ruby, a high-level, interpreted, and popular scripting
+language to showcase the Unix API. In my opinion, this makes the API
+much easier to understand and much less intimidating. Also, if you
+don't know Ruby, then it is:
+
+- simple to learn and 
+- very beneficial to learn due to its popularity
+
+Another great thing about this book is that it really "put a lot of
+pieces together" for me regarding the Unix process model. I've been
+using Unix since 1995, and I've been administering large applications
+on it for 12 years. I definitely consider myself to be an intermediate
+user, but there's still a decent number of gaps in my knowledge. This
+book filled a couple of those major gaps for me, and I feel that I am
+a much more confident and knowledgeable Unix user as a result.
+
+The only real downside of this book is that it's a bit short for what
+you pay. The latest version of this book weighs in at about 143
+pages. Also, while the book does include a sample project called
+Spyglass, its documented by a short appendix and verbose comments in
+the source. I would have liked a little more depth in the appendix,
+but it's hard to say if it's really necessary since the comments are
+designed to be the tutorial.
+
+However, for me, this book was still definitely worth the money. I now
+know much more about how Unix systems work, and I now am aware of a
+whole new world of concurrent programming options.
