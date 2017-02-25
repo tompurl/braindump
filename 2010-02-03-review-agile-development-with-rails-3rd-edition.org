@@ -1,6 +1,4 @@
-Title: "Review: Agile Development With Rails, 3rd Edition" Tags:
-agile-web-development-with-rails,book,programming,rails,ruby,web
-Category: Review Comments: true
+#+Title: Review: Agile Development With Rails, 3rd Edition
 
 [[http://www.goodreads.com/book/show/45.Agile_Web_Development_with_Rails_A_Pragmatic_Guide][[[http://photo.goodreads.com/books/1156838584m/45.jpg]]]]
 [[http://www.goodreads.com/book/show/45.Agile_Web_Development_with_Rails_A_Pragmatic_Guide][Agile

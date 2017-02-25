@@ -1,6 +1,4 @@
-Title: Stupid Unix Tricks - Creating A Self-Updating Dashboard Tags:
-administration,linux,stupid-unix-tricks,tomcat,unix Category: Tutorial
-Comments: true
+#+Title: Stupid Unix Tricks - Creating A Self-Updating Dashboard 
 
 Have you ever wanted to automatically run the same command every 5, 10,
 or 60 seconds on a Unix/Linux machine until the output changed? For

@@ -84,7 +84,6 @@
 ** [[file:2010-03-20-week-1-hosting-sshd-gee-whiz-security-stats.org][Week 1 Hosting SSHD - Gee Whiz Security Stats]]
 ** [[file:2010-03-17-stupid-unix-tricks-creating-a-self-updating-dashboard.org][Stupid Unix Tricks - Creating A Self-Updating Dashboard]]
 ** [[file:2010-03-02-running-the-depot-application-with-jruby.org][Running The Depot Application With Jruby]]
-** [[file:2010-02-22-tab-sweep-%E2%80%93-week-of-21410.org][Tab Sweep - Week of 2/14/10]]
 ** [[file:2010-02-15-tab-sweep-week-of-2710.org][Tab Sweep - Week Of 2/7/10]]
 ** [[file:2010-02-03-review-agile-development-with-rails-3rd-edition.org][Review: Agile Development With Rails, 3rd Edition]]
 ** [[file:2010-01-05-walking-with-rails-1-setup-on-ubuntu.org][Walking With Rails 1 - Setup On Ubuntu]]

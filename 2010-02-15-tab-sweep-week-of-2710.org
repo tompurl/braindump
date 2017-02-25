@@ -1,10 +1,9 @@
-Title: Tab Sweep - Week Of 2/7/10 Tags:
-capistrano,heroku,ruby-on-rails,solaris,toto,zones Category: Tab Sweep
-Comments: true
+#+Title: Tab Sweep - Week Of 2/7/10 
 
 I had lots of great opportunities to work with unfamiliar technologies
 last week, so I have an unusually large list of links in my tab sweep.
-## Solaris Zones
+
+** Solaris Zones
 
 I learned late last week that Solaris Zones use different monitoring
 tools than any other Unix or Linux distribution, so I spent a good

@@ -1,6 +1,4 @@
-Title: Running Depot On Tomcat Tags:
-agile-web-development-with-rails,java,jruby,ruby-on-rails,tomcat
-Category: Tutorial Comments: true
+#+Title: Running Depot On Tomcat 
 
 This is my second article about running the Depot application from the
 [[http://pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition][Agile

@@ -1,6 +1,4 @@
-Title: Review - Release It! Tags:
-book-review,design,java,patterns,programming,systems-administration
-Category: Review Comments: true
+#+Title: Review - Release It! 
 
 [[http://www.goodreads.com/book/show/1069827.Release_It_Design_and_Deploy_Production_Ready_Software][[[http://photo.goodreads.com/books/1180726533m/1069827.jpg]]]]
 [[http://www.goodreads.com/book/show/1069827.Release_It_Design_and_Deploy_Production_Ready_Software][Release

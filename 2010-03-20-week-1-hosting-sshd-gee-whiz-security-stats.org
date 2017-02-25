@@ -1,5 +1,4 @@
-Title: Week 1 Hosting SSHD - Gee Whiz Security Stats Tags:
-crackers,security,ssh Category: Tutorial Comments: true
+#+Title: Week 1 Hosting SSHD - Gee Whiz Security Stats 
 
 I installed the
 [[http://www.freebsd.org/releases/8.0R/announce.html][8.0 version of

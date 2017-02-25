@@ -1,6 +1,4 @@
-Title: Walking With Rails 1 - Setup On Ubuntu Tags:
-agile-web-development-with-rails,rails,ruby,ubuntu,vim Category:
-Tutorial Comments: true
+#+Title: Walking With Rails 1 - Setup On Ubuntu 
 
 ** Overview
 
