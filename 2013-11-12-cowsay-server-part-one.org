@@ -1,9 +1,8 @@
-Title: Cowsay Server - Part 1 Date: 2013-11-12 08:00 Tags:
-ruby,networking,cowsay-series Category: Tutorial
+#+Title: Cowsay Server - Part 1 
+#+Date: 2013-11-12 08:00 
 
 I've read through
-[[http://http://www.jstorimer.com/products/working-with-tcp-sockets][Working
-With TCP Sockets]] a few times to improve my socket programming
+[[http://http://www.jstorimer.com/products/working-with-tcp-sockets][Working With TCP Sockets]] a few times to improve my socket programming
 knowledge. I've administered software systems for a while now I know
 most of the basics, but there are definitely some gaps I should fill in.
 This book has been a great tool for helping me identify those gaps.

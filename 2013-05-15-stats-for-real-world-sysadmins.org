@@ -1,6 +1,5 @@
-Title: Stats For Real World Sysadmins Date: 2013-05-15 22:17 Comments:
-true Tags: statistics, administration, R Status: draft Category:
-Tutorial
+#+Title: Stats For Real World Sysadmins 
+#+Date: 2013-05-15 22:17 
 
 I want to start this tutorial by saying that I am *not* a expert at
 statistics. I have however learned just enough to make my job easier.

@@ -1,5 +1,5 @@
-Title: Fleeing From Google Apps Date: 2013-07-17 08:00 Tags:
-email,google,pobox,nsa,prism,privacy Category: Tutorial
+#+Title: Fleeing From Google Apps 
+#+Date: 2013-07-17 08:00 
 
 *Note*: I wrote most of this article long before the PRISM project was
 exposed by Edward Snowden. My intent was to protect my personal

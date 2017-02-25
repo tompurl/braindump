@@ -1,5 +1,6 @@
-Title: Converting A Number List To A Number In CL Date: 2013-03-15 22:17
-Comments: true Category: Tutorial published: true
+#+Title: Converting A Number List To A Number In CL 
+#+Date: 2013-03-15 22:17
+
 
 I spent a while tonight trying to figure this out, and I didn't find
 much that helped me, so I thought I would share my solution in case

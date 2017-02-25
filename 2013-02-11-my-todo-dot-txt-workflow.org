@@ -1,5 +1,5 @@
-Title: "My Todo.txt Workflow" Date: 2013-02-11 19:04 Comments: true
-Tags: Status: draft
+#+Title: "My Todo.txt Workflow" 
+#+Date: 2013-02-11 19:04 
 
 What I do every day
 
