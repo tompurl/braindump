@@ -1,6 +1,4 @@
-Title: Vim As A Writing Tool Tags:
-gnupg,restructured-text,vim,wiki,writeroom,writing Category: Tutorial
-Comments: true
+#+Title: Vim As A Writing Tool 
 
 My official title at work is "Engineer", but I wear a lot of different
 technical hats. Most of my work tasks require me to spend a lot of time

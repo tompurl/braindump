@@ -1,5 +1,4 @@
-Title: Installing Graphite On Ubuntu 10.4 LTS Tags: apm,graphite,ubuntu
-Category: Tutorial Comments: true
+#+Title: Installing Graphite On Ubuntu 10.4 LTS 
 
 *11/17/12 Update* - If you're looking for an easier way to get started
 with Graphite, then you may want to take a look at my

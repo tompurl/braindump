@@ -1,5 +1,4 @@
-Title: "Here Doc" Rules When Using SQL Plus Tags:
-linux,shell-scripting,unix Category: Tutorial Comments: true
+#+Title: Heredoc Rules When Using SQL Plus 
 
 I've been writing a lot of shell scripts lately, and usually they have
 included a

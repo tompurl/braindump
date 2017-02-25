@@ -1,4 +1,4 @@
-Title: Switch To Jekyll Comments: true Category: Review
+#+Title: Switch To Jekyll
 
 For the 3 people who may notice, I switched my blog from Wordpress to
 [[https://github.com/mojombo/jekyll][Jekyll]]. The conversion has been a

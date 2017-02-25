@@ -1,5 +1,4 @@
-Title: On Whitebox Computers Tags: allpczone,dell,whitebox Category:
-Review Comments: true
+#+Title: On Whitebox Computers 
 
 My five-year-old computer died the other day. This was a problem because
 I used this computer to telecommute and because it was where I got most

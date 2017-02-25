@@ -1,5 +1,4 @@
-Title: Tab Sweep - An Embarrassment Of Riches Tags:
-career,ec2,google-voice,sip,torquebox Category: Tab Sweep Comments: true
+#+Title: Tab Sweep - An Embarrassment Of Riches 
 
 There's a short novel's worth of great stuff that I found to read this
 week, along with a great video on being in control of your technical

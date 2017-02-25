@@ -1,6 +1,4 @@
-Title: Installing The Grinder On Ubuntu 10.10 Tags:
-grinder,java,load-testing,performance,python,the-grinder-series
-Category: Tutorial Comments: true
+#+Title: Installing The Grinder On Ubuntu 10.10 
 
 #+BEGIN_QUOTE
   *Update On 3/25*: Later in this article, I state that I will soon be

@@ -1,5 +1,4 @@
-Title: Lessons Learned From Yet Another Jekyll Convert Comments: true
-Category: Review
+#+Title: Lessons Learned From Yet Another Jekyll Convert
 
 I recently converted my [[http://tompurl.wordpress.com][blog hosted on
 wordpress.com]] to use the [[https://github.com/mojombo/jekyll][Jekyll

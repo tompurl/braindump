@@ -75,7 +75,7 @@
 ** [[file:2011-01-31-vim-as-a-writing-tool.org][Vim As A Writing Tool]]
 ** [[file:2011-01-24-on-whitebox-computers.org][On Whitebox Computers]]
 ** [[file:2011-01-17-sinatra-lessons-learned.org][Sinatra: Lessons Learned]]
-** [[file:2011-01-11-here-doc-rules-when-using-sqlplus.org][Here Doc" Rules When Using SQL Plus]]
+** [[file:2011-01-11-here-doc-rules-when-using-sqlplus.org][Heredoc Rules When Using SQL Plus]]
 * 2010
 ** [[file:2010-06-12-review-release-it.org][Review - Release It!]]
 ** [[file:2010-06-05-new-blog-announcement-shell-magic.org][New Blog Announcement - Shell Magic]]

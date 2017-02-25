@@ -1,5 +1,4 @@
-Title: Tab Sweep - Powershell And OS X Development tags:
-powershell,java,osx Category: Tab Sweep Comments: true
+#+Title: Tab Sweep - Powershell And OS X Development 
 
 -  Powershell Links
 

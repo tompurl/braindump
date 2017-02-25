@@ -1,6 +1,4 @@
-Title: Tab Sweep - Lots Of Stuff, Lots of Themes Tags:
-administration,jruby,linux,nosql,ruby,trinidad Category: Tab Sweep
-Comments: true
+#+Title: Tab Sweep - Lots Of Stuff, Lots of Themes 
 
 -  [[http://blogs.oreilly.com/headfirst/2011/05/no-code-is-sometimes-best.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+headfirst-oreillymedia+(Head+First+-+O'Reilly+Media,+Inc.)&utm_content=Google+Reader][No
    Code Is Sometimes Best - Head First Labs]]

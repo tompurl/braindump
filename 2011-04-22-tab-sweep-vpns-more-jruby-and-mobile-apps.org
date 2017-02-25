@@ -1,6 +1,4 @@
-Title: Tab Sweep - VPN's, More Jruby And Mobile Apps Tags:
-jruby,mobile,project-management,raccoon,swing,vpn Category: Tab Sweep
-Comments: true
+#+Title: Tab Sweep - VPN's, More Jruby And Mobile Apps 
 
 -  [[http://pragprog.com/titles/jrpm/manage-it][The Pragmatic Bookshelf
    | Manage It!]]

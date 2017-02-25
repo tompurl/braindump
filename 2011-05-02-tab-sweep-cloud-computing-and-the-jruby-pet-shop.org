@@ -1,6 +1,4 @@
-Title: Tab Sweep- Cloud Computing and The Jruby Pet Shop Tags:
-aws,gmail,jruby,one-jar,powershell,pry,rails,security,uptime Category:
-Tab Sweep Comments: true
+#+Title: Tab Sweep- Cloud Computing and The Jruby Pet Shop 
 
 -  [[https://github.com/nicksieger/refactoring-to-rails][nicksieger/refactoring-to-rails
    - GitHub]]

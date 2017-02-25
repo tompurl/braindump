@@ -1,6 +1,4 @@
-Title: Fancy Phone Tags:
-android,fring,lg,optimusv,phone,skype,virgin-mobile Category: Review
-Comments: true
+#+Title: Fancy Phone 
 
 I recently purchased a prepaid [[http://www.virginmobileusa.com/][Virgin
 Mobile]] smart phone, the

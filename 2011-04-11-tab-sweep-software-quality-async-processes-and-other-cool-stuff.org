@@ -1,6 +1,4 @@
-Title: Tab Sweep - Software Quality, Async Processes, and Other Cool
-Stuff :) Tags: awaitility,gwt,jruby,mongodb,quality,ripl Category: Tab
-Sweep Comments: true
+#+Title: Tab Sweep - Software Quality, Async Processes, and Other Cool Stuff :) 
 
 -  [[http://blog.jayway.com/2010/07/20/awaitility-java-dsl-for-easy-testing-of-asynchronous-systems][Awaitility
    -- Java DSL for easy testing of asynchronous systems | Jayway Team

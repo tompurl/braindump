@@ -1,5 +1,4 @@
-Title: Exim + Gmail On Ubuntu Tags: debian,exim,gmail,mail,ubuntu
-Category: Tutorial Comments: true
+#+Title: Exim + Gmail On Ubuntu
 
 This tutorial shows you how to set up a light-weight mail server on your
 Ubuntu system that can send mail to host-only (e.g. tom) and remote

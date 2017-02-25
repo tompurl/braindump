@@ -1,5 +1,4 @@
-Title: HTTPS For Everyone Tags: encryption,security,ssl,web,wot
-Category: Tutorial Comments: true
+#+Title: HTTPS For Everyone 
 
 I received the following message from one of my Facebook friends the
 other day: > “Facebook isn't using HTTPS by default any more, so your PC

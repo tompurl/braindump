@@ -1,5 +1,4 @@
-Title: Writing With Mind Maps Tags:
-brainstorming,freemind,mind-mapping,writing,xmind Category: Tutorial
+#+Title: Writing With Mind Maps 
 
 I've been using mind maps to help me collect my ideas for a couple of
 years now and I find them to be an invaluable tool. I use them at home

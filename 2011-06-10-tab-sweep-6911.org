@@ -1,6 +1,4 @@
-Title: Tab Sweep - 6/9/11 Tags:
-coffeescript,hadoop,joel-spolsky,jruby,rsa,scalability,security,syslog
-Category: Tab Sweep Comments: true
+#+Title: Tab Sweep - 6/9/11 
 
 #+BEGIN_HTML
   <!--more-->

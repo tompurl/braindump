@@ -1,6 +1,4 @@
-Title: Making Sensitive Data Ubiquitous With Dropbox and TrueCrypt Tags:
-cloud,dropbox,encryption,keepass,security,truecrypt Category: Tutorial
-Comments: true
+#+Title: Making Sensitive Data Ubiquitous With Dropbox and TrueCrypt 
 
 In this tutorial, I will show you how I use
 [[http://dropbox.com/][Dropbox]],

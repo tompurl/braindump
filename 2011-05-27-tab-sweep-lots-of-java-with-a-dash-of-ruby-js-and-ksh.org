@@ -1,6 +1,4 @@
-Title: Tab Sweep - Lots of Java With A Dash Of Ruby, JS and KSH Tags:
-java,jrockit,jruby,ksh,shell-scripting,trinidad Category: Tab Sweep
-Comments: true
+#+Title: Tab Sweep - Lots of Java With A Dash Of Ruby, JS and KSH 
 
 -  [[http://www.engineyard.com/blog/2011/jruby-on-appcloud-available-through-beta-program][JRuby
    on AppCloud Available Through Beta Program | Engine Yard Ruby on

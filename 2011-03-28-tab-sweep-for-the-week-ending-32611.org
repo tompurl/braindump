@@ -1,6 +1,4 @@
-Title: Tab Sweep For The Week Ending 3/26/11 Tags:
-,coherence,iweb,jamon,java,jotform,jruby,shopzilla,sonar,statistics
-Category: Tab Sweep Comments: true
+#+Title: Tab Sweep For The Week Ending 3/26/11 
 
 These are the tech links that really captured my imagination this week.
 -

@@ -1,5 +1,4 @@
-Title: GNU Screen Sugar Tags: /Cough/Plug/Cough/,bash,linux,screen,unix
-Category: Software Comments: true
+#+Title: GNU Screen Sugar 
 
 I don't usually advertise [[http://github.com/tompurl][my Github
 projects]] on this blog, but I thought that this one might actually be

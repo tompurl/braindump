@@ -1,6 +1,5 @@
-Title: "Sinatra: Lessons Learned" Tags: rack,ruby,sinatra Category:
-Tutorial Comments: true
-
+#+Title: Sinatra: Lessons Learned
+ 
 I recently needed to build a somewhat simple web application, and I
 thought that this would be a great opportunity to learn a little bit
 about  [[http://www.sinatrarb.com][Sinatra]], a lightweight Ruby web
