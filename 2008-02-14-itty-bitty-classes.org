@@ -1,4 +1,4 @@
-Title: Itty-Bitty Classes Comments: true Category: Tutorial
+#+Title: Itty-Bitty Classes
 
 How I learned that using objects, even in a small script, can make you
 more efficient and you software more flexible and effective.

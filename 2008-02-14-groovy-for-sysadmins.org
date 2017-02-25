@@ -1,6 +1,4 @@
-Title: Groovy For Sysadmins Tags:
-administration,ant,groovy,java,jython,programming Category: Review
-Comments: true
+#+Title: Groovy For Sysadmins 
 
 I've been using the [[http://groovy.codehaus.org/][Groovy]] programming
 language a lot lately at work to programmatically interact with systems

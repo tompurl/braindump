@@ -1,6 +1,4 @@
-Title: Best Bookkeeping App On Linux Tags:
-bookkeeping,finance,gnucash,jgnash,linux,moneydance,quicken,review,wasabe,wine
-Comments: true
+#+Title: Best Bookkeeping App On Linux 
 
 Well, it's a new year, and what's a new year without a "get your
 financial shtuff in order" resolution. Every year, I blame part of my

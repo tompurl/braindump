@@ -1,6 +1,4 @@
-Title: Building A Network That Works With The MediaMVP Tags:
-linksys,mediamvp,mythtv,netgear,networking,powerline-networking,zyxel
-Category: Tutorial Comments: true
+#+Title: Building A Network That Works With The MediaMVP 
 
 As I've mentioned in some of my earlier articles, you really don't need
 a very powerful media server if you using the

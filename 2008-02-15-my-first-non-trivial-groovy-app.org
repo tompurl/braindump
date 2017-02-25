@@ -1,6 +1,4 @@
-Title: My First Non-Trivial Groovy App Tags:
-administration,groovy,java,python,scripting,vim Category: Review
-Comments: true
+#+Title: My First Non-Trivial Groovy App 
 
 I am about to finish my first non-trivial application written in
 [[http://groovy.codehaus.org/][Groovy]] (a medium-sized suite of

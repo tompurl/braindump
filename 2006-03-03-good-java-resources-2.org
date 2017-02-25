@@ -1,5 +1,4 @@
-Title: Good Java Resources Published: true Tags: howto, java, toolbox,
-tutorial Comments: true
+#+Title: Good Java Resources
 
 I've been using Java since 2000 for a variety of tasks, mostly related
 to software administration and maintenance. A common request from

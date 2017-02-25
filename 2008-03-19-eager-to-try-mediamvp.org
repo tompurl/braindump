@@ -1,5 +1,4 @@
-Title: Eager To Try MediaMVP Tags: frugality,mediamvp,mythtv Category:
-Review Comments: true
+#+Title: Eager To Try MediaMVP 
 
 Well, I finally purchased a
 [[http://www.hauppauge.com/pages/products/data_mediamvp.html][MediaMVP]]

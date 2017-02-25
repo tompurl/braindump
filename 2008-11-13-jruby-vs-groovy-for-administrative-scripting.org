@@ -1,13 +1,11 @@
-Title: Jruby vs. Groovy For Administrative Scripting Tags:
-administration,groovy,java,jruby,scripting Category: Review Comments:
-true
+#+Title: Jruby vs. Groovy For Administrative Scripting 
 
-*Update (8/8/09):*When I was originally comparing Jruby & Groovy, I was
+*Update (8/8/09):* When I was originally comparing Jruby & Groovy, I was
 under the impression that Jruby was a beta-quality product, and its
-cryptic error messages seemed to prove this point.  After a bit more
+cryptic error messages seemed to prove this point. After a bit more
 research, I learned that Jruby is a robust and high-quality Ruby
 implementation and that *all* dynamic languages can give you cryptic
-errors on occasion.  Many thanks to the knowledgeable Jruby and Groovy
+errors on occasion. Many thanks to the knowledgeable Jruby and Groovy
 developers who set me straight.
 
 *** Background

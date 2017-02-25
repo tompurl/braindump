@@ -1,6 +1,4 @@
-Title: Bulk-Uploading Images To Snapfish On Linux Tags:
-linux,photography,picasa,ritzpix,snapfish,walgreens Category: Review
-Comments: true
+#+Title: Bulk-Uploading Images To Snapfish On Linux 
 
 *Update* *(8/26/09)*:  Two strange things happened since I wrote this
 article.  First, uploading to Snapfish from Picasa 3 seems to be

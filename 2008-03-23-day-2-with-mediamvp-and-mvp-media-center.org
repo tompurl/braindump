@@ -1,5 +1,4 @@
-Title: Day 2 With MediaMVP and MVP Media Center Tags:
-mediamvp,mvpmc,mythtv Category: Review Comments: true
+#+Title: Day 2 With MediaMVP and MVP Media Center 
 
 I noodled around with my
 [[http://www.hauppauge.com/pages/products/data_mediamvp.html][MVP]]/[[http://www.mvpmc.org][MVPMC]]

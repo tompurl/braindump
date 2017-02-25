@@ -1,6 +1,4 @@
-Title: Cool GNU Screen Helper Functions Tags:
-administration,article,gnu-screen,howto,linux Category: Tutorial
-Comments: true
+#+Title: Cool GNU Screen Helper Functions 
 
 I'm a big fan of using [[http://http//www.gnu.org/software/screen/][GNU
 Screen]], a terminal multiplexer. At any given time, I could be

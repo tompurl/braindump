@@ -104,7 +104,6 @@
 ** [[file:2008-04-02-building-a-network-that-works-with-the-mediamvp.org][Building A Network That Works With The MediaMVP]]
 ** [[file:2008-03-23-day-2-with-mediamvp-and-mvp-media-center.org][Day 2 With MediaMVP and MVP Media Center]]
 ** [[file:2008-03-22-day-1-with-mediamvp-and-mvp-media-center.org][Day 1 With MediaMVP and MVP Media Center]]
-** [[file:2008-03-19-hello-world.org][Hello world!]]
 ** [[file:2008-03-19-eager-to-try-mediamvp.org][Eager To Try MediaMVP]]
 ** [[file:2008-02-15-web-development-toolbox.org][Web Development Toolbox]]
 ** [[file:2008-02-15-my-first-non-trivial-groovy-app.org][My First Non-Trivial Groovy App]]

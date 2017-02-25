@@ -1,6 +1,4 @@
-Title: Web Development Toolbox Tags:
-css,firebug,firefox,programming,toolbox,web Category: Tutorial Comments:
-true
+#+Title: Web Development Toolbox 
 
 A friend of mine recently volunteered to update and maintain a web site
 for a local non-profit. He basically wants to clean up the formatting on
