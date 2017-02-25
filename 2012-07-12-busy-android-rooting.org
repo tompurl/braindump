@@ -1,5 +1,5 @@
-Title: Android Rooting Tutorial For Busy People Date: 2012-07-12 09:56
-Comments: true Category: Review
+#+Title: Android Rooting Tutorial For Busy People 
+#+Date: 2012-07-12 09:56
 
 I recently needed to *remove some bloatware from my LG Optimus T*. I
 wanted to install some terribly useful applications that could not be

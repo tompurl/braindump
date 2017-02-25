@@ -1,5 +1,5 @@
-Title: New Feed Available Date: 2012-11-29 19:03 Comments: true Tags:
-site Category: Meta
+#+Title: New Feed Available 
+#+Date: 2012-11-29 19:03
 
 Just a quick housekeeping for those of you who have subscribed to my
 blog.

@@ -37,7 +37,6 @@
 ** [[file:2013-03-15-converting-a-number-list-to-a-number-in-cl.org][Converting A Number List To A Number In CL]]
 ** [[file:2013-02-11-my-todo-dot-txt-workflow.org][My Todo.txt Workflow]]
 * 2012
-** [[file:2012-12-05-avoiding-the-mainframe-guy-mentality.org][Avoiding The "Mainframe Guy" Mentality"]]
 ** [[file:2012-12-03-review-of-technical-blogging.org][Review Of "Technical Blogging"]]
 ** [[file:2012-12-03-review-of-build-awesome-command-line-applications-in-ruby.org][Review Of "Build Awesome Command-Line Applications in Ruby"]]
 ** [[file:2012-11-29-new-feed-available.org][New Feed Available]]

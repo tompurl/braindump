@@ -1,5 +1,5 @@
-Title: Introducing Wideload Date: 2012-11-15 22:16 Comments: true
-Category: Software
+#+Title: Introducing Wideload 
+#+Date: 2012-11-15 22:16
 
 A couple of years ago, I decided to try to learn more about tuning the
 performance of Java-based web applications. I'm a big fan of learning by

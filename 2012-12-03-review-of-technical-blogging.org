@@ -1,6 +1,5 @@
-Title: Review Of "Technical Blogging" Date: 2012-12-03 21:35 Comments:
-true Tags: review,blogging Category: Review
-
+#+Title: Review Of "Technical Blogging" 
+#+Date: 2012-12-03 21:35
 #+CAPTION: Book cover
 
 [[|filename|images/actb.jpg]]

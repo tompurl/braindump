@@ -1,5 +1,5 @@
-Title: Text File Data Mining For SQL Users Date: 2012-10-10 19:42
-Comments: true Category: Tutorial
+#+Title: Text File Data Mining For SQL Users 
+#+Date: 2012-10-10 19:42
 
 Occasionally, I need to send log files to a vendor or co-worker for
 further examination. About half the time, I get a response that is like

@@ -1,6 +1,5 @@
-Title: Writing A Book With Vim, Restructured Text, and Sphinx Date:
-2012-11-22 21:09 Comments: true Tags: vim,rst,writing,wideload,sphinx
-Category: Tutorial
+#+Title: Writing A Book With Vim, Restructured Text, and Sphinx 
+#+Date: 2012-11-22 21:09
 
 I'm in the process of writing a [[http://www.wideloadperf.org][free
 ebook]] about performance testing using the

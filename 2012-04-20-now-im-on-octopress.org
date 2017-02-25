@@ -1,5 +1,5 @@
-Title: Now I'm on Octopress Date: 2012-04-20 14:06 Comments: true
-Category: Review
+#+Title: Now I'm on Octopress 
+#+Date: 2012-04-20 14:06
 
 I just finished porting my Jekyll-based blog to
 [[http://octopress.org][Octopress]]. Octopress it a really slick layer

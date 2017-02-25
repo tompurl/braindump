@@ -1,5 +1,5 @@
-Title: Cool Kid Concurrency Without Threads - My Reading List Date:
-2012-06-21 21:57 Comments: true Category: Review
+#+Title: Cool Kid Concurrency Without Threads - My Reading List 
+#+Date: 2012-06-21 21:57
 
 *tl;dr* Check out the links below if you want to become a better systems
 administrator or programmer. This goes double for you if you work in a

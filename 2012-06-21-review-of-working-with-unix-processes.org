@@ -1,5 +1,5 @@
-Title: Review Of Working With Unix Processes Date: 2012-06-21 18:47
-Comments: true Category: Review
+#+Title: Review Of Working With Unix Processes 
+#+Date: 2012-06-21 18:47
 
 Working with UNIX Processes by Jesse Storimer My rating: 4 of 5 stars
 It's difficult for me to identify the target audience for this book.

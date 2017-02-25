@@ -1,5 +1,5 @@
-Title: Vim Scripting Using Macros And Registers Date: 2012-10-26 19:50
-Comments: true Category: Review
+#+Title: Vim Scripting Using Macros And Registers 
+#+Date: 2012-10-26 19:50
 
 I recently discovered how easy it was to basically "convert" macros into
 mappings in my =.vimrc=, and I thought that information was terribly

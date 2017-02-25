@@ -1,4 +1,5 @@
-Title: Wideload Presentation Date: 2012-11-17 22:41 Category: Software
+#+Title: Wideload Presentation 
+#+Date: 2012-11-17 22:41
 
 Here's a brief and hopefully not too boring overview of Wideload and why
 you may want to use it:

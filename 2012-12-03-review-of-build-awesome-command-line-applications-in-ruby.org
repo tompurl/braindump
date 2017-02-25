@@ -1,6 +1,5 @@
-Title: Review Of "Build Awesome Command-Line Applications in Ruby" Date:
-2012-12-03 21:35 Comments: true Tags: review,ruby,scripting Category:
-Review
+#+Title: Review Of "Build Awesome Command-Line Applications in Ruby" 
+#+Date: 2012-12-03 21:35
 
 #+CAPTION: Book cover
 

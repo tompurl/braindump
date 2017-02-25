@@ -1,5 +1,5 @@
-Title: Making Windows The Default OS Using Grub 1 Date: 2012-06-25 09:18
-Comments: true Category: Tutorial
+#+Title: Making Windows The Default OS Using Grub 1 
+#+Date: 2012-06-25 09:18
 
 Recently, I needed to send my netbook into the shop for some service. By
 default, I use *Ubuntu 11.10*, but I kept the *Windows 7 Starter*
