@@ -1,5 +1,4 @@
-Title: Administrative Scripting With Rake Category: Tutorial Comments:
-true
+Title: Administrative Scripting With Rake
 
 At my job as a middleware sysadmin, I'm a /big/ fan of automating
 complex and repetitive tasks. It cut down on defects, saves time, and

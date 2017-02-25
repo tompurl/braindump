@@ -1,5 +1,4 @@
-Title: Testing The Waters Of Jruby & JDBC Tags:
-apache-derby,jdbc,jruby,programming Category: Tutorial Comments: true
+#+Title: Testing The Waters Of Jruby & JDBC 
 
 I was recently tasked with writing a command-line script in Jruby that
 performed simple CRUD operations against a simple database table. I've

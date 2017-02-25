@@ -1,5 +1,4 @@
-Title: Ubuntu 9.04 => 9.10 Upgrade Tags:
-9.10,mysql,mythtv,ubuntu,virtualbox Category: Review Comments: true
+#+Title: Ubuntu 9.04 => 9.10 Upgrade 
 
 I just finished upgrading my
 [[http://www.mythtv.org/][MythTv]]/printing/data/everything server from

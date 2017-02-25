@@ -1,6 +1,4 @@
-Title: Notes On Installing Ubuntu 9.04 And Easy Peasy 1.5 Tags:
-compiz,easy-peasy,ffmpeg,linux,mythtv,ubuntu Category: Review Comments:
-true
+#+Title: Notes On Installing Ubuntu 9.04 And Easy Peasy 1.5 
 
 It's unlike me to upgrade my systems very often since it can take so
 much time, but I was moved recently to upgrade both my "server" (to

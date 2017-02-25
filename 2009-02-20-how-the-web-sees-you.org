@@ -1,6 +1,4 @@
-Title: How The Web Sees You Tags:
-blog,facebook,linkedin,mailing-list,marketplace,professional,web
-Category: Rant Comments: true
+#+Title: How The Web Sees You 
 
 On [[http://marketplace.publicradio.org/][Marketplace]] yesterday, there
 was a great piece on how a lot of job-seekers are using social networks

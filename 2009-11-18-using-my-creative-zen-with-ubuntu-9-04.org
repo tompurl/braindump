@@ -1,5 +1,4 @@
-Title: Using My Creative Zen With Ubuntu 9.04 Tags:
-9.04,amarok,creative-zen,ubuntu Category: Tutorial Comments: true
+#+Title: Using My Creative Zen With Ubuntu 9.04 
 
 I've been using an 8 GB
 [[http://en.wikipedia.org/wiki/Creative_ZEN][Creative Zen]] player now
