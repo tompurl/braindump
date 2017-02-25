@@ -1,4 +1,4 @@
-#+TITLE: cupsdAuthorize: pam\_authenticate() returned 7 (Authentication failure)!
+#+TITLE: cupsdAuthorize: pam_authenticate() returned 7 (Authentication failure)!
 
 #+DATE: 2014-05-10 21:00
 

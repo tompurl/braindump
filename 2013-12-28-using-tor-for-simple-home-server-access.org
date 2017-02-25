@@ -2,10 +2,12 @@
 
 #+DATE: 2014-02-28 21:00
 
-Tor hidden services\_ have received a lot of press lately for being part
-of the "dark web\_". You can only connect to them using a client that
+HA ha, this post isn't done yet :-) 
+
+Tor hidden services have received a lot of press lately for being part
+of the "dark web". You can only connect to them using a client that
 can talk on the Tor network, so all users of a hidden service are
-anonymous [1]\_. Also, hidden services use .onion addresses, which
+anonymous [1]. Also, hidden services use .onion addresses, which
 aren't in DNS. This makes hidden services harder to find unless you
 publicly publish the address.
 
@@ -13,7 +15,7 @@ Of course, when a person hears about this they tend to think of
 cloak-and-dagger situations involving criminal masterminds, and hidden
 services certainly are used by some criminals. However, the ability to
 use the internet in a anonymous fashion is also terribly useful to
-political dissidents around the world, journalists\_, and anyone else\_
+political dissidents around the world, journalists, and anyone else
 that needs to connect to a beneficial online community without fear of
 unjust reprisals.
 
@@ -25,7 +27,7 @@ you can use a hidden service to expose an SSH server running on your
 home network quickly and easily. This server will have two benefits over
 a regular SSH server:
 
-1. We won't have to open any ports to the server in your router. [2]\_
+1. We won't have to open any ports to the server in your router. [2]
 2. Clients will only be able to connect to your server using a .onion
    address. They won't be able to use an IP address because your server
    will listening on the loopback interface only.
@@ -50,7 +52,7 @@ hidden service. There is no part 3.
 The client side is a tiny bit trickier, but not much. To access a hidden
 service, you have to "Tor-ify" your client. Tor-ifying means that you
 have to configure your client to talk through a SOCKS proxy. This can be
-very easy (like using the Tor Browser Bundle\_ to browse web sites) or
+very easy (like using the Tor Browser Bundle to browse web sites) or
 much more complex, depending on the type of client.
 
 We're going to be Tor-ifying an SSH client, which is a fairly simple

@@ -19,7 +19,7 @@ Applications?
   updates at the bottom that may clarify a few things.
 #+END_QUOTE
 
-I'm in the process of reading Two Scoops Of Django\_ and I'm noticing a
+I'm in the process of reading [[https://www.amazon.com/Two-Scoops-Django-Best-Practices/dp/0981467342][Two Scoops Of Django]] and I'm noticing a
 Production deployment pattern that seems to be popular in the Django
 world. Basically, it seems that all of the Django-related libraries are
 installed in a =virtualenv= sandbox using =pip=. This is a little scary

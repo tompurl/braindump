@@ -68,7 +68,7 @@ difficult to both find and fix.
 
 But fix it I did! So now on to the next issue.
 
-* Lesson 3 - Set Your LD\_LIBRARY\_PATH
+* Lesson 3 - Set Your LD_LIBRARY_PATH
 
 Now when I tried running the =emulator64-arm -avd MyEmulator= command I
 would get this error:

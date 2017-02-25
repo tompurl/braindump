@@ -8,9 +8,9 @@ I like to backup my laptop's hard drive to a local file server on my
 network. It's saved my butt more than a couple of times and it makes
 upgrades and reinstalls fairly painless.
 
-To do this, I've used rsnapshot\_ now for about 12 years. Day in and day
+To do this, I've used rsnapshot now for about 12 years. Day in and day
 out it's been a fantastic, simple and intuitive tool that I have been
-able to rely upon. My one gripe has been that rsync\_ (upon which
+able to rely upon. My one gripe has been that rsync (upon which
 rsnapshot depends) takes a *long* time to compare my laptop's =/home=
 directory with the copy on the server due to all of the inodes. This can
 literally take *hours*, which is less than ideal if you're taking daily
@@ -21,11 +21,11 @@ my backup server and leave the comparision job to the kernel on my
 laptop. Ideally the snapshot process would only take a few seconds and
 the backup part would only take as long as it takes to copy the diff
 across my private network. I read a while ago about how something like
-this could be possible with btrfs\_ some day, so I decided to take a
+this could be possible with btrfs some day, so I decided to take a
 look again.
 
 I was pleasantly surprised to see that there are in fact multiple stable
-tools that suit my needs. btrbck\_ looked like one of the more mature
+tools that suit my needs. =btrbck= looked like one of the more mature
 and robust options, to I tried poking around.
 
 The good news is that I was able to copy a snapshot over SSH using

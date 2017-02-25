@@ -165,9 +165,9 @@ start feeding it some data:
 
 This script will write create the following monitors in Graphite:
 
--  Graphite -> system -> loadavg\_15min
--  Graphite -> system -> loadavg\_1min
--  Graphite -> system -> loadavg\_5min
+-  Graphite -> system -> loadavg_15min
+-  Graphite -> system -> loadavg_1min
+-  Graphite -> system -> loadavg_5min
 
 Clicking on a monitor shows its values in the graph. Clicking on the
 same monitor again deselects it.
@@ -213,7 +213,7 @@ Now make the following changes:
 
 -  Comment out the *WSGISocketPrefix* line. This value will be set in a
    different config file.
--  Change the *@DJANGO\_ROOT@* value to
+-  Change the *@DJANGO_ROOT@* value to
    */usr/lib/pymodules/python2.6/django*.
 -  If you don't know what value to use with your *ServerName* property,
    then just leave it as *graphite*.

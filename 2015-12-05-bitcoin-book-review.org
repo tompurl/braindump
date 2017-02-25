@@ -5,11 +5,11 @@
 #+attr_html: :width 300px
 [[./images/bitcoin-for-befuddled-book.png]]
 
-I was a /huge/ fan of Conrad Barski's last book, Land Of Lisp\_. I
+I was a /huge/ fan of Conrad Barski's last book, *Land Of Lisp*. I
 really like his writing style, which intersperses conventional writing
 with the occasional comic, which are both done very well. I was
 therefore very happy to see that his next book was going to cover
-something that I've been experimenting with a bit lately - Bitcoin\_.
+something that I've been experimenting with a bit lately - Bitcoin.
 
 I am very fortunate to have a friend who gave me an excellent tutorial
 on Bitcoins earlier this year. He showed me how to buy and spend them
@@ -30,4 +30,4 @@ The Bitcoin ecosystem currently lacks a lot of quality educational
 resources. And what does exist seems to target mathematicians or people
 who are looking to make a quick buck. Thankfully this book does a great
 job filling that gap. If you're any sort of technologist who has any
-interest in Bitcoins then check out this book\_ soon.
+interest in Bitcoins then check out this book soon.

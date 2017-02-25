@@ -19,8 +19,7 @@
    [[http://www.diigo.com/user/tepurl/hadoop][hadoop]]
    [[http://www.diigo.com/user/tepurl/tab-sweep-110602][tab-sweep-110602]]
 
--  [[http://ubuntuforums.org/showthread.php?t=263385][HowTo: Remap
-   Caps\_Lock as Escape (Nice for Vim) - Ubuntu Forums]]
+-  [[http://ubuntuforums.org/showthread.php?t%3D263385][HowTo: Remap Caps_Lock as Escape (Nice for Vim) - Ubuntu Forums]]
 
    I switched to Xfce from Gnome after upgrading to Ubuntu 11.04, and
    this tip gives you a great, cross-window-manager way of remapping

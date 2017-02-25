@@ -13,8 +13,7 @@
    wait until I'm done with my Java perf personal development project so
    I can play around with this a bit.
 
-   -  [[https://github.com/bbrowning/beer_tweets][bbrowning/beer\_tweets
-      -- GitHub]]
+   -  [[https://github.com/bbrowning/beer_tweets][bbrowning/beer_tweets -- GitHub]]
    -  [[http://torquebox.org/news/2011/05/11/simplify-your-deployment][TorqueBox:
       Using TorqueBox to Simplify Application Deployment]]
 

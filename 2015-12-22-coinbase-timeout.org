@@ -3,7 +3,7 @@
 #+DATE: 2015-12-22 17:00
 
 Recently I was experimenting with an offline bitcoin wallet and I wanted
-to use it to make a donation to mozilla.org\_. Mozilla uses Coinbase\_
+to use it to make a donation to mozilla.org. Mozilla uses Coinbase
 to process their bitcoin transactions, which means that the process goes
 something like this:
 
@@ -12,7 +12,7 @@ something like this:
    you are presented with a *unique payment hash* and a *15-minute
    countdown timer*.
 3. Using whatever wallet application you want (which for me is usually
-   Electrum\_) you send the necessary funds to that payment hash.
+   Electrum) you send the necessary funds to that payment hash.
 4. The Coinbase page typically updates with a confirmation message
    within 5 seconds of you broadcasting your transaction to the bitcoin
    network.
@@ -22,7 +22,7 @@ something like this:
    originating site.
 
 I've used this process from Coinbase about half a dozen times and it has
-worked very well. However, due to my offline wallet\_'s screwy,
+worked very well. However, due to my offline wallet's screwy,
 experimental setup  [1] I realized that I would need to reboot my
 computer *between steps 2 and 3 above*.
 
@@ -42,7 +42,7 @@ This realization caused a few questions to cross my mind:
 
 I wish I could say that I can answer both of these questions, but today
 I decided to focus on the former. I looked in a bunch of places,
-including the Coinbase Merchant Checkout API docs\_ (which seem to be
+including the Coinbase Merchant Checkout API docs (which seem to be
 fairly decent). However, I couldn't find any notes on whether a session
 was required.
 
@@ -90,5 +90,5 @@ I hope that this information is helpful for at least a few other people.
     offline wallets. I had to do this because of the weird way that I
     set everything up.
 
-[2] Of course, right after publishing this article I found this
-    link\_ that explains how late payments are handled.
+[2] Of course, right after publishing this article I found [[https://developers.coinbase.com/docs/merchants/technical-faq#mispayments_general][this link]]
+that explains how late payments are handled.

@@ -9,7 +9,7 @@
 
 I've been using Puppet for a couple of years now in a quick and dirty
 way on a couple of side projects. Heck, I've even published a
-couple of modules\_. I find it to be very easy to use and incredibly
+couple of modules. I find it to be very easy to use and incredibly
 useful.
 
 Recently I wrote my first "real world" Django application and I wanted

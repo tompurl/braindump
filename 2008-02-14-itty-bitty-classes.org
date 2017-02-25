@@ -87,7 +87,7 @@ program.
   from some of advantages of object-orientation.
 #+END_QUOTE
 
-I got to my rotate\_snapshots method, which started out like this:
+I got to my rotate_snapshots method, which started out like this:
 
 #+BEGIN_EXAMPLE
     import re, os, sys

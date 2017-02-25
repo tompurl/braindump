@@ -2,26 +2,17 @@
 
 #+DATE: 2015-10-06
 
-#+BEGIN_QUOTE
-  *note*
-
-  This is a cleaner version of my tor related notes from this page\_,
-  which also shows you how to set up SSH as a hidden service\_ on a
-  Debian server. Also, I'm happy to plug my torssh puppet module\_ which
-  also will help you set up a hidden service.
-#+END_QUOTE
-
 * Overview
 
 This tutorial shows you how to connect to an SSH service exopsed as a
-hidden service\_ using Tor using an SSH client. It is Debian-specific,
+hidden service using Tor using an SSH client. It is Debian-specific,
 but the instructions should mostly work on all Unix-like systems
 (including OS X).
 
 * Installation
 
 In addition to an SSH package (like =openssh=) you also need to install
-the connect-proxy\_ package. This package is required to proxy your
+the =connect-proxy= package. This package is required to proxy your
 request through the Tor network.
 
 If you're using Debian then it's just this easy:
@@ -77,14 +68,14 @@ for the =bart= server. To log in I just execute the following command:
 
 Easy peasy.
 
-** SOCKS5\_PASSWORD
+** SOCKS5_PASSWORD
 
 One thing that's a little annoying about =connect-proxy= is that it
 prompts you for a SOCKS5 password automatically. I don't even have a
 SOCKS5 password when using Tor so I can bypass the prompt by just typing
 return. However, this is a little annoying and is incompatible with some
 tools that are built on top of the ssh client (like Emac's
-tramp mode\_).
+tramp mode).
 
 To get rid of this prompt simply add the following to any file that is
 sourced by your shell when you login (such as =.bashrc=):

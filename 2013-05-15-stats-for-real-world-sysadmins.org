@@ -55,7 +55,7 @@ some of its advantages:
 It also has some disadvantages though, which we'll see soon enough.
 
 To get the averaget, let's dump all of the rows from the PERF table to a
-csv file called perf\_results.csv. Since this database is hypothetical,
+csv file called perf_results.csv. Since this database is hypothetical,
 let's just use a CSV file that I created here.
 
 You may have noticed that the CSV file that I provided doesn't have much

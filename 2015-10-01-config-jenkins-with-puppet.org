@@ -2,7 +2,7 @@
 
 #+DATE: 2015-10-01
 
-*2/26/2016 Update*: The rtyler/jenkins\_ module has been updated
+*2/26/2016 Update*: The rtyler/jenkins module has been updated
 recently to allow you to set the runas user and group. This technique is
 much more elegant that my original tutorial so I have updated the
 document below with updated steps.
@@ -10,21 +10,21 @@ document below with updated steps.
 ---
 
 I was recently rebuilding my laptop using Puppet and needed install
-Jenkins\_ to run scheduled jobs. Thankfully, the excellent
-rtyler/jenkins\_ module exists, but I needed to make a few changes to
+Jenkins to run scheduled jobs. Thankfully, the excellent
+rtyler/jenkins module exists, but I needed to make a few changes to
 make it work for me.
 
 A couple of the scheduled jobs that I need to run make encrypted backups
-using GnuPG and duply\_. The problem is that by default the jenkins
+using GnuPG and duply. The problem is that by default the jenkins
 service runs under the jenkins user, which cannot access either my duply
 or gnupg profiles. The simplest solution for this is to simply run
 jenkins under my local account (which is this case it =tom=).
 
-There's already a really good tutorial\_ on doing this manually, but
+There's already a really good tutorial on doing this manually, but
 since doing the same thing with Puppet is a little tricky, I thought it
 might be helpful to share my experience.
 
-First, of course, you need to add the rtyler/jenkins\_ module version
+First, of course, you need to add the rtyler/jenkins module version
 1.6 or greater. After that you need to add the following to your
 manifest:
 

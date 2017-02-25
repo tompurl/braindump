@@ -19,7 +19,7 @@ Some points:
 I was recently setting up a new
 [[https://en.wikipedia.org/wiki/Virtual_private_server][VPS]] and
 thought that it would be great if I could configure everything using
-Puppet\_. I've used Puppet a little bit\_ to set up Vagrant VM's, but
+Puppet. I've used Puppet a little bit to set up Vagrant VM's, but
 I've never actually used it to set up a laptop or a VPS because I never
 had the time or inclination to set up a puppetmaster server.
 

@@ -39,7 +39,7 @@ So let's say I have the following org file:
 
 Typically, the published, HTML version of that file is stored here:
 
--  c:/foo/bar/org\_html/baz.html
+-  c:/foo/bar/org_html/baz.html
 
 That =org-open-html-version= function simply converts the first file
 name into the second one and opens it in a web browser.

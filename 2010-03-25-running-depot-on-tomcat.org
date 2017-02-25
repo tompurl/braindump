@@ -42,7 +42,7 @@ So let's install Tomcat:
     $ sudo chown -R tom:tom /opt/apache-tomcat-6.0.24
 #+END_EXAMPLE
 
-Assuming that you have the minimum version of Java (I'm using 1.6.0\_15
+Assuming that you have the minimum version of Java (I'm using 1.6.0_15
 from the sun-java6-jdk Ubuntu package), you can start Tomcat like this:
 
 #+BEGIN_EXAMPLE

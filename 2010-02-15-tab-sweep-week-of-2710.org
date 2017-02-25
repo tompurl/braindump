@@ -30,8 +30,7 @@ frustrating. Here are some links that helped me figure things out: -
 [[http://www.capify.org/index.php/Capistrano][Capistrano Home Page]] -
 This is a good starting point, but it's lacking much advanced
 information. -
-[[http://errtheblog.com/posts/19-streaming-capistrano][Streaming
-Capistrano --- err.the\_blog]] - A nice little tip if you want to
+[[http://errtheblog.com/posts/19-streaming-capistrano][Streaming Capistrano --- err.the_blog]] - A nice little tip if you want to
 monitor remote command-line streams using Capistrano.
 
 ** Heroku + Toto

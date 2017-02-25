@@ -2,7 +2,7 @@
 
 #+DATE: 2015-05-08
 
-I recently purchased a Kinesis Advantage Keyboard\_ for the following
+I recently purchased a Kinesis Advantage Keyboard for the following
 reasons:
 
 -  I am a sysadmin for a living and a computer geek for fun so I spend a
@@ -41,7 +41,7 @@ scratching the surface.
 
 I was fairly disappointed to only find a two-page manual when I opened
 the box for my new, complicated keyboard. However, I was then amazed to
-see that it (along with the online FAQ\_) answered all of my questions,
+see that it (along with the online FAQ) answered all of my questions,
 no matter how esoteric.
 
 ** Great Customer Support
@@ -76,7 +76,7 @@ Windows 7. Not USB 3 and Windows 8. Not USB 2 and Winows 7. Heck, it
 even worked like a charm with Linux. No, the only combination that
 doesn't work is the combination that exists on my work laptop.
 
-There are some BIOS settings that you can try\_, but unfortunately none
+There are some BIOS settings that you can try, but unfortunately none
 of them worked for me. I therefore had to request that they send me a
 "conversion kit", which they did very quickly and without any questions
 asked.
