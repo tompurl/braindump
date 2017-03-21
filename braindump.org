@@ -57,6 +57,7 @@ marginalia. It's a lot like looking straight at my brain :-)
 
 * Other Stuff
 
+- [[file:Venting_Notes.org][Venting Notes]]
 - [[file:FavoriteQuotes.org][Favorite Quotes]]
 - [[file:JazzAlbumOfTheDay.org][Jazz Album Of The Day]]
 

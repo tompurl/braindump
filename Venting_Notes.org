@@ -1,0 +1,11 @@
+#+TITLE: Venting Notes
+
+This is a great synopsis of what I try to remember every time I want
+to vent:
+
+- https://andersonservices.com/2009/03/venting-anger-is-always-counterproductive/
+
+...and here's a decision tree of that process:
+
+[[file:images/venting-decision-tree.png]]
+
