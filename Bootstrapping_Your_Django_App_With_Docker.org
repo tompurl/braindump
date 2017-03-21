@@ -1,0 +1,90 @@
+#+TITLE: Bootstrapping Your Django App With Docker
+
+I recently created a fairly simple web site for a non-profit.  Since I
+just finished reading [[https://www.dockerbook.com/][The Docker Book]], I thought it would be nice to
+use this project as my first non-trivial Docker-based exercise. 
+
+Naturally, since this is a real application that people are depending
+on I wasn't going to treat this a an experiment. This wasn't simply a
+fun project that I could throw away if things got weird after all. I
+therefore not only had to learn how to make things work for five
+minutes with Docker - I had to learn how to make something that was
+supportable and reliable and, you know, *easy to maintain*.
+
+I'm happy to say that I had a pretty good experience and I can't wait
+to share.  My first lesson was in setting up my development tools using
+Docker containers.
+
+* Wait But Why Use Docker For Development?
+
+Here's what I mean. Docker is a great tool for *hosting* applications.
+You simply take your code deliverable (e.g. war file, Rails project,
+etc.), squish it together with your runtime (e.g. Tomcat, Unicorn, etc.)
+and then run that as a binary blob on your server. It makes deployments
+a lot more consistent and reliable (in addition to other benefits).
+
+But what I'm talking about at this phase is using Docker containers to 
+host everything I need *develop* my application, and by that I mean 
+*everything* that I need to:
+
+- Run a dev app server
+- Compile, test and debug my code
+- Build any executables
+
+Now what you may be saying is, Tom, this is dumb. It's easy to install
+Django (or Rails, or Spring Boot, or whatever), and it's easy to
+create a new project. Why on earth would you choose to add a Docker
+layer at this phase?
+
+Well, the short answer is that it's actually *not* easy to install
+everything that you need to develop a lot of applications, and I'm
+going to use the Django framework (which is easier than most) as an
+example.
+
+If you visit the [[https://docs.djangoproject.com/en/1.10/topics/install/#installing-official-release][How to intall Django]] page you see that all you really
+have to do is run the following command:
+
+#+BEGIN_SRC sh
+sudo pip install Django
+#+END_SRC
+
+Great, right? Well, yes, if you're running Linux or OSX. If you're a 
+Windows user, there's a [[https://docs.djangoproject.com/en/1.10/howto/windows/][special howto]]. Also, even if you are running
+some or of *nix kernel, you have to worry about the following:
+
+- Do you have a previous version installed? Does anything running on
+  your system depend on this older version?
+- Do you have another version of Django that was installed by your
+  system's package manager (e.g. =apt-get=)? Will this code "collide"
+  somehow with the version that you'll install using =pip=?
+  - Will any of Django's *dependencies* collide with similar code that
+    is installed by your system's package manager? Will having two
+    versions of dependency libraries cause unrelated software on your
+    laptop to magically stop working? And how on earth will you find
+    out?
+- Which version of Python are you using? If you have both Python 2 and
+  3 installed, then you may also have two versions of =pip=. Which one
+  should you use?
+- Most Python devs would also recommend that you use =virtualenv= to
+  isolate your Django libraries. But again, are you using the Python 2
+  version or the Python 3 one?
+- Oh, and you don't know /how/ to use =virtualenv=? Just read another
+  series of tutorials. But hopefully after you're done with that you
+  will also look into =virtualenvwrapper=, which makes working with
+  =virtualenv= *so* much easier. 
+
+Needless to say, things get complicated pretty easily. And this is
+just for *one framework*. There's a whole different list of bullet
+points for pretty much every other framework and language out there
+and the knowledge of one can't be used with another. Being an expert
+with =pip= won't help you use =npm=, just like knowing a ton about
+=rvm= won't help you do anything with =leiningen=.
+
+Wouldn't it be great if you could just run some sort of *standalone
+EXE*-type thing that had everything you needed to develop your app and
+*didn't mess up* anything else on your system? Oh, and ideally, wouldn't
+it be great to be able to use a *single skillset* to run your dev
+server, regardless of the code's language, framework or choice of
+build tool?
+
+I agree, so that's what we're going to tackle first.
