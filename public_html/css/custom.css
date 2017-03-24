@@ -9,4 +9,8 @@ h4,
 h5,
 h6 {
     font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
- }
+}
+
+pre.example {
+    background-color: #e6f4ff;
+}
