@@ -14,3 +14,10 @@ h6 {
 pre.example {
     background-color: #e6f4ff;
 }
+
+div.note {
+    /* outline: black solid thin; */
+    margin: 3px;
+    border: 3px solid silver;
+    padding: 5px;
+}
