@@ -11,6 +11,7 @@ marginalia. It's a lot like looking straight at my brain :-)
   
 ** Linux / Unix
 
+- [[file:Resizing_Filesystems.org][Resizing Filesystems]]
 - [[file:Docker_Cheatsheet.org][Docker Cheatsheet]]
 - [[file:FirefoxOnDebianCheatsheet.org][Firefox On Debian Cheatsheet]]
 - [[file:TmuxCheatSheet.org][Tmux Cheat Sheet]]

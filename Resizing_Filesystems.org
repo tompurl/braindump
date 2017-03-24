@@ -1,0 +1,13 @@
+#+TITLE: Resizing Filesystems
+
+* LVM + BTRFS
+
+#+BEGIN_SRC sh
+sudo btrfs filesystem resize -7G /home
+# reboot into rescue cd
+vgchange -a y
+lvreduce --size -7G /dev/vg_main/lv_home
+lvextend --size +7G /dev/vg_main/lv_root
+# boot into regular os again
+sudo btrfs filesystem resize +7G /
+#+END_SRC
