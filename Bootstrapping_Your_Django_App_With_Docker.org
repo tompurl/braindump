@@ -1,23 +1,36 @@
 #+TITLE: Bootstrapping Your Django App With Docker
 #+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
+#+BEGIN_COMMENT
+Here's what I want to add:
+
+- [ ] Emphasis that while I'm using Docker here, the basic steps can be
+  used to develop with any framework or language
+- [X] Emphasis that this isn't the type of container that you push to a 
+  public server - it's more of a lightweight VM
+- [ ] Add build prerequisites
+#+END_COMMENT
+
 I recently created a fairly simple web site for a non-profit.  Since I
-just finished reading [[https://www.dockerbook.com/][The Docker Book]], I thought it would be nice to
+just finished reading [[https://www.dockerbook.com/][The Docker Book]] [fn:1], I thought it would be nice to
 use this project as my first non-trivial Docker-based exercise. 
 
 Naturally, since this is a real application that people are depending
-on I wasn't going to treat this a an experiment. This wasn't simply a
-fun project that I could throw away if things got weird after all. I
-therefore not only had to learn how to make things work for five
-minutes with Docker - I had to learn how to make something that was
-supportable and reliable and, you know, *easy to maintain*.
+on I wanted to make something good, not just sprinkle in enough Docker
+to pad my resume. This wasn't simply a fun project that I could throw
+away if things got weird after all. I therefore not only had to learn
+how to make things work for five minutes with Docker - I had to learn
+how to make something that was supportable, reliable and easy to
+maintain.
 
-
-I'm happy to say that I had a pretty good experience and I can't wait
-to share.  My first lesson was in setting up my development tools using
-Docker containers.
+I'm happy to say that I'm pretty happy with my results and I can't
+wait to share my experiences.  My first lesson was in setting up my
+development tools using Docker containers.
 
 * Wait But Why Use Docker For Development?
+  :PROPERTIES:
+  :CUSTOM_ID: waitbutwhy
+  :END:
 
 Here's what I mean. Docker is a great tool for *hosting* applications.
 You simply take your code deliverable (e.g. war file, Rails project,
@@ -25,9 +38,9 @@ etc.), squish it together with your runtime (e.g. Tomcat, Unicorn, etc.)
 and then run that as a binary blob on your server. It makes deployments
 a lot more consistent and reliable (in addition to other benefits).
 
-But what I'm talking about at this phase is using Docker containers to 
-host everything I need *develop* my application, and by that I mean 
-*everything* that I need to:
+But what I'm talking about at this phase is using a Docker container
+as a *lightweight VM* to host everything I need *develop* my
+application, and by that I mean *everything* that I need to:
 
 - Run a dev app server
 - Compile, test and debug my code
@@ -42,6 +55,17 @@ Well, the short answer is that it's actually *not* easy to install
 everything that you need to develop a lot of applications, and I'm
 going to use the Django framework (which is easier than most) as an
 example.
+
+#+BEGIN_NOTE
+*Note:*
+
+The example in this article builds a development environment for a
+Django-based application, but using the basic steps below you could
+build a development environment for virtually /any/ type of
+application (e.g. Rails, Node, JEE, etc.). 
+
+This is a *Docker* tutorial that uses Django as a means to an end.
+#+END_NOTE
 
 If you visit the [[https://docs.djangoproject.com/en/1.10/topics/install/#installing-official-release][How to intall Django]] page you see that all you really
 have to do is run the following command:
@@ -69,7 +93,7 @@ some or of *nix kernel, you have to worry about the following:
   should you use?
 - Most Python devs would also recommend that you use =virtualenv= to
   isolate your Django libraries. But again, are you using the Python 2
-  version or the Python 3 one?
+  version or the Python 3 version?
 - Oh, and you don't know /how/ to use =virtualenv=? Just read another
   series of tutorials. But hopefully after you're done with that you
   will also look into =virtualenvwrapper=, which makes working with
@@ -92,10 +116,14 @@ build tool?
 I agree, so that's what we're going to tackle first.
 
 * Iteration 1 - Starting Our Project
-** Creating Our Dev Docker Image
   :PROPERTIES:
   :header-args: :exports both :results verbatim :eval never-export
+  :CUSTOM_ID: iteration1
   :END:
+** Creating Our Dev Docker Image
+   :PROPERTIES:
+   :CUSTOM_ID: creatingourdevdockerimage
+   :END:
 
 #+BEGIN_COMMENT
 The following code block is not exported but it is used by almost all
@@ -114,9 +142,19 @@ which I'm going to call =fun_with_docker=:
 mkdir -vp $HOME/Dev/Python/fun_with_docker_project/fun_with_docker
 #+END_SRC
 
+Here's our results:
+
 #+RESULTS:
 : mkdir: created directory ‘/home/tom/Dev/Python/fun_with_docker_project’
 : mkdir: created directory ‘/home/tom/Dev/Python/fun_with_docker_project/fun_with_docker’
+
+#+BEGIN_NOTE
+*Note:*
+
+For the remainder of this tutorial, this will be the base folder for
+our Django project. If you would like to use a different folder then
+don't forget to update the values in all of the code snippets below.
+#+END_NOTE
 
 Next let's create our "dev" Docker image like so:
 
@@ -134,15 +172,15 @@ EXPOSE 8000
 EOF
 #+END_SRC
 
-#+RESULTS:
-
 #+BEGIN_NOTE
+*Note:*
+
 The =tee= command above writes to a file without using a text editor
 using something called a [[http://stackoverflow.com/questions/2953081/how-can-i-write-a-here-doc-to-a-file-in-bash-script][heredoc]]. I use them because they're quick
 and easy and I am lazy.
 
 If you would rather just edit the file in a text editor, then the file
-name is the path after the '>' character in the first line.  Simply
+name is the path after the =>= character in the first line.  Simply
 copy everything between the first line and the =EOF= line into the
 Dockerfile.
 #+END_NOTE
@@ -177,6 +215,10 @@ on your machine.
 <<cd_to_django_dir>>
 sudo docker build -f Dockerfile-app-dev -t tompurl/fwd-app-dev . 
 #+END_SRC
+
+Here's the results. I truncated them a little bit for brevity's sake.
+Also, your results an be fairly different. The key is that the last
+line tells you that it was "Successfully built".
 
 #+RESULTS:
 #+begin_example
@@ -235,6 +277,8 @@ see it you could type this command:
 sudo docker image ls tompurl/fwd-app-dev
 #+END_SRC
 
+Here's the results:
+
 #+RESULTS:
 : REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
 : tompurl/fwd-app-dev   latest              6f381df6a598        23 seconds ago      286 MB
@@ -243,8 +287,8 @@ Sweetness!
 
 ** Running Our Dev Container
   :PROPERTIES:
-  :header-args: :exports both :results verbatim :eval never-export
-  :END:
+  :CUSTOM_ID: runningourdevcontainer
+  :END:      
 
 Now remember, *no container is actually running* at this point. What
 we've done so far is create the *image*, not the container. The
@@ -333,9 +377,11 @@ From within the container run this command:
 django-admin.py startproject fun_with_docker .
 #+END_SRC
 
+You shouldn't see any output.
+
 ** Iteration 1 Testing
   :PROPERTIES:
-  :header-args: :exports both :results verbatim :eval never-export
+  :CUSTOM_ID: iteration1testing
   :END:
 
 Ok, just for fun let's now *exit the container* by typing the =exit=
@@ -346,6 +392,8 @@ following command:
   <<cd_to_django_dir>>
   tree .
 #+END_SRC
+
+Here's the results:
 
 #+RESULTS:
 #+begin_example
@@ -388,6 +436,9 @@ session.
        ash -c "python manage.py runserver 0.0.0.0:8000"
 #+END_SRC
 
+Here's the results, which is just a hash for your container. Your
+results will be different than mine:
+
 #+RESULTS:
 : ddfa2e06a9d32b33bfca40b34c773821a627e227384a2b0685c4ea0db44c1b25
 
@@ -416,6 +467,8 @@ running. Well, let's take a look!
 sudo docker ps
 #+END_SRC
 
+Here's something similar to what you'll see:
+
 #+RESULTS:
 : CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                    NAMES
 : ddfa2e06a9d3        tompurl/fwd-app-dev   "ash -c 'python ma..."   14 seconds ago      Up 11 seconds       0.0.0.0:8000->8000/tcp   fwd-app-dev
@@ -425,6 +478,8 @@ Yeppers, there it is. Now let's actually see if we can poke and prod our skeleto
 #+BEGIN_SRC sh
 curl http://localhost:8000/ | elinks -dump
 #+END_SRC
+
+And here's what I get:
 
 #+RESULTS:
 :                                    It worked!
@@ -437,19 +492,38 @@ curl http://localhost:8000/ | elinks -dump
 :    You're seeing this message because you have DEBUG = True in your Django
 :    settings file and you haven't configured any URLs. Get to work!
 
-You can also test this with a web browser if you'd like, but remember,
-I'm lazy so I like to use scripts :-)
+I tested this with =elinks=, which is a console-based web browser. You
+can also test this with a regular web browser if you'd like, but
+remember, I'm lazy so I like to use scripts :-)
 
 At this point you may be saying "this is great, but I'm flying blind -
 how do I see what that process was writing to the console *inside*
 your container?
 
+Well, you could look at the logs for the =runserver= process if you
+run this command from your Docker host (i.e. *not* from within the
+container):
+
 #+BEGIN_SRC sh
 sudo docker logs fwd-app-dev 2>&1
 #+END_SRC
 
+You should see results like this:
+
 #+RESULTS:
 : [24/Mar/2017 01:15:17] "GET / HTTP/1.1" 200 1767
+
+What this command does is read the output of the command that you 
+specified when you started your container. In our case this is that
+command:
+
+#+BEGIN_SRC sh
+ash -c "python manage.py runserver 0.0.0.0:8000"
+#+END_SRC
+
+Please note that this command should not be backgrounded with an =&=
+or nohup command. If you did that then you wouldn't be able to read
+the logs using the =docker logs= command.
 
 If you wanted to tail the logs you could just run this command:
 
@@ -465,6 +539,8 @@ following command:
 sudo docker stop fwd-app-dev
 #+END_SRC
 
+You should see the following results:
+
 #+RESULTS:
 : fwd-app-dev
 
@@ -475,8 +551,8 @@ and prod your app.
 * Iteration 2 - Networking And A Proper Database
   :PROPERTIES:
   :header-args: :exports both :results verbatim :eval never-export
+  :CUSTOM_ID: iteration2
   :END:
-
 ** Creating A Database Image 
 
 At this point it's really tempting to start developing your Django
@@ -1014,5 +1090,11 @@ rm -vrf ~/Dev/Python/fun_with_docker_project
 # You have to run this in a console
 # sudo rm -rf ~/docker/container/fwd-pg-dev
 #+END_SRC
+
+* Footnotes
+
+[fn:1] I /highly/ recommend this book as an intro to Docker. It's by
+far the best book that I've found on the topic and it's dirt cheap.
+
 
 
