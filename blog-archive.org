@@ -2,7 +2,7 @@
 #+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
 * 2017
-** [[file:Bootstrapping_Your_Django_App_With_Docker.org][Bootstrapping Your Django Applicaiton With Docker]]
+** [[file:Bootstrapping_Your_Django_App_With_Docker.org][Bootstrapping Your Django App With Docker]]
 * 2016
 ** [[file:2016-06-05-emulating-android-on-debian.org][Lessons Learned Running The Android Emulator]]
 ** [[file:2016-04-22-lug-meeting.notes.org][LUG Meeting Notes - 4/22/16]]

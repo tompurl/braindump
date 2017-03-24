@@ -1,4 +1,5 @@
 #+TITLE: Bootstrapping Your Django App With Docker
+#+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
 I recently created a fairly simple web site for a non-profit.  Since I
 just finished reading [[https://www.dockerbook.com/][The Docker Book]], I thought it would be nice to
@@ -10,6 +11,7 @@ fun project that I could throw away if things got weird after all. I
 therefore not only had to learn how to make things work for five
 minutes with Docker - I had to learn how to make something that was
 supportable and reliable and, you know, *easy to maintain*.
+
 
 I'm happy to say that I had a pretty good experience and I can't wait
 to share.  My first lesson was in setting up my development tools using
@@ -88,3 +90,928 @@ server, regardless of the code's language, framework or choice of
 build tool?
 
 I agree, so that's what we're going to tackle first.
+
+* Iteration 1 - Starting Our Project
+** Creating Our Dev Docker Image
+  :PROPERTIES:
+  :header-args: :exports both :results verbatim :eval never-export
+  :END:
+
+#+BEGIN_COMMENT
+The following code block is not exported but it is used by almost all
+of the code blocks.
+#+END_COMMENT
+
+#+Name: cd_to_django_dir
+#+BEGIN_SRC sh :exports none
+  cd "$HOME/Dev/Python/fun_with_docker_project/fun_with_docker"
+#+END_SRC
+
+Let's first create an initial folder structure for our application
+which I'm going to call =fun_with_docker=:
+
+#+BEGIN_SRC sh
+mkdir -vp $HOME/Dev/Python/fun_with_docker_project/fun_with_docker
+#+END_SRC
+
+#+RESULTS:
+: mkdir: created directory ‘/home/tom/Dev/Python/fun_with_docker_project’
+: mkdir: created directory ‘/home/tom/Dev/Python/fun_with_docker_project/fun_with_docker’
+
+Next let's create our "dev" Docker image like so:
+
+#+BEGIN_SRC sh
+tee <<EOF > $HOME/Dev/Python/fun_with_docker_project/fun_with_docker/Dockerfile-dev-app
+FROM python:3.4-alpine
+MAINTAINER Tom Purl "<tom@tompurl.com>"
+ENV REFRESHED_AT 2017-02-28
+RUN apk add --update build-base postgresql-dev
+RUN rm -rf /var/cache/apk/*
+RUN pip install Django psycopg2
+WORKDIR /usr/src/app
+
+EXPOSE 8000
+EOF
+#+END_SRC
+
+#+BEGIN_NOTE
+The =tee= command above writes to a file without using a text editor
+using something called a [[http://stackoverflow.com/questions/2953081/how-can-i-write-a-here-doc-to-a-file-in-bash-script][heredoc]]. I use them because they're quick
+and easy and I am lazy.
+
+If you would rather just edit the file in a text editor, then the file
+name is the path after the '>' character in the first line.  Simply
+copy everything between the first line and the =EOF= line into the
+Dockerfile.
+#+END_NOTE
+
+The =Dockerfile-dev-app= is a manifest that file will create the
+Docker image file that we will use to run our container. You can think
+of a Docker *image* as the "EXE" and the *container* as the running
+executable.
+
+So what exactly is this file doing?
+
+- The =FROM= statement specifies the base image on which we're
+  building ours. This is [[https://hub.docker.com/_/python][the official Python 3.4 image]] from [[https://hub.docker.com/][the Docker
+  Hub]].
+  - The =alpine= part in the tag means that it was built on top of the
+    Alpine Linux distribution, which means that the image is smaller
+    than one built on top of a more traditional distro like Ubuntu or
+    Fedora.
+- The first =RUN= line installs some build tools and the Postgres
+  development libs using the Alpine package manager, =apk=.
+- In the third run line we're installing a few Python libs, notably
+  Django.
+- The =WORKDIR= line "cd's" us to the =/usr/src/app= directory.
+- Port 8000 is then exposed to the host OS. We'll use this later to
+  connect to Django's built-in app server.
+
+So let's build our image. Please note that you will probably replace
+the =tompurl= part with something that is meaningful to you and unique
+on your machine.
+
+#+BEGIN_SRC sh :noweb yes
+<<cd_to_django_dir>>
+sudo docker build -f Dockerfile-dev-app -t tompurl/fwd-app-dev . 
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Sending build context to Docker daemon 2.048 kB
+Step 1/8 : FROM python:3.4-alpine
+ ---> 765c483d587c
+Step 2/8 : MAINTAINER Tom Purl "<tom@tompurl.com>"
+ ---> Using cache
+ ---> c06a20173caa
+Step 3/8 : ENV REFRESHED_AT 2017-02-28
+ ---> Using cache
+ ---> a0204fa17dab
+Step 4/8 : RUN apk add --update build-base postgresql-dev
+ ---> Running in 51874e54ae44
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.4/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.4/community/x86_64/APKINDEX.tar.gz
+(1/29) Upgrading libcrypto1.0 (1.0.2j-r0 -> 1.0.2k-r0)
+(2/29) Upgrading libssl1.0 (1.0.2j-r0 -> 1.0.2k-r0)
+(3/29) Installing binutils-libs (2.26-r0)
+...
+(28/29) Installing postgresql-libs (9.5.6-r0)
+(29/29) Installing postgresql-dev (9.5.6-r0)
+Executing busybox-1.24.2-r12.trigger
+OK: 199 MiB in 60 packages
+ ---> 51282dd2bbe1
+Removing intermediate container 51874e54ae44
+Step 5/8 : RUN rm -rf /var/cache/apk/*
+ ---> Running in 2bb41724b1aa
+ ---> 98f99ed3f2f1
+Removing intermediate container 2bb41724b1aa
+Step 6/8 : RUN pip install Django psycopg2
+ ---> Running in eca91ccd3d8b
+Collecting Django
+  Downloading Django-1.10.6-py2.py3-none-any.whl (6.8MB)
+Collecting psycopg2
+  Downloading psycopg2-2.7.1.tar.gz (421kB)
+Installing collected packages: Django, psycopg2
+  Running setup.py install for psycopg2: started
+    Running setup.py install for psycopg2: finished with status 'done'
+Successfully installed Django-1.10.6 psycopg2-2.7.1
+ ---> 9f6b3bd0b9df
+Removing intermediate container eca91ccd3d8b
+Step 7/8 : WORKDIR /usr/src/app
+ ---> 7e542983f6ff
+Removing intermediate container ed04c8325976
+Step 8/8 : EXPOSE 8000
+ ---> Running in b995424f83d3
+ ---> 101f4c5ef8fb
+Removing intermediate container b995424f83d3
+Successfully built 101f4c5ef8fb
+#+end_example
+
+Yay! That was successful and we have an image. If you wanted to actually
+see it you could type this command:
+
+#+BEGIN_SRC sh
+sudo docker image ls tompurl/fwd-app-dev
+#+END_SRC
+
+#+RESULTS:
+: REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+: tompurl/fwd-app-dev   latest              101f4c5ef8fb        5 minutes ago       286 MB
+
+Sweetness!
+
+** Running Our Dev Container
+  :PROPERTIES:
+  :header-args: :exports both :results verbatim :eval never-export
+  :END:
+
+Now remember, *no container is actually running* at this point. What
+we've done so far is create the *image*, not the container. The
+container is the *running version of an image*. This may seem pedantic
+but it's an important distinction to make when working with Docker.
+
+At this point you probably want to start "kicking the tires" on your
+Django environment to see what you've actually *done* so far. To do
+this, we can actually launch a container that we can interact with 
+using the following command:
+
+#+BEGIN_SRC sh :noweb yes
+  <<cd_to_django_dir>>
+  sudo docker run \
+       --name fwd-app-dev \
+       --rm \
+       --user "$(id -u):$(id -g)" \
+       -it \
+       -v "$PWD":/usr/src/app \
+       -w /usr/src/app \
+       -p 8000:8000 \
+       tompurl/fwd-app-dev \
+       ash
+#+END_SRC
+
+So what do these commands mean?
+
+- =--name=: This is just an arbitrary name for our container. This has
+  to be unique for saved containers, which I'll refer to later.
+- =--rm=: Once this container is stopped it will be automatically
+  removed. This means that (almost) all changes we make will disappear
+  when we exit. I say almost because we're also using the =-v= switch.
+- =-it=: Opens an interactive TTY. This is what gives us the ability
+  to open an interactive session.
+- =-v=: Here we're telling Docker to map our current directory (on the
+  host) to the =/usr/src/app= directory in the container. This is
+  called a *volume*, and everything we write into this directory will
+  persist, even if we delete this container.
+  - This is why it's ok to use the =--rm= switch above :-)
+- =--user= We are telling Docker here to run all commands in the
+  container as our user id. This keeps us from creating files in our
+  volume that are owned by the root user.
+- =-w=: cd's to that directory.
+- =-p=: This command maps port 8000 on the host to port 8000 in the
+  container, which we export in the =Dockerfile-dev-app= file above.
+- =tompurl/fwd-app-dev=: This is the name of the image that the
+  container is based on, and should be the name of the image that we
+  just created (which probably won't have the string =tompurl= in
+  it :-) ).
+- =ash= This is the command that we're passing to the container. =ash=
+  is a lighter-weight version of the =bash= shell that is the default
+  in Alpine Linux. So we're saying "launch this container and run the
+  ash command". Along with the =-it= switches this gives us our
+  interactive shell.
+
+You are now "logged into" a container running the image we just built
+(although you haven't really "logged in" - we're not using ssh or
+anything like that). You should see the following in your console:
+
+#+BEGIN_EXAMPLE
+/usr/src/app $ 
+#+END_EXAMPLE
+
+Let's take a look at the name of the container's OS. Run the following
+commands from *within* the container:
+
+#+BEGIN_SRC sh
+cat /etc/os-release 
+#+END_SRC
+
+You should see the following output:
+
+#+BEGIN_EXAMPLE
+NAME="Alpine Linux"
+ID=alpine
+VERSION_ID=3.4.6
+PRETTY_NAME="Alpine Linux v3.4"
+HOME_URL="http://alpinelinux.org"
+BUG_REPORT_URL="http://bugs.alpinelinux.org"
+#+END_EXAMPLE
+
+Sweet! At this point we can now actually create our Django project.
+From within the container run this command:
+
+#+BEGIN_SRC sh
+django-admin.py startproject fun_with_docker .
+#+END_SRC
+
+** Iteration 1 Testing
+  :PROPERTIES:
+  :header-args: :exports both :results verbatim :eval never-export
+  :END:
+
+Ok, just for fun let's now ext the container by typing the =exit=
+command. You should now be in your Django project dir. Execute the
+following command:
+
+#+BEGIN_SRC sh :noweb yes
+  <<cd_to_django_dir>>
+  tree .
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+.
+├── Dockerfile-dev-app
+├── fun_with_docker
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── manage.py
+
+1 directory, 6 files
+#+end_example
+
+As you can see, even though we "threw away" our container by exiting
+it, our files are still there because they're part of the volume that
+we mapped. So everything that we create under =/usr/src/app= while the
+container is running persists. Everything else thought is thrown away,
+so please don't change anything else unless you remove the =--rm= switch
+in the =run= command.
+
+Ok, so at this point we just have a skeleton Django project without a 
+database, but that doesn't mean that we can run a super simple test. But
+first, let's run our Dev server in a container:
+
+#+BEGIN_SRC sh :noweb yes
+  <<cd_to_django_dir>>
+  sudo docker run \
+       --name fwd-app-dev \
+       --rm \
+       --user "$(id -u):$(id -g)" \
+       -v "$PWD":/usr/src/app \
+       -w /usr/src/app \
+       -p 8000:8000 \
+       -d \
+       tompurl/fwd-app-dev \
+       ash -c "python manage.py runserver 0.0.0.0:8000"
+#+END_SRC
+
+#+RESULTS:
+: 1770a52e39250a2c31101d5931cd0811192c4ff5511e3b474f8a5352e9f78432
+
+Ok, what we just did it a little different than anything else we've
+done so far. For starters, you shouldn't have an interactive session
+in your container. The command should have returned a hash string
+similar to the one you see above.
+
+So what just happened? Well first let's talk about the differences
+in how we executed the =docker run= command:
+
+- What we removed:
+  - =-it=: We *don't* want to run an interactive session, so we don't
+    want a TTY or to redirect STDIN or anything like that.
+- What we added:
+  - =-d=: This tell Docker to /daemonize/ the container, meaning that
+    it will run in the background.
+  - =ash -c yada yada=: You may have noticed that our =ash= command
+    got a lot longer. This time we actually want to run the built-in
+    Django app server instead of just an ash session. 
+
+So now you may be wondering if your =runserver= process is even
+running. Well, let's take a look!
+
+#+BEGIN_SRC sh
+sudo docker ps
+#+END_SRC
+
+#+RESULTS:
+: CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                    NAMES
+: 1770a52e3925        tompurl/fwd-app-dev   "ash -c 'python ma..."   5 minutes ago       Up 5 minutes        0.0.0.0:8000->8000/tcp   fwd-app-dev
+
+Yeppers, there it is. Now let's actually see if we can poke and prod our skeleton app:
+
+#+BEGIN_SRC sh
+curl http://localhost:8000/ | elinks -dump
+#+END_SRC
+
+#+RESULTS:
+:                                    It worked!
+: 
+: Congratulations on your first Django-powered page.
+: 
+:    Of course, you haven't actually done any work yet. Next, start your first
+:    app by running python manage.py startapp [app_label].
+: 
+:    You're seeing this message because you have DEBUG = True in your Django
+:    settings file and you haven't configured any URLs. Get to work!
+
+You can also test this with a web browser if you'd like, but remember,
+I'm lazy so I like to use scripts :-)
+
+At this point you may be saying "this is great, but I'm flying blind -
+how do I see what that process was writing to the console *inside*
+your container?
+
+#+BEGIN_SRC sh
+sudo docker logs fwd-app-dev 2>&1
+#+END_SRC
+
+#+RESULTS:
+: [23/Mar/2017 14:51:18] "GET / HTTP/1.1" 200 1767
+
+If you wanted to tail the logs you could just run this command:
+
+#+BEGIN_SRC sh
+sudo docker logs -f fwd-app-dev
+#+END_SRC
+
+If you feel too disconnected from your server using this strategy then
+it's easy to change. First, simple shut down your container using the
+following command:
+
+#+BEGIN_SRC sh
+sudo docker stop fwd-app-dev
+#+END_SRC
+
+#+RESULTS:
+: fwd-app-dev
+
+Then you can run the =-it= version of the =run= command above, the one
+that simply runs the =ash= command. This open up an interactive
+session in the container where you can more easily and quickly poke
+and prod your app.
+* Iteration 2 - Networking And A Proper Database
+  :PROPERTIES:
+  :header-args: :exports both :results verbatim :eval never-export
+  :END:
+
+** Creating A Database Image 
+
+At this point it's really tempting to start developing your Django
+application using the built-in SQLite driver because it's so easy.
+However, we're going to end up deploying our application on top of
+Postgres, so we *really* should be developing with Postgres too.
+
+However, like Django installing Postgres can be an difficult package
+to install. Thank goodness that Docker makes it so easy.
+
+First, let's create a folder where we can store the database data
+so that it doesn't disappear if we destroy the Postgres container:
+
+#+BEGIN_SRC sh
+mkdir -vp "$HOME/docker/container/fwd-pg-dev/var/lib/postgresql/data"
+#+END_SRC
+
+#+RESULTS:
+: mkdir: created directory ‘/home/tom/docker/container/fwd-pg-dev’
+: mkdir: created directory ‘/home/tom/docker/container/fwd-pg-dev/var’
+: mkdir: created directory ‘/home/tom/docker/container/fwd-pg-dev/var/lib’
+: mkdir: created directory ‘/home/tom/docker/container/fwd-pg-dev/var/lib/postgresql’
+: mkdir: created directory ‘/home/tom/docker/container/fwd-pg-dev/var/lib/postgresql/data’
+
+Super! Now let's create our database with this command:
+
+#+BEGIN_SRC sh
+  export HOST_PGDATA_HOME="$HOME/docker/container/fwd-pg-dev/var/lib/postgresql/data"
+  export POSTGRES_PASSWORD=somethingClever
+  export POSTGRES_USER=fwd
+  export POSTGRES_DB=fwddb
+
+  sudo docker run \
+       --name fwd-pg-dev \
+       -e POSTGRES_PASSWORD="$POSTGRES_PASSWORD" \
+       -e POSTGRES_USER="$POSTGRES_USER" \
+       -e POSTGRES_DB="$POSTGRES_DB" \
+       -v "$HOST_PGDATA_HOME":/var/lib/postgresql/data \
+       -d \
+       postgres:9.6-alpine
+#+END_SRC
+
+#+RESULTS:
+: a374e45e327c380cf86a98fc2537003ae9c96329e11d222d3a2dfe6fac820d39
+
+The =run= command should look pretty familiar by now, but we're
+changing things yet again. First, you may have noticed that we didn't
+create a Dockerfile this time. We just launch an instance of the
+=postgres:9.6-alpine= image.That's because the [[https://hub.docker.com/_/postgres/][official Postgres image
+on the Docker Hub]] is good enough for our needs, so we don't need to
+install anything on top of it.
+
+Next you'll notice that we're setting the value of a bunch of 
+environment variables in the container with the =-e= switch.
+That's because the Postgres image is designed to be configured
+using environment variables, which makes our job much easier.
+
+You'll also notice that I set the value of these container-level
+environment variables with bash variables. This is *not* necessary.
+I just like setting these values at the top of the script to make
+things easier to read and change.
+
+The first time you start the database it will take a few
+minutes. Remember that the =docker logs= command is your friend.
+
+#+BEGIN_SRC sh
+sudo docker logs fwd-pg-dev 2>&1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.utf8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgresql/data ... ok
+creating subdirectories ... ok
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting dynamic shared memory implementation ... posix
+creating configuration files ... ok
+running bootstrap script ... ok
+sh: locale: not found
+performing post-bootstrap initialization ... No usable system locales were found.
+Use the option "--debug" to see details.
+ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+WARNING: enabling "trust" authentication for local connections
+You can change this by editing pg_hba.conf or using the option -A, or
+--auth-local and --auth-host, the next time you run initdb.
+
+    pg_ctl -D /var/lib/postgresql/data -l logfile start
+
+waiting for server to start....LOG:  database system was shut down at 2017-03-23 17:29:39 UTC
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ done
+server started
+CREATE DATABASE
+
+CREATE ROLE
+
+
+/usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+
+waiting for server to shut down...LOG:  received fast shutdown request
+.LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+ done
+server stopped
+
+PostgreSQL init process complete; ready for start up.
+
+LOG:  database system was shut down at 2017-03-23 17:30:14 UTC
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+#+end_example
+
+When you see the =LOG: database system is ready to accept connections=
+message then you know that the db is up.
+
+Another thing about the =run= command above. You may have also noticed
+that I didn't include the =--rm= option this time. That's because it
+makes life a little easier for us to keep this container around, even
+when we want to shut it down. It's not *necessary* because we're
+storing the files on our filesystem, but it makes things a little
+easier and faster.
+
+So how does that change things? Well, first you can shut down the 
+container using the =stop= command from before:
+
+#+BEGIN_SRC sh
+sudo docker stop fwd-pg-dev
+#+END_SRC
+
+#+RESULTS:
+: fwd-pg-dev
+
+Using the =ps= command we can now see that the container isn't running:
+
+#+BEGIN_SRC sh
+sudo docker ps 
+#+END_SRC
+
+#+RESULTS:
+: CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+However, it's still there on your filesystem. You can see it like this:
+
+#+BEGIN_SRC sh
+sudo docker ps -a | grep fwd-pg-dev
+#+END_SRC
+
+#+RESULTS:
+: a374e45e327c        postgres:9.6-alpine        "docker-entrypoint..."   21 minutes ago      Exited (0) 2 minutes ago                       fwd-pg-dev
+
+The next time you want to start it, all you have to do is execute this command:
+
+#+BEGIN_SRC sh
+sudo docker start fwd-pg-dev
+#+END_SRC
+
+#+RESULTS:
+: fwd-pg-dev
+
+Please note that we didn't execute the *run* command, we executed the
+*start* command, and this takes us back to the distinction between
+images and containers. Running an image with the *run* command
+*creates* a container, which can then be stopped (using *stop*) and
+restarted (using *start* if you don't automatically remove it with the
+=--rm= option).
+
+Confusing? Yes, a little and it was a big stumbling block for me when
+I first started. And if it's unclear, don't worry because you'll
+figure it out soon. Then big thing to remember is that there's a
+difference between images and containers, and they both have their own
+verbs that sound very similar.
+
+** Networking Our Containers
+
+So far, we're in great shape. We have an app skeleton container and a
+database container. Now we just need them to talk to each
+other. Docker gives us lots of options for setting this up, but my
+favorite *by far* is the one that confusing refer to as *Docker
+Networking*.
+
+What does that mean? Well, again let's explain with an example. First,
+let's create a "Docker Network" with the following command:
+
+#+BEGIN_SRC sh
+sudo docker network create fwd-network-dev
+#+END_SRC
+
+#+RESULTS:
+: 0ba6282b921cce40269c16178d77b4da8bff325f53c56e70580acd1fd80de19a
+
+Ok, so what did we just do? Well, we created a virtual network that
+Docker containers can use to talk to each other. Right now it's pretty
+empty though, which you can see here with the =inspect= command:
+
+#+BEGIN_SRC sh
+sudo docker network inspect fwd-network-dev
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[
+    {
+        "Name": "fwd-network-dev",
+        "Id": "0ba6282b921cce40269c16178d77b4da8bff325f53c56e70580acd1fd80de19a",
+        "Created": "2017-03-23T19:02:18.372979564-05:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.21.0.0/16",
+                    "Gateway": "172.21.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+#+end_example
+
+Notice at the empty *Containers* property. Let's fix that by adding
+our database to this network. Start up your =fwd-network-dev=
+container if it's not already running and run the following command:
+
+#+BEGIN_SRC sh
+sudo docker network connect fwd-network-dev fwd-pg-dev
+#+END_SRC
+
+This command won't return any output if it's successful. You can interrogate 
+your network using the =inspect= command again:
+
+
+
+#+BEGIN_SRC sh
+sudo docker network inspect fwd-network-dev
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[
+    {
+        "Name": "fwd-network-dev",
+        "Id": "0ba6282b921cce40269c16178d77b4da8bff325f53c56e70580acd1fd80de19a",
+        "Created": "2017-03-23T19:02:18.372979564-05:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.21.0.0/16",
+                    "Gateway": "172.21.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Containers": {
+            "a374e45e327c380cf86a98fc2537003ae9c96329e11d222d3a2dfe6fac820d39": {
+                "Name": "fwd-pg-dev",
+                "EndpointID": "09b09177451a2d34b5adf91c6142c62436a54ae59a7b2925b8edd032d146cb32",
+                "MacAddress": "02:42:ac:15:00:02",
+                "IPv4Address": "172.21.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+#+end_example
+
+Yay! There's our Postgres container. Now let's run a =fwd-app-dev=
+container and connect it to the network. We'll do that by using an 
+updated version of our previous =run= command:
+
+#+BEGIN_SRC sh :noweb yes
+  <<cd_to_django_dir>>
+  sudo docker run \
+       --name fwd-app-dev \
+       --net=fwd-network-dev \
+       --rm \
+       --user "$(id -u):$(id -g)" \
+       -it \
+       -v "$PWD":/usr/src/app \
+       -w /usr/src/app \
+       -p 8000:8000 \
+       tompurl/fwd-app-dev \
+       ash
+#+END_SRC
+
+This will drop you into the container's shell.
+
+Now at this point, you could open another terminal window and execute
+the =network inspect= command again and see both of your containers
+listed. But I'm going to show you another test you can run that
+highlights a really cool feature of Docker Networks.
+
+From within your =fwd-app-dev= container, execute the following
+command:
+
+#+BEGIN_SRC sh
+nc -zvv fwd-pg-dev 5432
+#+END_SRC
+
+You should see a response that looks something like this:
+
+#+BEGIN_EXAMPLE
+fwd-pg-dev (172.21.0.2:5432) open
+sent 0, rcvd 0
+#+END_EXAMPLE
+
+Ok, so what does this mean? Well, first let's look at the netcat
+(=nc=) command. This is "pinging" port 5432 on our db server, which is
+the port on which Postgres is listening. And the response is that yes,
+this port is actually open and listening for connections.
+
+But wait a minute - we ran that command from our =fwd-app-dev=
+container. How on *earth* does it know how that our Postgres
+server container's name is =fwd-pg-dev=?
+
+That's one of the cool features of Docker Networking. Every container
+in our virtual network is part of something like a virtual DNS
+registry.  So you can actually refer to any container by its container
+name as if they were hostnames, and the DNS-like configuration is
+automatic. You can see what I mean by running this command from within
+the =fwd-app-dev= container:
+
+#+BEGIN_SRC sh
+nslookup fwd-pg-dev
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+nslookup: can't resolve '(null)': Name does not resolve
+
+Name:      fwd-pg-dev
+Address 1: 172.21.0.2 fwd-pg-dev.fwd-network-dev
+#+END_EXAMPLE
+
+As you can see, the =fwd-pg-dev= container has an IP address
+of 172.21.0.2 and a FQDN of fwd-pg-dev.fwd-network-dev. 
+** Running A Migration
+
+Now let's configure our application to talk to the database so we can
+populate some tables. First, let's configure the application by
+opening this file in your favorite text editor:
+
+- =$HOME/Dev/Python/fun_with_docker_project/fun_with_docker/fun_with_docker/settings.py=
+
+Locate the =DATABASES= section and replace it with the following:
+
+#+BEGIN_SRC python 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'fwddb',
+        'USER': 'fwd',
+        'PASSWORD': 'somethingClever',
+        'HOST': 'fwd-pg-dev',
+    }
+}
+#+END_SRC
+
+#+BEGIN_NOTE
+Please note that you absolutely don't have to edit this file from
+within the container. One of the nice things about this setup is that
+you can edit your code from your laptop and then test it using a
+container.
+#+END_NOTE
+
+Next, open an interactive terminal into the =fwd-app-dev= image using
+this command:
+
+#+BEGIN_SRC sh :noweb yes
+  <<cd_to_django_dir>>
+  sudo docker run \
+       --name fwd-app-dev \
+       --net=fwd-network-dev \
+       --rm \
+       --user "$(id -u):$(id -g)" \
+       -it \
+       -v "$PWD":/usr/src/app \
+       -w /usr/src/app \
+       -p 8000:8000 \
+       tompurl/fwd-app-dev \
+       ash
+#+END_SRC
+
+Once you are "inside" the container, run this command:
+
+#+BEGIN_SRC sh
+python ./manage.py migrate
+#+END_SRC
+
+You should see output that looks something like this:
+
+#+BEGIN_EXAMPLE
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+#+END_EXAMPLE
+
+Great! We're in business. Now just for funzies let's add a super user, again
+from within the =fwd-app-dev= container. 
+
+#+BEGIN_SRC sh
+cat <<EOF | python ./manage.py shell
+from django.contrib.auth.models import User
+User.objects.filter(username="tom").exists() or \
+    User.objects.create_superuser("tom", "tom@tompurl.com", "somethingClever")
+EOF
+#+END_SRC
+
+You should get output that looks something like this:
+
+#+BEGIN_EXAMPLE
+Python 3.4.6 (default, Jan 20 2017, 21:41:39) 
+[GCC 5.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> >>> <User: tom>
+>>> 
+#+END_EXAMPLE
+
+** Iterattion 2 Testing
+
+A nice holistic test of all of our work so far would be to log into
+the default Django admin interface. To do this, first execute the
+=runserver= command by specifying the network name. If you still have
+an interactive session open in the =fwd-app-dev= container, exit it
+first.
+
+Now run this:
+
+#+BEGIN_SRC sh :noweb yes
+  <<cd_to_django_dir>>
+  sudo docker run \
+       --name fwd-app-dev \
+       --net=fwd-network-dev \
+       --rm \
+       --user "$(id -u):$(id -g)" \
+       -v "$PWD":/usr/src/app \
+       -w /usr/src/app \
+       -p 8000:8000 \
+       -d \
+       tompurl/fwd-app-dev \
+       ash -c "python manage.py runserver 0.0.0.0:8000"
+#+END_SRC
+
+#+RESULTS:
+: 43bd84aafa790433f785b6c10366df7d5fb2ea11eb71516a6517f1da93775a07
+
+Now visit the following URL in your favorite web browser:
+
+- https://localhost:8000/admin
+
+Log in using the credential for the super user that you created.
+
+* Conclusion
+
+All right, so what do we have?
+
+- A skeleton Django application
+- A =fwd-app-dev= image that we can use to run and test our Django application.
+- A =fwd-pg-dev= container that we can use as a "real" database.
+- Also, all of these components are sandboxed in their own containers
+  and network.
+
+Now that you have all of this set up you can start developing your
+next awesome Django application. Here's some tips:
+
+- The Django app server restarts automatically every time you save a
+  file in your project. You therefore shouldn't have to restart the
+  =fwd-app-dev= container very often.
+- You should be able to leave the =fwd-pg-dev= container running all
+  of the time. If you reboot your laptop then simply start the
+  container with this command:
+  - =sudo docker start fwd-pg-dev=
+
+In my next tutorial, I'm going to show you how you can host your code
+in a "production" container using Nginx and uwsgi. I'll also cover a 
+simple workflow for deploying your image to external servers.
+
+Good luck!
+
+#+BEGIN_COMMENT
+This is the script to run to wipe everything out that you created
+in this tutorial so you can test the code.
+#+END_COMMENT
+
+#+BEGIN_SRC sh :exports none
+sudo docker rm -f fwd-pg-dev
+sudo docker rm -f fwd-app-dev
+sudo docker network rm fwd-network-dev
+rm -vrf ~/Dev/Python/fun_with_docker_project
+# You have to run this in a console
+# sudo rm -rf ~/docker/container/fwd-pg-dev
+#+END_SRC
+
+#+RESULTS:
+
