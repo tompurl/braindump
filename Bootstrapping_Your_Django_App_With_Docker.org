@@ -121,7 +121,7 @@ mkdir -vp $HOME/Dev/Python/fun_with_docker_project/fun_with_docker
 Next let's create our "dev" Docker image like so:
 
 #+BEGIN_SRC sh
-tee <<EOF > $HOME/Dev/Python/fun_with_docker_project/fun_with_docker/Dockerfile-dev-app
+tee <<EOF > $HOME/Dev/Python/fun_with_docker_project/fun_with_docker/Dockerfile-app-dev
 FROM python:3.4-alpine
 MAINTAINER Tom Purl "<tom@tompurl.com>"
 ENV REFRESHED_AT 2017-02-28
@@ -134,6 +134,8 @@ EXPOSE 8000
 EOF
 #+END_SRC
 
+#+RESULTS:
+
 #+BEGIN_NOTE
 The =tee= command above writes to a file without using a text editor
 using something called a [[http://stackoverflow.com/questions/2953081/how-can-i-write-a-here-doc-to-a-file-in-bash-script][heredoc]]. I use them because they're quick
@@ -145,7 +147,7 @@ copy everything between the first line and the =EOF= line into the
 Dockerfile.
 #+END_NOTE
 
-The =Dockerfile-dev-app= is a manifest that file will create the
+The =Dockerfile-app-dev= is a manifest that file will create the
 Docker image file that we will use to run our container. You can think
 of a Docker *image* as the "EXE" and the *container* as the running
 executable.
@@ -173,7 +175,7 @@ on your machine.
 
 #+BEGIN_SRC sh :noweb yes
 <<cd_to_django_dir>>
-sudo docker build -f Dockerfile-dev-app -t tompurl/fwd-app-dev . 
+sudo docker build -f Dockerfile-app-dev -t tompurl/fwd-app-dev . 
 #+END_SRC
 
 #+RESULTS:
@@ -188,25 +190,24 @@ Step 3/8 : ENV REFRESHED_AT 2017-02-28
  ---> Using cache
  ---> a0204fa17dab
 Step 4/8 : RUN apk add --update build-base postgresql-dev
- ---> Running in 51874e54ae44
+ ---> Running in f6269aa6a7bd
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.4/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.4/community/x86_64/APKINDEX.tar.gz
 (1/29) Upgrading libcrypto1.0 (1.0.2j-r0 -> 1.0.2k-r0)
 (2/29) Upgrading libssl1.0 (1.0.2j-r0 -> 1.0.2k-r0)
 (3/29) Installing binutils-libs (2.26-r0)
 ...
-(28/29) Installing postgresql-libs (9.5.6-r0)
 (29/29) Installing postgresql-dev (9.5.6-r0)
 Executing busybox-1.24.2-r12.trigger
 OK: 199 MiB in 60 packages
- ---> 51282dd2bbe1
-Removing intermediate container 51874e54ae44
+ ---> 9db064430f4e
+Removing intermediate container f6269aa6a7bd
 Step 5/8 : RUN rm -rf /var/cache/apk/*
- ---> Running in 2bb41724b1aa
- ---> 98f99ed3f2f1
-Removing intermediate container 2bb41724b1aa
+ ---> Running in b3d662a53028
+ ---> c807f0cf28e8
+Removing intermediate container b3d662a53028
 Step 6/8 : RUN pip install Django psycopg2
- ---> Running in eca91ccd3d8b
+ ---> Running in b8761032db71
 Collecting Django
   Downloading Django-1.10.6-py2.py3-none-any.whl (6.8MB)
 Collecting psycopg2
@@ -215,16 +216,16 @@ Installing collected packages: Django, psycopg2
   Running setup.py install for psycopg2: started
     Running setup.py install for psycopg2: finished with status 'done'
 Successfully installed Django-1.10.6 psycopg2-2.7.1
- ---> 9f6b3bd0b9df
-Removing intermediate container eca91ccd3d8b
+ ---> 2ea51a9c99ca
+Removing intermediate container b8761032db71
 Step 7/8 : WORKDIR /usr/src/app
- ---> 7e542983f6ff
-Removing intermediate container ed04c8325976
+ ---> e79d7862ff12
+Removing intermediate container 340a21534462
 Step 8/8 : EXPOSE 8000
- ---> Running in b995424f83d3
- ---> 101f4c5ef8fb
-Removing intermediate container b995424f83d3
-Successfully built 101f4c5ef8fb
+ ---> Running in c56e7674544d
+ ---> 6f381df6a598
+Removing intermediate container c56e7674544d
+Successfully built 6f381df6a598
 #+end_example
 
 Yay! That was successful and we have an image. If you wanted to actually
@@ -236,7 +237,7 @@ sudo docker image ls tompurl/fwd-app-dev
 
 #+RESULTS:
 : REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
-: tompurl/fwd-app-dev   latest              101f4c5ef8fb        5 minutes ago       286 MB
+: tompurl/fwd-app-dev   latest              6f381df6a598        23 seconds ago      286 MB
 
 Sweetness!
 
@@ -288,7 +289,7 @@ So what do these commands mean?
   volume that are owned by the root user.
 - =-w=: cd's to that directory.
 - =-p=: This command maps port 8000 on the host to port 8000 in the
-  container, which we export in the =Dockerfile-dev-app= file above.
+  container, which we export in the =Dockerfile-app-dev= file above.
 - =tompurl/fwd-app-dev=: This is the name of the image that the
   container is based on, and should be the name of the image that we
   just created (which probably won't have the string =tompurl= in
@@ -337,7 +338,7 @@ django-admin.py startproject fun_with_docker .
   :header-args: :exports both :results verbatim :eval never-export
   :END:
 
-Ok, just for fun let's now ext the container by typing the =exit=
+Ok, just for fun let's now *exit the container* by typing the =exit=
 command. You should now be in your Django project dir. Execute the
 following command:
 
@@ -349,7 +350,7 @@ following command:
 #+RESULTS:
 #+begin_example
 .
-├── Dockerfile-dev-app
+├── Dockerfile-app-dev
 ├── fun_with_docker
 │   ├── __init__.py
 │   ├── settings.py
@@ -367,9 +368,11 @@ container is running persists. Everything else thought is thrown away,
 so please don't change anything else unless you remove the =--rm= switch
 in the =run= command.
 
-Ok, so at this point we just have a skeleton Django project without a 
-database, but that doesn't mean that we can run a super simple test. But
-first, let's run our Dev server in a container:
+Ok, so at this point we just have a skeleton Django project without a
+database, but that doesn't mean that we can run a super simple
+test. But first, let's run our Dev server in a container. Remember,
+you have to exit the container first if you still have terminal
+session.
 
 #+BEGIN_SRC sh :noweb yes
   <<cd_to_django_dir>>
@@ -386,7 +389,7 @@ first, let's run our Dev server in a container:
 #+END_SRC
 
 #+RESULTS:
-: 1770a52e39250a2c31101d5931cd0811192c4ff5511e3b474f8a5352e9f78432
+: ddfa2e06a9d32b33bfca40b34c773821a627e227384a2b0685c4ea0db44c1b25
 
 Ok, what we just did it a little different than anything else we've
 done so far. For starters, you shouldn't have an interactive session
@@ -415,7 +418,7 @@ sudo docker ps
 
 #+RESULTS:
 : CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                    NAMES
-: 1770a52e3925        tompurl/fwd-app-dev   "ash -c 'python ma..."   5 minutes ago       Up 5 minutes        0.0.0.0:8000->8000/tcp   fwd-app-dev
+: ddfa2e06a9d3        tompurl/fwd-app-dev   "ash -c 'python ma..."   14 seconds ago      Up 11 seconds       0.0.0.0:8000->8000/tcp   fwd-app-dev
 
 Yeppers, there it is. Now let's actually see if we can poke and prod our skeleton app:
 
@@ -446,7 +449,7 @@ sudo docker logs fwd-app-dev 2>&1
 #+END_SRC
 
 #+RESULTS:
-: [23/Mar/2017 14:51:18] "GET / HTTP/1.1" 200 1767
+: [24/Mar/2017 01:15:17] "GET / HTTP/1.1" 200 1767
 
 If you wanted to tail the logs you could just run this command:
 
@@ -517,7 +520,7 @@ Super! Now let's create our database with this command:
 #+END_SRC
 
 #+RESULTS:
-: a374e45e327c380cf86a98fc2537003ae9c96329e11d222d3a2dfe6fac820d39
+: 91edde5df2b452731b2c06c9a6a59442a7eb8b04ef3048758144aa9f887ad457
 
 The =run= command should look pretty familiar by now, but we're
 changing things yet again. First, you may have noticed that we didn't
@@ -569,13 +572,13 @@ syncing data to disk ... ok
 
 Success. You can now start the database server using:
 
+
 WARNING: enabling "trust" authentication for local connections
 You can change this by editing pg_hba.conf or using the option -A, or
 --auth-local and --auth-host, the next time you run initdb.
-
     pg_ctl -D /var/lib/postgresql/data -l logfile start
 
-waiting for server to start....LOG:  database system was shut down at 2017-03-23 17:29:39 UTC
+waiting for server to start....LOG:  database system was shut down at 2017-03-24 01:16:14 UTC
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
@@ -598,7 +601,7 @@ server stopped
 
 PostgreSQL init process complete; ready for start up.
 
-LOG:  database system was shut down at 2017-03-23 17:30:14 UTC
+LOG:  database system was shut down at 2017-03-24 01:16:48 UTC
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
@@ -640,7 +643,7 @@ sudo docker ps -a | grep fwd-pg-dev
 #+END_SRC
 
 #+RESULTS:
-: a374e45e327c        postgres:9.6-alpine        "docker-entrypoint..."   21 minutes ago      Exited (0) 2 minutes ago                       fwd-pg-dev
+: 91edde5df2b4        postgres:9.6-alpine        "docker-entrypoint..."   About a minute ago   Exited (0) 12 seconds ago                       fwd-pg-dev
 
 The next time you want to start it, all you have to do is execute this command:
 
@@ -680,7 +683,7 @@ sudo docker network create fwd-network-dev
 #+END_SRC
 
 #+RESULTS:
-: 0ba6282b921cce40269c16178d77b4da8bff325f53c56e70580acd1fd80de19a
+: 87d2d5aa8fa2823f1d386e2510cc600db12fb9e2029c5c7144a2ec94b9589cd0
 
 Ok, so what did we just do? Well, we created a virtual network that
 Docker containers can use to talk to each other. Right now it's pretty
@@ -695,8 +698,8 @@ sudo docker network inspect fwd-network-dev
 [
     {
         "Name": "fwd-network-dev",
-        "Id": "0ba6282b921cce40269c16178d77b4da8bff325f53c56e70580acd1fd80de19a",
-        "Created": "2017-03-23T19:02:18.372979564-05:00",
+        "Id": "87d2d5aa8fa2823f1d386e2510cc600db12fb9e2029c5c7144a2ec94b9589cd0",
+        "Created": "2017-03-23T20:18:06.605061419-05:00",
         "Scope": "local",
         "Driver": "bridge",
         "EnableIPv6": false,
@@ -730,8 +733,6 @@ sudo docker network connect fwd-network-dev fwd-pg-dev
 This command won't return any output if it's successful. You can interrogate 
 your network using the =inspect= command again:
 
-
-
 #+BEGIN_SRC sh
 sudo docker network inspect fwd-network-dev
 #+END_SRC
@@ -741,8 +742,8 @@ sudo docker network inspect fwd-network-dev
 [
     {
         "Name": "fwd-network-dev",
-        "Id": "0ba6282b921cce40269c16178d77b4da8bff325f53c56e70580acd1fd80de19a",
-        "Created": "2017-03-23T19:02:18.372979564-05:00",
+        "Id": "87d2d5aa8fa2823f1d386e2510cc600db12fb9e2029c5c7144a2ec94b9589cd0",
+        "Created": "2017-03-23T20:18:06.605061419-05:00",
         "Scope": "local",
         "Driver": "bridge",
         "EnableIPv6": false,
@@ -759,9 +760,9 @@ sudo docker network inspect fwd-network-dev
         "Internal": false,
         "Attachable": false,
         "Containers": {
-            "a374e45e327c380cf86a98fc2537003ae9c96329e11d222d3a2dfe6fac820d39": {
+            "91edde5df2b452731b2c06c9a6a59442a7eb8b04ef3048758144aa9f887ad457": {
                 "Name": "fwd-pg-dev",
-                "EndpointID": "09b09177451a2d34b5adf91c6142c62436a54ae59a7b2925b8edd032d146cb32",
+                "EndpointID": "38748730ef4b7634d6adf1c20ca3dc6a00fda4be561d544713c4e1feed446628",
                 "MacAddress": "02:42:ac:15:00:02",
                 "IPv4Address": "172.21.0.2/16",
                 "IPv6Address": ""
@@ -964,7 +965,7 @@ Now run this:
 #+END_SRC
 
 #+RESULTS:
-: 43bd84aafa790433f785b6c10366df7d5fb2ea11eb71516a6517f1da93775a07
+: c1abd20bb19439757c9f931697375868e76be6f4035dc573a79ed1546dacfb5b
 
 Now visit the following URL in your favorite web browser:
 
@@ -1008,10 +1009,10 @@ in this tutorial so you can test the code.
 sudo docker rm -f fwd-pg-dev
 sudo docker rm -f fwd-app-dev
 sudo docker network rm fwd-network-dev
+sudo docker rmi tompurl/fwd-app-dev
 rm -vrf ~/Dev/Python/fun_with_docker_project
 # You have to run this in a console
 # sudo rm -rf ~/docker/container/fwd-pg-dev
 #+END_SRC
 
-#+RESULTS:
 
