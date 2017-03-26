@@ -7,7 +7,7 @@ Here's what I want to add:
   used to develop with any framework or language
 - [X] Emphasis that this isn't the type of container that you push to a 
   public server - it's more of a lightweight VM
-- [ ] Add build prerequisites
+- [X] Add build prerequisites
 #+END_COMMENT
 
 I recently created a fairly simple web site for a non-profit.  Since I
@@ -25,6 +25,53 @@ maintain.
 I'm happy to say that I'm pretty happy with my results and I can't
 wait to share my experiences.  My first lesson was in setting up my
 development tools using Docker containers.
+
+* Software Prerequisites
+  :PROPERTIES:
+  :CUSTOM_ID: softwareprereuisites
+  :header-args: :exports both :results verbatim :eval never-export
+  :END:
+
+Don't you hate it when a tutorial makes you install a bunch of
+weird-ass tools? Me too. So I'll try to keep it as simple as possible.
+
+All of the scripts below were tested on a Debian 8 machine. Here's my
+Docker version:
+
+#+BEGIN_SRC sh
+sudo docker version
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Client:
+ Version:      17.03.0-ce
+ API version:  1.26
+ Go version:   go1.7.5
+ Git commit:   60ccb22
+ Built:        Thu Feb 23 10:53:29 2017
+ OS/Arch:      linux/amd64
+
+Server:
+ Version:      17.03.0-ce
+ API version:  1.26 (minimum version 1.12)
+ Go version:   go1.7.5
+ Git commit:   60ccb22
+ Built:        Thu Feb 23 10:53:29 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
+#+end_example
+
+All you *absolutely need* to run the examples below is a Docker version
+>= 1.9.  If you're using Windows or OS X you may need to also run the
+examples from within some type of Linux-based VM. I can't provide
+instructions on how to do that however because I don't have any
+experience working with Docker on those platforms. If you run into any
+issues or have any tips then I would [[file:index.org][love to hear]] about them!
+
+There are a few commands below that require non-standard tools like
+=curl= or =elinks=. I provide alternatives to these scripts when they
+are used.
 
 * Wait But Why Use Docker For Development?
   :PROPERTIES:
@@ -407,6 +454,9 @@ Here's the results:
 
 1 directory, 6 files
 #+end_example
+
+If you don't have the =tree= application installed on your computer
+then you can also view the files in your favorite file explorer.
 
 As you can see, even though we "threw away" our container by exiting
 it, our files are still there because they're part of the volume that
