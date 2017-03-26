@@ -19,10 +19,9 @@ about them.
 - And the [[https://twitter.com/tompurl][tweets]] that I write every time I forget why I don't use
   Twitter.
 
-* Contacts
+* Contact
   :PROPERTIES:
-  :ID:       d153bb0b-856e-4fc5-ae21-cbf74d4798f9
-  :PUBDATE:  <2017-01-14 Sat 11:57>
+  :CUSTOM_ID: contact
   :END:
 
 The best way to get in touch with me is email:
