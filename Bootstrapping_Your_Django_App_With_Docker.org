@@ -1,5 +1,4 @@
 #+TITLE: Bootstrapping Your Django App With Docker
-#+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
 #+BEGIN_COMMENT
 Here's what I want to add:
@@ -554,6 +553,9 @@ and prod your app.
   :CUSTOM_ID: iteration2
   :END:
 ** Creating A Database Image 
+   :PROPERTIES:
+   :CUSTOM_ID: creatingadatabaseimage
+   :END:
 
 At this point it's really tempting to start developing your Django
 application using the built-in SQLite driver because it's so easy.
@@ -569,6 +571,8 @@ so that it doesn't disappear if we destroy the Postgres container:
 #+BEGIN_SRC sh
 mkdir -vp "$HOME/docker/container/fwd-pg-dev/var/lib/postgresql/data"
 #+END_SRC
+
+Here's my results:
 
 #+RESULTS:
 : mkdir: created directory ‘/home/tom/docker/container/fwd-pg-dev’
@@ -594,6 +598,8 @@ Super! Now let's create our database with this command:
        -d \
        postgres:9.6-alpine
 #+END_SRC
+
+You should just get a unique hash returned that looks something like this:
 
 #+RESULTS:
 : 91edde5df2b452731b2c06c9a6a59442a7eb8b04ef3048758144aa9f887ad457
@@ -621,6 +627,8 @@ minutes. Remember that the =docker logs= command is your friend.
 #+BEGIN_SRC sh
 sudo docker logs fwd-pg-dev 2>&1
 #+END_SRC
+
+Here's what I got:
 
 #+RESULTS:
 #+begin_example
@@ -700,6 +708,8 @@ container using the =stop= command from before:
 sudo docker stop fwd-pg-dev
 #+END_SRC
 
+If everything goes well you should just get this:
+
 #+RESULTS:
 : fwd-pg-dev
 
@@ -709,14 +719,18 @@ Using the =ps= command we can now see that the container isn't running:
 sudo docker ps 
 #+END_SRC
 
+If no other containers are running you should just see this:
+
 #+RESULTS:
 : CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 
-However, it's still there on your filesystem. You can see it like this:
+However, the container is still there on your filesystem. You can see it like this:
 
 #+BEGIN_SRC sh
 sudo docker ps -a | grep fwd-pg-dev
 #+END_SRC
+
+...which should show you something similar to this:
 
 #+RESULTS:
 : 91edde5df2b4        postgres:9.6-alpine        "docker-entrypoint..."   About a minute ago   Exited (0) 12 seconds ago                       fwd-pg-dev
@@ -726,6 +740,8 @@ The next time you want to start it, all you have to do is execute this command:
 #+BEGIN_SRC sh
 sudo docker start fwd-pg-dev
 #+END_SRC
+
+Which should just return this:
 
 #+RESULTS:
 : fwd-pg-dev
@@ -744,6 +760,9 @@ difference between images and containers, and they both have their own
 verbs that sound very similar.
 
 ** Networking Our Containers
+   :PROPERTIES:
+   :CUSTOM_ID: networkingourcontainers
+   :END:
 
 So far, we're in great shape. We have an app skeleton container and a
 database container. Now we just need them to talk to each
@@ -758,6 +777,8 @@ let's create a "Docker Network" with the following command:
 sudo docker network create fwd-network-dev
 #+END_SRC
 
+This command also returns a unique hash that looks something like this:
+
 #+RESULTS:
 : 87d2d5aa8fa2823f1d386e2510cc600db12fb9e2029c5c7144a2ec94b9589cd0
 
@@ -768,6 +789,9 @@ empty though, which you can see here with the =inspect= command:
 #+BEGIN_SRC sh
 sudo docker network inspect fwd-network-dev
 #+END_SRC
+
+This commands returns the JSON representation of your network, and it
+should look very similar to this:
 
 #+RESULTS:
 #+begin_example
@@ -812,6 +836,8 @@ your network using the =inspect= command again:
 #+BEGIN_SRC sh
 sudo docker network inspect fwd-network-dev
 #+END_SRC
+
+Here are the results:
 
 #+RESULTS:
 #+begin_example
@@ -910,6 +936,8 @@ the =fwd-app-dev= container:
 nslookup fwd-pg-dev
 #+END_SRC
 
+That should give you something like the following:
+
 #+BEGIN_EXAMPLE
 nslookup: can't resolve '(null)': Name does not resolve
 
@@ -920,6 +948,9 @@ Address 1: 172.21.0.2 fwd-pg-dev.fwd-network-dev
 As you can see, the =fwd-pg-dev= container has an IP address
 of 172.21.0.2 and a FQDN of fwd-pg-dev.fwd-network-dev. 
 ** Running A Migration
+   :PROPERTIES:
+   :CUSTOM_ID: runningamigration
+   :END:
 
 Now let's configure our application to talk to the database so we can
 populate some tables. First, let's configure the application by
@@ -942,6 +973,8 @@ DATABASES = {
 #+END_SRC
 
 #+BEGIN_NOTE
+*Note:*
+
 Please note that you absolutely don't have to edit this file from
 within the container. One of the nice things about this setup is that
 you can edit your code from your laptop and then test it using a
@@ -1016,6 +1049,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 #+END_EXAMPLE
 
 ** Iterattion 2 Testing
+   :PROPERTIES:
+   :CUSTOM_ID: iteration2testing
+   :END:
 
 A nice holistic test of all of our work so far would be to log into
 the default Django admin interface. To do this, first execute the
@@ -1039,9 +1075,6 @@ Now run this:
        tompurl/fwd-app-dev \
        ash -c "python manage.py runserver 0.0.0.0:8000"
 #+END_SRC
-
-#+RESULTS:
-: c1abd20bb19439757c9f931697375868e76be6f4035dc573a79ed1546dacfb5b
 
 Now visit the following URL in your favorite web browser:
 
