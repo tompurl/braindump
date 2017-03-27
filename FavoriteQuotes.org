@@ -8,7 +8,7 @@
 
 This is a great digital privacy quote from one of the ACLU panelists
 on the [[https://trackchanges.postlight.com/tech-at-the-aclu-in-practice-and-in-theory-c7b9b85842dd][Tech at the ACLU: In practice, and in theory]] episode of the
-[[https://trackchanges.postlight.com/tagged/podcast][Track Changes podcast]].
+[[https://trackchanges.postlight.com/tagged/podcast][Track Changes podcast]] (at the *16:28* mark):
 
 #+BEGIN_QUOTE -r
 
