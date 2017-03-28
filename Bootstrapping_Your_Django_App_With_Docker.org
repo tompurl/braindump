@@ -1,4 +1,4 @@
-#+TITLE: Bootstrapping Your Django App With Docker
+#+TITLE: Bootstrapping Your Django/Rails/Whatever App With Docker
 
 #+BEGIN_COMMENT
 Here's what I want to add:
