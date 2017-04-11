@@ -1,4 +1,4 @@
-#+TITLE: Mattermost-Hosting-Notes
+#+TITLE: Mattermost Hosting Notes
 
 These are my notes discussing Mattermost hosting with =@bgm= on the
 Civicrm chat application (which is also hosted on Mattermost).
