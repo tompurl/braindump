@@ -1,0 +1,13 @@
+#+TITLE: Mattermost-Hosting-Notes
+
+These are my notes discussing Mattermost hosting with =@bgm= on the
+Civicrm chat application (which is also hosted on Mattermost).
+
+- It's fairly simple to install and maintain. He currently just untars
+  the new version of the code over the old version.
+- They're currently using a VM with 2 CPU's and a 2 GB of RAM and
+  everything's running very well.
+- They've been using it for a year.
+- It doesn't use a ton of bandwidth, but it could if your users post a
+  lot of attachments.
+- They're only using 5 GB of disk space so far.

@@ -8,7 +8,11 @@ marginalia. It's a lot like looking straight at my brain :-)
 ** Projects
 
 - [[file:ElSistemaDBProjectStatus.org][El Sistema DB Project Status]]
-  
+
+** Web Hosting
+
+- [[file:Mattermost-Hosting-Notes.org][Mattermost Hosting Notes]]
+
 ** Linux / Unix
 
 - [[file:Resizing_Filesystems.org][Resizing Filesystems]]
