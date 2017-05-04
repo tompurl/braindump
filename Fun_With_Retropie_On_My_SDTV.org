@@ -1,0 +1,379 @@
+#+TITLE: My Adventures Building A Retro Gaming System
+
+Nintendo recently announced that that they were halting production of
+the *NES Classic Edition*, a smaller NES clone that included 30
+pre-installed games. This was a little surprising because a) all of my
+friends wanted one and b) none of them would buy one from scalpers on
+Ebay for at least $200. This was an incredibly popular product 
+that Nintendo seems to have no interest in selling for some reason.
+
+Some of my friends were lamenting this decision and I mentioned that 
+they could build their own NES system that is:
+
+1. *Much* cheaper than $200
+2. Able to play much more than 30 NES games
+3. Able to play games on other platforms, like SNES and Sega Genesis
+4. Stupid simple to build, assuming that you can put together a lego
+   kit that's designed for a 10 year-old.
+
+I had played around with such a system a couple of years ago but I
+never built anything permanent. Also, I had issues with hardware power
+and hooking the system into my SDTV.
+
+Since I'm seeing these friends on a trip in a few weeks, I thought
+this would be a good excuse to build a *Retro Gaming System* that we
+could all use to relive our youth. Also, I thought that it would be
+fun to see if the available hardware and software has improved. And
+finally my family *loves* retro games so I thought this would be a
+well-appreciated side project.
+
+* Step 1 - Project Requirements
+
+Here's what my Retro Gaming System needed to be able to do:
+
+1. Be cheap :-) 
+2. Work with HDTV's
+3. Work with SDTV's
+4. Be able to emulate the following systems (in order of importance):
+   1. NES
+   2. Playstation 1
+   3. SNES
+   4. MAME
+   5. Sega Genesis
+   6. N64 would be nice, but not absolutely necessary
+5. Be stupid simple to setup and maintain
+
+* Step 2 - Hardware & Software
+
+** Software
+
+Just like the last time I did this I chose to use [[https://retropie.org.uk/][Retropie]] Linux
+distribution. Retropie is a fork of Raspbian that bundles and
+configures all of the necessary software that you need to run a pretty
+sweet box o' emulators. It also includes some custom scripts that make
+it very easy to do things like setup controllers and configure wifi.
+
+Retropie has been updated numerous times in the last few years so I
+had high hopes that it would work even better than it did before.
+
+Retropie and everything it includes is also free and open source
+(FOSS) software, so there's no financial cost.
+
+** Hardware
+
+Since I'm using Retropie it makes sense to also use the newest 
+Raspeberry Pi model, the [[https://www.raspberrypi.org/products/raspberry-pi-3-model-b/][Raspberry Pi 3 Model B]]. This model is much
+faster than my old Raspberry Pi 1's, and it even includes integrated
+wifi. 
+
+The Pi is a system-on-chip (SOC) system, so it includes the CPU, RAM,
+USB controller, etc. It's a *full computer* that's about the size of
+a credit card, so you don't have to worry about add RAM or a CPU. All 
+you need to add are power and a Micro-SD card and you're ready to go!
+
+So what else do you actually need in addition to the Raspberry Pi? 
+Here's a full price breakdown of the necessities:
+
+- *Raspberry Pi 3 Model B* - $37
+- *Power Adapter* - $10
+- *32 GB Micro SDHC Card* - $13
+- *HDMI Cable* - $7
+- *Two Pack Of USB SNES Controllers* - $17
+- *TOTAL* - $84
+
+#+BEGIN_WARNING
+If you want to connect your Raspberry Pi 3 to an SDTV, you're going to
+need an HDMI -> Composite converter. Here's the one I ended up using:
+
+- [[https://www.amazon.com/Tendak-Composite-Converter-Adapter-Supporting/dp/B00KBQZC4M/ref%3Dsr_1_5?s%3Delectronics&ie%3DUTF8&qid%3D1493907266&sr%3D1-5&keywords%3Dhdmi%2Bto%2Bcomposite%2Bav%2Bconverter][Tendak 1080P HDMI to AV 3RCA CVBs Composite Video Audio Converter]]
+
+This will add *$19* to your final costs, giving you a total of $103.
+#+END_WARNING
+
+Here's a few caveats:
+
+- If you're going to be moving the system around a lot it pays to buy
+  a case, but these can be purchased for as little as $5.
+- You may already own some of these items. For example:
+  - The Raspberry Pi is powered using a smartphone charger, and most
+    of us have a few spare ones lying around. To see if it's powerful
+    enough for your device, see the [[https://www.raspberrypi.org/help/faqs/#power][Power section of the Raspberry Pi
+    FAQ]].
+- You can use a smaller SDHC card if you want. I think the minimum
+  recommended size is 8 GB. You probably have a few of these lying
+  around too.
+- Your biggest cost is going to be controllers. You can get USB SNES
+  copies for around $9 a piece, but they're not great. I'm a fan of
+  the [[https://www.amazon.com/Buffalo-iBuffalo-Classic-Gamepad-BSGP801GY/dp/B002B9XB0E/ref%3Dsr_1_4?s%3Delectronics&ie%3DUTF8&qid%3D1493907124&sr%3D1-4&keywords%3Dusb%2Bnintendo%2Bcontroller][Buffalo USB SNES controllers]], but they're a) expensive and b)
+  still not as good as the original SNES controllers.
+- Controllers are actually a bit of a rabbit hole. You can also choose
+  to buy original controllers on Ebay and then hook them into USB
+  adapters. This is what I did with my old Playstation 1 controllers
+  and that proved to be pretty cheap and effective.
+
+* Step 3 - Initial Setup
+
+The goal here is just to basically boot the OS and see some pretty 
+screens. Also, since connecting the Raspberry Pi to an SDTV is an 
+"advanced" configuration, I'm going to first try connecting it to
+a monitor with an HDMI input.
+
+** Software
+
+Conceptually installing Retropie is very simple. You just need to
+write the .img file to your micro sdhc card. The Retropie site has
+tons of great documentation on how to do this with Windows, Mac, and
+Linux.
+
+** Hardware
+
+After receiving all of your hardware, simply follow these steps:
+
+1. Insert the micro sdhc card into your Rasperry Pi.
+2. Insert at least one of your USB controllers.
+3. insert the HDMI cable into your monitor and Raspberry Pi.
+4. *Only then* should you power it up for the first time.
+
+#+BEGIN_NOTE
+Please note that I didn't mention that you needed to plug in a USB
+keyboard yet. You'll need this /eventually/ but not at the beginning.
+#+END_NOTE
+
+#+BEGIN_WARNING
+If you power it up first or perform these steps in the wrong order,
+it's not really a big deal. My only caveat is that Retropie doesn't
+like it when you turn it on without first plugging in a controller.
+#+END_WARNING
+
+The first time Retropie will notice that your micro sdhc card is
+bigger than 2 GB and it will automatically resize the partitions. 
+This is a good thing but it will also require a reboot.
+
+The second time you boot you should see a screen that helps you
+configure your game controller. This is awesome! The on-screen
+instructions should be fairly good, but if you have issues the online
+Retropie documentation is very good.
+
+Finally, once you've configured your first controller you should
+see the *Emulation Station* interface and you should be able to 
+navigate it using your controller. Hooray!
+
+* Step 4 - Adding ROMS
+
+Now that we know that the system boots and we have configured at least
+one of our controllers, let's actually add some games.
+
+You can do this by adding the ROMS to the micro sdhc card using your
+laptop and then plugging that into the Raspberry Pi, but that's a
+pain. For my needs, it's much easier to just copy and paste the ROMS
+from your laptop to the Retropie system using its built-in
+Samba/Windows share.
+
+But first we'll need to add your Retropie machine to your network by
+configuring WIFI. [[https://github.com/RetroPie/RetroPie-Setup/wiki/Wifi][Here's]] some excellent instructions for doing that.
+
+Next, you need to legally acquire the ROM's. Again, the internet
+does a much better job explaining this than I do.
+
+Finally, you can [[https://github.com/RetroPie/RetroPie-Setup/wiki/Transferring-Roms][transfer the roms]] using the Samba share. These
+won't show up until you reboot your Retropie system.
+
+* Assessment 1 - Classic Gaming Heaven
+
+Let's take a step back and see how we're doing by revisiting my requirements:
+
+1. Be cheap :-) 
+2. Work with HDTV's
++3. Work with SDTV's+
+4. Be able to emulate the following systems (in order of importance):
+   1. NES
+   2. Playstation 1
+   3. SNES
+   4. MAME
+   5. Sega Genesis
+   6. N64 would be nice, but not absolutely necessary
+5. Be stupid simple to setup and maintain
+
+#+BEGIN_NOTE
+Whether or not I satisfied requirement #1 is debatable. Thankfully I
+had a lot of the hardware already lying around my house. And even if
+you do end up spending as much on this thing as you would have on the
+official NES Classic Edition, I'm still building something that is
+significantly more powerful and robust.
+#+END_NOTE
+
+Not bad so far! If you plan on plugging your Retropie machine into an HDTV
+with an HDMI interface, you're done at this point. The only thing really 
+left to do is trying new controllers or moving over new ROM's, but that's 
+optional.
+
+Also, if you're trying to get a ballpark figure of how long it takes to 
+get to this point, consider this. I'm not really a hardware nerd it only
+took me about 30 minutes to go from bringing the hardware boxes into my
+house to playing Super Mario Bros. 2 on my HDMI monitor. I was amazed by
+how easy and fast everything was.
+
+* Step 5 - Plugging Into My SDTV
+
+This is where things actually got a little complicated and weird, and
+I had trouble finding help on this topic so I'm eager to share. 
+
+When I plugged my Raspberry Pi into my TV (using [[https://www.amazon.com/Tendak-Composite-Converter-Adapter-Supporting/dp/B00KBQZC4M/ref%3Dsr_1_5?s%3Delectronics&ie%3DUTF8&qid%3D1493907266&sr%3D1-5&keywords%3Dhdmi%2Bto%2Bcomposite%2Bav%2Bconverter][this]] adapter) there
+were lots of issues:
+
+1. The right side of the screen was partially cut off
+2. The screen flickered slightly, looked dim and squished
+
+In my mind, this was going to be super simple. Just plug it into the
+HDMI -> Composite adapter, boot the Raspberry Pi and then find out how
+you turn on "SDTV" mode like I've done in the past for devices like my
+Roku and Wii U. 
+
+The problem is that there isn't a checkbox for "SDTV" mode in some
+GUI. I had to fumble around a bit get things to work. 
+
+So here's what worked for me. YMMV, and [[mailto:tom@tompurl.com][I'd love to  know]] if this does
+or doesn't work for you.
+
+** Hardware Changes
+
+The only hardware tweak I recommend is using an external power supply
+to power your HDMI -> Composite adapter. You can technically power the
+adapter using one of the Raspberry Pi's USB ports, but I got better
+results when I plugged it into an external charger.
+
+** Configuration Changes
+
+First, you're going to need to edit the =/boot/config.txt= file in a 
+text editor somehow. The easiest way to do this for me was to follow
+this process:
+
+1. Turn on the SSH server in the Retropie system.
+2. Log into the Retropie system and edit the file using =vi=. 
+
+There are other ways of editing this file that are outside of the
+scope of this tutorial.
+
+Before you make /any/ changes to the =/boot/config.txt= file, you should
+really make a backup of the config that worked with your HDMI monitor.
+This will be helpful later if you have issues or want to plug your system
+back into an HDMI monitor.
+
+Once you've found a way to edit this file, you'll notice that there
+are lots of lines that start with a pound sign (=#=). These are all
+comments and don't affect your configuration.
+
+At this point you need to add the following properties to your
+=/boot/config.txt= file:
+
+#+BEGIN_EXAMPLE
+hdmi_group=1
+hdmi_mode=2
+sdtv_mode=0
+sdtv_aspect=1
+#+END_EXAMPLE
+
+Ok, so what do these magic settings mean? Well, here's my reference:
+
+- https://raspberrypi.stackexchange.com/tags/config.txt/info
+
+- =hdmi_group=1=
+  - Honestly, I have *no idea* whether I own a CEA or DMT
+    television. I guessed here.
+- =hdmi_mode=2=
+  - Since I have a 4:3 screen and 480p display, this made the most
+    sense to me.
+- =sdtv_mode=0=
+  - This just says that I use "Normal NTSC"
+- =sdtv_aspect=1=
+  - This just says that I have a 4:3 display
+
+After I made these changes I rebooted and viola - SDTV mode!
+
+If you're interested in what my complete =/boot/config.txt= file looks
+like, here's all of the lines that are un-commented:
+
+#+BEGIN_EXAMPLE
+hdmi_group=1
+hdmi_mode=2
+sdtv_mode=0
+sdtv_aspect=1
+dtparam=audio=on
+gpu_mem_256=128
+gpu_mem_512=256
+gpu_mem_1024=256
+overscan_scale=1
+#+END_EXAMPLE
+
+* Assessment 2 - Classic Gaming Heaven On An SDTV
+
+Well, we only had one requirement that didn't work out-of-the-box, and of course
+that's the one that took 95% of the time to figure out 😀
+
+* Conclusion
+
+Now that I've finally met all of my requirements, it's nice to look 
+at my lessons learned. 
+
+1. Building your own Retropie system is *cheaper than buying an NES
+   Classic Edition on Ebay* (~ $200), but *more expensive than I thought
+   it would be* (~ $115).
+2. Setting up Retropie with an HDMI TV or monitor is trivially easy
+   but somewhat difficult on an SDTV.
+   1. Hopefully this tutorial helps with the latter.
+3. If spending more than 5 minutes setting up a gaming console sounds
+   like torture, then just buy the NES Classic Edition.
+4. However, if you're ok spending a small part of your afternoon on a
+   tech project that can provide *hundreds of hours of childhood in a
+   bottle*, then *this project is definitely worth it*.
+
+Finally, you should just *build the damn thing* if any of these apply
+to you:
+
+1. You love games that were released before 1998.
+2. You ever defined an era of your childhood by what video game you
+   were playing at that time.
+3. You want a gaming system that allows you to play games on platforms
+   *in addition to the NES*.
+4. You want to play an NES game that's not built into the NES Classic
+   Edition system.
+
+I hope I helped a few people take the plunge with Retropie. Good luck!
+* Step 6 - Not Leaving Well Enough Alone
+
+After playing with my Retropie for a few weeks I learned that it can
+do a *lot* of things in addition to just playing old console and
+arcade games. For example:
+
+** Ports!
+
+Remember, Retropie is a fork of Raspbian, which is a fork of Debian,
+which is a Linux distribution. A *lot* of applications that therefore
+work on Linux will also work on your Retropie. Here's some examples:
+
+- Kodi
+- Wolfenstein
+- Doom
+- For more examples, see the [[https://github.com/RetroPie/RetroPie-Setup/wiki/Ports][Ports]] page.
+
+You can navigate to this screen here by following this path once
+you're logged in:
+
+- Retropie -> Retropie Setup -> Manage Packages -> opt
+
+Then you simply navigate to the packages that you want to install. You
+can even install packages using a game controller, which is very convenient.
+
+#+BEGIN_NOTE
+Please note that the application names aren't in alphabetical
+order. You will want to scroll through the entire list.
+#+END_NOT
+
+** Kodi
+
+Formerly known as XBMC, Kodi is an awesome media player that can do a
+hundred things by itself. It's working so well for me that I actually
+replaced my Roku 1 with my Retropie device to watch videos stored on
+my media server.
+
+
