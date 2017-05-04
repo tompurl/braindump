@@ -47,7 +47,7 @@ Here's what my Retro Gaming System needed to be able to do:
 
 ** Software
 
-Just like the last time I did this I chose to use [[https://retropie.org.uk/][Retropie]] Linux
+Just like the last time I did this I chose to use the [[https://retropie.org.uk/][Retropie]] Linux
 distribution. Retropie is a fork of Raspbian that bundles and
 configures all of the necessary software that you need to run a pretty
 sweet box o' emulators. It also includes some custom scripts that make
@@ -56,7 +56,7 @@ it very easy to do things like setup controllers and configure wifi.
 Retropie has been updated numerous times in the last few years so I
 had high hopes that it would work even better than it did before.
 
-Retropie and everything it includes is also free and open source
+Retropie and everything it includes are also free and open source
 (FOSS) software, so there's no financial cost.
 
 ** Hardware
@@ -102,7 +102,7 @@ Here's a few caveats:
 - You can use a smaller SDHC card if you want. I think the minimum
   recommended size is 8 GB. You probably have a few of these lying
   around too.
-- Your biggest cost is going to be controllers. You can get USB SNES
+- Your *biggest cost is going to be controllers*. You can get USB SNES
   copies for around $9 a piece, but they're not great. I'm a fan of
   the [[https://www.amazon.com/Buffalo-iBuffalo-Classic-Gamepad-BSGP801GY/dp/B002B9XB0E/ref%3Dsr_1_4?s%3Delectronics&ie%3DUTF8&qid%3D1493907124&sr%3D1-4&keywords%3Dusb%2Bnintendo%2Bcontroller][Buffalo USB SNES controllers]], but they're a) expensive and b)
   still not as good as the original SNES controllers.
@@ -142,12 +142,13 @@ keyboard yet. You'll need this /eventually/ but not at the beginning.
 #+BEGIN_WARNING
 If you power it up first or perform these steps in the wrong order,
 it's not really a big deal. My only caveat is that Retropie doesn't
-like it when you turn it on without first plugging in a controller.
+like it when you turn it on without first plugging in a controller. In
+that case, just plug in a controller and reboot.
 #+END_WARNING
 
-The first time Retropie will notice that your micro sdhc card is
-bigger than 2 GB and it will automatically resize the partitions. 
-This is a good thing but it will also require a reboot.
+The first time you boot, Retropie will notice that your micro sdhc
+card is bigger than 2 GB and it will automatically resize the
+partitions.  This is a good thing but it will also require a reboot.
 
 The second time you boot you should see a screen that helps you
 configure your game controller. This is awesome! The on-screen
@@ -184,7 +185,7 @@ Let's take a step back and see how we're doing by revisiting my requirements:
 
 1. Be cheap :-) 
 2. Work with HDTV's
-+3. Work with SDTV's+
+3. +Work with SDTV's+
 4. Be able to emulate the following systems (in order of importance):
    1. NES
    2. Playstation 1
@@ -203,14 +204,14 @@ significantly more powerful and robust.
 #+END_NOTE
 
 Not bad so far! If you plan on plugging your Retropie machine into an HDTV
-with an HDMI interface, you're done at this point. The only thing really 
+with an HDMI interface, *you're done at this point*. The only thing really 
 left to do is trying new controllers or moving over new ROM's, but that's 
 optional.
 
 Also, if you're trying to get a ballpark figure of how long it takes to 
 get to this point, consider this. I'm not really a hardware nerd it only
 took me about 30 minutes to go from bringing the hardware boxes into my
-house to playing Super Mario Bros. 2 on my HDMI monitor. I was amazed by
+house to playing Super Mario Bros. 2 on my HDMI monitor. I was *amazed* by
 how easy and fast everything was.
 
 * Step 5 - Plugging Into My SDTV
@@ -249,7 +250,7 @@ text editor somehow. The easiest way to do this for me was to follow
 this process:
 
 1. Turn on the SSH server in the Retropie system.
-2. Log into the Retropie system and edit the file using =vi=. 
+2. Log into the Retropie system and edit the file using =vi= or =nano=.
 
 There are other ways of editing this file that are outside of the
 scope of this tutorial.
@@ -367,7 +368,7 @@ can even install packages using a game controller, which is very convenient.
 #+BEGIN_NOTE
 Please note that the application names aren't in alphabetical
 order. You will want to scroll through the entire list.
-#+END_NOT
+#+END_NOTE
 
 ** Kodi
 
