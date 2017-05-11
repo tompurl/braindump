@@ -282,3 +282,28 @@ To add a custom note to your logbook:
 - =C-c C-z=
 
 
+* Src Blocks
+** Capturing STDERR
+
+I stole this from http://kitchingroup.cheme.cmu.edu/blog/2015/01/04/Redirecting-stderr-in-org-mode-shell-blocks/.
+
+Simply wrap your code like so:
+
+#+BEGIN_SRC sh :exports both :results verbatim :eval never-export
+exec 2>&1
+
+echo "testing stdout" >&1
+echo "testing stderr" >&2
+date -g
+
+:
+#+END_SRC
+
+...and here's what you get:
+
+#+RESULTS:
+: testing stdout
+: testing stderr
+: date: invalid option -- 'g'
+: Try 'date --help' for more information.
+
