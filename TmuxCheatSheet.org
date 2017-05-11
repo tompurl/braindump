@@ -41,3 +41,14 @@
 - =resize-pane= - -t 2 20 (Resizes the pane with the id of 2 down by 20 cells)
 - =resize-pane= - -t -L 20 (Resizes the pane with the id of 2 left by 20 cells)
 
+* Saving Scollback
+
+Stolen from [[https://unix.stackexchange.com/a/236845/54004][here]]. First copy the files to a hidden buffer:
+
+- =prefix= + =:= + =capture-pane -S -50000= + =return=
+
+The 3000 number represents the number of lines you want to save.
+
+Then save it:
+
+- =prefix= + =:= + =save-buffer filename.txt= + =return=
