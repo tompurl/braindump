@@ -1,0 +1,37 @@
+#+TITLE: Retropie Cheat Sheet
+#+OPTIONS: toc:nil H:4 ^:nil pri:t 
+
+* Common Commands
+
+- Switching Games
+  - *SELECT* + *SHIFT*
+- Reset A Game
+  - *SELECT* + *B*
+- Access The Retroarch Config Screen
+  - This is good for doing things like saving and restoring save states
+  - *SELECT* + *X*
+- Load Wifi Settings
+  - TODO
+- Reset Controllers
+  - TODO 
+
+* Links
+
+** Videos
+- *Great* video on setting up Retropie on a Raspberry Pi 3
+  - https://www.youtube.com/watch?v=kKkuLhU0fFM&index=1&list=LLMc7IgYjWZUtk-uHTg0J2ig
+- Cooling options for your Raspberry Pi 3
+  - *Active*: https://www.youtube.com/watch?v=5Ud-grj4Zl0
+  - *Passive*: https://www.youtube.com/watch?v=1AYGnw6MwFM
+** Help Pages
+  - Main Retropie page
+    - https://retropie.org.uk/
+  - Setup docs
+    - https://github.com/RetroPie/RetroPie-Setup/wiki
+  - Wifi
+    - https://github.com/RetroPie/RetroPie-Setup/wiki/Wifi
+  - Copying ROMS
+    - https://github.com/RetroPie/RetroPie-Setup/wiki/Transferring-Roms
+  - =config.txt= Documentation
+    - https://raspberrypi.stackexchange.com/tags/config.txt/info
+    - This was especially helpful for setting up my Raspberry Pi with my SDTV
