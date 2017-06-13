@@ -73,3 +73,9 @@ ffmpeg -video_size 1366x768 -framerate 25 -f x11grab -i :0.0+0,0 -f alsa -ac 2 -
 
 Also please note that I'm running Debian Linux. This command is slightly
 different based on your OS, Linux distribution or season. 
+* Flipping Videos 180 Degrees
+
+I'm having a lot of problems doing this in ffmpeg, so I punt to
+Handbrake instead:
+
+- [[file:Handbrake_Cheat_Sheet.org::*Flipping%20Videos%20180%20Degrees][Flipping Videos 180 Degrees]]

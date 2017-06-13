@@ -1,0 +1,14 @@
+#+TITLE: Handbrake Cheat Sheet
+
+* Flipping Videos 180 Degrees
+
+As of 6/13/17, this only appears to work in the CLI version of
+Handbrake, not the GUI version.
+
+#+BEGIN_SRC sh
+HandBrakeCLI -i ./orig.mp4 -o ./flipped.mp4 --preset="Android Tablet" --rotate
+#+END_SRC
+
+The "rotate" value defaults to "3", which means 180 degrees. Also,
+please note that this command re-encodes the video using the "Android
+Tablet" profile.
