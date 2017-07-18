@@ -1,6 +1,32 @@
 #+TITLE: Favorite Quotes
 
 * 2017
+** 07/18/2017
+   :PROPERTIES:
+   :CUSTOM_ID: 07_18_2017
+   :END:
+
+This is a quote from Tasha Robinson during the [[https://thenextpictureshow.tumblr.com/post/162008521585/new-episode-part-2-of-our-discussion-of-world-war][Pt. 2 - Wonder Woman /
+Paths Of Glory]] episode of the [[https://thenextpictureshow.tumblr.com/][The Next Picture Show]] podcast. She ended
+up really liking Wonder Woman, but here (at 03:41) she describes why
+her expectations were so low:
+
+#+BEGIN_QUOTE -r
+
+I think my expectations have been set by how much I've consistently
+*hated* the DC extended universe movies, how many problems I've had with
+them, both just in terms of them all kindof being narratively messy
+and/or, just insensitive to basic humanity.
+
+#+END_QUOTE
+
+My gripe with these especially bad superhero movies is that Warner
+Brothers seems to be *consistently* making them like this on purpose
+(with Wonder Woman as an exception). It seems bizarre to me that
+someone sits in a room, has an idea to make a movie like Batman V
+Superman, makes it, sees how it turns out, and then says "yes, that's
+great, let's do that again".
+
 ** 3/27/2017
    :PROPERTIES:
    :CUSTOM_ID: 03_27_2017
