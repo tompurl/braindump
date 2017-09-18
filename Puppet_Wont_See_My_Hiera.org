@@ -1,0 +1,430 @@
+#+TITLE: When Puppet Ignores Part Of Your Hiera File
+
+* tl;dr
+
+Puppet will not transparently bind your Hiera data to Resources, just
+Classes. To bind Hiera data to a Resource type, use the
+=create_resources= function.
+
+If this doesn't make a lot of sense or if you want to learn how to
+troubleshoot Hiera-related problems as of Puppet 5.1, then the rest of
+this article is for you :-)
+
+* Overview
+
+I had a really strange problem with Puppet recently that involved
+hours of research, debug logging on the server and chatting with
+Puppet experts on Slack. I finally found the answer, but the solution
+certainly wasn't easy to understand at first.
+
+I thought I'd share my process so that other Puppet users can learn in
+7 minutes what I learned in 7 hours.
+
+#+BEGIN_NOTE
+Below, I use the term =puppetserver= instead of =puppetmaster= because
+I am using the 5.1 version of puppet and the =puppetmaster= is no longer
+available as far as I can tell.
+#+END_NOTE
+
+* Problem
+** What's Magical About Hiera
+
+I'm in the process of building a server using the latest version of
+Puppet available today (5.1.0). I've read a couple of books on the topic,
+and they all recommend that I use *Hiera* as much as possible to store
+configuration information. 
+
+What does that mean? Here's the non-Hiera way of defining a new class
+in a manifest:
+
+#+BEGIN_SRC puppet 
+  node foo.bar {
+    include postfix
+
+    class {'postfix::relay':
+      sender_hostname=>'sender.example.org',
+      masquerade_domains=>'example.org',
+      relayhost=>'receiver.example.org'
+    }
+  }
+#+END_SRC
+
+The *Hiera* way of doing things would give me a manifest that looks like this:
+
+#+BEGIN_SRC puppet
+  # site.pp
+  include postfix
+  include postfix::relay
+#+END_SRC
+
+I would then store class parameters in a Hiera file that would look
+something like this:
+
+#+NAME: Foo
+#+BEGIN_SRC yaml
+  ---
+  # sender.example.org.yaml
+  postfix::relay::sender_hostname: 'sender.example.org'
+  postfix::relay::masquerade_domains: 'example.org'
+  postfix::relay::relayhost: 'receiver.example.org'
+#+END_SRC
+
+I like this approach for a lot of reasons, but the main one is that
+you can separate your *data* from your *code* in your manifest. But I
+also like that you really don't have to do much of anything in your
+manifest for a lot of modules. Just =include= some classes in your
+manifest and then set few properties in your Hiera YAML file and
+viola - your awesome new server is built using *best
+practices* [fn:1].
+
+** Where Magic Failed Me
+
+Soon I tried defining a new virtual host using the [[https://forge.puppet.com/puppetlabs/apache][puppetlabs/apache]]
+module. Here's what I put in my Hiera file:
+
+#+NAME: vhost_yaml_part_1
+#+BEGIN_SRC yaml
+  ---
+  # sender.example.org.yaml
+  apache::vhost:
+    sender.example.org:
+      port: '80'
+      docroot: '/var/www/lists'
+      aliases:
+        - 
+          scriptalias => '/cgi-bin/mailman/'
+          path => '/usr/lib/cgi-bin/mailman/'
+        - 
+          alias => '/pipermail/'
+          path => '/var/lib/mailman/archives/public/'
+        - 
+          alias => '/images/mailman/'
+          path => '/usr/share/images/mailman/'
+#+END_SRC
+
+I then put the following in my manifest:
+
+#+BEGIN_SRC puppet
+  # site.pp
+  include apache
+  include apache::mod::cgid
+  include apache::vhost
+#+END_SRC
+
+This gave me the following error:
+
+#+BEGIN_EXAMPLE
+Info: Using configured environment 'development'
+Info: Retrieving pluginfacts
+Info: Retrieving plugin
+Info: Loading facts
+Error: Could not retrieve catalog from remote server: Error 500 on SERVER: Server Error: Evaluation Error: Error while evaluating a Function Call, Could not find class ::apache::vhost for sender.example.org at /etc/puppetlabs/code/environments/development/manifests/site.pp:166:3 on node sender.example.org
+Warning: Not using cache on failed catalog
+Error: Could not retrieve catalog; skipping run
+#+END_EXAMPLE
+
+Hmm, OK, =apache::vhost= isn't a class. OK, so I must not /have/ to
+include it! So I just put this in my manifest instead:
+
+#+BEGIN_SRC puppet
+  # site.pp
+  include apache
+  include apache::mod::cgid
+#+END_SRC
+
+The good news is that I didn't get any errors. The bad news is that my
+*virtual host was not defined*. I didn't get an error, but it didn't appear 
+that my =vhost= data structure was being "read". So now what?
+
+* Troubleshooting
+** Is My Data Structure Correct?
+My first question was whether I was properly converting my data
+structure from the Puppet way to the Hiera way. Here's the Puppet way
+of doing things:
+
+#+NAME: vhost_puppet_part_1
+#+BEGIN_SRC puppet
+  # init.pp - The Puppet way
+  include apache
+  include apache::mod::cgid
+  apache::vhost { 'sender.example.org':
+    port    => '80',
+
+    aliases => [
+      { scriptalias => '/cgi-bin/mailman/',
+        path => '/usr/lib/cgi-bin/mailman/',
+      },
+      { alias => '/pipermail/',
+        path => '/var/lib/mailman/archives/public/'
+      },
+      { alias => '/images/mailman/'
+        path => '/usr/share/images/mailman/'
+      },
+    ],
+  }
+#+END_SRC
+
+The =apache::vhost= data structure is basically composed of the
+following 3 properties:
+
+- *Name*: sender.example.org
+- *Port*: 80
+- *Aliases*: This is where things get a little
+  loosey-goosey. =aliases= is an array of hashes, which is a
+  surprisingly common data structure in the Puppet world [fn:2]
+
+So does [[vhost_yaml_part_1][my YAML data structure above]] match this one? And how the heck
+would I even know? Well, to understand how Puppet sees your Hiera file
+you need to use =puppet lookup=:
+
+#+BEGIN_SRC sh
+# Run this on your puppetserver/master:
+sudo puppet lookup apache::vhost --node sender.example.org --environment development --explain
+#+END_SRC
+
+This command should give you output that looks similar to this:
+
+#+BEGIN_EXAMPLE
+Searching for "lookup_options"
+  Global Data Provider (hiera configuration version 5)
+    Using configuration "/etc/puppetlabs/puppet/hiera.yaml"
+    No such key: "lookup_options"
+  Environment Data Provider (hiera configuration version 5)
+    Using configuration "/etc/puppetlabs/code/environments/development/hiera.yaml"
+    Merge strategy hash
+      Hierarchy entry "Per-node data"
+        Path "/etc/puppetlabs/code/environments/development/data/nodes/sender.example.org.yaml"
+          Original path: "nodes/%{trusted.certname}.yaml"
+          No such key: "lookup_options"
+      Hierarchy entry "Common defaults"
+        Path "/etc/puppetlabs/code/environments/development/data/common.yaml"
+          Original path: "common.yaml"
+          Path not found
+  Module data provider for module "apache" not found
+Searching for "apache::vhost"
+  Global Data Provider (hiera configuration version 5)
+    Using configuration "/etc/puppetlabs/puppet/hiera.yaml"
+    No such key: "apache::vhost"
+  Environment Data Provider (hiera configuration version 5)
+    Using configuration "/etc/puppetlabs/code/environments/development/hiera.yaml"
+    Hierarchy entry "Per-node data"
+      Path "/etc/puppetlabs/code/environments/development/data/nodes/sender.example.org.yaml"
+        Original path: "nodes/%{trusted.certname}.yaml"
+        Found key: "apache::vhost" value: {
+          "sender.example.org" => {
+            "port" => "80",
+            "aliases" => [
+              {
+                "scriptalias" => "/cgi-bin/mailman/",
+                "path" => "/usr/lib/cgi-bin/mailman/"
+              },
+              {
+                "alias" => "/pipermail/",
+                "path" => "/var/lib/mailman/archives/public/"
+              },
+              {
+                "alias" => "/images/mailman/",
+                "path" => "/usr/share/images/mailman/"
+              }
+            ]
+          }
+        }
+#+END_EXAMPLE
+
+There's *tons* of great information in here, but the part that really
+stands out are the *last 21 lines*. These lines tell you that:
+
+1. It's finding my =vhost= in the right place place (my node-specific
+   YAML file)
+2. My =vhost= data in my YAML file is structured the same way as the
+   [[vhost_puppet_part_1][example from the README]].
+
+So we're done, right? Well, no, my =vhost= still isn't being added to
+the catalog when I run my agent. 
+
+** Is My Hiera File Being Read When I Run My Agent?
+
+When solving a hard problem it often helps me to take a step back and
+take stock of what I can say I *actually know*:
+
+1. Puppet is able to find my Hiera config file.
+2. Puppet converts the YAML version of my =vhost= into a format that
+   matches what I see in the README for my module.
+   1. So I assume I'm using the right API.
+
+So what don't we know? Well, for starters, we don't know if Puppet is
+even *trying* to find my =vhost= in my Hiera file when I run my Puppet
+agent. And to find that we need to turn on *trace logging* on the
+server.
+
+This is a pretty simple process:
+
+1. On your =puppetserver= open the following file:
+   1. =/etc/puppetlabs/puppetserver/logback.xml=
+2. You should see a line that looks something like this:
+   1. =<root level="info">=
+3. Change *info* to *debug* and then restart your =puppetserver=
+   service.
+4. Run the Puppet agent on your agent machine to recreate the issue.
+5. Next, search the following file on your =puppetserver=:
+   1. =/var/log/puppetlabs/puppetserver/puppetserver.log=
+6. Search for any recent instance of your *sender.example.org* vhost.
+
+When I searched I didn't find any reference to my =vhost=, proving
+that the server wasn't even really trying to find it. 
+
+This of course begs the question - if my data structure is formatted
+properly and my server is *able to find it*, then why is it not
+*trying to find it*?
+
+* Solution
+
+After all of this research I finally stumbled across the following
+forum post:
+
+- [[https://ask.puppet.com/question/1549/how-to-create-an-apache-vhost-in-hiera-when-using-puppetlabsapache/?answer%3D1552#post-id-1552][How to create an apache vhost in hiera when using puppetlabs/apache]]
+
+Here's the most important part:
+
+#+BEGIN_QUOTE -r
+=apache::vhost= is not a class, it is a defined type. Databinding
+currently only works with classes.
+
+If you want to pull this data from Hiera, create a hash of hashes and
+use =create_resources()=.
+#+END_QUOTE
+
+Of course my first question after reading this was "what the hell is
+data binding?". This question led me to this wonderful blog post:
+
+- [[http://garylarizza.com/blog/2014/10/24/puppet-workflows-4-using-hiera-in-anger/][Puppet Workflows 4: Using Hiera in Anger]]
+
+You should read the entire document, but first check out the *Data
+Bindings* section. In it, I learned that data binding is the process
+by which puppet automatically passes Hiera properties as parameters to
+classes when they are invoked. It's magic (to quote the author) or
+what I like to call syntactic sugar. But like a lot of the worst
+syntactic sugar, it's *not obvious why it fails when you use it in a
+perfectly reasonable-looking way*.
+
+Here's what I mean. Let's say that I want to invoke the
+=puppetlabs/apache= module and add a file in a manifest using the
+"traditional" Puppet syntax. Here's one way I could do it:
+
+#+BEGIN_SRC puppet
+
+  # Here we invoke a *class* and pass parameters to it
+  class { 'apache':
+    default_vhost => false,
+  }
+
+  # Here we invoke a class without passing anything to it
+  include apache::mod::cgid
+
+  # Here we invoke a *resource type* and pass parameters to it.
+  apache::vhost { 'sender.example.org':
+    port    => '80',
+
+    aliases => [
+      { scriptalias => '/cgi-bin/mailman/',
+        path => '/usr/lib/cgi-bin/mailman/',
+      },
+      { alias => '/pipermail/',
+        path => '/var/lib/mailman/archives/public/'
+      },
+      { alias => '/images/mailman/'
+        path => '/usr/share/images/mailman/'
+      },
+    ],
+  }
+
+  # This is also a resource type
+  file { '/etc/apache2/sites-available/mailman.conf':
+    ensure => 'present',
+    source => '/etc/mailman/apache.conf',
+  }
+
+#+END_SRC
+
+So when using the traditional Puppet syntax, you see that you invoke a
+class the *same way* that you invoke a resource type. Heck, it wouldn't
+surprise me if a lot of Puppet users actually didn't know that there
+was a difference between Class and Resource types.
+
+But data binding *doesn't* apply to both Class and Resource types. 
+
+So how's my files *supposed* to look? Well, first I need to put 
+this in my Hiera file:
+
+#+NAME: vhost_yaml_part_2
+#+BEGIN_SRC yaml 
+  ---
+  # sender.exmaple.org.yaml
+  vhost_lists_tompurl_com:
+    sender.example.org:
+      port: '80'
+      docroot: '/var/www/lists'
+      aliases:
+        - 
+          scriptalias: '/cgi-bin/mailman/'
+          path: '/usr/lib/cgi-bin/mailman/'
+        - 
+         alias: '/pipermail/'
+          path: '/var/lib/mailman/archives/public/'
+        - 
+          alias: '/images/mailman/'
+          path: '/usr/share/images/mailman/'
+
+#+END_SRC
+
+As you can see, this is almost /exactly/ like [[vhost_yaml_part_1][what we had before]]. The
+difference is that we're assigning the data structure to a new
+variable called =$vhost_lists_tompurl_com=, *not* the =apache::vhost=
+resource type.
+
+Next we need to put the following into your site manifest:
+
+#+BEGIN_SRC puppet
+  # site.pp
+  include apache
+  include apache::mod::cgid
+  create_resources(apache::vhost, hiera('vhost_lists_tompurl_com'))
+#+END_SRC
+
+Now I am *explicitly binding* my vhost properties to a new
+=apache::vhost= resource type because *transparent data binding* (which
+is also just called "data binding") only works for classes. This 
+successfully added the =vhost= to my catalog and solved my problem.
+
+* Lessons Learned
+
+First, here's my lessons that directly applied to this problem:
+
+- *Hiera data must be bound to some type of data structure* in you
+  manifest in order to add that data structure to your catalog.
+  - Simply adding a namespace (e.g. =apache::vhost=) to your Hiera
+    file with a value isn't enough.
+- *This binding process can happen transparently (magically?), but
+  only for classes*
+  - Resource types require the =create_resources= function.
+
+I'm also happy to say that I learned a few things aren't directly
+related to this problem
+
+- =puppet lookup= *is a great debugging tool*
+  - As long as I choose to store most of my data in Hiera, I'll end up
+    using this great tool a lot.
+- *Trace logging is very simple and useful*
+  - I was afraid that when I turned up debugging the output would be
+    insanely complex and impossible to parse. However, the output
+    produced at the =trace= level was easy to understand and perfect
+    for my needs.
+    
+* Footnotes
+
+[fn:1] This is the dramatic foreshadowing part of the article :-)
+
+[fn:2] This sort of pattern can make it *much* easier to write very
+powerful modules at the expense of forcing the user to become YAML
+experts.
+
