@@ -1,0 +1,221 @@
+#+TITLE: Small Business Marketing Without Wordpress
+
+Here are some of my lessons learned from online marketing with and
+without Wordpress. I hope I can save someone else quite a bit of work.
+
+* The Original Site
+
+** The Ideal
+
+My wife recently ran a medium-sized outdoor festival and needed some
+help with building a web application. I do that sort of thing for a
+living, so I volunteered to help.
+
+We brainstormed and determined that the site would need to support the
+following requirements:
+
+1. Perform moderately complex tasks like registering vendors and
+   coordinating volunteers.
+2. Provide "light" web copy
+3. Be delivered in 2 weeks of my free time :-)
+
+When I usually need to create a complex application in a hurry my
+first and favorite tool is [[https://www.djangoproject.com/][the Django framework]]. I considered
+Wordpress too for the task but chose Django because I already knew
+*how* to create a Django application. Wordpress would require skills
+that I didn't yet have.
+
+And besides, it's not like I'm going to spend all of my time writing
+copy on this thing. That's what Facebook is for, right?
+
+** Reality
+
+Two weeks later I had a decent little app coded from "scratch" that
+satisfied all of my requirements. Vendors were able to apply for
+positions, the web copy looked good, and the site loaded very quickly
+to boot. Heck, I even did it all with Docker, which made code changes
+and deployments that much easier. 
+
+But then a few funny things happened on the way to the festival:
+
+1. We determined that the app development requirements were *much*
+   larger than expected, and that it would be much cheaper and easier
+   to use third-party services.
+2. My wife stopped using Facebook for marketing the festival for
+   complex and unexpected reasons.
+
+So now, the Django-based web application that I developed to solve
+non-trivial problems needed to be reborn as a marketing tool, *after*
+I had spent a month developing it and *during* a time when I really
+didn't have time to start over with Wordpress.
+
+We therefore had a "publishing" process that looked like this:
+
+1. My wife would spend her very precious and limited free time writing
+   copy.
+2. She would send it to me and request that I post it on the site.
+3. When I had free time later I would then spend between 15-60 minutes
+   taking her copy and formatting it to work within one of our Django
+   templates.
+4. I would test the "new version" of the site on my laptop.
+5. I would push the "code" to the public-facing server.
+
+Why didn't my wife just perform steps 2-5? Because "copy" on my site
+was treated like "code", which is ok if your site have very little
+copy and doesn't change often but is really a pain if you're managing
+mostly press releases. And my wife, who's incredibly smart and
+talented and hard-working doesn't happen to be a developer for a
+living and was far too busy at the time to learn how to do something
+very, very new.
+
+And so it went for 3 months. Copy changes were slow, cumbersome, and
+*way* too expensive from a person-hours perspective. Every week I
+promised her that things would be much better for the next festival.
+
+* Part 2
+
+** The Ideal (Part 2, Now With Hindsight!)
+
+After the festival was over and we had a few days to breathe my wife
+and I brainstormed again about what "the web site" should do. Here's
+the requirements:
+
+1. We need a CMS that makes it easy for multiple people to edit it. No
+   more "code changes" to fix a typo and no more waiting on multiple
+   people to find free time to perform a single task.
+2. The ability to send newsletters to people who can subscribe and
+   unsubscribe easily.
+3. The ability to use lots of pre-built marketing tools that we don't
+   yet know we need.
+
+So of course I chose Wordpress. I've worked with half a dozen CMS'
+over 14 years, and I can't imagine a better tool for the job.
+
+** Reality (So Far)
+
+So far things are going well. It took me about 2 days to setup a
+"demo" version of the site that is:
+
+1. Deployed using Puppet and Docker, which makes a lot of things
+   easier
+2. Running on a free Amazon EC2 instance, which is a nice price
+3. Reasonably secure by sysadmin standards (thanks to Bitnami!)
+   1. HTTPS by default
+   2. Good vulnerability-related results when tested with [[https://wpscan.org/][WPscan]] and
+      [[https://cirt.net/Nikto2][Nikto2]].
+4. Able to send newsletters and manage a mailing list using the
+   following awesome and *free* Wordpress plugins:
+   1. [[https://mail-bank.tech-banker.com/][WP Mail SMTP Plugin by Mail Bank]] (for SMTP which I point at my
+      [[http://mailjet.com][Mailjet]] account)
+   2. [[https://sendpress.com/][SendPress]] (to manage my mailing lists and newsletters)
+
+Of course time will tell, but so far I'm very happy with the results
+and how much bang I'm getting for my time and financial bucks.
+
+* What I Love About Using Wordpress To Host This Site
+
+So why am I happier running a Wordpress instance than "rolling my own"
+site using Django (or any other framework for that matter)?
+
+** Inversion of responsibilities
+
+With the old site, I spent 90% of my time changing copy or tweaking
+CSS (touchy-feely marketing stuff) and 10% of my time doing things like
+patching software adding security features and other really important
+admin stuff.
+
+I have to admit the the touchy-feely stuff was fun and that I don't
+get a chance to do it much. However, what I really like to do and what
+I'm really *good at* is the server-side, admin stuff. 
+
+With Wordpress I can focus solely on the server-side, admin stuff. You
+want a new theme? Great, there's a *huge* ecosystem of cheap,
+high-quality themes available for Wordpress that can be configured and
+installed by just about anyone.
+
+Do you need to add custom functionality to the site? You only have to
+look as far as the plugin marketplace for that. There are literally
+*thousands* of free, high-quality plugins to choose from that will do
+almost anything you could possibly need. And the ones that aren't free
+are usually much less than $100 for a yearly license. And the person
+that needs that feature can certainly install that plugin.
+
+Finally, how about lots of new copy (or images or videos or whatever)?
+Well duh, it's Wordpress :-) This is it's bread and butter, and anyone
+that can use a word processor can easily learn how to create content
+in a Wordpress site.
+
+** Multiple tracks of progress
+
+Which takes me to my favorite part about switching to Wordpress. With
+the old site, we had one funnel for everything - me. I was in charge of
+security, style changes, copy updates, new functionality, etc. I'm
+sure there's a lot of things that I did that I don't even remember. 
+
+And because I was the only person who could make changes there was
+only one "lane" of traffic. Everything went through me when I had time
+to do it.
+
+But what I like to say about Wordpress is that you can have *multiple,
+independent tracks of work running simultaneously*. For example, you
+can assign all of these tasks to separate people:
+
+- Server maintenance
+- Plugin discovery/installation/maintenance
+- Copy writing
+- Copy editing
+- Theme development/maintenance
+
+But here's the *awesome part*. Not only can you assign all of these
+tasks to separate people, but they can work on these tasks
+*independently of each other*. The copy editor shouldn't care of the
+server admin implements a new firewall rule. The plugin person
+shouldn't really care if the theme's CSS changes slightly. All of
+these people can work at the *same time with completely separate
+agendas and time schedules*.
+
+This gives us *multiple, concurrent tracks of progress*, which is much
+faster than the single track of progress that used to go straight
+through me (when I had time).
+
+* NOT Click or Flamebait
+
+Before I finish I want to make sure that my message is clear:
+
+#+BEGIN_QUOTE -r
+Wordpress is a *wonderful* tool for creating sites that are
+marketing-centric and require lots of updates and collaborators.
+
+YMMV, but there are much worse tools to use as a "first choice"
+when creating a small-to-medium sized site.
+#+END_QUOTE
+
+Is it good for lots of other things? I'm sure it is but I wouldn't
+know because I haven't had to use it for those reasons.
+
+Is it "better" than Django? What a silly question. Django is a
+*wonderful* framework for developing rich applications quickly and
+easily. I've used it on multiple occasions and have been very happy
+with the results. It wasn't perfect for this application, but then
+again hindsight is 20/20. If my requirements hadn't changed
+drastically 6 weeks into my project I wouldn't be writing this
+article.
+
+* Addendum 
+
+This whole post kindof turned into a "buy, don't build" argument.
+This reminds me of a bunch of posts from one of my favorite tech
+writers [[http://www.virtuouscode.com/][Avdi Grimm]]. 
+
+He's an expert Ruby and Rails developer that recently re-built his
+custom-made business site on top of Wordpress. He's written a few
+articles on exactly why he did that, and it's probably the #1 reason I
+even chose to consider Wordpress (and stinky old PHP) when I was
+designing my wife's site.
+
+Here's some of his best posts on the subject:
+
+- [[http://www.virtuouscode.com/2016/07/07/planning-for-the-wrong-kind-of-scale/][Planning for the wrong kind of scale]] (So, SO good)
+- [[http://www.virtuouscode.com/2016/12/27/windows-php-snowballs/][Windows And PHP Are Snowballs: Respect Them]]
+- [[http://www.virtuouscode.com/2017/05/08/getting-started-with-php-essential-dev-tools/][Getting Started With PHP: Essential dev tools]]
+
