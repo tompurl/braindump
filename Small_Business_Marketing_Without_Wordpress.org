@@ -120,9 +120,9 @@ site using Django (or any other framework for that matter)?
 ** Inversion of responsibilities
 
 With the old site, I spent 90% of my time changing copy or tweaking
-CSS (touchy-feely marketing stuff) and 10% of my time doing things like
-patching software adding security features and other really important
-admin stuff.
+CSS (touchy-feely marketing stuff) and 10% of my time doing things
+like patching software and adding security features and other really
+important admin stuff.
 
 I have to admit the the touchy-feely stuff was fun and that I don't
 get a chance to do it much. However, what I really like to do and what
