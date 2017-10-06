@@ -1,0 +1,19 @@
+#+TITLE: "What Docker Means" Presentation
+
+I realized recently that I forgot to post this to my blog. I gave a
+presentation during the [[https://www.meetup.com/FoxValleyLUG/events/237141303/][February 2017 meeting]] of the [[https://www.meetup.com/FoxValleyLUG/][Fox Valley Linux
+User Group]] called *What Docker Means*. Here's a link to the actual
+presentation:
+
+- [[http://static.tompurl.com/what-docker-means-preso][What Docker Means]]
+
+The presentation was built using [[http://lab.hakim.se/reveal-js/][reveal.js]], which means that you can
+view my notes by pressing the =s= button. Also, the arrows in the
+bottom right-hand corner allow you to go down and up as well as
+forwards and backwards, depending on which page you're viewing.
+
+There isn't a recording of the presentation but you're always welcome
+to attend our next meeting. We're a very open and laid-back group
+that covers every experience level, from 30-year veterans to newbies
+who have questions about what Linux is even about.
+
