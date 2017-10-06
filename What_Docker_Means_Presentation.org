@@ -1,5 +1,7 @@
 #+TITLE: "What Docker Means" Presentation
 
+[[file:images/7-minute-abs.jpg]]
+
 I realized recently that I forgot to post this to my blog. I gave a
 presentation during the [[https://www.meetup.com/FoxValleyLUG/events/237141303/][February 2017 meeting]] of the [[https://www.meetup.com/FoxValleyLUG/][Fox Valley Linux
 User Group]] called *What Docker Means*. Here's a link to the actual
