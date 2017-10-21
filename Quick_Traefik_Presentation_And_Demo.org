@@ -1,0 +1,12 @@
+#+TITLE: Quick Træfik Presentation And Demo
+
+I gave a quick presentation on Træfik today at the [[https://www.meetup.com/FoxValleyLUG/events/244053775/][October meeting of
+the Fox Valley Linux User Group]]. There's no recording but the
+presentation is available here:
+
+- http://static.tompurl.com/traefik-demo/
+
+I've been waiting for a tool like Træfik for a while and I've already
+found a few places where I can put it to good use. I hope to blog
+about it more soon.
+
