@@ -59,16 +59,16 @@ all of your other ideas. In this example, the main idea would be
 something like “Pulled Pork Blog Recipe”. You would then record your
 idea in your mind map like this:
 
-#+CAPTION: Main idea
+#+CAPTION: Main Idea
+[[file:images/main_idea.png]]
 
-[[|filename|images/main_idea.png]]
 Next, you'll want to create some *sub-nodes*or *subtopics*. These are
 simply “child” nodes of the main idea. Here's an example of what you may
 user for a blog article:
 
 #+CAPTION: Main idea with subnodes
+[[file:images/main_idea-with-subnodes.png]]
 
-[[|filename|images/main_idea-with-subnodes.png]]
 This is the “model” that you can now use to organize your thoughts. As
 you can see, it's basically a stream of conciousness. Your version of
 this map would probably look a little different. So now you can just
@@ -77,8 +77,8 @@ an example of a complete mind map that you might use for this type of
 blog:
 
 #+CAPTION: example 1
+[[file:images/pulled-pork-blog-recipe-example1.png]]
 
-[[|filename|images/pulled-pork-blog-recipe-example1.png]]
 This format may seem a little strange to you, but that's ok. Most of the
 time, mind maps will only be used by the owner, so they only have to
 make sense to the owner. So use the structure and format that works best
@@ -118,8 +118,8 @@ Here's some documentation that can help you get started with
 mind-mapping.
 
 -  The mind map
-   ([[http://dl.dropbox.com/u/4368842/Blog-Media/mind-map-article/Writing%20Using%20Mind%20Maps.png][.png]],
-   [[http://dl.dropbox.com/u/4368842/Blog-Media/mind-map-article/Writing%20Using%20Mind%20Maps.xmind][.xmind]])
+   ([[http://static.tompurl.com/Blog-Media/mind-map-article/Writing Using Mind Maps.png][.png]],
+   [[http://static.tompurl.com/Blog-Media/mind-map-article/Writing%20Using%20Mind%20Maps.xmind][.xmind]])
    that was used to create this blog.
 
    -  That's right, I created a mind map to help me write my blog about
