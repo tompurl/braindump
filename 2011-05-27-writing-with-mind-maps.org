@@ -38,7 +38,7 @@ So why would you need to use something like this? Here's a few examples:
 -  Brainstorming Session (either by yourself or with a group)
 -  Writing
 
-   -  Mind maps are a *great*way to gather and organize information for
+   -  Mind maps are a *great* way to gather and organize information for
       an outline.
 
 ** Mini-Tutorial
@@ -62,7 +62,7 @@ idea in your mind map like this:
 #+CAPTION: Main Idea
 [[file:images/main_idea.png]]
 
-Next, you'll want to create some *sub-nodes*or *subtopics*. These are
+Next, you'll want to create some *sub-nodes* or *subtopics*. These are
 simply “child” nodes of the main idea. Here's an example of what you may
 user for a blog article:
 
@@ -117,23 +117,15 @@ of people*.
 Here's some documentation that can help you get started with
 mind-mapping.
 
--  The mind map
-   ([[http://static.tompurl.com/Blog-Media/mind-map-article/Writing Using Mind Maps.png][.png]],
-   [[http://static.tompurl.com/Blog-Media/mind-map-article/Writing%20Using%20Mind%20Maps.xmind][.xmind]])
-   that was used to create this blog.
-
+-  The mind map ([[http://static.tompurl.com/Blog-Media/mind-map-article/Writing Using Mind Maps.png][.png]],[[http://static.tompurl.com/Blog-Media/mind-map-article/Writing%20Using%20Mind%20Maps.xmind][.xmind]]) that was used to create this blog.
    -  That's right, I created a mind map to help me write my blog about
-      mind-mapping. Feel free to take a look!
-
+      mind-mapping. Like a really cool guy! 
 -  Software
-
    -  [[http://www.xmind.net/][Xmind]]
    -  [[http://freemind.sourceforge.net/][Freemind]]
    -  There are loads of non-free mind-mapping tools, but I've never
       used one so I can't comment on them.
-
 -  Web Sites
-
    -  [[http://www.xmind.net/][Xmind.net]] has some great examples of
       mind maps that users have uploaded. Check it out if you want to
       see what is possible.
