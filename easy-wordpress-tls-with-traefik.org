@@ -1,0 +1,150 @@
+#+TITLE: Self-Hosting Wordpress With TLS/SSL In 2017
+#+OPTIONS: toc:nil H:4 ^:nil pri:t 
+
+* TL;DR
+
+Docker and Træfik make it very easy to host Wordpress sites with TLS
+built-in. If you want to get started in a hurry then skip down to the
+[[#So%20Now%20What][So Now What?]] section below.
+
+* Background 
+
+After a long hiatus from the Wordpress world I recently found myself
+hosting multiple Wordpress-based sites. To me, TLS (which most people
+still call SSL) is a requirement, not an option, so I did quite a bit
+of research on the best way setup TLS with Wordpress.
+
+Unfortunately the top 20 links in Google all gave me 20 different
+answers, most of which just didn't work at all. Even worse, the first
+link returned for me was this:
+
+- https://codex.wordpress.org/Administration_Over_SSL
+
+This is truly an unfortunate doc. Not only does it tell you that TLS
+isn't absolutely necessary[fn:1], it's also terribly confusing, even
+if you do know a lot about configuring a reverse proxy with TLS. If I
+was new this stuff I wouldn't have even known where to start.
+
+So here's my stab at creating a "cookbook" for self-hosting Wordpress
+with TLS in 2017. 
+
+* Step 1 - Use Docker
+
+Docker makes it very easy and cheap to run your Wordpress and MariaDB
+services in a reasonably secure way. If you haven't experimented with
+it yet then I highly recommend that you give it a spin.
+
+The [[https://hub.docker.com/_/wordpress/][official Wordpress Docker image]] works very well, is updated
+quickly and even comes in multiple flavors. I prefer the image with
+the =latest= tag because it includes Apache, which makes it easier to
+integrate with Træfik later.
+
+MariaDB also runs very well in a Docker container for most Wordpress
+apps, and it also has an [[https://hub.docker.com/_/mariadb/][official Docker image]]. You can connect it to
+the Wordpress container lots of different ways, but if you're a
+beginner then [[https://docs.docker.com/compose/][Docker Compose]] is probably your best option. 
+
+The best part about this design is that is very easy to test on a
+laptop or VM. You don't have to clutter your computer with new
+versions of PHP or multiple web servers - just spin up your
+containers, experiment, fix, and then throw them away when you're
+done.
+
+* Step 2 - Use Træfik
+
+[[https://traefik.io/][Træfik]] is a new, Docker-aware reverse proxy that in many ways is very
+similar to Apache and Nginx. For our purposes, it will perform the
+following functions:
+
+** Routing Requests
+
+For example, requests that use the =foo.bar.baz= hostname are routed
+to Docker container "foo", requests for =fizz.bar.baz= are routed to
+"fizz".
+
+Please note that there's an assumption that the Docker container
+receiving the requests will have some sort of HTTP server running on
+it. In our case, the =latest= Wordpress Docker image runs Apache.
+
+** TLS Termination
+
+It will store the TLS certs and manage encrypted communication with
+the client.
+
+You can then have Træfik communicate with your Docker images
+using plain-old HTTP. This is /secure enough/ for the following reasons:
+
+- The traffic between Træfik and your Wordpress container never leaves
+  your host. 
+- Træfik communicates with your applications using private, Docker
+  networks.
+
+** Automatic TLS Certificate Registration And Renewal
+
+This is really a *killer* feature of Træfik. When you configure a new
+*frontend* address (e.g. =foo.bar.baz=) Træfik automatically requests
+a TLS cert from [[https://letsencrypt.org/][Let's Encrypt]] (for free!) and manages it. Heck, it
+even updates it when it's about to expire.
+
+If you've never waited 2 weeks for a $90 SSL cert that didn't work
+then it's difficult to explain how *utterly magical* this feature is.
+
+** Web Health Console 
+
+This allows you to perform basic monitoring of your
+applications. Also, since Træfik can be configured to update its
+routes dynamically this console can provide good debugging
+information.
+
+** Docker Integration
+
+But that's not all! Another killer feature of Træfik is that it's
+*Docker-aware*. So for example if you want to expose your Wordpress
+container to Træfik, you would just add labels at runtime that look
+something like this:
+
+#+BEGIN_EXAMPLE
+traefik.backend=blog-wordpress
+traefik.frontend.rule=Host:blog.tompurl.com
+traefik.docker.network=proxy
+traefik.port=80
+#+END_EXAMPLE
+
+Træfik would then know that all requests to =blog.tompurl.com= should
+be routed to a Docker container named =blog-wordpress=. There's
+nothing that you need to change in your static Træfik configuration
+and no need for a restart. Træfik just "discovers" the new container
+and starts routing traffic to it. And the opposite happens when you
+shut down the container. 
+
+If you've ever spent hours tweaking arcane Apache or Nginx
+configuration parameters when all you wanted to do was just use it to
+route traffic then this feature is really amazing. It's one of those
+features that isn't perfect for 100% of applications, but it is 
+perfect 100% of the time for 85% of applications.
+
+* So Now What?
+  :PROPERTIES:
+  :CUSTOM_ID: So Now What
+  :END:
+
+It's easy to say "just use Docker and Træfik", but how the heck are we
+actually supposed to setup a real site? I considered writing a
+tutorial on this but a lot of good ones already exist:
+
+- [[https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-16-04][How to Use Traefik as a Reverse Proxy for Docker Containers on Ubuntu 16.04]]
+  - I'm using 90% of the configuration from this tutorial to host
+    multiple Wordpress sites with Træfik. It's really well done.
+- [[https://docs.traefik.io/user-guide/docker-and-lets-encrypt/][Docker & Traefik]]
+  - This is another Docker-related Træfik tutorial that is more
+    app-agnostic and shows more of Træfik's features. 
+
+If you spend any amount of time managing a self-hosted Wordpress site
+then it's *definitely* worth your time to rent a cheap and run through
+these tutorials.
+
+* Footnotes
+
+[fn:1] This literally breaks my brain. If you're working with someone
+in 2017 who actually argues /against/ TLS between the client and
+reverse proxy then that's a definite red flag. 
