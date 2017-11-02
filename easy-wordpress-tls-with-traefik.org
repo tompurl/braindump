@@ -1,5 +1,4 @@
 #+TITLE: Self-Hosting Wordpress With TLS/SSL In 2017
-#+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
 * TL;DR
 
