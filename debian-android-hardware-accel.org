@@ -1,0 +1,104 @@
+#+TITLE: Using Hardware Acceleration With The Android Emulator On Debian
+
+More fun lessons learned with Android Studio! This morning I learned
+[[file:Fixing_Android_libgl_Errors.org][how to get rid of libgl errors when running a VM on Debian Linux]], and
+now I can focus on the next steps.
+
+I created the my "Hello World" application from the [[https://www.amazon.com/Head-First-Android-Development-Brain-Friendly/dp/1491974052/ref%3Dsr_1_sc_1?ie%3DUTF8&qid%3D1512234648&sr%3D8-1-spell&keywords%3Dhead%2Bfirst%2Bandroid%2Bdeveplopment][Head First Android
+Development]] book but the performance was dreadfully slow when I chose
+the default settings. Here's how I fixed that on a system running 
+Debian Stretch (9.x).
+
+* Compatibility
+
+The official prereqs are on [[https://developer.android.com/studio/run/emulator-acceleration.html][this page]], but I have to admit that it's a
+little confusing and redundant. 
+
+The important things seems to be the following:
+
+- A 64-bit processor
+- A 64-bit OS
+- A *VT-x*-enabled processor
+
+[[https://developer.android.com/studio/run/emulator-acceleration.html#accel-graphics][This tutorial]] does a really great job showing you how to check for
+VT-x in your processor. I just ran the following command:
+
+#+BEGIN_SRC sh
+grep --color vmx /proc/cpuinfo
+#+END_SRC
+
+* KVM
+  :PROPERTIES:
+  :header-args: :exports both :results verbatim :eval never-export
+  :END:
+
+Now that we can assume that you can even use hardware acceleration
+let's install KVM. The Debian Wiki has [[https://wiki.debian.org/KVM][great instructions]] on how to do
+this.
+
+Here's what I did on my system:
+
+#+BEGIN_SRC sh
+sudo apt-get install qemu-kvm libvirt-clients libvirt-daemon-system
+sudo adduser tom libvirt
+sudo adduser tom libvirt-qemu
+#+END_SRC
+
+Naturally, you'll want to replace "tom" with your username in most
+cases :-)
+
+Now that KVM is installed let's test it with the following command:
+
+#+BEGIN_SRC sh
+$HOME/Android/Sdk/tools/emulator -accel-check
+#+END_SRC
+
+...and here's what I got:
+#+RESULTS:
+: accel:
+: 0
+: KVM (version 12) is installed and usable.
+: accel
+
+Hooray! It looks like things are working.
+
+* Choosing The Right VM
+
+#+BEGIN_NOTE
+Note: The instructions below are for *Android Studio 3.0.1*. Most of the
+instructions that I've found are for older versions that look quite a
+bit different.
+#+END_NOTE
+
+At this point I thought I had everything figured out. Compatible CPU?
+Check. Installed and configured KVM? Check! But the problem was that
+it was still taking at least 30 seconds for my emulator to get to the 
+home screen. Was acceleration even working?
+
+The key is that when you create your VM you need to do the following
+on the *Verify Configuration* screen in the wizard (which should be
+the last one you see):
+
+1. Click on the *Show Advanced Settings* button.
+2. Scroll down to the *Emulated Performance* section.
+3. In the dropdown next to the *Graphics* label, choose *Hardware*.
+4. Click on the *Finish* button.
+
+#+BEGIN_NOTE
+Please note that you may not be able to access the *Graphics*
+dropdown. If this is the case, either the VM doesn't support
+acceleration or there is still something missing from your system.
+
+Personally, I've had better luck with 64-bit VM's then 32-bit VM's.
+Try both architectures if you have any issues.
+#+END_NOTE
+
+Now when you start your VM it should run significantly faster. 
+
+* Additional Resources
+
+- [[https://developer.android.com/studio/run/emulator-acceleration.html#accel-graphics][Configure Hardware Acceleration for the Android Emulator]]
+  - This is the document I referred to above.
+- [[https://software.intel.com/en-us/android/articles/speeding-up-the-android-emulator-on-intel-architecture][Speeding Up the Android* Emulator on Intel® Architecture]]
+  - This is another good resource is you have any issues and is
+    written much better than the other doc.
