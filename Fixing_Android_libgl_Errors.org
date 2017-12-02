@@ -1,0 +1,31 @@
+#+TITLE: Fixing Android AVD libgl Errors On Debian Stretch
+
+Early last year I wrote a few Cordova applications on a system running
+Debian Linux and wrote about my experiences using the command-line
+tools [[file:2016-06-05-emulating-android-on-debian.org][here]]. This year I would like to learn more about "plain-old"
+Android development using Java, so I'm familiarizing myself with Google's 
+new standard for development, [[https://developer.android.com/studio/][Android Studio]].
+
+Of course, there's a few strange gotchas about running this incredibly
+powerful and complex tool on top of Debian. One of them is that you
+will get crazy =libgl= errors when you first try to launch an emulator
+that look something like this:
+
+#+BEGIN_EXAMPLE
+Emulator: libGL error: unable to load driver: i965_dri.so
+#+END_EXAMPLE
+
+At first I thought that I didn't install OpenGL on my laptop, but I
+did. Then I found the following forum post:
+
+- https://bbs.archlinux.org/viewtopic.php?pid=1646115#p1646115
+
+I'm running a 64-bit system, so here's all I had to do:
+
+#+BEGIN_SRC sh
+mv $HOME/Android/Sdk/emulator/lib64/libstdc++/libstdc++.so.6 $HOME/Android/Sdk/emulator/lib64/libstdc++/libstdc++.so.6.bak
+ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6  $HOME/Android/Sdk/emulator/lib64/libstdc++/libstdc++.so.6
+#+END_SRC
+
+The next time I started my emulator everything worked perfectly
+(albeit very slowly).
