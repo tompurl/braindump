@@ -2,6 +2,8 @@
 
 * Crypto-What?
 
+[[https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d/378314.svg]]
+
 If you haven't heard yet, [[https://www.cryptokitties.co/][CryptoKitties]] is an app that allows you to
 collect and breed (i.e. buy and make) digital cats, which are
 collectibles that only exist digitally. To put that another way, these
