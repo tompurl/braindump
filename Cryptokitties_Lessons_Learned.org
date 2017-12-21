@@ -1,0 +1,235 @@
+#+TITLE: CryptoKitties - Lessons Learned
+
+* Crypto-What?
+
+If you haven't heard yet, [[https://www.cryptokitties.co/][CryptoKitties]] is an app that allows you to
+collect and breed (i.e. buy and make) digital cats, which are
+collectibles that only exist digitally. To put that another way, these
+cats are *crypto-collectibles* (think virtual Beanie Babies or
+baseball cards) that you purchase with cryptocurrency ([[https://en.wikipedia.org/wiki/Ethereum#Ether][Ether]] in this
+case) that, at some point, actually had to be purchased with *actual,
+non-digital money* [fn:1].
+
+You may have heard about CryptoKitties in the news recently because,
+well, the marketplace is gonzo crazy. Some kitties have sold for *over
+$100,000* and there are tons of speculators trying to make a quick
+buck.
+
+But that's not the only reason. It's also the first [[https://en.wikipedia.org/wiki/Ethereum#Ether][Ethereum-based]] app
+(which is also called a *decentralized app* or *dApp*) that possesses
+these attributes:
+
+1. It is popular with a wide audience
+2. It's been around *for almost two whole months* (as of 12/21/17) and
+   hasn't been hacked to death yet. [fn:2]
+
+All of this together makes CryptoKitties *very special* and
+*incredibly fascinating* from a lot of different viewpoints. I
+therefore have dipped my toes in the CryptoKitties pool and learned a
+*lot* about both the app and the Ethereum system in general. Hopefully
+these tips will help someone else out.
+
+* Lessons Learned
+** It takes a LONG time to buy Ethereum using Coinbase
+
+I've purchased Bitcoins in the past from [[https://en.wikipedia.org/wiki/Coinbase][Coinbase]] and it's a pretty
+quick and painless process after your first transaction. I expected
+the same process when buying Ethereum, so I was shocked to learn that
+I needed to wait *7 days* to convert dollars into Ether. 
+
+By the way, this time frame has been consistent both of the times that
+I've purchased Ether.
+
+There are other options, but when it comes to exchanging money I am
+very, very risk averse, and Coinbase is the biggest and most trusted
+cryptocurrency exchange. So I'm willing to wait.
+
+** CryptoKitties Are NOT Like Tamagotchi
+
+You don't feed or raise CryptoKitties - you just get to look at, breed
+and sell them. This was also a big surprise to me, and it really makes
+the whole "game" a lot more boring.
+
+** (Almost) Every Action You Initiate Has A Financial Cost
+
+Pretty much everything you do in this app will cause [[https://metamask.io/][MetaMask]] (your
+Ether wallet) to display a transaction confirmation popup. That's
+because your kitty *lives on the blockchain* to a large extent. And
+you have to spend at least a little Ether (or sometimes very much) to
+change *anything* on the blockchain. 
+
+I learned this lesson when I offered one of my cats for siring. I
+first had to create a *CryptoKittiesCore* contract on the blockchain
+that had no *primary cost* but *did* include a transaction fee (called
+*gas* in the Ethereum world). These gas costs are the incentive that
+the Ethereum miners have to process transactions. 
+
+I then changed my mind 5 minutes later and decided to cancel my siring
+offer. Well, that worked the same way - no primary costs, but I had to
+pay a gas cost.  In the end, I spent a total of $3.31 in processing
+fees to make and change my mind.
+
+** Don't Use Much Money
+
+Remember the gonzo crazy thing I mentioned earlier? Like I said
+before, this is fake money buying fake collectibles, and the
+CryptoKitties system could collapse overnight in *hundreds of amazing
+and bizarre ways* that no one could ever foresee.
+
+Also, the price of Ether is [[https://ethereumprice.org/][incredibly volatile]] these days. The value
+has more than doubled in the last month, and there's nothing saying
+that it won't crash any time soon. Also, did I mention this was [[https://www.theonion.com/new-e-toilet-to-revolutionize-online-shitting-1819565332][fake
+money]]?
+
+Finally, I *really, really, REALLY* don't like that I can only
+interact with the CryptoKitties system using an Ethereum wallet that
+runs within a web browser instance. Don't get me wrong - I really like
+[[https://metamask.io/][MetaMask]]. It's easy to install, works on multiple browsers and has a
+great interface. Heck, it even makes it really easy to buy Ether and
+automatically have it added to your wallet. And of course, it would be
+really hard to use a web-based dApp without some sort of wallet built
+into your web browser.
+
+The part I don't like is that I'm exposing my Ethereum wallet to
+*every single web site that I visit* and *every other browser plugin
+that I have installed*. This is a huge threat and it's only a matter
+of time before some vulnerability in the plugin or a related browser
+will cause some people to lose money.
+
+So I guess what I'm saying is that it doesn't make a lot of sense to
+play around with more money than you feel comfortable losing very
+suddenly and unpredictably. My philosophy is that I'm comfortable
+"playing" with the amount of money that I would spend on a good
+technical book. Then if I lose it all I can view it as an educational
+expense.
+
+** The Price Listed In The CryptoKitties App Isn't What You Pay
+
+This is where things got very, very confusing.
+
+Yesterday I wanted to hire the siring services of another cat so that
+my cat could have a kitten. I found a few cats that were advertising
+their stud services for 0.0049 Ether. I have 0.015 Ether. So basically
+it will cost me 33% of what I possess, right?
+
+I then initiate the breeding process (ugh how else could I say that)
+and MetaMask tells me that this transaction will cost 0.013 Ether
+*plus* 0.006 Ether in gas costs for a total of 0.019 Ether.
+
+So for those of you keeping track at home:
+
+#+Caption: Siring Costs
+#+NAME: Table 1
+| Item          | Cost in Ether |
+|---------------+---------------|
+| Stud services |        0.0049 |
+| Gas           |        0.0060 |
+| ???           |        0.0081 |
+| *TOTAL*       |      *0.0190* |
+
+
+0.019 Ether (2 Ether pennies?) is a *lot* more (4 times more) than the
+half of 1 Ether penny that I thought I was spending. Heck, the price
+that is listed on the site is actually the smallest cost in the entire
+transaction!
+
+The first question you may ask now is who is right, the CryptoKitties
+site or MetaMask? The answer is simple - *always defer to
+MetaMask*. MetaMask is asking you for a confirmation of a transaction
+that will be added to the blockchain, which means that money will be
+moved. 
+
+The *blockchain is the system of record*, and *MetaMask is the
+authoritative tool for editing that* system of record. The
+CryptoKitties site is neither of these things, and *shouldn't be used
+as a way of calculating total costs*. 
+
+So what are the other charges? Let's look at the gas costs
+first. Remember, gas it the incentive that miners have to process
+transactions. In the Ethereum system, this price you pay per unit of
+gas is proportional to the amount of activity on the network. So more
+concurrent transactions on the blockchain means higher costs, and
+things are *very* busy right now. [fn:3]
+
+** The CryptoKitties Site Charges Fees
+
+This brings us to the mysterious line item in the Table 1 above. This
+is the amount that CryptoKitties charges to process the
+transaction. For now let's call this the *app fee*. 
+
+How is this calculated? Well I went on a message board and apparently
+this is broken down like this:
+
+#+BEGIN_EXAMPLE
+(Fixed Cost + ((Size / gas price) / 1000000000))
+#+END_EXAMPLE
+
+So what are all of the fixed costs and sizes for each kind of event
+(e.g. siring or bidding)? Well, I haven't been able to find that yet,
+but if this becomes more than a minor hobby for me I may need to
+create a spreadsheet.
+
+** It Doesn't Make Sense To Use The System When The Network Is Busy
+
+Remember, when the network is busy you have to pay a higher gas price
+to ensure that your transaction is processed in a timely way. This not
+only affects the transaction fees that you pay but also the app fee amount
+that CryptoKitties charges. 
+
+It's therefore advantageous to wait until the gas price is low before
+initiating any transactions. Also A good rule of thumb that I've heard is
+that you should pay 2 more gwei than the *SafeLow* price on the [[https://ethgasstation.info/][ETH
+Gas Station]].
+
+** CryptoKitties Isn't Fully Decentralized (Whatever That Means)
+
+A big, theoretical promise of building decentralized apps on the
+blockchain is that we will no longer have to live with the [[https://blogs.harvard.edu/vrm/2012/02/21/stop-making-cows-stop-being-calves/][calf-cow
+model]] of digital services. We will no longer have to rely on large,
+amoral companies to do things like manage user profiles, store data or
+authenticate people. We will have P2P and the blockchain and
+everything will be decentralized and democratized. [[https://www.huffingtonpost.com/2014/12/26/communist-propaganda-post_n_6377336.html][(Digital)
+proletarians of all countries, unite!]]
+
+Of course the modern world is very, very far away from this ideal pipe
+dream. We therefore still need /some/ cows, just hopefully smaller
+ones :-).
+
+So how big is the CryptoKitties cow? Well, there's actually an article
+on it:
+
+- [[https://medium.com/@CryptoKitties/is-cryptokitties-decentralized-9823b5f168af][Is CryptoKitties decentralized?]]
+
+The way I read this is that the site and the algorithm used to
+generate your kitty's genome is proprietary. Pretty much everything
+else exists on the blockchain. 
+
+This is a nice high-level explanation, but I still wonder what would
+happen to their customers and partners if the site were to disappear
+for some reason. For example:
+
+- Is it possible to know what your cat looks like *without* relying
+  upon the CryptoKitties web site? Is the algorithm that converts my
+  kitty's 256-bit genome into an adorable picture proprietary?
+- How do they ensure that people can't create counterfeit cats? Is
+  this also proprietary to their system?
+
+* Conclusion
+
+I'm really glad that I've made a small investment of time and money
+into the CryptoKitties system. I've learned a ton and had a lot of fun
+to boot. If you have any interest in where cutting edge technology,
+economics, and business concepts intersect then I highly recommend
+that you also do the same.
+
+* Footnotes
+
+[fn:1] Or as my very astute wife likes to put it, "you bought
+something fake with fake money that you bought with actual money." :-)
+
+[fn:2] This may sound like a sarcastic joke but it isn't. Most
+Ethereum dApps disappear due to malicious actions before they even get
+started.
+
+[fn:3] If you want more information on how busy the system is and how
+much you *should* be paying for gas checkout the [[https://ethgasstation.info/][ETH Gas Station]] site. 

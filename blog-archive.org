@@ -2,6 +2,7 @@
 #+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
 * 2017
+** [[file:Cryptokitties_Lessons_Learned.org][Cryptokitties - Lessons Learned ]]
 ** [[file:debian-android-hardware-accel.org][Using Hardware Acceleration With The Android Emulator On Debian]]
 ** [[file:Fixing_Android_libgl_Errors.org][Fixing Android AVD libgl Errors On Debian Stretch]]
 ** [[file:easy-wordpress-tls-with-traefik.org][Self-Hosting Wordpress With TLS/SSL In 2017]]
