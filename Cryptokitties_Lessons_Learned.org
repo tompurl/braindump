@@ -49,8 +49,22 @@ cryptocurrency exchange. So I'm willing to wait.
 ** CryptoKitties Are NOT Like Tamagotchi
 
 You don't feed or raise CryptoKitties - you just get to look at, breed
-and sell them. This was also a big surprise to me, and it really makes
-the whole "game" a lot more boring.
+and sell them. This was also a big surprise to me at first since I
+figured that was the point of the "game".
+
+So what is the point? Well, I guess that depends on who you are. For
+some people it's owning as many cute digital cats as possible. For
+dorks like me it's all about learning about the Ethereum ecosystem.
+
+But for most people they just want to *"farm" cats and make a profit*.
+This may sound boring until you realize that a) you're playing with
+real money and b) this is the wild west of digital markets so anything
+can happen. I don't care if you're an Economics professor or a Wall
+Street trader or a 13 year old with way too much free time and Mountain
+Dew - this market is definitely challenging in new and crazy ways all
+of the time. 
+
+And that's kindof cool :-)
 
 ** (Almost) Every Action You Initiate Has A Financial Cost
 
