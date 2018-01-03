@@ -5,11 +5,11 @@
 
 | Name                   | Open Source? | Runs In Tails?     | Runs In Debian? | Cold Wallet Capability?               | Requires Full Sync? | Seed Password? | Notes                                                                               |
 |------------------------+--------------+--------------------+-----------------+---------------------------------------+---------------------+----------------+-------------------------------------------------------------------------------------|
-| [[#Exodus][Exodus]]                 | No           | ???                | Yes             | I don't think so                      | No                  | Yes            | It has a very nice UI and is very easy to use.                                      |
+| [[#Exodus][Exodus]]                 | No           | ???                | Yes             | No                                    | No                  | Yes            | It has a very nice UI and is very easy to use.                                      |
 | [[#MetaMask][MetaMask]]               | Yes          | ???                | Yes             | No - requires network                 | No                  | Yes            | This is really the best open source tool I've found with lots of security concerns. |
 | [[#Mist][Mist]]                   | Yes          | I don't think so.  | Yes             | I think.                              | Yes                 | No             | I like that this is the official Ethereum wallet but I hate "full" wallets.         |
 | [[#MyEthereumWallet][MyEthereumWallet (MEW)]] | Yes          | Only in 3.2 [fn:1] | Yes             | Apparently [fn:2] but I can't test it | No                  | Yes            | This is very popular but from a security perspective is just a hot mess.            |
-|                        |              |                    |                 |                                       |                     |                |                                                                                     |
+| [[#Jaxx][Jaxx]]                   | No           | ???                | Yes             | No                                    | No                  | Yes            | Seems very similar to Exodus.                                                       |
 
 * Details
 ** Exodus
@@ -86,6 +86,14 @@ I can use. The latest version as of 1/3/2018 has issues for example,
 and it's difficult to download older versions of Tails that *do*
 supposedly work.
 
+** Jaxx
+   :PROPERTIES:
+   :CUSTOM_ID: Jaxx
+   :END:
+
+This is very similar to Exodus, only slightly harder to use. It also
+appears to have features that Exodus does not, but not anything that I
+think I would need.
 * Footnotes
 
 [fn:1] https://www.reddit.com/r/ethereum/comments/7kcj59/which_eth_wallets_work_on_tails_v33_mew_does_not/
