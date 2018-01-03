@@ -2,6 +2,7 @@
 
 * Crypto-What?
 
+#+Caption: Miku, my first cryptokitty
 [[https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d/378314.svg]]
 
 If you haven't heard yet, [[https://www.cryptokitties.co/][CryptoKitties]] is an app that allows you to
@@ -58,8 +59,8 @@ dorks like me it's all about learning about the Ethereum ecosystem.
 
 But for most people they just want to *farm cats and make a profit*.
 This may sound boring until you realize that a) you're playing with
-real money and b) this is the wild west of digital markets so anything
-can happen. I don't care if you're an Economics professor or a Wall
+real money and b) this is the *wild west of digital markets so anything
+can happen*. I don't care if you're an Economics professor or a Wall
 Street trader or a 13 year old with way too much free time and Mountain
 Dew - this market is definitely challenging in new and crazy ways all
 of the time. 
