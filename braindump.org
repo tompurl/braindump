@@ -37,6 +37,11 @@ marginalia. It's a lot like looking straight at my brain :-)
 - [[file:MagitCheatsheet.org][Magit Cheatsheet]]
 - [[file:TwitteringModeCheatSheet.org][Twittering Mode Cheat Sheet]]
 
+** Cryptocurrencies
+*** Ethereum
+
+- [[file:Ethereum_Clients.org][Ethereum Clients]]
+  
 ** Multimedia
 
 - [[file:MinidlnaCheatSheet.org][minidlna Cheat Sheet]]

@@ -1,0 +1,93 @@
+#+TITLE: Ethereum Clients
+#+OPTIONS: toc:nil H:4 ^:nil pri:t 
+
+* Overview
+
+| Name                   | Open Source? | Runs In Tails?     | Runs In Debian? | Cold Wallet Capability?               | Requires Full Sync? | Seed Password? | Notes                                                                               |
+|------------------------+--------------+--------------------+-----------------+---------------------------------------+---------------------+----------------+-------------------------------------------------------------------------------------|
+| [[#Exodus][Exodus]]                 | No           | ???                | Yes             | I don't think so                      | No                  | Yes            | It has a very nice UI and is very easy to use.                                      |
+| [[#MetaMask][MetaMask]]               | Yes          | ???                | Yes             | No - requires network                 | No                  | Yes            | This is really the best open source tool I've found with lots of security concerns. |
+| [[#Mist][Mist]]                   | Yes          | I don't think so.  | Yes             | I think.                              | Yes                 | No             | I like that this is the official Ethereum wallet but I hate "full" wallets.         |
+| [[#MyEthereumWallet][MyEthereumWallet (MEW)]] | Yes          | Only in 3.2 [fn:1] | Yes             | Apparently [fn:2] but I can't test it | No                  | Yes            | This is very popular but from a security perspective is just a hot mess.            |
+|                        |              |                    |                 |                                       |                     |                |                                                                                     |
+
+* Details
+** Exodus
+   :PROPERTIES:
+   :CUSTOM_ID: Exodus
+   :END:
+
+*** Overview
+
+So far this is my favorite wallet because it's so easy to install and
+my wallets can be restored from a seed phrase. This makes it really
+easy to back things up in a secure way while also being very easy to
+restore.
+
+It's no Electrum, but as of 1/2018, it my favorite wallet for storage
+of Ethereum.
+
+*** Pros
+
+- Very easy to install, and it runs on Mac, Windows and Linux.
+- It works with every currency I care about.
+
+*** Cons
+
+- Closed source
+- Doesn't allow me to run a cold wallet.
+- Requires a network connection. I therefore can't use it on an
+  air-gapped machine.
+
+** MetaMask
+   :PROPERTIES:
+   :CUSTOM_ID: MetaMask
+   :END:
+
+*** Overview
+
+You can't really use Ethereum these days without using MetaMask at
+some point. It's a requirement for Cryptokitties and it's by far the
+best "light", open-source wallet available. 
+
+My only beef with it is accessible by every web site that you visit. 
+Also, it has to run within a web browser process. So there is a very 
+large attack surface there. Also, I still don't know how to encrypt
+my keys on disk if I wanted to.
+
+So security is scary, but usability and transparency are excellent. 
+I'll try not to keep too much Ether in this wallet.
+** Mist
+   :PROPERTIES:
+   :CUSTOM_ID: Mist
+   :END:
+*** Overview
+
+I like that this is the default wallet, but I really don't like that I
+need a full copy of the blockchain to use it. I've been waiting for
+over 4 days to sync and it's a royal pain.
+
+Also, it doesn't seem to offer a seed phrase to backup your private key.
+This may be a deal-breaker for me.
+
+** MyEthereumWallet (MEW)
+   :PROPERTIES:
+   :CUSTOM_ID: MyEthereumWallet
+   :END:
+*** Overview
+This looks like the easiest tool to use with the most security
+gotchas. Apparently you can avoid some of these issues by running a
+local, static copy of the code but it still makes me feel like I'm
+walking on eggshells.
+
+It's appealing to me because I can apparently use it on an air-gapped
+Tails system, but it seems to be very picky about the version of Tails
+I can use. The latest version as of 1/3/2018 has issues for example,
+and it's difficult to download older versions of Tails that *do*
+supposedly work.
+
+* Footnotes
+
+[fn:1] https://www.reddit.com/r/ethereum/comments/7kcj59/which_eth_wallets_work_on_tails_v33_mew_does_not/
+
+[fn:2] https://myetherwallet.github.io/knowledge-base/offline/ethereum-cold-storage-with-myetherwallet.html
