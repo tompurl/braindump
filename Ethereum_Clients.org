@@ -3,13 +3,22 @@
 
 * Overview
 
-| Name                   | Open Source? | Runs In Tails?     | Runs In Debian? | Cold Wallet Capability?               | Requires Full Sync? | Seed Password? | Notes                                                                               |
-|------------------------+--------------+--------------------+-----------------+---------------------------------------+---------------------+----------------+-------------------------------------------------------------------------------------|
-| [[#Exodus][Exodus]]                 | No           | No [fn:3]          | Yes             | No                                    | No                  | Yes            | It has a very nice UI and is very easy to use.                                      |
-| [[#MetaMask][MetaMask]]               | Yes          | ???                | Yes             | No - requires network                 | No                  | Yes            | This is really the best open source tool I've found with lots of security concerns. |
-| [[#Mist][Mist]]                   | Yes          | I don't think so.  | Yes             | I think.                              | Yes                 | No             | I like that this is the official Ethereum wallet but I hate "full" wallets.         |
-| [[#MyEthereumWallet][MyEthereumWallet (MEW)]] | Yes          | Only in 3.2 [fn:1] | Yes             | Apparently [fn:2] but I can't test it | No                  | Yes            | This is very popular but from a security perspective is just a hot mess.            |
-| [[#Jaxx][Jaxx]]                   | No           | No [fn:4]          | Yes             | No                                    | No                  | Yes            | Seems very similar to Exodus.                                                       |
+I would like to build my own air-gapped, cold Ethereum wallet using
+FOSS wallet software, the Tails OS and a couple of thumb drives. 
+
+I've done this in the past for Bitcoin using Electrum as my wallet
+software. I'd like to find similar software in the Ethereum ecosystem
+since Electrum only works with Bitcoin.
+
+* Quick Comparison Table
+
+| Name                   | Open Source? | Runs In Tails?     | Runs In Debian? | Signs Trx On An Air-Gapped System?  | Requires Full Sync? | Seed Password? | Notes                                                                               |
+|------------------------+--------------+--------------------+-----------------+-------------------------------------+---------------------+----------------+-------------------------------------------------------------------------------------|
+| [[#Exodus][Exodus]]                 | No           | No [fn:3]          | Yes             | No                                  | No                  | Yes            | It has a very nice UI and is very easy to use.                                      |
+| [[#MetaMask][MetaMask]]               | Yes          | ???                | Yes             | No - requires network               | No                  | Yes            | This is really the best open source tool I've found with lots of security concerns. |
+| [[#Mist][Mist]]                   | Yes          | I don't think so.  | Yes             | I think.                            | Yes                 | No             | I like that this is the official Ethereum wallet but I hate "full" wallets.         |
+| [[#MyEthereumWallet][MyEthereumWallet (MEW)]] | Yes          | Only in 3.2 [fn:1] | Yes             | Not /really/ [fn:5]                 | No                  | Yes            | This is very popular but from a security perspective is just a hot mess.            |
+| [[#Jaxx][Jaxx]]                   | No           | No [fn:4]          | Yes             | No                                  | No                  | Yes            | Seems very similar to Exodus.                                                       |
 
 * Details
 ** Exodus
@@ -61,11 +70,16 @@ I'll try not to keep too much Ether in this wallet.
    :PROPERTIES:
    :CUSTOM_ID: Mist
    :END:
-*** Overview
 
 I like that this is the default wallet, but I really don't like that I
-need a full copy of the blockchain to use it. I've been waiting for
-over 4 days to sync and it's a royal pain.
+need a full copy of the blockchain to use it. Downloading this copy
+can be extremely difficult. For example, I've been waiting to download
+it for a week now and it's still not done. I've heard stories of
+others waiting closer to a month for everything to sync.
+
+Since I'm having so many issues just downloading the blockchain I've
+decided put evaluating this client on the back burner. Maybe things
+will get easier in the future.
 
 Also, it doesn't seem to offer a seed phrase to backup your private key.
 This may be a deal-breaker for me.
@@ -103,3 +117,10 @@ think I would need.
 [fn:3] Crashes on startup with a lib error.
 
 [fn:4] Can't be configured to use a socks proxy.
+
+[fn:5] MEW apparently works very well with a Trezor or similar
+hardware-based cold wallet. A lot of people would refer to the Trezor
+device as an "air-gapped" system since it stores your private keys in
+a very secure way. However, I'm splitting hairs here and saying *no*
+because the Trezor has to be plugged into a system that's on a network
+to work. Potato po-tah-to.
