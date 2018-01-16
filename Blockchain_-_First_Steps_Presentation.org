@@ -1,10 +1,28 @@
 #+TITLE: "Practical Introduction To The Blockchain Using Ethereum" - Presentation
 
-This presentation covers getting started with the blockchain by making
-Ethereum transactions:
+[[./images/waldo-with-ethereum.png]]
+
+Do you want to learn more about "the blockchain" but don't know where
+to start? Are you an experiential learner who prefers to learn by
+doing? And would you prefer to learn without spending much money?
+
+In the presentation below I go over "dipping your toes" into the
+Ethereum blockchain for complete beginners. We cover:
+
+- Setting up a wallet
+- Buying and managing a cryptocurrency (Ether)
+- Common gotchas
+
+The goal is to teach you how to fish and "bootstrap" your own process
+for learning about the blockchain. It's easy, fairly inexpensive and
+very, very educational (the process, not the presentation). Also, if
+you're lucky you can be the first kid on your block to own a
+crypto-collectible.
 
 - [[http://static.tompurl.com/blockchain-first-steps/][HTML Presentation]]
 - [[http://static.tompurl.com/blockchain-first-steps/slides.pdf][PDF Version]]
 - [[http://static.tompurl.com/blockchain-first-steps/slides-with-speaker-notes.pdf][PDF Version With Speaker Notes]]
 
-I'll be giving it at a few user groups soon.
+
+
+
