@@ -1,6 +1,8 @@
 #+TITLE: Blog Archive
 #+OPTIONS: toc:nil H:4 ^:nil pri:t 
 
+* 2018
+** [[file:Blockchain_-_First_Steps_Presentation.org]["Practical Introduction To The Blockchain Using Ethereum" - Presentation]]
 * 2017
 ** [[file:Cryptokitties_Lessons_Learned.org][Cryptokitties - Lessons Learned ]]
 ** [[file:debian-android-hardware-accel.org][Using Hardware Acceleration With The Android Emulator On Debian]]
