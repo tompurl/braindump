@@ -3,10 +3,8 @@
 This presentation covers getting started with the blockchain by making
 Ethereum transactions:
 
-- http://static.tompurl.com/blockchain-first-steps/
-
-Here's the PDF version with speaker notes:
-
-- http://static.tompurl.com/blockchain-first-steps/slides-with-speaker-notes.pdf
+- [[http://static.tompurl.com/blockchain-first-steps/][HTML Presentation]]
+- [[http://static.tompurl.com/blockchain-first-steps/slides.pdf][PDF Version]]
+- [[http://static.tompurl.com/blockchain-first-steps/slides-with-speaker-notes.pdf][PDF Version With Speaker Notes]]
 
 I'll be giving it at a few user groups soon.
