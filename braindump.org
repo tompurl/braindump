@@ -4,7 +4,6 @@ This is the place where I keep cheat sheets, quick notes and
 marginalia. It's a lot like looking straight at my brain :-) 
 
 * Computers N' Such
-
 ** Projects
 
 - [[file:ElSistemaDBProjectStatus.org][El Sistema DB Project Status]]
@@ -67,6 +66,8 @@ marginalia. It's a lot like looking straight at my brain :-)
   
 - [[file:DosCheatSheet.org][DOS Cheat Sheet]]
 
+** Misc
+- [[file:Revealjs_Tips.org][Revealjs Tips]]
 * Other Stuff
 
 - [[file:Venting_Notes.org][Venting Notes]]

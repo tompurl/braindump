@@ -1,0 +1,39 @@
+#+TITLE: Revealjs Tips
+
+* Printing Presentations
+
+** General
+
+To print a presentation you have to do the following:
+
+- Host it with a web server
+- Open it with Chrome
+
+** URL's
+
+- http://web-hosted-url/?print-pdf
+- http://web-hosted-url/?print-pdf&showNotes=true
+
+** Creating Handouts With 4 Slides Per Page
+
+*** Generating The PDF
+
+First, when printing, select "Print using system dialog". Then make
+the following choices:
+
+General:
+- PDF
+
+Page Setup:
+- Pages per side: 4
+- Top to bottom, left to right
+- orientation: landscape
+
+*** Printing With Evince
+
+After opening the PDF choose your real printer. Then make the
+following choices:
+
+Page Setup:
+- two sided: long edge
+- Orientation: landscape

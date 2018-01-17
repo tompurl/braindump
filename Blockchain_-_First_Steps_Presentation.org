@@ -19,6 +19,10 @@ very, very educational (the process, not the presentation). Also, if
 you're lucky you can be the first kid on your block to own a
 crypto-collectible.
 
+Here's the links to the presentation. The HTML version looks the best,
+but the other ones are good if you don't like JS or want to print it
+out.
+
 - [[http://static.tompurl.com/blockchain-first-steps/][HTML Presentation]]
 - [[http://static.tompurl.com/blockchain-first-steps/slides.pdf][PDF Version]]
 - [[http://static.tompurl.com/blockchain-first-steps/slides-with-speaker-notes.pdf][PDF Version With Speaker Notes]]
