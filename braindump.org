@@ -39,7 +39,7 @@ marginalia. It's a lot like looking straight at my brain :-)
 ** Cryptocurrencies
 *** Ethereum
 
-- [[file:Ethereum_Clients.org][Ethereum Clients]]
+- [[file:Ethereum_Wallets.org][Ethereum Wallets]]
   
 ** Multimedia
 
