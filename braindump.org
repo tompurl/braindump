@@ -68,11 +68,14 @@ marginalia. It's a lot like looking straight at my brain :-)
 
 ** Misc
 - [[file:Revealjs_Tips.org][Revealjs Tips]]
+* Workplace Stress
+
+- [[https://www.psychologytoday.com/blog/your-neurochemical-self/201606/3-ways-feel-better-when-coworker-gets-your-nerves][3 Ways to Feel Better When a Coworker Gets on Your Nerves]]
+- [[file:Venting_Notes.org][Venting Notes]]
+
 * Other Stuff
 
-- [[file:Venting_Notes.org][Venting Notes]]
 - [[file:FavoriteQuotes.org][Favorite Quotes]]
-- [[file:JazzAlbumOfTheDay.org][Jazz Album Of The Day]]
 
 * Meta
 
