@@ -1,5 +1,25 @@
 #+TITLE: Favorite Quotes
 
+* 2018
+** 2/5/2018
+   :PROPERTIES:
+   :CUSTOM_ID: 2_5_2018
+   :END:
+
+On [[http://mentalpod.com/archives/4715][Episode 366]] of the [[http://mentalpod.com/episodes][The Mental Illness Happy Hour]] podcast Paul
+Gilmartin was discussing how self-improvement often improves your
+relationships with the people that you love with his guest Jen
+Elmquist LMFT. Here's a great quote from Ms. Elmquist at *28:45*:
+
+#+BEGIN_QUOTE -r
+I think across the board our goal in life should be, to be as great as
+/we can be/ in order to make all of our relationships great. 
+
+I know that sounds really lofty, but that's satisfaction, right? It's
+when we're relating well with ourselves, others, and the world around us
+we have a better experience and that's good for everybody involved. 
+#+END_QUOTE
+
 * 2017
 ** 07/18/2017
    :PROPERTIES:
