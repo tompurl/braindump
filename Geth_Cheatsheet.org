@@ -1,0 +1,109 @@
+#+TITLE: Geth Cheatsheet
+
+* Assumptions
+
+1. That =geth= will be started with the =console= argument.
+2. That all commands will use the JS/console api. 
+
+* Docs
+
+- [[https://github.com/ethereum/go-ethereum/wiki/Management-APIs][Management API's]]
+
+* How Do I Know When It's "Done" Syncing?
+
+** Command
+
+#+BEGIN_SRC js
+eth.syncing
+#+END_SRC
+
+** Results
+
+If you're *in the process* of syncing you should see output that looks
+something like this:
+
+#+BEGIN_EXAMPLE
+{
+  currentBlock: 4810439,
+  highestBlock: 5048818,
+  knownStates: 4368065,
+  pulledStates: 4367495,
+  startingBlock: 4447095
+}
+#+END_EXAMPLE
+
+If *you're not syncing* then you'll see this:
+
+#+BEGIN_EXAMPLE
+false
+#+END_EXAMPLE
+
+* Get List Of Peers
+
+** Command
+
+#+BEGIN_SRC js
+admin.peers
+#+END_SRC
+
+** Results
+
+Something like this:
+
+#+BEGIN_EXAMPLE
+[{                                                                                                                                                                                   [163/1814]
+    caps: ["eth/62", "eth/63"],
+    id: "01fb25aa8131c7a24bc86b504720cc54b062d860792e51e2533eca5463348ce240d4b8e122a07b333185e620310f92211d61f7557254b6eb01e6c1a5ff2092eb",
+    name: "Geth/v1.7.3-stable-4bb3c89d/linux-amd64/go1.9.2",
+    network: {
+      inbound: false,
+      localAddress: "10.0.1.27:45604",
+      remoteAddress: "178.63.26.2:30303",
+      static: false,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 2.5538348717309124e+21,
+        head: "0xcc2dada503473bf6ad7ad75b6a0b08a46f755d9800f3824ea60b943a3e47b41b",
+        version: 63
+      }
+    }
+}, {
+    caps: ["eth/62", "eth/63"],
+    id: "1bbae192d212e6d91748e72dfa0eb2f97b9dadcb7fdcb7f535dcde652ee91856e5db3f9a71b4a7a9252650acb8e150b7b401a600d131c108fa283bd017628370",
+    name: "Geth/v1.7.3-stable-4bb3c89d/linux-amd64/go1.9.2",
+    network: {
+      inbound: false,
+      localAddress: "10.0.1.27:48951",
+      remoteAddress: "173.212.235.16:30303",
+      static: false,
+      trusted: false                                                                                                                                                                 [136/1814]
+    },
+    protocols: {
+      eth: {
+        difficulty: 2.2675608079350337e+21,
+        head: "0xb1fed975a28ba363e15da85fadfa8bcceea61caf2eb855760a797a61cca1a1a2",
+        version: 63
+      }
+    }
+}, {
+    caps: ["eth/62", "eth/63"],
+    id: "55e08da49e08d38ea2f88ea24876a5f8814aabecaedfae0c70100d75c008bdb386e6639de76de4a3b6096fedf66e677a0792727e6746b6b74c1b763289899592",
+    name: "Geth/v1.7.2-stable-1db4ecdc/darwin-amd64/go1.9",
+    network: {
+      inbound: false,
+      localAddress: "10.0.1.27:51214",
+      remoteAddress: "77.160.56.66:30303",
+      static: false,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 2.5482283274999526e+21,
+        head: "0xa1d5a4bb8072da2b2bb3384d5c35bb5d31ab28ee6771ccf28c329bc43fc00ea4",
+        version: 63
+      }
+    }
+}]
+#+END_EXAMPLE
