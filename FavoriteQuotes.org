@@ -1,6 +1,24 @@
 #+TITLE: Favorite Quotes
 
 * 2018
+** 2/13/2018
+   :PROPERTIES:
+   :CUSTOM_ID: 2_13_2018
+   :END:
+
+On [[http://mentalpod.com/archives/4724][Episode 368]] of the [[http://mentalpod.com/episodes][The Mental Illness Happy Hour]] podcast Paul
+Gilmartin provides a wonderfully succinct explanation of the
+"depression spiral" at *01:18:41*:
+
+#+BEGIN_QUOTE -r
+"It's so easy to just sweep shit under the rug and go to our
+addictions and our life gets small, and we isolate, and we just *pile
+on the shame* and then the, the, you know the *compulsive behaviors*
+to try to *numb the shame* and it's a vicious cycle that just pushes
+us closer and closer to the brink, and I've lived it. It's no way to
+live."
+#+END_QUOTE
+
 ** 2/5/2018
    :PROPERTIES:
    :CUSTOM_ID: 2_5_2018
