@@ -1,5 +1,18 @@
 #+TITLE: "Practical Introduction To The Blockchain Using Ethereum" - Presentation
 
+*3/1/18 Update* - I gave this presentation at the [[https://www.meetup.com/foxvalleycp/events/246749490/][2/21/18 meeting]] of
+the [[https://www.meetup.com/foxvalleycp][Fox Valley Computing Professionals]] club. It was a lot of fun with
+a *great* group of people. 
+
+(Seriously, this was only the second time that I attended one of their
+meetings and the other members are really friendly and inclusive,
+which is something you can't always say about a computer club.)
+
+We spent most of the time talking about [[https://www.cryptokitties.co/][CryptoKitties]], which really
+shouldn't have been that surprising I guess :-)
+
+-----
+
 [[./images/waldo-with-ethereum.png]]
 
 Do you want to learn more about "the blockchain" but don't know where
