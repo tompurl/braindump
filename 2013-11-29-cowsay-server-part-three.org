@@ -1,10 +1,11 @@
 #+TITLE: Cowsay Server - Part 3
-
 #+DATE: 2013-11-29 21:00
+
+(/This article is part 3 of 3 of my [[file:cowsay-server-series.org][Cowsay Series]] of articles./)
 
 This is the third post in a series of articles about writing my first
 application that uses sockets. For more information about why I'm doing
-this or how, please see my first article\_.
+this or how, please see my [[file:2013-11-12-cowsay-server-part-one.org][firt article]].
 
 * Now With Rspec And STDERR!
 

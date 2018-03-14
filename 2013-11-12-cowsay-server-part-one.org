@@ -1,6 +1,8 @@
 #+Title: Cowsay Server - Part 1 
 #+Date: 2013-11-12 08:00 
 
+(/This article is part 1 of 3 of my [[file:cowsay-server-series.org][Cowsay Series]] of articles./)
+
 I've read through
 [[http://http://www.jstorimer.com/products/working-with-tcp-sockets][Working With TCP Sockets]] a few times to improve my socket programming
 knowledge. I've administered software systems for a while now I know

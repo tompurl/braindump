@@ -1,11 +1,11 @@
 #+TITLE: Cowsay Server - Part 2
-
 #+DATE: 2013-11-27 21:00
+
+(/This article is part 2 of 3 of my [[file:cowsay-server-series.org][Cowsay Series]] of articles./)
 
 This is the second post in a series of articles about writing my first
 application that uses sockets. For more information about why I'm doing
-this or how, please see [[/2013/11/12/cowsay-server-part-1/][my first
-article]].
+this or how, please see [[file:2013-11-12-cowsay-server-part-one.org][my first article]].
 
 * More Functional Requirements
 
