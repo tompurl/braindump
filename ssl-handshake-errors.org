@@ -1,0 +1,376 @@
+#+TITLE: What The Hell's An SSH Handshake And Why Doesn't It Work?
+
+One of the most common and fundamental issues that I see in my line of
+work is *SSL Handshake errors*. And since SSL[fn:1] and TLS are such complex
+and poorly-documented subjects for non-PhD's, people often resort to
+voodoo incantations and "what the last guy did that works sometimes"
+to solve their problems.
+
+The good news is that there's no black magic or PhD required to solve
+most SSL handshake issues. In this article I'll explain what I do when
+this issue occurs, but first let's look at the fundamentals.
+
+* What's Happening When I Get This Error?
+
+This error occurs when your sever does the following:
+
+1. Your server tries to communicate with a remote server using HTTP and
+   SSL (i.e. an =https://= url).
+2. Your server does not trust the remote server.
+
+That's it! What that all means is explained below at a
+*very high level* :-)
+
+#+BEGIN_NOTE
+*Note*: The assumption in this tutorial is that you manage a server
+that is having issues making HTTPS calls to a remote server. However,
+a lot of the information below is useful for anyone who wants a
+introduction on how TLS works with HTTP.
+#+END_NOTE
+
+* Special Note For All You Skippers Out There 
+
+[[./images/homer-math.gif]]
+
+I know, I know, you probably want to skip this *but you shouldn't*!
+You're saying "hey, I'm not a mathematician. I'm a technologist who
+just wants to fix this one error and I have deadlines. Just tell me
+what button to push!"
+
+The problem is that with this issue, there really is no one button to
+push. It's a /little/ more complicated than that, but you'll just have
+to trust that I'll keep everything as applicable and brief as possible 😀
+
+* A Quick Primer On Asymmetric Encryption
+
+*Asymmetric encryption* is a big, $50 phrase that strikes fear into
+the hearts of many, but it's really *not a big deal* from a high
+level. When I think about it, I really like to relate it to symmetric
+encryption, which is only a $25 phrase and a scheme with which you are
+already very familiar.
+
+*Symmetric encryption* is when you and at least one other party share 
+a *key*. Party A can encrypt a message with that key and send it to 
+Party B, and since they both have the same key Party B can decrypt it.
+Easy peasy. 
+
+This scheme has two problems:
+
+1. Key distribution is *hard*. You have to be very secretive and the
+   process doesn't scale well if lots of people need that key.
+2. If someone steals you key (which isn't that hard since lots of
+   people probably will have a copy) you're screwed. 
+
+A credit card number is a lot like a secret key. It's a "shared
+secret" between you and your bank that gives you the ability to make
+purchases. And like a secret key, lots of people have to have a copy
+of it and those people aren't always a) competent or b) virtuous. So
+every once in a while the key is stolen and it's a *royal pain in the
+butt* to *revoke the old key* (cancel your card) and *distribute a new
+one* (get a new/credit card number).
+
+To help mitigate the issues with symmetric encryption some very smart
+people came up with a really great idea for a new encryption scheme:
+
+1. Person A generates *two* keys, a *private key* and a *public key*.
+2. She then distributes the *public key* to the world.
+   1. Anyone can have a copy, even malicious parties.
+3. She also ensures that the private key is *never* distributed and
+   stored in a private place.
+4. People who want to securely communicate with Person A then use the
+   *public key to encrypt* the message.
+5. Person A then uses her *private key to decrypt* the message.
+
+4 and 5 are *really* fundamental, so let's say it again:
+
+- You *encrypt* messages with a *public key*
+- You *decrypt* messages with a *private key*
+
+Asymmetric encryption therefore eliminates a lot of the problems that
+we have with symmetric encryption:
+
+1. Key distribution is *very safe*. You can share it with the world
+   with no fear of anyone using it to hurt you because it can't be
+   used to decrypt messages.
+2. It's *much harder* for someone to steal your private key because
+   only one person ever has to have a copy of it. It's therefore much
+   easier to secure. 
+
+* Now For A Quick Demo
+
+So why is this important? Well, this scheme is what your browser (or
+any HTTP client) uses to trust remote =https://= URL's. The remove
+host (e.g. https://www.ebay.com) has the *private key* and your browser
+or whatever has the *public key* [fn:2]. We can therefore have an encrypted
+conversation.
+
+So how can we see this in action? Well let's see how a browser
+communicates with a a web site using HTTP+SSL.
+
+On the server that hosts Ebay (https://www.ebay.com) there's a
+private key that's referenced by the web server. You can't *see* this
+*private key* because, well yeah, it's private. You just have to trust
+that it's there because otherwise it wouldn't be able to use the
+=https= handler.
+
+Now based on everything I've said so far you know you need to have a
+*copy of my public key* somewhere on your computer, right? Absolutely?
+But where?
+
+*Every HTTP client* (e.g. your web browser, =curl=, your server that's
+calling a remote web service) that is capable of communicating using
+SSL has to reference at least one *trust store* (which is often also
+called a *key store*). What's a trust/key store? It's a "database" of
+private and/or public keys. So the keys inside of it can can be used
+to encrypt communication (using public keys) or decrypt communication
+(using private keys).
+
+If you were using Firefox the trust store is called a *certificate
+manager*. You get to it by accessing *Preferences -> Privacy and
+Security -> View Certificates* and then click on the *Authorities*
+tab.
+
+So what exactly are you looking at? These are *all of the public keys*
+that are associated with sites that you trust. One of these files is
+used to encrypt the communication with *www.ebay.com* that is decrypted
+by the private key on that server. 
+
+So go ahead. Scroll through the list and find the public key for
+www.ebay.com. I can wait...
+
+* Twist!
+
+[[./images/what-a-twist.gif]]
+
+At this point you may have noticed that there isn't any key with
+*www.ebay.com* in the title. And you're completely right. The
+public key for www.ebay.com isn't in your browser's trust store,
+but your browser still trusts the site and can encrypt traffic that is
+sent to it. How can that be if everything I've said so far is true?
+
+Let's think about it for a minute. Let's imagine that you're using
+Ebay for the first time.  Using the asymmetric scheme that I listed
+above, you would need to do the following:
+
+1. Visit the site and get an error stating that your browser doesn't
+   trust it
+2. Download Ebay's public key from a *3rd-party that we both trust*.
+3. Install the public key in your browser's trust store
+4. Visit the site without any errors.
+
+Easy peasy, right? Well yeah, until you realize that you would need to
+do this for *every single web host* that you visit at least once[fn:4]. So 
+once for amazon.com, once for google.com, once for calendar.google.com,
+et cetera.
+
+We would also need some type of third party to distribute the public
+keys for us that we both trusted. So, for example there could be a web
+site (let's call it *certauth.com*) with all of the public keys.
+
+But wait, how do we know that the *www.ebay.com* public key on
+certauth.com is really associated with *www.ebay.com*. I don't want some
+rando getting my credit card number. For that matter, how does
+certauth.com know that the *www.ebay.com* public key is really from
+Ebay?
+
+* Certificate Authorities
+
+Let's try another demo. The instructions below are for Firefox but
+similar results can be obtained with any browser.
+
+#+BEGIN_NOTE
+*Note*: Terminology gets a bit slippery here, so please bare with
+me. Public and private keys are also called *certificates*, and there
+are different types:
+
+- private key == *private certificate*
+- public key == *signer certificate*
+
+The different names will be used interchangeably below.
+#+END_NOTE
+
+1. Visit https://www.ebay.com
+2. Left-click on the green lock icon in the URL bar.
+3. Click on the right arrow (=>=) next to the *Secure Connection* label.
+4. Next, click on the *More Information* button.
+5. You should now see *Page Info* popup. Ensure that the *Security*
+   button at the top is selected and then click on the *View
+   Certificate* button.
+
+You should now see a window that looks a lot like this:
+
+[[./images/tls-pic-1.png]]
+
+Wow, scary right? Don't worry about all of the fields, we only care 
+about a few of them. 
+
+Next, click on the *Details* tab. You should now see a window that
+looks a lot like this:
+
+[[./images/tls-pic-2.png]]
+
+The *really important part* in that last screen shot is the
+*Certificate Hierarchy* section. In it you see three certs, with the
+www.ebay.com cert being at the bottom. What this shows you is the
+following:
+
+1. The *www.ebay.com* cert is trusted by the *Symantec Class 3 Secure
+   Server CA - G4* cert (which is usually called your *intermediate
+   cert*).
+2. The *Symantec Class 3 Secure Server CA - G4* cert is then trusted
+   by the *VeriSign Class 3 Public Primary Certification Authority*
+   cert (which is usually called your *root cert*).
+
+/Now/ if you look in your browser's trust store/certificate manager
+you should see the intermediate and root certs above, but *no* cert for
+www.ebay.com. So what's going on?
+
+* Chain Of Trust
+
+[[./images/trust-pound.gif]]
+
+Remember before when I proposed the fictional "certauth.com" scheme
+above for distributing public keys? It required mutually-trusted
+3rd-parties to certify public keys for us so that we know that the
+public key for www.ebay.com /really is/ from the Ebay corporation.
+Also, the process was a bit of a pain because you needed to manually
+download a site's public key the first time you visited it, for *every
+single site*.
+
+Well, the good news is that we don't have to use this process in real
+life. Instead we use a scheme called the *Chain of Trust*, where we trust
+the certs that trust www.ebay.com so that we /don't/ have to
+explicitly trust www.ebay.com. And since *those* certs trust lots an
+*lots* of other sites we only have to *explicitly* trust a small number
+of certs to *implicitly trust hundreds or thousands of sites*.
+
+Let me break this process down because it's a bit confusing:
+
+1. Your HTTP client trusts the root and intermediate certs above
+   explicitly.
+2. Those certs are used to trust (i.e. *sign*) hundreds or thousands
+   of other certs for sites like www.ebay.com, www.amazon.com, etc.
+3. Because you trust the root and intermediate certs you *implicitly
+   trust* all of the sites that use certs that are trusted by the root
+   and intermediate certs.
+
+So who are these groups that do nothing but manage public keys that
+are used to trust other public keys? These organizations are called
+*Certificate Authorities*. Their whole job is ensuring that when
+someone asks them to trust a certificate for www.ebay.com that the
+request is /actually coming from/ someone at Ebay.
+
+* All Right, Back To My Broken Server
+
+First let's go over what we've learned:
+
+1. Symmetric and asymmetric encryption from a 60,000-foot level.
+2. How to view all of the public keys/signer certs in your browser's
+   trust/certificate store. 
+3. How to view a site's cert and the certs in its hierarchy.
+4. How we use Certificate Authorities and the Chain of Trust to make
+   managing (i.e. trusting) certificates much, much easier than
+   trusting each and every site individually. 
+
+But as enlightening as that information may be you need to know how it
+will help you make your Tomcat/WebSphere/Nginx/Whatever server trust an
+external server. Well, lucky for you the process that we used above
+is basically the same one you'll use.
+
+** 1. Examine The Remote Site's Cert Hierarchy
+
+Using your favorite web browser visit the URL that is causing your
+server to throw an SSL Handshake error. Obtaining this URL is often
+easier said than done because the error message doesn't usually
+include it, but it can be acquired using tools like =tcpdump=. Consult
+your server's docs for more details.
+
+Once you've visited the URL in your browser check it's cert hierarchy.
+What are the root and intermediate certs? Next, export *only* the
+root and intermediate cert to your computer. 
+
+You will probably also want to record the *SHA-1* and *SHA-256*
+fingerprints of the root and intermediate certs. Lots of tools will
+provide this information for you, and I'm a big fan of [[https://sourceforge.net/projects/keystore-explorer/][KeyStore
+Explorer]].
+
+** 2. Import the Root And Intermediate Certs Into Your App Server's Trust Store
+
+While it is *very* unusual for someone to import certs into their
+browser's trust store it's a fairly common task on an application
+server because it simply contains fewer signer certs by default. 
+
+First we need to determine into which trust store should you import
+your signer certs?  Here are some things to consider:
+
+1. Each OS has a different set of tools and processes to manage
+   host-specific certs.
+2. Each application server (e.g. Apache, Nginx, WebSphere, Tomcat,
+   etc.) manages trust stores a bit differently, often using slightly
+   different terminology.
+   1. For example, WebSphere Application Server can use more than 20
+      different trust stores, including the JVM's =cacerts= file. Some
+      of these trust stores are called key stores because they are
+      only intended to contain private certs.
+3. Client-server terminology can also confuse things. Even though your
+   application server is a server it is also an *HTTP client* because
+   it's calling a web service on a remote server.
+   1. Your server typically manages two types of certificates:
+      1. *Private certs*: These are private keys that your server uses
+         to decrypt traffic from clients.
+      2. *Signer certs*: These are public keys that your server uses
+         when communicating as an *HTTP client* to remote servers.
+
+Phew! My advice is to find the *canonical method* for added signer certs to
+your server's trust store.
+
+#+BEGIN_NOTE
+*Note*: I have to recommend KeyStore Explorer again for the task of
+inspecting and changing trust stores. The server-side tools can often
+be very clunky, especially when you're trying to troubleshoot
+cert-related issues.
+#+END_NOTE
+
+** 3. Test!
+
+Hooray! This should fix your SSL Handshake errors. If not then I
+recommend checking the SHA-1 fingerprint of the root and signer certs
+that you exported and what you actually have in your trust store. 
+
+* This Shit Isn't Easy
+
+Wow, that was a lot to "take in" in one blog post, and I don't mean to
+pretend that it's easy. You're definitely going to need to go through
+the entire process of inspecting and adding certs multiple times
+before it will start to make any sense.
+
+Good luck with your SSL journey!
+
+* Synonym Mappings
+
+One more thing. I use *a lot* of terms above interchangeably. Here's a
+handy map just in case things get confusing:
+
+| Term 1            | Term 2              |
+|-------------------+---------------------|
+| Certificate       | Cert                |
+| Private Key       | Private Certificate |
+| Public Key        | Signer Certificate  |
+| Key Store         | Trust Store[fn:3]   |
+| Certificate Store | Trust or Key Store  |
+|                   |                     |
+
+* Footnotes
+
+[fn:1] Please note that no one is using SSL any more and everyone is
+using TLS. However, everyone still calls TLS SSL, and most errors that
+you'll get will call it SSL instead of TLS. So for the purposes of
+this document we'll use the two terms interchangeably. 
+
+[fn:2] There's a catch to this that I'll explain soon.
+
+[fn:3] I know, I know, you're not supposed to /use/ them the same way
+but technically they're the same type of database.
+
+[fn:4] And that doesn't even take certificate revocation into account,
+which we won't even cover in this tutorial.
