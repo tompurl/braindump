@@ -1,0 +1,8 @@
+#+TITLE: Baconbot Series
+
+These are the articles that I wrote while writing my first Clojure
+app.
+
+- [[file:2015-11-18-clojure-baconbot-01.org][Fun With Clojure - Baconbot 1.0]]
+- [[file:2015-11-20-clojure-baconbot-02.org][Fun With Clojure(script) - Baconbot 2.0]]
+
