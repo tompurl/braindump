@@ -1,6 +1,27 @@
 #+TITLE: Favorite Quotes
 
 * 2018
+** 03/28/2018
+   :PROPERTIES:
+   :CUSTOM_ID: 3_28_2018
+   :END:
+
+This Ralph Waldo Emerson quote was shared with me by my friend Steve
+at work today when talking about standards for standards sake:
+
+#+BEGIN_QUOTE -r
+“A foolish consistency is the hobgoblin of little minds, adored by
+little statesmen and philosophers and divines. With consistency a
+great soul has simply nothing to do. He may as well concern himself
+with his shadow on the wall. Speak what you think now in hard words,
+and to-morrow speak what to-morrow thinks in hard words again, though
+it contradict every thing you said to-day. — 'Ah, so you shall be sure
+to be misunderstood.' — Is it so bad, then, to be misunderstood?
+Pythagoras was misunderstood, and Socrates, and Jesus, and Luther, and
+Copernicus, and Galileo, and Newton, and every pure and wise spirit
+that ever took flesh. To be great is to be misunderstood.”
+#+END_QUOTE
+
 ** 2/13/2018
    :PROPERTIES:
    :CUSTOM_ID: 2_13_2018
