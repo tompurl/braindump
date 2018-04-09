@@ -1,7 +1,44 @@
 #+TITLE: Favorite Quotes
 
 * 2018
-** 03/28/2018
+** 4/9/2018
+   :PROPERTIES:
+   :CUSTOM_ID: 4_9_2018
+   :END:
+*** "It Was All About Let's Get Wealth"
+
+Here's a fantastic set of quotes at 22:34 from [[https://twitter.com/mariabustillos?lang%3Den][Maria Bustillos]] in the
+[[https://trackchanges.postlight.com/decentralized-journalism-a-conversation-with-maria-bustillos-c7f1e276799e][Decentralized Journalism]] episode of the [[https://trackchanges.postlight.com/][Track Changes podcast]]. I feel
+the same about a lot of people who are solely speculators in the Bitcoin
+and Ethereum systems.
+
+#+BEGIN_QUOTE -r
+"The first time I went to a Bitcoin conference, I was actually so
+horrified that I just went off the whole thing for about a year. I was
+like, I just can't even believe this, it's so insane. [It was] these
+seasteading, libertarian, lunatics everywhere, you know, and I thought
+this is impossible.
+
+...
+
+But you know when I was at that [conference], and it was just all
+about, it was all, the opposite of what motivates me, it was all about
+"let's get wealth, let's get more wealth", and they don't even know
+what they want it for, it's like, just wealth, that's it."
+#+END_QUOTE
+
+*** "Leadership Through Influence"
+
+I was at a goodbye party for friend and leader our my church. She did
+a lot of everything and is considered to be a dear friend and leader
+of hundreds of people.
+
+At one point someone whom I don't know mentioned that my friend is 
+an excellent example of *leadership through influence*. I just think 
+that's the perfect way to describe her style of leadership and I've 
+been thinking about it a lot ever since.
+
+** 3/28/2018
    :PROPERTIES:
    :CUSTOM_ID: 3_28_2018
    :END:
@@ -58,7 +95,6 @@ I know that sounds really lofty, but that's satisfaction, right? It's
 when we're relating well with ourselves, others, and the world around us
 we have a better experience and that's good for everybody involved. 
 #+END_QUOTE
-
 * 2017
 ** 07/18/2017
    :PROPERTIES:
