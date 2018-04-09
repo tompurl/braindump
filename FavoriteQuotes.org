@@ -6,6 +6,9 @@
    :CUSTOM_ID: 4_9_2018
    :END:
 *** "It Was All About Let's Get Wealth"
+   :PROPERTIES:
+   :CUSTOM_ID: It_Was_All_About_Lets_Get_Wealth
+   :END:
 
 Here's a fantastic set of quotes at 22:34 from [[https://twitter.com/mariabustillos?lang%3Den][Maria Bustillos]] in the
 [[https://trackchanges.postlight.com/decentralized-journalism-a-conversation-with-maria-bustillos-c7f1e276799e][Decentralized Journalism]] episode of the [[https://trackchanges.postlight.com/][Track Changes podcast]]. I feel
@@ -28,6 +31,9 @@ what they want it for, it's like, just wealth, that's it."
 #+END_QUOTE
 
 *** "Leadership Through Influence"
+   :PROPERTIES:
+   :CUSTOM_ID: Leadership_Through_Influence
+   :END:
 
 I was at a goodbye party for friend and leader our my church. She did
 a lot of everything and is considered to be a dear friend and leader
