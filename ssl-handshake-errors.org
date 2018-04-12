@@ -1,4 +1,4 @@
-#+TITLE: What The Hell's An SSH Handshake And Why Doesn't It Work?
+#+TITLE: What The Hell's An SSL Handshake And Why Doesn't It Work?
 
 One of the most common and fundamental issues that I see in my line of
 work is *SSL Handshake errors*. And since SSL[fn:1] and TLS are such complex
