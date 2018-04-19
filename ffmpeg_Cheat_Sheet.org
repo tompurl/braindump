@@ -1,4 +1,4 @@
-#+TITLE: ffmpeg Cheat Sheet
+c#+TITLE: ffmpeg Cheat Sheet
 
 * Converting To TS Files
 
@@ -79,3 +79,22 @@ I'm having a lot of problems doing this in ffmpeg, so I punt to
 Handbrake instead:
 
 - [[file:Handbrake_Cheat_Sheet.org::*Flipping%20Videos%20180%20Degrees][Flipping Videos 180 Degrees]]
+* Stripping The Audio Portion From An MP4
+
+First, see what format the audio track uses:
+
+#+BEGIN_SRC sh
+ffmpeg -i input.mp4 2>&1 | grep Stream
+#+END_SRC
+
+If the audio file use the AAC format then strip it out like so:
+
+#+BEGIN_SRC sh
+ffmpeg -i input.mp4 -vn -acodec copy output.aac
+#+END_SRC
+
+* Converting AAC Files To MP3
+
+#+BEGIN_SRC sh
+ffmpeg -i ./input.aac -c:a libmp3lame -ac 2 -q:a 2 output.mp3
+#+END_SRC
