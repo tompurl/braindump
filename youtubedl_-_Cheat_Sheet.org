@@ -1,0 +1,15 @@
+#+TITLE: youtube-dl - Cheat Sheet
+
+* Downloading Just The Audio Track
+
+First see what tracks are available for download:
+
+#+BEGIN_SRC sh
+youtube-dl -F "http://foo"
+#+END_SRC
+
+Once you find the track you want you can download it like this:
+
+#+BEGIN_SRC sh
+youtube-dl -f track-name "http://foo"
+#+END_SRC
