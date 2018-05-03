@@ -34,7 +34,7 @@ re-reading and enjoying them.
 And here's everything else in chronological order:
 
 ** 2018
-- [[file:ssl-handshake-errors.org][Solving SSL Handshake Errors - The Basics]]
+- [[file:ssl-handshake-errors.org][What The Hell's An SSL Handshake And Why Doesn't It Work?]]
 - [[file:Blockchain_-_First_Steps_Presentation.org]["Practical Introduction To The Blockchain Using Ethereum" - Presentation]]
 ** 2017
 - [[file:Cryptokitties_Lessons_Learned.org][Cryptokitties - Lessons Learned ]]

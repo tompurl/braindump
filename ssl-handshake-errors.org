@@ -344,7 +344,54 @@ pretend that it's easy. You're definitely going to need to go through
 the entire process of inspecting and adding certs multiple times
 before it will start to make any sense.
 
-Good luck with your SSL journey!
+Also, even if you did everything listed above it's possible that your
+application *still doesn't work*. Here's some of the weirder edge
+cases I've seen with some applications:
+
+** Trust store location
+
+Some application servers (e.g. Apache, Tomcat, WebSphere AS) allow you
+to store your signer certs in more than one trust store. For example,
+with WebSphere you can store your certs in the =cacert= file for your
+JVM or in a different JKS file that's easier to maintain. And
+according to pretty much every document you'll ever read, there really
+isn't a difference as to which one you choose. 
+
+The problem is that it *does* matter, and some applications are
+hard-coded to only check signer certs in the =cacerts= file. Sometimes
+this is done because developers just don't know better, and sometimes
+it's done to make the software compatible on more application servers.
+
+** Signer Cert Alias
+
+This one drove me crazy for a while :-)
+
+Ok, so your documentation tells you you need a *specific* signer
+cert. You confirm that the cert you added to the trust store has the
+correct SHA-1 hash, yet for some reason you're still getting SSL
+Handshake errors. What's wrong now?
+
+Believe it or not, some applications actually *hard-code the cert
+alias names*. I wish I was kidding, and to me this seems to be an
+*incredibly brittle* way of writing an application, but sometimes it
+happens.
+
+What do I mean? Well, when you add a signer cert to a trust store you
+can choose an arbitrary *alias name*. This is different than the
+cert's *Subject*, which can't be changed. Usually this name doesn't
+matter, and most people choose alias names that mean something to
+them, not the application. 99% of the time it doesn't matter, but
+1% of the time is does.
+
+** Ask For Help
+
+The big lesson here is that some applications or application servers
+can implement TLS in weird, unexpected, and *downright ridiculous*
+ways. If my steps above don't work, *don't be afraid to ask for help*
+related to your application or application server. You may be
+surprised by what they'll say.
+
+And as always, good luck!
 
 * Synonym Mappings
 
