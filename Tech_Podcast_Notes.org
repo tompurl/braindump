@@ -1,0 +1,40 @@
+#+TITLE: Tech Podcast Notes
+#+OPTIONS: prop:t
+
+* Datanauts
+  :PROPERTIES:
+  :CUSTOM_ID: Datanauts
+  :END:
+** Datanauts 132: Unit Testing For Fun and Profit :unit_testing:powershell:automation:
+   :PROPERTIES:
+   :GUEST:    Adam Bertram
+   :HOSTS:    Chris Wall;Ethan Banks
+   :URL:      http://packetpushers.net/podcast/podcasts/datanauts-132-unit-testing-fun-profit/
+   :CUSTOM_ID: Datanauts-132
+   :END:
+*** Episode Notes
+    - Adam Bertram is a testing expert and author, especially using MS tools.
+      - He wrote [[https://leanpub.com/pesterbook][The Pester Book]]
+    - Unit Testing philosophy
+      - Let's assume that you have a function that creates a 50 GB
+        LUN. You would unit test the function's ability to pass the
+        value of 50 to the tool that creates the LUN and avoid
+        actually creating the LUN.
+    - "Testing is a pyramid"
+      1. *Bottom*: Unit tests
+      2. *Middle*: Integration / Functional tests
+	 - Integrate the code with the environment.
+	 - Did your function actually create a 50 GB LUN?
+      3. *Top*: Acceptance tests
+	 - Holistic testing
+	 - Am I actually providing a service to my clients?
+	 - Is the service that requires that LUN working properly?
+    - Writing a full test suite takes twice as much time as writing
+      the actual code.
+      - Prioritize
+    - "Unit tests are like backups"
+      - They take lots of work
+      - You don't see the value immediately
+      - You're really happy to have them eventually.
+    - Testing forces you to write your code in a more modular way.
+    - 

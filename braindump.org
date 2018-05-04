@@ -65,18 +65,26 @@ marginalia. It's a lot like looking straight at my brain :-)
 - [[file:PelicanPublishingWorkflow.org][Pelican Publishing Workflow]]
 
 ** Windows
-  
-- [[file:DosCheatSheet.org][DOS Cheat Sheet]]
-
+   :PROPERTIES:
+   :CUSTOM_ID: Windows
+   :END:
+   - [[file:DosCheatSheet.org][DOS Cheat Sheet]]
+   - [[file:Tech_Podcast_Notes.org::#Datanauts-132][Datanauts 132: Unit Testing For Fun and Profit - Notes]]
+** Automation And Testing
+   :PROPERTIES:
+   :CUSTOM_ID: Automation-And-Testing
+   :END:
+   - [[file:Tech_Podcast_Notes.org::#Datanauts-132][Datanauts 132: Unit Testing For Fun and Profit - Notes]]
 ** Misc
 - [[file:Revealjs_Tips.org][Revealjs Tips]]
+- [[file:Tech_Podcast_Notes.org][Tech Podcast Notes]]
+
 * Workplace Stress
 
 - [[https://www.psychologytoday.com/blog/your-neurochemical-self/201606/3-ways-feel-better-when-coworker-gets-your-nerves][3 Ways to Feel Better When a Coworker Gets on Your Nerves]]
 - [[file:Venting_Notes.org][Venting Notes]]
 
 * Other Stuff
-
 - [[file:FavoriteQuotes.org][Favorite Quotes]]
 
 * Meta

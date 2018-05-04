@@ -281,7 +281,6 @@ To add a custom note to your logbook:
 
 - =C-c C-z=
 
-
 * Src Blocks
 ** Capturing STDERR
 
@@ -307,3 +306,23 @@ date -g
 : date: invalid option -- 'g'
 : Try 'date --help' for more information.
 
+* Upgrading
+
+The easiest way to keep from running two concurrent versions of Emacs
+is to install the newer version from source in the global
+directory. This tells you how to do that: 
+
+- https://orgmode.org/worg/org-faq.html#keeping-current-with-Org-mode-development
+
+Basically, it's a =make=, =make autoloads=, =sudo make install= after
+changing the following vars in the org-mode =local.mk= file:
+
+#+BEGIN_EXAMPLE
+
+# lispdir= $(prefix)/emacs/site-lisp/org
+lispdir= $(prefix)/emacs/24.5/lisp/org
+...
+# datadir = $(prefix)/emacs/etc/org
+datadir = $(prefix)/emacs/24.5/etc/org
+
+#+END_EXAMPLE
