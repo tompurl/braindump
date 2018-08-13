@@ -8,3 +8,5 @@
   - =s=
 - Committing your changes
   - =c=
+- Pulling
+  - =F=
