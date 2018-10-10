@@ -1,0 +1,54 @@
+#+TITLE: Python Notes
+
+* Setting Up A Development Environment On Windows
+
+I'm a big fan of the following:
+
+- Emacs
+- pytest
+- virtualenv
+- Multiple terminal windows for the following helpers:
+  - ipython
+  - git
+  - A running =py.test= instance so I can run my unit tests every time
+    I save a file.
+
+The only tool that changes on Windows is my terminal editor. My
+preference is Cmder running a Powershell instance.
+
+This works pretty well for me but I learned a few lessons when setting
+this up:
+
+** [[https://github.com/jeffh/sniffer][sniffer]] Isn't Usable on Windows
+
+   Sniffer hung for me every time I tried to kill it and it wasn't
+   able to see when a file was changed, even after I install
+   =pywin32=.
+
+   I ended up using [[https://docs.pytest.org/en/latest/][py.test]] instead and am very happy with the
+   results.
+
+** Virtualenv And Cmder Don't Work Very Well Together
+
+   I got an error stating that the Cmder prompt was static, so I had
+   to make a change to =c:\tools\cmder\vendor\profile.ps1=. Change the
+   last line from this:
+
+#+BEGIN_EXAMPLE
+Set-Item -Path function:\prompt  -Value $Prompt -Options ReadOnly
+#+END_EXAMPLE
+
+   ...to this:
+
+#+BEGIN_EXAMPLE
+Set-Item -Path function:\prompt  -Value $Prompt
+#+END_EXAMPLE
+
+   After that you should be able to activate your =virtualenv= profile
+   like so:
+
+#+BEGIN_EXAMPLE
+
+PS C:> . .\vms\py2\coolproject\Scripts\activate.ps1
+
+#+END_EXAMPLE

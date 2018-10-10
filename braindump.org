@@ -53,11 +53,13 @@ marginalia. It's a lot like looking straight at my brain :-)
 
 ** Programming
 
+- [[file:Python_Notes.org][Python Notes]]
 - [[file:ScratchNotes.org][Scratch Notes]]
 - [[file:PostgreSQLNotes.org][PostgreSQL Notes]]
 - [[file:DjangoCheatSheet.org][Django Cheat Sheet]]
 - [[file:FabricCheatSheet.org][Fabric Cheat Sheet]]
 - [[file:GitCheatsheet.org][Git Cheatsheet]]
+- [[file:Selenium_Notes.org][Selenium Notes]]
 
 ** About Blogging And Writing
   
