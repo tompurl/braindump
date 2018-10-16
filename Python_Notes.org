@@ -7,6 +7,7 @@ I'm a big fan of the following:
 - Emacs
 - pytest
 - virtualenv
+- virtualenvwrapper
 - Multiple terminal windows for the following helpers:
   - ipython
   - git
@@ -52,3 +53,9 @@ Set-Item -Path function:\prompt  -Value $Prompt
 PS C:> . .\vms\py2\coolproject\Scripts\activate.ps1
 
 #+END_EXAMPLE
+** virtualenvwrapper Doesn't Work On Windows
+
+   The default =virtualenvwrapper= script doesn't work at all on
+   Windows, and there are a few alternatives. The best option that
+   I've been able to find *by far* that also works with Powershell is
+   [[https://github.com/regisf/virtualenvwrapper-powershell][regisf/virtualenvwrapper-powershell]].
