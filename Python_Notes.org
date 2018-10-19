@@ -5,6 +5,7 @@
 I'm a big fan of the following:
 
 - Emacs
+- [[http://tkf.github.io/emacs-jedi/latest/][jedi.el]]
 - pytest
 - virtualenv
 - virtualenvwrapper
@@ -28,6 +29,11 @@ this up:
 
    I ended up using [[https://docs.pytest.org/en/latest/][py.test]] instead and am very happy with the
    results.
+** Jedi's A Little Funny
+I've had issues starting the jedi server automatically, so I always
+run this command if I'm going to be working on some Python code:
+
+- =M-x jedi:start-dedicated-server=
 
 ** Virtualenv And Cmder Don't Work Very Well Together
 
