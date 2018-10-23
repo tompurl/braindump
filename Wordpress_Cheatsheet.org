@@ -1,0 +1,5 @@
+#+TITLE: Wordpress Cheatsheet
+ 
+* Good Plugins
+** Excluding / Filtering Pages From The Header
+   "Exclude Pages From Menu"
