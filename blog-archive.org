@@ -8,7 +8,6 @@ Here's the articles I'm especially proud of :-)
 First, here's my presentation for user groups:
 
 - [[file:Blockchain_-_First_Steps_Presentation.org]["Practical Introduction To The Blockchain Using Ethereum" - Presentation]]
-
 - [[file:What_Docker_Means_Presentation.org]["What Docker Means" Presentation]]
 - [[file:Quick_Traefik_Presentation_And_Demo.org][Quick Traefik Presentation And Demo]]
 
