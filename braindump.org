@@ -54,6 +54,7 @@ marginalia. It's a lot like looking straight at my brain :-)
 ** Programming
 
 - [[file:Python_Notes.org][Python Notes]]
+- [[file:Python_Pandas_Notes.org][Python Pandas Notes]]
 - [[file:ScratchNotes.org][Scratch Notes]]
 - [[file:PostgreSQLNotes.org][PostgreSQL Notes]]
 - [[file:DjangoCheatSheet.org][Django Cheat Sheet]]
