@@ -66,6 +66,7 @@ marginalia. It's a lot like looking straight at my brain :-)
   
 - [[file:PelicanSetupNotes.org][Pelican Setup Notes]]
 - [[file:PelicanPublishingWorkflow.org][Pelican Publishing Workflow]]
+- [[file:Wordpress_Cheatsheet.org][Wordpress Cheatsheet]]
 
 ** Windows
    :PROPERTIES:
