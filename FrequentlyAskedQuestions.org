@@ -1,7 +1,5 @@
 #+TITLE:  Frequently Asked Questions
 
-
-
 * Why Is The Page I'm Reading Incomplete
 
 Techically, -everything- in this site is incomplete :-) It's a wiki that mostly
