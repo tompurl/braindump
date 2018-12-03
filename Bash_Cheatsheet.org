@@ -1,0 +1,34 @@
+#+TITLE: Bash Cheatsheet
+ 
+* Nice Tricks
+** Run Script In Debug Mode From The Command Line
+   When testing a script it's nice to print every command that's being
+   executed to STDOUT so you can "debug" your script and see *exactly*
+   what's happening. 
+
+   One way of doing this (and what I've regrettably always done) is
+   add this line to the top of my script during a debug session:
+
+#+BEGIN_SRC sh
+set -x
+#+END_SRC
+
+   This works well but you need to edit the script every time you want
+   to turn this feature on and off. Wouldn't it be nice if you could run
+   your script in "debug mode" without making any changes to it?
+
+   This is deceptively simple in Bash (or basically any shell). Simply
+   run your command like this:
+
+#+BEGIN_EXAMPLE
+# No debug
+./my_script.sh
+
+# Yes debug :-)
+bash -x ./my_script.sh
+#+END_EXAMPLE
+
+   Here all you're doing is starting a new, separate Bash shell and
+   setting the options. 
+
+* Fun Links
