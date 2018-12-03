@@ -1,19 +1,22 @@
 #+TITLE: Python Notes
 
-* Setting Up A Development Environment On Windows
-
-I'm a big fan of the following:
+* Toolset
 
 - Emacs
 - [[http://tkf.github.io/emacs-jedi/latest/][jedi.el]]
 - pytest
 - virtualenv
 - virtualenvwrapper
+- virtualenvwrapper.el
+- [[flycheck]] (for Emacs)
+- pylint
 - Multiple terminal windows for the following helpers:
   - ipython
   - git
   - A running =py.test= instance so I can run my unit tests every time
     I save a file.
+
+* Setting Up A Development Environment On Windows
 
 The only tool that changes on Windows is my terminal editor. My
 preference is Cmder running a Powershell instance.
@@ -65,3 +68,20 @@ PS C:> . .\vms\py2\coolproject\Scripts\activate.ps1
    Windows, and there are a few alternatives. The best option that
    I've been able to find *by far* that also works with Powershell is
    [[https://github.com/regisf/virtualenvwrapper-powershell][regisf/virtualenvwrapper-powershell]].
+
+* Code Linting In Emacs
+
+First here's the prereqs:
+
+1. Install virtualenv, virtualenvwrapper, flycheck, and virtualenvwrapper.el.
+2. Create a virtualenv for your project.
+3. Install pylint or whatever in that virtualenv.
+
+Now turn on code linting like so:
+
+1. Open your python file in Emacs
+2. Make sure you're using the correct virtualenv by executing the =M-x
+   venv-workon= command.
+
+And that's it. Now your code will be linted.
+
