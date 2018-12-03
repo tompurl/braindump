@@ -84,4 +84,15 @@ Now turn on code linting like so:
    venv-workon= command.
 
 And that's it. Now your code will be linted.
+* Per-Directory Variables
 
+Reference: [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][Per-directory local variables]]
+
+Create a file titled =.dir-locals.el= in the root folder of your
+project and then put something in there like this:
+
+#+BEGIN_SRC emacs-lisp
+((python-mode . ((eval . (venv-workon "robot")))))
+((python-mode
+  (flycheck-checker . python-flake8)))
+#+END_SRC
