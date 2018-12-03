@@ -8,7 +8,7 @@
 - virtualenv
 - virtualenvwrapper
 - virtualenvwrapper.el
-- [[flycheck]] (for Emacs)
+- [[https://www.flycheck.org/en/latest/][flycheck]] (for Emacs)
 - pylint
 - Multiple terminal windows for the following helpers:
   - ipython
