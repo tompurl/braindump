@@ -4,6 +4,8 @@
 
 - Reverting changes to modified files
   - =git reset --hard=
+- Removing a remote branch
+  - =git push origin --delete my-branch=
 
 * Creating A New Remote For A Local Repo
 
