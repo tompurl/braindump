@@ -54,6 +54,7 @@ marginalia. It's a lot like looking straight at my brain :-)
 
 ** Programming
 
+- [[file:Miscellaneous_Emacs_Dev_Tools.org][Miscellaneous Emacs Dev Tools]]
 - [[file:Python_Notes.org][Python Notes]]
 - [[file:Python_Pandas_Notes.org][Python Pandas Notes]]
 - [[file:ScratchNotes.org][Scratch Notes]]

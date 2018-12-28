@@ -1,0 +1,9 @@
+#+TITLE: Miscellaneous Emacs Dev Tools
+
+The following tools have really changed the way that I've developed
+against any code base in Emacs:
+
+- Helm
+- Projectile
+- Helm swoop
+- ag.el (Along with the silver searcher of course)
