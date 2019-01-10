@@ -12,6 +12,20 @@ marginalia. It's a lot like looking straight at my brain :-)
 
 - [[file:Mattermost-Hosting-Notes.org][Mattermost Hosting Notes]]
 
+** Emacs
+
+- [[file:EmacsCheatSheet.org][Emacs Cheat Sheet]]
+- [[file:OrgModeCheatSheet.org][Org Mode Cheat Sheet]]
+- [[file:MelpaElpaCheatSheet.org][Melpa/Elpa Cheatsheet]]
+- [[file:MagitCheatsheet.org][Magit Cheatsheet]]
+- [[file:TwitteringModeCheatSheet.org][Twittering Mode Cheat Sheet]]
+
+** Automation And Testing
+   :PROPERTIES:
+   :CUSTOM_ID: Automation-And-Testing
+   :END:
+   - [[file:Tech_Podcast_Notes.org::#Datanauts-132][Datanauts 132: Unit Testing For Fun and Profit - Notes]]
+   - [[file:List_Of_BDD_ATDD_Tools.org][List Of BDD / ATDD / Agile Acceptance Testing / Whatever Tools]]
 ** Linux / Unix
 
 - [[file:Bash_Cheatsheet.org][Bash Cheatsheet]]
@@ -28,29 +42,6 @@ marginalia. It's a lot like looking straight at my brain :-)
 - [[file:FlashOnDebian.org][Flash On Debian]]
 - [[file:Minecraft.org][Minecraft]]
 - [[file:LUKSNotes.org][LUKS Notes]]
-
-** Emacs
-
-- [[file:EmacsCheatSheet.org][Emacs Cheat Sheet]]
-- [[file:OrgModeCheatSheet.org][Org Mode Cheat Sheet]]
-- [[file:MelpaElpaCheatSheet.org][Melpa/Elpa Cheatsheet]]
-- [[file:MagitCheatsheet.org][Magit Cheatsheet]]
-- [[file:TwitteringModeCheatSheet.org][Twittering Mode Cheat Sheet]]
-
-** Cryptocurrencies
-*** Ethereum
-
-- [[file:Ethereum_Wallets.org][Ethereum Wallets]]
-- [[file:Geth_Cheatsheet.org][Geth Cheatsheet]]
-  
-** Multimedia
-
-- [[file:MinidlnaCheatSheet.org][minidlna Cheat Sheet]]
-- [[file:MKV_Processing_-_Cheat_Sheet.org][MKV Processing - Cheat Sheet]]
-- [[file:ffmpeg_Cheat_Sheet.org][ffmpeg - Cheat Sheet]]
-- [[file:Retropie_Cheat_Sheet.org][Retropie Cheat Sheet]]
-- [[file:Handbrake_Cheat_Sheet.org][Handbrake Cheat Sheet]]
-- [[file:youtubedl_-_Cheat_Sheet.org][youtube-dl - Cheat Sheet]]
 
 ** Programming
 
@@ -70,16 +61,26 @@ marginalia. It's a lot like looking straight at my brain :-)
 - [[file:PelicanPublishingWorkflow.org][Pelican Publishing Workflow]]
 - [[file:Wordpress_Cheatsheet.org][Wordpress Cheatsheet]]
 
+** Multimedia
+
+- [[file:MinidlnaCheatSheet.org][minidlna Cheat Sheet]]
+- [[file:MKV_Processing_-_Cheat_Sheet.org][MKV Processing - Cheat Sheet]]
+- [[file:ffmpeg_Cheat_Sheet.org][ffmpeg - Cheat Sheet]]
+- [[file:Retropie_Cheat_Sheet.org][Retropie Cheat Sheet]]
+- [[file:Handbrake_Cheat_Sheet.org][Handbrake Cheat Sheet]]
+- [[file:youtubedl_-_Cheat_Sheet.org][youtube-dl - Cheat Sheet]]
+
+** Cryptocurrencies
+*** Ethereum
+
+- [[file:Ethereum_Wallets.org][Ethereum Wallets]]
+- [[file:Geth_Cheatsheet.org][Geth Cheatsheet]]
+  
 ** Windows
    :PROPERTIES:
    :CUSTOM_ID: Windows
    :END:
    - [[file:DosCheatSheet.org][DOS Cheat Sheet]]
-   - [[file:Tech_Podcast_Notes.org::#Datanauts-132][Datanauts 132: Unit Testing For Fun and Profit - Notes]]
-** Automation And Testing
-   :PROPERTIES:
-   :CUSTOM_ID: Automation-And-Testing
-   :END:
    - [[file:Tech_Podcast_Notes.org::#Datanauts-132][Datanauts 132: Unit Testing For Fun and Profit - Notes]]
 ** Misc
 - [[file:Revealjs_Tips.org][Revealjs Tips]]
