@@ -93,7 +93,7 @@ marginalia. It's a lot like looking straight at my brain :-)
 
 * Other Stuff
 - [[file:FavoriteQuotes.org][Favorite Quotes]]
-
+- [[file:Media_Log.org][Media Log]]
 * Meta
 
 - [[file:FrequentlyAskedQuestions.org][FAQ]]

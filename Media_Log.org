@@ -1,0 +1,16 @@
+#+TITLE: Media Log
+
+* Explanation 
+
+  TODO
+
+* Legend
+- (M): Movie
+- (P): Podcast
+- (T): TV Show
+- [R]: Re-watch/listen/consume/whatever
+
+* 2019
+** January
+*** 12
+    - Incredibles 2 (M)
