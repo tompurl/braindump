@@ -35,3 +35,13 @@ code with others who have access to that shared directory.
 
      - This is a very long line this is a very long line this is a
        very long line this is a
+* View Pull Request Diff From The Command Line
+#+BEGIN_SRC sh
+cd $project
+git checkout $trunk
+git pull
+git checkout $feature_branch
+git pull
+git request-pull dev ./
+# If you want to see the diff contents add the -b flag
+#+END_SRC
