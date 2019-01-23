@@ -1,4 +1,5 @@
 #+TITLE: Media Log
+#+OPTIONS: toc:nil H:4 ^:nil pri:t
 
 * Explanation
 
