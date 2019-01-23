@@ -4,21 +4,14 @@
 
   TODO
 
-* Legend
-
-- (M): Movie
-- (P): Podcast
-- (T): TV Show
-- [R]: Re-watch/listen/consume/whatever
-
 * 2019
 ** January
 *** 1
-
-    - Gravity Falls, season 2 (T)
-
+**** Gravity Falls, season 2 :tv:
 *** 12
 **** Incredibles 2 :movie:
+*** 19
+**** Strange Brew :movie:rewatch:
 *** 20
 **** Back to the future :rewatch:movie:
 **** Gamera - MST3K :movie:
