@@ -24,3 +24,5 @@
 *** 26
 **** Gamera vs Guiron - MST3K :rewatch:movie:
 **** Hellboy Omnibus Volume 1 :book:
+*** 27
+**** The Pumaman - MST3K :movie:
