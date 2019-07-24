@@ -189,7 +189,8 @@ To view all of the tasks that you completed in your agenda view do the following
     (setq org-log-done 'time) ; this wasn’t necessary for me
     ; In the agenda view, type the l button
 #+END_EXAMPLE
-
+** Viewing a TODO's Notes In The Agenda
+   See [[help:org-agenda-entry-text-mode][org-agenda-entry-text-mode]], which you can invoke with =E= while in your agenda.
 * org-capture
 
 ** org-capture templates
