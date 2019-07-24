@@ -209,7 +209,6 @@ To fix this, you need to use the %^g template entry. Here’s an example:
 Thes %^g entry will prompt the user for tags.
 
 * Links
-
 ** Opening Links In The Same Frame
 
 This feels much saner to me than the default, which is to open org-related
@@ -223,7 +222,17 @@ links in a different frame.
                (file . find-file)
                (wl . wl-other-frame))))
 #+END_EXAMPLE
+** Embedding Help Links
+   This is surprisingly easy. Just type the following:
 
+[[help:org-agenda][org-agenda]]
+   #+BEGIN_EXAMPLE
+     C-c C-l
+     help:org-agenda
+     org-agenda
+   #+END_EXAMPLE
+
+   And that's it! Now when you visit that hyperlink the help page for [[help:org-agenda][org-agenda]] will appear.
 * Intallation
 
 On debian, installation is as easy as this:
