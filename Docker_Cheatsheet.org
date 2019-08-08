@@ -3,3 +3,7 @@
 * Django
 
 See my [[file:DjangoCheatSheet.org][Django Cheatsheet]] doc.
+* Docker On Windows
+** Location of most Docker-related "data"
+   =C:\ProgramData\Docker=
+
