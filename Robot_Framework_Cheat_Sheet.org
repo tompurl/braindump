@@ -11,3 +11,16 @@
      cd project-root
      ctags.exe -e --langmap="Robot:.robot.txt" -R
    #+END_SRC
+* Debugging
+** General
+   This is an excellent reference:
+
+   - https://docs.plone.org/external/plone.app.robotframework/docs/source/debugging.html
+** Dumping All Variable Values
+   Use the following keyword to dump all of the existing variables:
+
+   - =Log Variables    level=INFO=
+
+   Please note that the =level= is VERY important. Just choose INFO and you'll see
+   everything you care about.
+
