@@ -27,8 +27,3 @@ about them.
 The best way to get in touch with me is email:
 
 - [[mailto:tom@tompurl.com][tom@tompurl.com]]
-
-Also, you don't have to use GPG to encrypt the message, but if you're
-comfortable doing that, [[https://dl.dropboxusercontent.com/u/4368842/toms-public-email-key.asc][here's my public key]].
-
-test
