@@ -69,5 +69,8 @@
 *** 3
 **** Shazam! :movie:
 ** August
+*** 24
+**** Once upon a time in Hollywood :movie:
+** September
 *** 19
 **** Le Samouraï :movie:
