@@ -165,3 +165,8 @@ project and then put something in there like this:
 ((python-mode
   (flycheck-checker . python-flake8)))
 #+END_SRC
+* Elpy Mode
+  elpy is a great Python IDE for Emacs. Here's some of my favorite tricks:
+
+  - =C-c C-o= - Launches [[help:elpy-occur-definitions][elpy-occur-definitions]], which shows you the structure of
+    your current module.
