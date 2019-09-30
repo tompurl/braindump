@@ -4,6 +4,18 @@
   - https://automationpanda.com/bdd/
     - *Amazing* tutorial on BDD and gherkin and using them with Agile.
 * Principles
-  - Good steps are *declarative* in that they state what should happen at a high level,
-    and not imperative because they shouldn’t focus on direct, low-level
-    instructions.
+** Good steps are declarative, not imperative.
+   #+BEGIN_QUOTE -r
+   Good steps are *declarative* in that they state what should happen at a high
+   level, and not imperative because they shouldn’t focus on direct, low-level
+   instructions.
+   #+END_QUOTE
+https://automationpanda.com/2017/01/30/bdd-101-writing-good-gherkin/
+
+   Imperative details shouldn't be included in the steps themselves - they should be
+   included in the *step definitions*.
+
+   - https://stackoverflow.com/a/19506408/1380901
+
+
+   
