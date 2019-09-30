@@ -16,6 +16,31 @@ https://automationpanda.com/2017/01/30/bdd-101-writing-good-gherkin/
    included in the *step definitions*.
 
    - https://stackoverflow.com/a/19506408/1380901
+** Rules For Using BDD With Agile
+   These rules are from https://automationpanda.com/2017/02/01/bdd-101-bdd-and-agile/:
 
-
-   
+   1. Formalize all acceptance criteria as Gherkin feature files
+   2. Never commit to completing a user story that doesn't have Gherkinized
+      acceptance criteria.
+   3. Include test automation in the definition of done
+** BDD "Deliverables"
+   Here's what you get during your sprint if you use BDD:
+   1. Your stakeholders (PO, dev, etc) one or more documents that use a *shared
+      vocabulary and format*. This spec should be understandable by everyone.
+   2. Those stakeholders are also *able to refine* the content of those specs because
+      they are all talking to each other.
+   3. The spec that is created is then an *executable acceptance test*.
+* Gherkin -> Robot Framework Notes
+** Overview
+   Robot Framework supports Gherkin syntax in its test cases and can be used in place
+   of Cucumber for BDD. I would even argue that it dramatically simplifies a lot of
+   the "drudgery" of using cucumber-style frameworks. 
+** Translations
+   | Gherkin          | Robot Framework         |
+   |------------------+-------------------------|
+   | Feature          | Test Suite              |
+   | Scenario         | Test Case               |
+   | Scenario Outline | Template                |
+   | Background       | Suite Setup             |
+   | Doc strings      | 'Documentation' section |
+   |                  |                         |
