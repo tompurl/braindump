@@ -1,0 +1,9 @@
+#+TITLE: BDD Notes
+
+* URL's
+  - https://automationpanda.com/bdd/
+    - *Amazing* tutorial on BDD and gherkin and using them with Agile.
+* Principles
+  - Good steps are *declarative* in that they state what should happen at a high level,
+    and not imperative because they shouldn’t focus on direct, low-level
+    instructions.

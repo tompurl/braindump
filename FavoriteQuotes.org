@@ -25,8 +25,8 @@ very quick [...] to come to the point where your mind then tells you "of *course
 deserve this."
     #+END_QUOTE
 
-On the lighter side, John Hodgman also started one of his stories with this
-statement, which is a masterpiece of silly absurdism:
+    On the lighter side, John Hodgman also started one of his stories with this
+    statement, which is a masterpiece of silly absurdism:
 
 #+BEGIN_QUOTE -r
 And I think this is where I was going with the story but this is where I'll go...
