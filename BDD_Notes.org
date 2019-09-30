@@ -30,6 +30,28 @@ https://automationpanda.com/2017/01/30/bdd-101-writing-good-gherkin/
    2. Those stakeholders are also *able to refine* the content of those specs because
       they are all talking to each other.
    3. The spec that is created is then an *executable acceptance test*.
+** What's a Story Or Feature In BDD?
+   Again, I steal directly from an excellent blog series:
+
+   #+BEGIN_QUOTE -r
+Don't over-think features with Agile, either. Some teams define a feature as a collection of user stories. Other teams say that one user story is a feature. In terms of Gherkin, don't presume that one user story must have exactly one feature file with one Feature section. A user story could have zero-to-many feature files to cover its behaviors. Do whatever is appropriate
+   #+END_QUOTE
+
+   https://automationpanda.com/2017/10/19/in-bdd-what-should-be-a-feature/
+
+   So what's a feature? Again, from the same article:
+
+   #+BEGIN_QUOTE -r
+   - A *behavior* is an operation with inputs, actions, and expected outcomes.
+   - A *scenario* is the specification of a behavior using formal steps and examples.
+   - A *feature* is a desired product functionality often involving multiple behaviors.
+   #+END_QUOTE
+
+   So what is a story? It appears to me that the BDD expects you to have a "feature"
+   that is kindof like a story, and that story implements (supports?) behaviors. So
+   if you want to keep it simple, you can just map each feature to a single story. Or
+   you can create a feature folder and put story files in it that are made up of
+   scenarios.
 * Gherkin -> Robot Framework Notes
 ** Overview
    Robot Framework supports Gherkin syntax in its test cases and can be used in place
