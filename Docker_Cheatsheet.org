@@ -3,3 +3,19 @@
 * Django
 
 See my [[file:DjangoCheatSheet.org][Django Cheatsheet]] doc.
+* Docker On Windows
+** Location of most Docker-related "data"
+   =C:\ProgramData\Docker=
+** "Nuking" a container that just won't die
+   I've experienced containers before that *just won't die*, even after a reboot,
+   even after asking it nicely 200 times. So here's how I've fixed this in the past,
+   YMMV.
+
+   1. Grab the hash of your running container using the following command:
+      1. =docker ps --no-trunc=
+   2. Stop the Docker daemon (called "Docker Desktop" for some reason).
+   3. Navigate to the following directory:
+      1. =c:\ProgramData\Docker\containers\=
+   4. Find the folder with the same name as the hash of your container and delete it.
+   5. Start the Docker Desktop.
+

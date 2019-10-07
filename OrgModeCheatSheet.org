@@ -189,7 +189,8 @@ To view all of the tasks that you completed in your agenda view do the following
     (setq org-log-done 'time) ; this wasn’t necessary for me
     ; In the agenda view, type the l button
 #+END_EXAMPLE
-
+** Viewing a TODO's Notes In The Agenda
+   See [[help:org-agenda-entry-text-mode][org-agenda-entry-text-mode]], which you can invoke with =E= while in your agenda.
 * org-capture
 
 ** org-capture templates
@@ -208,7 +209,6 @@ To fix this, you need to use the %^g template entry. Here’s an example:
 Thes %^g entry will prompt the user for tags.
 
 * Links
-
 ** Opening Links In The Same Frame
 
 This feels much saner to me than the default, which is to open org-related
@@ -222,7 +222,17 @@ links in a different frame.
                (file . find-file)
                (wl . wl-other-frame))))
 #+END_EXAMPLE
+** Embedding Help Links
+   This is surprisingly easy. Just type the following:
 
+[[help:org-agenda][org-agenda]]
+   #+BEGIN_EXAMPLE
+     C-c C-l
+     help:org-agenda
+     org-agenda
+   #+END_EXAMPLE
+
+   And that's it! Now when you visit that hyperlink the help page for [[help:org-agenda][org-agenda]] will appear.
 * Intallation
 
 On debian, installation is as easy as this:

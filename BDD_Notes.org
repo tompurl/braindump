@@ -1,0 +1,68 @@
+#+TITLE: BDD Notes
+
+* URL's
+  - https://automationpanda.com/bdd/
+    - *Amazing* tutorial on BDD and gherkin and using them with Agile.
+* Principles
+** Good steps are declarative, not imperative.
+   #+BEGIN_QUOTE -r
+   Good steps are *declarative* in that they state what should happen at a high
+   level, and not imperative because they shouldn’t focus on direct, low-level
+   instructions.
+   #+END_QUOTE
+https://automationpanda.com/2017/01/30/bdd-101-writing-good-gherkin/
+
+   Imperative details shouldn't be included in the steps themselves - they should be
+   included in the *step definitions*.
+
+   - https://stackoverflow.com/a/19506408/1380901
+** Rules For Using BDD With Agile
+   These rules are from https://automationpanda.com/2017/02/01/bdd-101-bdd-and-agile/:
+
+   1. Formalize all acceptance criteria as Gherkin feature files
+   2. Never commit to completing a user story that doesn't have Gherkinized
+      acceptance criteria.
+   3. Include test automation in the definition of done
+** BDD "Deliverables"
+   Here's what you get during your sprint if you use BDD:
+   1. Your stakeholders (PO, dev, etc) one or more documents that use a *shared
+      vocabulary and format*. This spec should be understandable by everyone.
+   2. Those stakeholders are also *able to refine* the content of those specs because
+      they are all talking to each other.
+   3. The spec that is created is then an *executable acceptance test*.
+** What's a Story Or Feature In BDD?
+   Again, I steal directly from an excellent blog series:
+
+   #+BEGIN_QUOTE -r
+Don't over-think features with Agile, either. Some teams define a feature as a collection of user stories. Other teams say that one user story is a feature. In terms of Gherkin, don't presume that one user story must have exactly one feature file with one Feature section. A user story could have zero-to-many feature files to cover its behaviors. Do whatever is appropriate
+   #+END_QUOTE
+
+   https://automationpanda.com/2017/10/19/in-bdd-what-should-be-a-feature/
+
+   So what's a feature? Again, from the same article:
+
+   #+BEGIN_QUOTE -r
+   - A *behavior* is an operation with inputs, actions, and expected outcomes.
+   - A *scenario* is the specification of a behavior using formal steps and examples.
+   - A *feature* is a desired product functionality often involving multiple behaviors.
+   #+END_QUOTE
+
+   So what is a story? It appears to me that the BDD expects you to have a "feature"
+   that is kindof like a story, and that story implements (supports?) behaviors. So
+   if you want to keep it simple, you can just map each feature to a single story. Or
+   you can create a feature folder and put story files in it that are made up of
+   scenarios.
+* Gherkin -> Robot Framework Notes
+** Overview
+   Robot Framework supports Gherkin syntax in its test cases and can be used in place
+   of Cucumber for BDD. I would even argue that it dramatically simplifies a lot of
+   the "drudgery" of using cucumber-style frameworks. 
+** Translations
+   | Gherkin          | Robot Framework         |
+   |------------------+-------------------------|
+   | Feature          | Test Suite              |
+   | Scenario         | Test Case               |
+   | Scenario Outline | Template                |
+   | Background       | Suite Setup             |
+   | Doc strings      | 'Documentation' section |
+   |                  |                         |

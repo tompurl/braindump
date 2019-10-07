@@ -2,20 +2,48 @@
 #+OPTIONS: toc:2 H:4 ^:nil pri:t 
 
 * 2019
+** 9/25/19
+   :PROPERTIES:
+   :CUSTOM_ID: 9_25_2019
+   :END:  
+*** John Hodgman On Status and While Male Fragility
+    :PROPERTIES:
+    :CUSTOM_ID: john_hodgman_fragility
+    :END:
+    I just finished listening to the [[http://tvguidancecounselor.libsyn.com/tv-guidance-counselor-episode-373-john-hodgman-3-d][John Hodgman interview]] on the [[https://tvguidancecounselor.libsyn.com/][TV Guidance
+    Counselor podcast]] and it was one of the most wonderful things that I've listened
+    to all year. Not only was it very funny but they talked a lot about while male
+    fragility and why that philosophy is so easy to accept for many. Here's my
+    favorite quote at [01:01:08]:
+
+    #+BEGIN_QUOTE -r
+What I mean to say is if you know you don't deserve [a status] at some level, then
+you can have a Reckoning with that and try to do good in the world.
+
+But if that status, whatever it is, is protecting you from some inner oblivion, it's
+very quick [...] to come to the point where your mind then tells you "of *course* I
+deserve this."
+    #+END_QUOTE
+
+    On the lighter side, John Hodgman also started one of his stories with this
+    statement, which is a masterpiece of silly absurdism:
+
+#+BEGIN_QUOTE -r
+And I think this is where I was going with the story but this is where I'll go...
+#+END_QUOTE
+
 ** 4/3/2019
 
 TV Guidance Counselor Podcast: TV Guidance Counselor Episode 354: Emma Dumont http://tvguidancecounselor.libsyn.com/tv-guidance-counselor-episode-354-emma-dumont [01:25:45]
 
 Here they're discussing "The five thousand fingers of Dr. T" :
 
-"Those kids movies that are surreal and dark and bizarre are the best because they capture what it feels like to be a kid, which is, everything is a huge deal and life or death and everything is scary and weird." 
-
+"Those kids movies that are surreal and dark and bizarre are the best because they capture what it feels like to be a kid, which is, everything is a huge deal and life or death and everything is scary and weird."
 ** 2/19/19
 
 https://www.brainpickings.org/2019/02/18/emil-cioran-delusion/
 
 "People who shut their eyes to reality simply invite their own destruction, and anyone who insists on remaining in a state of innocence long after that innocence is dead turns himself into a monster" 
-
 * 2018
 ** 12/17/2018
 

@@ -98,3 +98,7 @@ ffmpeg -i input.mp4 -vn -acodec copy output.aac
 #+BEGIN_SRC sh
 ffmpeg -i ./input.aac -c:a libmp3lame -ac 2 -q:a 2 output.mp3
 #+END_SRC
+* Converting 720 HEVC To 720 H264
+  #+BEGIN_SRC sh
+    ffmpeg -i ./foo.mkv -map 0 -c copy -c:v libx264 -crf 23 -preset medium foo.h264.mkv
+  #+END_SRC

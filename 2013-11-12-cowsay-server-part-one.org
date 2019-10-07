@@ -3,11 +3,10 @@
 
 (/This article is part 1 of 3 of my [[file:cowsay-server-series.org][Cowsay Series]] of articles./)
 
-I've read through
-[[http://http://www.jstorimer.com/products/working-with-tcp-sockets][Working With TCP Sockets]] a few times to improve my socket programming
-knowledge. I've administered software systems for a while now I know
-most of the basics, but there are definitely some gaps I should fill in.
-This book has been a great tool for helping me identify those gaps.
+I've read through [[http://http://www.jstorimer.com/products/working-with-tcp-sockets][Working With TCP Sockets]] a few times to improve my socket programming
+knowledge. I've administered software systems for a while now I know most of the basics,
+but there are definitely some gaps I should fill in.  This book has been a great tool for
+helping me identify those gaps.
 
 However, there is only so much I can learn by reading about other
 people's code - I needed something that I could create and break and fix

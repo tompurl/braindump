@@ -54,6 +54,8 @@ marginalia. It's a lot like looking straight at my brain :-)
 - [[file:FabricCheatSheet.org][Fabric Cheat Sheet]]
 - [[file:GitCheatsheet.org][Git Cheatsheet]]
 - [[file:Selenium_Notes.org][Selenium Notes]]
+- [[file:Robot_Framework_Cheat_Sheet.org][Robot Framework Cheat Sheet]]
+- [[file:BDD_Notes.org][BDD Notes]]
 
 ** About Blogging And Writing
   
