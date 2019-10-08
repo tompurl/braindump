@@ -177,6 +177,14 @@ information:
     (setq cua-keep-region-after-copy t) ;; Standard Windows behavior
 #+END_EXAMPLE
 
+* Editing Search Buffers
+  One of my favorite features of Emacs is how easy it is to edit the *results* of a
+  search buffer. Here's how you do that in different scenarios.
+** Word Search
+   TODO
+** File Name Search
+   1. First find the files using =find-name-dired=.
+   2. Then use =wdired= to edit the results.
 * Scripting
 
 ** Interrogating A Variable VAles
